@@ -3,7 +3,6 @@ package com.lukecywon.progressionPlus
 import org.bukkit.plugin.java.JavaPlugin
 
 class ProgressionPlus : JavaPlugin() {
-
     override fun onEnable() {
         instance = this
         Initialize(this)

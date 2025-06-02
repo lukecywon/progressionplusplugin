@@ -48,3 +48,14 @@ tasks.processResources {
         expand(props)
     }
 }
+
+tasks.shadowJar {
+    archiveClassifier.set("") // Makes output JAR name clean
+    minimize {
+        exclude(dependency("org.jetbrains.kotlin:.*")) // 👈 Ensure Kotlin is kept
+    }
+}
+
+tasks.withType<Jar> {
+    destinationDirectory.set(file("E:/Games/Minecraft Server/plugins"))
+}

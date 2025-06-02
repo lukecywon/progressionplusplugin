@@ -2,3 +2,7 @@ name: ProgressionPlus
 version: '1.0-SNAPSHOT'
 main: com.lukecywon.progressionPlus.ProgressionPlus
 api-version: '1.21'
+commands:
+  artifact:
+    description: Parent command
+    usage: /<command>
