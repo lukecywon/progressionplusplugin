@@ -6,6 +6,7 @@ import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.listeners.MaxHeartFruitListener
 import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
 import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
+import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
 import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
 import com.lukecywon.progressionPlus.recipes.FlightBeaconRecipe
 import com.lukecywon.progressionPlus.recipes.Recipe
@@ -30,7 +31,8 @@ class Initialize(private val plugin: JavaPlugin) {
             EchoGunListener(),
             LegendaryItemListener(),
             MaxHeartFruitListener(),
-            BerserkerSwordListener()
+            BerserkerSwordListener(),
+            FlightBeaconListener()
         )
 
         listeners.forEach {
@@ -57,5 +59,6 @@ class Initialize(private val plugin: JavaPlugin) {
 
     private fun mechanics() {
         BerserkerSwordManager.startMonitorTask(plugin)
+        FlightBeaconManager.startFlightChecker(plugin)
     }
 }

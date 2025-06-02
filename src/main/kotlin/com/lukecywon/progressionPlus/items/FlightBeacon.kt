@@ -6,8 +6,6 @@ import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.RecipeChoice
-import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.persistence.PersistentDataType
 
 object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
@@ -30,7 +28,7 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
         meta.persistentDataContainer.set(beaconKey, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta
-        return item
+        return applyMeta(item)
     }
 
     fun isBeacon(item: ItemStack?): Boolean {
