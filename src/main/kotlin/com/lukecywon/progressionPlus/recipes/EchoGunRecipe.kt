@@ -11,7 +11,6 @@ class EchoGunRecipe : Recipe {
     override val nameSpacedKey: NamespacedKey = NamespacedKey(plugin, "beam_gun_recipe")
 
     override fun getRecipe(): ShapedRecipe {
-
         val recipe = ShapedRecipe(NamespacedKey(plugin, "beam_gun_recipe"), EchoGun.createItemStack())
         recipe.shape(" SS", "NES", "K  ")
 

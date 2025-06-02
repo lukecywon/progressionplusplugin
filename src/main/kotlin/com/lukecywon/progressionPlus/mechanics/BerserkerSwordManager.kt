@@ -10,12 +10,12 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
-object BerserkerSwordManager {
+object BerserkerSwordManager : Manager {
     val originalHealth: MutableMap<UUID, Double> = mutableMapOf()
     private val cooldowns = mutableMapOf<UUID, Long>()
     private const val COOLDOWN_MS = 30_000L
 
-    fun startMonitorTask(plugin: JavaPlugin) {
+    override fun start(plugin: JavaPlugin) {
         object : BukkitRunnable() {
             override fun run() {
                 for (player in Bukkit.getOnlinePlayers()) {

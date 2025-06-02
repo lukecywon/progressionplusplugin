@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.listeners.MaxHeartFruitListener
 import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
 import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
 import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
+import com.lukecywon.progressionPlus.mechanics.Manager
 import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
 import com.lukecywon.progressionPlus.recipes.FlightBeaconRecipe
 import com.lukecywon.progressionPlus.recipes.Recipe
@@ -58,7 +59,13 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     private fun mechanics() {
-        BerserkerSwordManager.startMonitorTask(plugin)
-        FlightBeaconManager.startFlightChecker(plugin)
+        val mechanics = listOf<Manager>(
+            BerserkerSwordManager,
+            FlightBeaconManager,
+        )
+
+        mechanics.forEach {
+            it.start(plugin)
+        }
     }
 }
