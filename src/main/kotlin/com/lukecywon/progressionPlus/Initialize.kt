@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus
 import com.lukecywon.progressionPlus.commands.ArtifactCommand
 import com.lukecywon.progressionPlus.commands.ArtifactTabCompleter
 import com.lukecywon.progressionPlus.listeners.EchoGunListener
+import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
 import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
 import com.lukecywon.progressionPlus.recipes.Recipe
 import org.bukkit.Bukkit
@@ -22,7 +23,8 @@ class Initialize(private val plugin: JavaPlugin) {
 
     private fun listeners() {
         val listeners = listOf(
-            EchoGunListener()
+            EchoGunListener(),
+            LegendaryItemListener()
         )
 
         listeners.forEach {

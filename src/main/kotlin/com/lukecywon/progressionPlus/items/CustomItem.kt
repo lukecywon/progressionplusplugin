@@ -7,12 +7,15 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import org.bukkit.plugin.java.JavaPlugin
+import java.util.*
 
 abstract class CustomItem(private val name: String, private val rarity: Rarity) {
     protected val key: NamespacedKey
+    protected val plugin: JavaPlugin
 
     init {
-        val plugin = ProgressionPlus.getPlugin()
+        plugin = ProgressionPlus.getPlugin()
         key = NamespacedKey(plugin, name)
         CustomItemRegistry.register(name, this)
     }
@@ -35,6 +38,8 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         lore.add(Component.text(""))
         lore.add(Component.text(getRarity().displayName).color(getRarity().color).decorate(TextDecoration.BOLD))
         meta.lore(lore)
+
+        meta.persistentDataContainer.set(NamespacedKey(plugin, "unique_id"), PersistentDataType.STRING, UUID.randomUUID().toString())
 
         item.itemMeta = meta
         return item
