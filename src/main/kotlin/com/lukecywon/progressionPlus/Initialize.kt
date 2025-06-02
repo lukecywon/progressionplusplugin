@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.listeners.MaxHeartFruitListener
 import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
 import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
 import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
+import com.lukecywon.progressionPlus.recipes.FlightBeaconRecipe
 import com.lukecywon.progressionPlus.recipes.Recipe
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -38,11 +39,12 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     private fun recipes() {
-        val listeners = listOf<Recipe>(
-            EchoGunRecipe()
+        val recipes = listOf<Recipe>(
+            EchoGunRecipe(),
+            FlightBeaconRecipe()
         )
 
-        listeners.forEach {
+        recipes.forEach {
             if (Bukkit.getRecipe(it.nameSpacedKey) != null) {
                 Bukkit.removeRecipe(it.nameSpacedKey)
                 Bukkit.addRecipe(it.getRecipe())
