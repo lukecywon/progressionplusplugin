@@ -2,8 +2,10 @@ package com.lukecywon.progressionPlus
 
 import com.lukecywon.progressionPlus.commands.ArtifactCommand
 import com.lukecywon.progressionPlus.commands.ArtifactTabCompleter
-import com.lukecywon.progressionPlus.listeners.EchoGunListener
+import com.lukecywon.progressionPlus.listeners.*
+import com.lukecywon.progressionPlus.listeners.MaxHeartFruitListener
 import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
+import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
 import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
 import com.lukecywon.progressionPlus.recipes.Recipe
 import org.bukkit.Bukkit
@@ -14,6 +16,7 @@ class Initialize(private val plugin: JavaPlugin) {
         commands()
         listeners()
         recipes()
+        mechanics()
     }
 
     private fun commands() {
@@ -24,7 +27,9 @@ class Initialize(private val plugin: JavaPlugin) {
     private fun listeners() {
         val listeners = listOf(
             EchoGunListener(),
-            LegendaryItemListener()
+            LegendaryItemListener(),
+            MaxHeartFruitListener(),
+            BerserkerSwordListener()
         )
 
         listeners.forEach {
@@ -46,5 +51,9 @@ class Initialize(private val plugin: JavaPlugin) {
             }
         }
 
+    }
+
+    private fun mechanics() {
+        BerserkerSwordManager.startMonitorTask(plugin)
     }
 }
