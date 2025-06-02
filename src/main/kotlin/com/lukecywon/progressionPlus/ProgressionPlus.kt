@@ -7,10 +7,11 @@ class ProgressionPlus : JavaPlugin() {
     override fun onEnable() {
         instance = this
         Initialize(this)
+        println("ProgressionPlus has been enabled.")
     }
 
     override fun onDisable() {
-        // Plugin shutdown logic
+        println("ProgressionPlus has been disabled.")
     }
 
     companion object {
