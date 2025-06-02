@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -11,10 +12,9 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
-import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
-object EchoGun : CustomItem("echo_gun") {
+object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
     private val cooldowns = mutableMapOf<UUID, Long>()
 
     override fun createItemStack(): ItemStack {
@@ -24,9 +24,9 @@ object EchoGun : CustomItem("echo_gun") {
 
         meta.displayName(
             Component.text()
-            .append(Component.text("=").decorate(TextDecoration.OBFUSCATED).color(NamedTextColor.YELLOW))
-            .append(Component.text("Echo Gun").color(NamedTextColor.DARK_AQUA))
-            .append(Component.text("=").decorate(TextDecoration.OBFUSCATED).color(NamedTextColor.YELLOW))
+            .append(Component.text("=").decorate(TextDecoration.OBFUSCATED).color(getRarity().color))
+            .append(Component.text("Echo Gun").color(getRarity().color))
+            .append(Component.text("=").decorate(TextDecoration.OBFUSCATED).color(getRarity().color))
             .build()
         )
 
@@ -46,11 +46,9 @@ object EchoGun : CustomItem("echo_gun") {
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "echo_gun")
 
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
-
         item.itemMeta = meta
 
-        return item
+        return applyMeta(item)
     }
 
     fun shootSonicBoom(player: Player) {
