@@ -12,7 +12,7 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.boss.BossBar
 import java.util.*
 
-object FlightBeaconManager {
+object FlightBeaconManager : Manager {
     private val activeBeacons = mutableSetOf<Location>()
     private val fuelMap = mutableMapOf<Location, Long>() // Stores fuel end timestamps
     private val bossBars = mutableMapOf<UUID, BossBar>()
@@ -49,7 +49,7 @@ object FlightBeaconManager {
         return maxOf(0, endTime - System.currentTimeMillis())
     }
 
-    fun startFlightChecker(plugin: JavaPlugin) {
+    override fun start(plugin: JavaPlugin) {
         object : BukkitRunnable() {
             override fun run() {
                 for (world in Bukkit.getWorlds()) {
