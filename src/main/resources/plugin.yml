@@ -4,5 +4,7 @@ main: com.lukecywon.progressionPlus.ProgressionPlus
 api-version: '1.21'
 commands:
   artifact:
-    description: Parent command
-    usage: /<command>
+    description: Main command for artifact items
+    usage: /artifact <subcommand>
+    permission: progressionplus.artifact
+    permission-message: You do not have permission to use this.

@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus
 
 import com.lukecywon.progressionPlus.commands.ArtifactCommand
+import com.lukecywon.progressionPlus.commands.ArtifactTabCompleter
 import com.lukecywon.progressionPlus.listeners.EchoGunListener
 import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
 import com.lukecywon.progressionPlus.recipes.Recipe
@@ -16,6 +17,7 @@ class Initialize(private val plugin: JavaPlugin) {
 
     private fun commands() {
         plugin.getCommand("artifact")?.setExecutor(ArtifactCommand())
+        plugin.getCommand("artifact")?.tabCompleter = ArtifactTabCompleter()
     }
 
     private fun listeners() {

@@ -14,6 +14,7 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
     init {
         val plugin = ProgressionPlus.getPlugin()
         key = NamespacedKey(plugin, name)
+        CustomItemRegistry.register(name, this)
     }
 
     abstract fun createItemStack(): ItemStack
