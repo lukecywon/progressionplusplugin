@@ -29,7 +29,8 @@ class PhoenixTotemListener : Listener {
 
         object : BukkitRunnable() {
             override fun run() {
-                val spawn = player.bedSpawnLocation ?: player.world.spawnLocation
+                val overworld = Bukkit.getWorlds().firstOrNull { it.environment == World.Environment.NORMAL }
+                val spawn = player.bedSpawnLocation ?: overworld?.spawnLocation ?: player.world.spawnLocation
                 player.teleport(spawn)
 
                 spawnMassiveFireBurst(deathLocation, 2.5, 300)
