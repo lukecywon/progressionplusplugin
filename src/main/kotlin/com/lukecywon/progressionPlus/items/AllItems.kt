@@ -15,8 +15,11 @@ object AllItems {
         RecallPotion
         PhoenixTotem
         WormholePotion
-        Snowglobe
-        TribalSpear
+        SnowGlobe
+        RogueSword
+        VenomDagger
+        AshenWarhammer
+        EchoBlade
         // Add all other custom item objects here!
     }
 }

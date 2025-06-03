@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.Snowglobe
+import com.lukecywon.progressionPlus.items.SnowGlobe
 import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Projectile
@@ -11,17 +11,19 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 
-class SnowglobeListener : Listener {
+class SnowGlobeListener : Listener {
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!Snowglobe.isSnowglobe(item)) return
+        if (!SnowGlobe.isSnowGlobe(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true // Cancel snowball throw
+
+        val originalVelocities = mutableMapOf<Int, Vector>()
 
         object : BukkitRunnable() {
             var ticks = 0
@@ -29,7 +31,7 @@ class SnowglobeListener : Listener {
                 if (!player.isOnline || ticks > 200) { cancel(); return }
 
                 val center = player.location
-                val radius = 5.0
+                val radius = 6.0
 
                 // Show particle ring
                 for (angle in 0 until 360 step 10) {
@@ -40,18 +42,28 @@ class SnowglobeListener : Listener {
                     player.world.spawnParticle(Particle.SNOWFLAKE, loc, 1, 0.0, 0.1, 0.0, 0.01)
                 }
 
-                // Slow entities/projectiles inside
                 val nearby = player.world.getNearbyEntities(center, radius, radius, radius)
                 for (entity in nearby) {
                     if (entity == player) continue
-                    if (entity is LivingEntity || entity is Projectile) {
-                        val velocity = entity.velocity
-                        entity.velocity = Vector(velocity.x * 0.5, velocity.y * 0.5, velocity.z * 0.5)
+
+                    val id = entity.entityId
+                    if (!originalVelocities.containsKey(id)) {
+                        originalVelocities[id] = entity.velocity.clone()
                     }
+
+                    val baseVelocity = originalVelocities[id] ?: continue
+
+                    // Boost if it's a projectile shot by the player
+                    val multiplier = when {
+                        entity is Projectile && entity.shooter == player -> 1.5
+                        else -> 0.4
+                    }
+
+                    entity.velocity = baseVelocity.clone().multiply(multiplier)
                 }
 
                 ticks++
             }
-        }.runTaskTimer(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin(), 0L, 2L) // every 2 ticks (0.1s)
+        }.runTaskTimer(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin(), 0L, 2L)
     }
 }

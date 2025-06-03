@@ -7,24 +7,26 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object Snowglobe : CustomItem("snowglobe", Rarity.EPIC) {
+object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.SNOWBALL)
+        val item = ItemStack(Material.WOODEN_SWORD)
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("Snowglobe").color(NamedTextColor.AQUA))
+        meta.displayName(Component.text("Venom Dagger").color(NamedTextColor.DARK_GREEN))
         meta.lore(listOf(
-            Component.text("Right click to create a slowing snow globe!").color(NamedTextColor.GRAY),
-            Component.text("All entities except you move 50% slower for 10s").color(NamedTextColor.DARK_AQUA)
+            Component.text("Coated in something unpleasant…").color(NamedTextColor.GREEN),
+            Component.text("Applies Poison and Weakness on hit.").color(NamedTextColor.GRAY),
+            Component.text("Cooldown: 7 seconds").color(NamedTextColor.DARK_GRAY)
         ))
-        meta.setCustomModelData(9027) // Pick any custom model data you want
+
+        meta.setCustomModelData(9028)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
     }
 
-    fun isSnowglobe(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.SNOWBALL) return false
+    fun isVenomDagger(item: ItemStack?): Boolean {
+        if (item == null || item.type != Material.WOODEN_SWORD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }

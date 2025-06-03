@@ -43,9 +43,12 @@ class Initialize(private val plugin: JavaPlugin) {
             PhoenixTotemListener(),
             WormholePotionListener(),
             WormholeGUIListener(),
-            SnowglobeListener(),
+            SnowGlobeListener(),
             HeartLossOnDeathListener(),
-            TribalSpearListener()
+            RogueSwordListener(),
+            VenomDaggerListener(),
+            EchoBladeListener(),
+            AshenWarhammerListener(),
         )
 
         listeners.forEach {
