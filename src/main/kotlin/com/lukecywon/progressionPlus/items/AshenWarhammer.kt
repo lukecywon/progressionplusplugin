@@ -17,7 +17,7 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
         meta.displayName(Component.text("Ashen Warhammer", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false))
         meta.lore(listOf(
             Component.text("On kill, leaves a lingering cloud", NamedTextColor.GRAY),
-            Component.text("that weakens foes nearby.", NamedTextColor.GRAY),
+            Component.text("that withers enemies nearby.", NamedTextColor.GRAY),
             Component.text("\"Ashes to ashes, strength to dust.\"", NamedTextColor.DARK_RED, TextDecoration.ITALIC)
         ))
 

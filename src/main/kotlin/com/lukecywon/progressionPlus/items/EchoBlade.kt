@@ -24,7 +24,7 @@ object EchoBlade : CustomItem("echo_blade", Rarity.RARE) {
             Component.text("After 5 hits in 6s,")
                 .color(NamedTextColor.BLUE)
                 .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false),
-            Component.text("the 5th hit deals +3 bonus damage.")
+            Component.text("the 5th hit deals +5 bonus damage.")
                 .color(NamedTextColor.BLUE)
                 .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false)
         ))
