@@ -25,19 +25,22 @@ class SoulPiercerListener : Listener {
         val hits = hitCounts.getOrDefault(uuid, 0) + 1
         hitCounts[uuid] = hits
 
-        if (hits >= 7) {
+        if (hits >= 5) {
             val armor = target.getAttribute(Attribute.ARMOR)?.value ?: 0.0
-            e.damage += armor
-            attacker.sendActionBar("§5✦ Soulpiercer! Armor ignored on 7th strike!")
+            val armorReduction = armor * 0.5
+            e.damage += armorReduction
+
+            attacker.sendActionBar("§5✦ Soulpiercer! 50% armor ignored!")
             attacker.world.playSound(attacker.location, Sound.ITEM_TRIDENT_THUNDER, 1f, 1.2f)
             attacker.world.spawnParticle(
                 Particle.SOUL_FIRE_FLAME,
                 target.location.add(0.0, 1.0, 0.0),
                 15, 0.3, 0.5, 0.3, 0.05
             )
+
             hitCounts[uuid] = 0
         } else {
-            attacker.sendActionBar("§7Soulpiercer: §d$hits§7/7")
+            attacker.sendActionBar("§7Soulpiercer: §d$hits§7/5")
         }
     }
 }

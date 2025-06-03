@@ -49,6 +49,7 @@ class Initialize(private val plugin: JavaPlugin) {
             VenomDaggerListener(),
             EchoBladeListener(),
             AshenWarhammerListener(),
+            SoulPiercerListener(),
         )
 
         listeners.forEach {

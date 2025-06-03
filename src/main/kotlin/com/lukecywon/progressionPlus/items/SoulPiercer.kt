@@ -9,6 +9,8 @@ import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -23,16 +25,30 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
+
         meta.lore(listOf(
-            Component.text("“Strike where it hurts most.”").color(NamedTextColor.GRAY)
-                .decoration(TextDecoration.ITALIC, false),
-            Component.text("Every 4th hit ignores armor.")
+            Component.text("“Strike where it hurts most.”").color(NamedTextColor.GRAY),
+            Component.text("Every 5th hit ignores 50% of enemy armor.")
                 .color(NamedTextColor.LIGHT_PURPLE)
                 .decoration(TextDecoration.ITALIC, false)
         ))
 
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
+        meta.isUnbreakable = true
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
+        val attackspeedmodifier = AttributeModifier(
+            NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
+            -2.6,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackspeedmodifier)
+
         meta.setCustomModelData(9032)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+
         item.itemMeta = meta
         return applyMeta(item)
     }

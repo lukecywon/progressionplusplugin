@@ -20,6 +20,7 @@ object AllItems {
         VenomDagger
         AshenWarhammer
         EchoBlade
+        SoulPiercer
         // Add all other custom item objects here!
     }
 }

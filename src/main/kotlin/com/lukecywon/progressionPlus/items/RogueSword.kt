@@ -27,12 +27,12 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
         meta.lore(listOf(
             Component.text("Swift and deadly.").color(NamedTextColor.GRAY),
             Component.text("Right-click to gain Speed I for 10s.").color(NamedTextColor.GREEN),
-            Component.text("Cooldown: 15 seconds").color(NamedTextColor.DARK_GRAY)
+            Component.text("Cooldown: 20 seconds").color(NamedTextColor.DARK_GRAY)
         ))
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
-            1.0,
+            5.0,
             AttributeModifier.Operation.ADD_NUMBER,
             EquipmentSlotGroup.HAND
         )
