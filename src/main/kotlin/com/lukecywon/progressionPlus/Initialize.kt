@@ -44,6 +44,7 @@ class Initialize(private val plugin: JavaPlugin) {
             WormholePotionListener(),
             WormholeGUIListener(),
             SnowglobeListener(),
+            HeartLossOnDeathListener(),
         )
 
         listeners.forEach {
