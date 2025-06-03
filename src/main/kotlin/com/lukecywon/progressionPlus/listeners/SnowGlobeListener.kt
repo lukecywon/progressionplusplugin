@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 
-class SnowglobeListener : Listener {
+class SnowGlobeListener : Listener {
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
