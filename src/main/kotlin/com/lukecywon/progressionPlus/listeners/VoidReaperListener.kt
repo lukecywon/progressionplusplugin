@@ -30,7 +30,7 @@ class VoidReaperListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (VoidReaper.isThisItem(item)) {
-            VoidReaper.slashTeleport(player)
+            VoidReaper.slashTeleport(player, item)
             e.isCancelled = true
         }
     }
@@ -40,11 +40,19 @@ class VoidReaperListener : Listener {
         val killer = e.entity.killer ?: return
         val item = killer.inventory.itemInMainHand
 
-        if (VoidReaper.isThisItem(item)) {
-            VoidReaper.addSoul(item)
-            killer.sendMessage("§8☠ §7You collected a soul!")
-            killer.world.playSound(killer.location, Sound.ENTITY_VEX_DEATH, 0.8f, 1.5f)
+        if (!VoidReaper.isThisItem(item)) return
+
+        val soulsBefore = VoidReaper.getSoulCount(item)
+        VoidReaper.addSoul(item)
+        val soulsAfter = VoidReaper.getSoulCount(item)
+
+        if (soulsBefore == soulsAfter) {
+            killer.sendActionBar("§cMaximum souls reached!")
+        } else {
+            killer.sendActionBar("§a+1 Soul absorbed!")
         }
+
+        killer.world.playSound(killer.location, Sound.ENTITY_VEX_DEATH, 0.8f, 1.5f)
     }
 
     @EventHandler
