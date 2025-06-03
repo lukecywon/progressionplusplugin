@@ -25,15 +25,16 @@ class SnowGlobeListener : Listener {
         if (!SnowGlobe.isSnowGlobe(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
+        e.isCancelled = true // Always cancel snowball throw
+
         val now = System.currentTimeMillis()
         val lastUsed = cooldowns[player.uniqueId] ?: 0L
         if (now - lastUsed < 15_000) {
             val secondsLeft = ((15_000 - (now - lastUsed)) / 1000).toInt()
-            player.sendMessage("§cSnow Globe is on cooldown for $secondsLeft more seconds.")
+            player.sendMessage("§cSnowglobe is on cooldown for $secondsLeft more seconds.")
             return
         }
 
-        e.isCancelled = true // Cancel snowball throw
         cooldowns[player.uniqueId] = now
 
         val originalVelocities = mutableMapOf<Int, Vector>()
@@ -44,7 +45,7 @@ class SnowGlobeListener : Listener {
                 if (!player.isOnline || ticks > 100) { cancel(); return }
 
                 val center = player.location
-                val radius = 6.0
+                val radius = 7.0
 
                 // Particle ring
                 for (angle in 0 until 360 step 10) {
@@ -55,7 +56,6 @@ class SnowGlobeListener : Listener {
                     player.world.spawnParticle(Particle.SNOWFLAKE, loc, 1, 0.0, 0.1, 0.0, 0.01)
                 }
 
-                // Process nearby entities
                 val nearby = player.world.getNearbyEntities(center, radius, radius, radius)
                 for (entity in nearby) {
                     if (entity == player) continue
