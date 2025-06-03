@@ -1,0 +1,39 @@
+package com.lukecywon.progressionPlus.items
+
+import com.lukecywon.progressionPlus.enums.Rarity
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
+
+object SpeedBanner : CustomItem("speed_banner", Rarity.COMMON) {
+    override fun createItemStack(): ItemStack {
+        val item = ItemStack(Material.LIGHT_BLUE_BANNER)
+        val meta = item.itemMeta
+
+        meta.displayName(
+            Component.text("Speed Banner")
+                .color(NamedTextColor.AQUA)
+                .decoration(TextDecoration.BOLD, true)
+        )
+
+        meta.lore(listOf(
+            Component.text("Right click to grant Speed I").color(NamedTextColor.GRAY),
+            Component.text("to nearby players for 30s").color(NamedTextColor.GRAY)
+        ))
+
+        meta.setCustomModelData(3001)
+        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+
+        item.itemMeta = meta
+        return applyMeta(item)
+    }
+
+    fun isSpeedBanner(item: ItemStack?): Boolean {
+        if (item == null || item.type != Material.LIGHT_BLUE_BANNER) return false
+        val meta = item.itemMeta ?: return false
+        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+}
