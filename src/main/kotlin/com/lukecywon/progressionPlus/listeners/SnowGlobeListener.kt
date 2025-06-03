@@ -36,6 +36,8 @@ class SnowGlobeListener : Listener {
         e.isCancelled = true // Cancel snowball throw
         cooldowns[player.uniqueId] = now
 
+        val originalVelocities = mutableMapOf<Int, Vector>()
+
         object : BukkitRunnable() {
             var ticks = 0
             override fun run() {
@@ -44,7 +46,7 @@ class SnowGlobeListener : Listener {
                 val center = player.location
                 val radius = 6.0
 
-                // Show particle ring
+                // Particle ring
                 for (angle in 0 until 360 step 10) {
                     val rad = Math.toRadians(angle.toDouble())
                     val x = radius * Math.cos(rad)
@@ -53,15 +55,24 @@ class SnowGlobeListener : Listener {
                     player.world.spawnParticle(Particle.SNOWFLAKE, loc, 1, 0.0, 0.1, 0.0, 0.01)
                 }
 
+                // Process nearby entities
                 val nearby = player.world.getNearbyEntities(center, radius, radius, radius)
                 for (entity in nearby) {
                     if (entity == player) continue
-                    val velocity = entity.velocity
-                    entity.velocity = when (entity) {
-                        is Projectile -> velocity.multiply(0.25)
-                        is LivingEntity -> velocity.multiply(0.6)
-                        else -> velocity
+
+                    val id = entity.entityId
+                    if (!originalVelocities.containsKey(id)) {
+                        originalVelocities[id] = entity.velocity.clone()
                     }
+
+                    val original = originalVelocities[id] ?: continue
+                    val scaled = when {
+                        entity is Projectile -> original.clone().multiply(0.25)
+                        entity is LivingEntity -> original.clone().multiply(0.6)
+                        else -> continue
+                    }
+
+                    entity.velocity = scaled
                 }
 
                 ticks++
