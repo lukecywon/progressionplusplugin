@@ -37,7 +37,11 @@ class RecallPotionListener : Listener {
                 }
 
                 if (secondsLeft <= 0) {
-                    val loc = player.bedSpawnLocation ?: player.world.spawnLocation
+                    val overworld = Bukkit.getWorlds().firstOrNull { it.environment == org.bukkit.World.Environment.NORMAL }
+                    val loc = player.bedSpawnLocation ?: overworld?.spawnLocation ?: player.world.spawnLocation
+                    if (player.world.environment != org.bukkit.World.Environment.NORMAL && player.bedSpawnLocation == null) {
+                        player.sendMessage("§eNo bed set — teleporting you to the Overworld spawn.")
+                    }
                     player.teleportAsync(loc)
                     player.sendMessage("§aRecalled!")
                     player.playSound(loc, Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1f, 1f)
