@@ -35,7 +35,7 @@ class RogueSwordListener : Listener {
         player.sendMessage("§aYou feel a surge of speed!")
         player.playSound(player.location, Sound.ENTITY_BAT_TAKEOFF, 1f, 1.5f)
 
-        cooldowns[player.uniqueId] = now + 15_000
+        cooldowns[player.uniqueId] = now + 20_000
         e.isCancelled = true
     }
 }

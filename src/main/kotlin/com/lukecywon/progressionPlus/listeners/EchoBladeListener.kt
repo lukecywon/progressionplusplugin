@@ -44,7 +44,7 @@ class EchoBladeListener : Listener {
         }
 
         if (tracker.hits >= 5) {
-            e.damage += 3.0
+            e.damage += 5.0
             attacker.sendActionBar("§b✦ Echo Strike! Bonus damage dealt!")
             attacker.world.playSound(attacker.location, Sound.BLOCK_ANVIL_PLACE, 1f, 1.2f)
             attacker.world.spawnParticle(

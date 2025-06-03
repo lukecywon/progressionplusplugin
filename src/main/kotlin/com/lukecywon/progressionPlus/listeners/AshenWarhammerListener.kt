@@ -37,7 +37,7 @@ class AshenWarhammerListener : Listener {
             setParticle(Particle.ASH)
             setRadiusPerTick(-0.05f)
             customName = "Ashen Weakness"
-            addCustomEffect(PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false, true), true)
+            addCustomEffect(PotionEffect(PotionEffectType.WITHER, 100, 0, false, true), true)
         }
 
         cloudSources[cloud.uniqueId] = killer.uniqueId

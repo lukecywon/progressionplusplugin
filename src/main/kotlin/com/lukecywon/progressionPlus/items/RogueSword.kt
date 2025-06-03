@@ -30,13 +30,21 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
             Component.text("Cooldown: 15 seconds").color(NamedTextColor.DARK_GRAY)
         ))
 
+        val damageModifier = AttributeModifier(
+            NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
+            1.0,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+
+        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
+
         val attackspeedmodifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
             0.8,
             AttributeModifier.Operation.ADD_NUMBER,
             EquipmentSlotGroup.HAND
         )
-
         meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackspeedmodifier)
 
         meta.setCustomModelData(9026)
