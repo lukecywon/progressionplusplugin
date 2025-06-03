@@ -42,7 +42,7 @@ class SnowGlobeListener : Listener {
         object : BukkitRunnable() {
             var ticks = 0
             override fun run() {
-                if (!player.isOnline || ticks > 100) { cancel(); return }
+                if (!player.isOnline || ticks > 50) { cancel(); return }
 
                 val center = player.location
                 val radius = 7.0
