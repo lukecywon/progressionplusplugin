@@ -1,5 +1,7 @@
 package com.lukecywon.progressionPlus.items
 
+import com.ervinyap.survivalTestPlugin.items.VoidReaper
+
 object AllItems {
     fun registerAll() {
         MaxHeartFruit
@@ -23,6 +25,7 @@ object AllItems {
         FerociousBlade
         SoulPiercer
         LuckTalisman
+        VoidReaper
         // Add all other custom item objects here!
     }
 }

@@ -34,7 +34,7 @@ class LuckTalismanListener : Listener {
         }
 
         // Apply Luck II for 15 seconds
-        player.addPotionEffect(PotionEffect(PotionEffectType.LUCK, 15 * 20, 1))
+        player.addPotionEffect(PotionEffect(PotionEffectType.LUCK, 15 * 20, 3))
         player.sendActionBar("§6You feel luckier!")
 
         // Set cooldown
