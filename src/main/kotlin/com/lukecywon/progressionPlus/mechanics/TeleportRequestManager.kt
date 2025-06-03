@@ -30,12 +30,9 @@ object TeleportRequestManager : Manager {
         cooldowns[requester.uniqueId] = System.currentTimeMillis() + 35_000
 
         // Send message
-        if (requester.teleport(target.location)) {
-            target.sendMessage("§d✧ §bTeleport to spawn request created. Type §a/wormhole accept§7 or §c/wormhole reject§7.")
-        } else {
-            target.sendMessage("§d✧ §b${requester.name} §7wants to teleport to you.")
-            target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30 seconds§7.")
-        }
+        target.sendMessage("§d✧ §b${requester.name} §7wants to teleport to you.")
+        target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30 seconds§7.")
+
 
         // Timeout
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
