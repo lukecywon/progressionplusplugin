@@ -43,6 +43,7 @@ class Initialize(private val plugin: JavaPlugin) {
             PhoenixTotemListener(),
             WormholePotionListener(),
             WormholeGUIListener(),
+            SnowglobeListener(),
         )
 
         listeners.forEach {
