@@ -3,7 +3,6 @@ package com.lukecywon.progressionPlus.listeners
 import com.lukecywon.progressionPlus.items.SoulPiercer
 import org.bukkit.Particle
 import org.bukkit.Sound
-import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -26,9 +25,21 @@ class SoulPiercerListener : Listener {
         hitCounts[uuid] = hits
 
         if (hits >= 5) {
-            e.damage += calculateIgnoredArmorDamage(e.finalDamage, e.entity) // or just a flat bonus
+            val baseDamage = e.damage
 
-            attacker.sendActionBar("§5✦ Soulpiercer! 80% armor ignored!")
+            // Cancel the default damage which would be affected by armor
+            e.isCancelled = true
+
+            // Deal "true damage" by setting health directly
+            val healthBefore = target.health
+            val trueDamage = baseDamage * 0.8
+            val newHealth = (healthBefore - trueDamage).coerceAtLeast(0.0)
+
+            target.health = newHealth
+            target.noDamageTicks = 0  // Allow immediate damage handling
+
+            // Feedback
+            attacker.sendActionBar("§5✦ Soulpiercer! 80% Armor ignored!")
             attacker.world.playSound(attacker.location, Sound.ITEM_TRIDENT_THUNDER, 1f, 1.2f)
             attacker.world.spawnParticle(
                 Particle.SOUL_FIRE_FLAME,
@@ -40,14 +51,5 @@ class SoulPiercerListener : Listener {
         } else {
             attacker.sendActionBar("§7Soulpiercer: §d$hits§7/5")
         }
-    }
-
-    private fun calculateIgnoredArmorDamage(base: Double, target: org.bukkit.entity.Entity): Double {
-        val living = target as? org.bukkit.entity.LivingEntity ?: return base
-        val armor = living.getAttribute(Attribute.ARMOR)?.value ?: 0.0
-        val toughness = living.getAttribute(Attribute.ARMOR_TOUGHNESS)?.value ?: 0.0
-
-        val reduction = (armor * 0.04) / (1 + armor * 0.04)  // Approximate formula
-        return base / (1 - reduction).coerceAtLeast(1.0)
     }
 }

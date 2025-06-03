@@ -38,6 +38,14 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
+        val damageModifier = AttributeModifier(
+            NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
+            8.0,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+
+        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
         val attackspeedmodifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
             -2.6,
