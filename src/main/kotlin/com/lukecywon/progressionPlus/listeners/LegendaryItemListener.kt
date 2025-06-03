@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import org.bukkit.Material
 
 class LegendaryItemListener : Listener {
     private fun isLegendary(item: ItemStack?): Boolean {
@@ -81,6 +82,44 @@ class LegendaryItemListener : Listener {
         if (isLegendary(craftedItem) && hasLegendaryItem(player)) {
             player.sendMessage(Component.text("❌ You already have a Legendary item!", NamedTextColor.RED))
             event.isCancelled = true
+        }
+    }
+    @EventHandler
+    fun onBundleInteraction(event: InventoryClickEvent) {
+        val player = event.whoClicked as? Player ?: return
+
+        val clickedItem = event.currentItem
+        val cursorItem = event.cursor
+
+        // If the current item is a bundle and the player is trying to put a legendary into it
+        if (clickedItem?.type == Material.BUNDLE && isLegendary(cursorItem)) {
+            player.sendMessage(Component.text("❌ You cannot put Legendary items into Bundles!", NamedTextColor.RED))
+            event.isCancelled = true
+        }
+
+        // If the cursor is a bundle and trying to pick up a legendary item
+        if (cursorItem.type == Material.BUNDLE && isLegendary(clickedItem)) {
+            player.sendMessage(Component.text("❌ You cannot put Legendary items into Bundles!", NamedTextColor.RED))
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onBundleDrag(event: InventoryDragEvent) {
+        val player = event.whoClicked as? Player ?: return
+        val draggedItem = event.oldCursor
+
+        // Cancel if the dragged item is legendary and the target is a bundle slot
+        if (isLegendary(draggedItem)) {
+            val inventory = event.inventory
+            for (slot in event.rawSlots) {
+                val item = inventory.getItem(slot)
+                if (item?.type == Material.BUNDLE) {
+                    player.sendMessage(Component.text("❌ You cannot put Legendary items into Bundles!", NamedTextColor.RED))
+                    event.isCancelled = true
+                    return
+                }
+            }
         }
     }
 }
