@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -17,16 +18,21 @@ object EchoBlade : CustomItem("echo_blade", Rarity.RARE) {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta
 
+        meta.displayName(
+            Component.text("Echo Blade")
+                .color(NamedTextColor.BLUE)
+                .decorate(TextDecoration.BOLD)
+        )
         meta.lore(listOf(
             Component.text("“Strike true, strike fast…”")
                 .color(NamedTextColor.GRAY)
-                .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false),
+                .decoration(TextDecoration.ITALIC, false),
             Component.text("After 5 hits in 6s,")
                 .color(NamedTextColor.BLUE)
-                .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false),
+                .decoration(TextDecoration.ITALIC, false),
             Component.text("the 5th hit deals +5 bonus damage.")
                 .color(NamedTextColor.BLUE)
-                .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false)
+                .decoration(TextDecoration.ITALIC, false)
         ))
 
         meta.setCustomModelData(9030)
