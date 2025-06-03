@@ -1,7 +1,5 @@
 package com.lukecywon.progressionPlus.items
 
-import com.lukecywon.progressionPlus.listeners.SnowglobeListener
-
 object AllItems {
     fun registerAll() {
         MaxHeartFruit
@@ -17,7 +15,11 @@ object AllItems {
         RecallPotion
         PhoenixTotem
         WormholePotion
-        Snowglobe
+        SnowGlobe
+        RogueSword
+        VenomDagger
+        AshenWarhammer
+        EchoBlade
         // Add all other custom item objects here!
     }
 }
