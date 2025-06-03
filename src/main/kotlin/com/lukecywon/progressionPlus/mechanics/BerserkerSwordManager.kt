@@ -49,7 +49,7 @@ object BerserkerSwordManager : Manager {
         }
 
         player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 20 * 15, 0))
-        player.addPotionEffect(PotionEffect(PotionEffectType.HUNGER, 20 * 15, 2))
+        player.addPotionEffect(PotionEffect(PotionEffectType.HUNGER, 20 * 15, 4))
         player.sendMessage("§cYou embrace the fury of battle!")
 
         cooldowns[uuid] = now
