@@ -2,15 +2,15 @@ package com.lukecywon.progressionPlus
 
 import com.lukecywon.progressionPlus.commands.ArtifactCommand
 import com.lukecywon.progressionPlus.commands.ArtifactTabCompleter
+import com.lukecywon.progressionPlus.commands.FixMeCommand
+import com.lukecywon.progressionPlus.commands.WormholeCommand
 import com.lukecywon.progressionPlus.listeners.*
-import com.lukecywon.progressionPlus.listeners.MaxHeartFruitListener
-import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
 import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
 import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
 import com.lukecywon.progressionPlus.mechanics.Manager
-import com.lukecywon.progressionPlus.recipes.EchoGunRecipe
-import com.lukecywon.progressionPlus.recipes.FlightBeaconRecipe
-import com.lukecywon.progressionPlus.recipes.Recipe
+import com.lukecywon.progressionPlus.items.*
+import com.lukecywon.progressionPlus.recipes.*
+
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -20,11 +20,14 @@ class Initialize(private val plugin: JavaPlugin) {
         listeners()
         recipes()
         mechanics()
+        AllItems.registerAll()
     }
 
     private fun commands() {
         plugin.getCommand("artifact")?.setExecutor(ArtifactCommand())
         plugin.getCommand("artifact")?.tabCompleter = ArtifactTabCompleter()
+        plugin.getCommand("fixme")?.setExecutor(FixMeCommand())
+        plugin.getCommand("wormhole")?.setExecutor(WormholeCommand())
     }
 
     private fun listeners() {
@@ -32,8 +35,14 @@ class Initialize(private val plugin: JavaPlugin) {
             EchoGunListener(),
             LegendaryItemListener(),
             MaxHeartFruitListener(),
+            HealthCrystalListener(),
             BerserkerSwordListener(),
-            FlightBeaconListener()
+            FlightBeaconListener(),
+            BannerListener(),
+            RecallPotionListener(),
+            PhoenixTotemListener(),
+            WormholePotionListener(),
+            WormholeGUIListener(),
         )
 
         listeners.forEach {
@@ -44,7 +53,12 @@ class Initialize(private val plugin: JavaPlugin) {
     private fun recipes() {
         val recipes = listOf<Recipe>(
             EchoGunRecipe(),
-            FlightBeaconRecipe()
+            FlightBeaconRecipe(),
+            HasteBannerRecipe(),
+            JumpBannerRecipe(),
+            AbsorptionBannerRecipe(),
+            SpeedBannerRecipe(),
+            RegenBannerRecipe(),
         )
 
         recipes.forEach {
