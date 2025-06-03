@@ -26,11 +26,9 @@ class SoulPiercerListener : Listener {
         hitCounts[uuid] = hits
 
         if (hits >= 5) {
-            val armor = target.getAttribute(Attribute.ARMOR)?.value ?: 0.0
-            val armorReduction = armor * 0.5
-            e.damage += armorReduction
+            e.damage += calculateIgnoredArmorDamage(e.finalDamage, e.entity) // or just a flat bonus
 
-            attacker.sendActionBar("§5✦ Soulpiercer! 50% armor ignored!")
+            attacker.sendActionBar("§5✦ Soulpiercer! 80% armor ignored!")
             attacker.world.playSound(attacker.location, Sound.ITEM_TRIDENT_THUNDER, 1f, 1.2f)
             attacker.world.spawnParticle(
                 Particle.SOUL_FIRE_FLAME,
@@ -42,5 +40,14 @@ class SoulPiercerListener : Listener {
         } else {
             attacker.sendActionBar("§7Soulpiercer: §d$hits§7/5")
         }
+    }
+
+    private fun calculateIgnoredArmorDamage(base: Double, target: org.bukkit.entity.Entity): Double {
+        val living = target as? org.bukkit.entity.LivingEntity ?: return base
+        val armor = living.getAttribute(Attribute.ARMOR)?.value ?: 0.0
+        val toughness = living.getAttribute(Attribute.ARMOR_TOUGHNESS)?.value ?: 0.0
+
+        val reduction = (armor * 0.04) / (1 + armor * 0.04)  // Approximate formula
+        return base / (1 - reduction).coerceAtLeast(1.0)
     }
 }
