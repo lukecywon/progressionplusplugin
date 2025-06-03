@@ -8,3 +8,10 @@ commands:
     usage: /artifact <subcommand>
     permission: progressionplus.artifact
     permission-message: You do not have permission to use this.
+
+  fixme:
+    description: Fix player invulnerability
+
+  wormhole:
+    description: Wormhole teleport command
+    usage: /wormhole <accept|reject>
