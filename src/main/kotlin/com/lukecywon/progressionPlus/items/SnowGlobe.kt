@@ -7,7 +7,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object Snowglobe : CustomItem("snowglobe", Rarity.EPIC) {
+object SnowGlobe : CustomItem("snowglobe", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.SNOWBALL)
         val meta = item.itemMeta
@@ -23,7 +23,7 @@ object Snowglobe : CustomItem("snowglobe", Rarity.EPIC) {
         return applyMeta(item)
     }
 
-    fun isSnowglobe(item: ItemStack?): Boolean {
+    fun isSnowGlobe(item: ItemStack?): Boolean {
         if (item == null || item.type != Material.SNOWBALL) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)

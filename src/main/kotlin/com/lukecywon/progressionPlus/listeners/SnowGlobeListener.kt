@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.Snowglobe
+import com.lukecywon.progressionPlus.items.SnowGlobe
 import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Projectile
@@ -11,14 +11,14 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 
-class SnowglobeListener : Listener {
+class SnowGlobeListener : Listener {
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!Snowglobe.isSnowglobe(item)) return
+        if (!SnowGlobe.isSnowGlobe(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true // Cancel snowball throw
@@ -52,6 +52,6 @@ class SnowglobeListener : Listener {
 
                 ticks++
             }
-        }.runTaskTimer(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin(), 0L, 2L) // every 2 ticks (0.1s)
+        }.runTaskTimer(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin(), 0L, 1L) // every 2 ticks (0.1s)
     }
 }
