@@ -3,19 +3,15 @@ package com.lukecywon.progressionPlus.gui
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.mechanics.TeleportRequestManager
 import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
-import org.bukkit.Material
-import org.bukkit.Sound
+import org.bukkit.*
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
-import org.bukkit.scheduler.BukkitRunnable
 
 object WormholeGUI {
-    private val activeGUIs = mutableMapOf<Player, ItemStack>() // player → potion (to refund if needed)
+    private val activeGUIs = mutableMapOf<Player, ItemStack>() // player → potion
 
     fun open(requester: Player, potionItem: ItemStack): Boolean {
         val players = Bukkit.getOnlinePlayers().filter { it.uniqueId != requester.uniqueId }
@@ -23,19 +19,7 @@ object WormholeGUI {
         if (players.isEmpty()) {
             requester.sendMessage("§cNo other players online. The potion was returned.")
             requester.playSound(requester.location, Sound.ENTITY_VILLAGER_NO, 0.6f, 1.0f)
-
-            // Refund the potion
-            val bottle = requester.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
-            bottle?.apply {
-                amount -= 1
-                if (amount <= 0) requester.inventory.remove(this)
-            }
-            val leftover = requester.inventory.addItem(potionItem)
-            if (leftover.isNotEmpty()) {
-                leftover.values.forEach { requester.world.dropItemNaturally(requester.location, it) }
-            }
-
-
+            refundPotion(requester, potionItem)
             return false
         }
 
@@ -58,10 +42,7 @@ object WormholeGUI {
         meta.lore(listOf(Component.text("§7Click to cancel and get your potion back.")))
         cancel.itemMeta = meta
 
-        // Place cancel button in the center of the last row
-        val centerSlot = inventory.size - 5
-        inventory.setItem(centerSlot, cancel)
-
+        inventory.setItem(inventory.size - 5, cancel) // Center last row
         activeGUIs[requester] = potionItem
         requester.openInventory(inventory)
         return true
@@ -71,6 +52,7 @@ object WormholeGUI {
         val player = e.whoClicked as? Player ?: return
         if (e.view.title != "Wormhole Teleport") return
         e.isCancelled = true
+
         val clicked = e.currentItem ?: return
 
         if (clicked.type == Material.BARRIER) {
@@ -78,57 +60,47 @@ object WormholeGUI {
             player.sendMessage("§eWormhole request canceled. Potion refunded.")
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.6f, 1.2f)
 
-            val potion = activeGUIs.remove(player)
-            potion?.let {
-                val leftover = player.inventory.addItem(it)
-                if (leftover.isNotEmpty()) {
-                    leftover.values.forEach { item -> player.world.dropItemNaturally(player.location, item) }
-                }
-            }
-
+            activeGUIs.remove(player)?.let { refundPotion(player, it) }
             return
         }
 
         val meta = clicked.itemMeta as? SkullMeta ?: return
-
         val offline = meta.owningPlayer ?: return
-        val targetUUID = offline.uniqueId
-        val target = Bukkit.getPlayer(targetUUID) ?: return
+        val target = Bukkit.getPlayer(offline.uniqueId) ?: return
 
         val potion = activeGUIs.remove(player) ?: return
         player.closeInventory()
 
-        if (TeleportRequestManager.hasRequestFor(targetUUID)) {
+        if (TeleportRequestManager.hasRequestFor(target.uniqueId)) {
             player.sendMessage("§cThat player already has a pending teleport request.")
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.6f, 0.5f)
+            refundPotion(player, potion)
             return
         }
 
         if (TeleportRequestManager.hasOutgoingRequestFrom(player.uniqueId)) {
             player.sendMessage("§cYou already have a pending teleport request.")
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.6f, 0.5f)
+            refundPotion(player, potion)
             return
         }
 
+        // Success
         TeleportRequestManager.createRequest(player, target, potion, ProgressionPlus.getPlugin())
-
-//        val offline = meta.owningPlayer ?: return
-//        val targetUUID = offline.uniqueId
-//
-//        val potion = activeGUIs.remove(player) ?: return
-//        player.closeInventory()
-//
-//        // Handle clicking yourself (send self-request)
-//        if (targetUUID == player.uniqueId) {
-//            TeleportRequestManager.createRequest(
-//                player,
-//                player,
-//                potion,
-//                ProgressionPlus.getPlugin(),
-//                teleportToSpawn = true
-//            )
-//            return
-//        }
     }
 
+    private fun refundPotion(player: Player, potion: ItemStack) {
+        // Add potion back
+        val leftover = player.inventory.addItem(potion)
+        if (leftover.isNotEmpty()) {
+            leftover.values.forEach { item -> player.world.dropItemNaturally(player.location, item) }
+        }
+
+        // Remove 1 glass bottle (if any)
+        val glass = player.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
+        glass?.let {
+            it.amount -= 1
+            if (it.amount <= 0) player.inventory.remove(it)
+        }
+    }
 }

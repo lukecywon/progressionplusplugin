@@ -14,7 +14,6 @@ object TeleportRequestManager : Manager {
     private val cooldowns = mutableMapOf<UUID, Long>()
 
     override fun start(plugin: JavaPlugin) {
-        // Register commands here
         plugin.getCommand("wormhole")?.setExecutor(WormholeCommand())
     }
 
@@ -27,59 +26,42 @@ object TeleportRequestManager : Manager {
         val pending = PendingTeleport(requester, target, System.currentTimeMillis() + 30_000, potion)
         requests[target.uniqueId] = pending
 
-        // ✅ Set cooldown here (35s)
         cooldowns[requester.uniqueId] = System.currentTimeMillis() + 35_000
 
-        // Send message
         target.sendMessage("§d✧ §b${requester.name} §7wants to teleport to you.")
         target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30 seconds§7.")
 
-
-        // Timeout
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-            if (requests.remove(target.uniqueId) != null) {
-                val bottle = requester.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
-                bottle?.apply {
-                    amount -= 1
-                    if (amount <= 0) requester.inventory.remove(this)
-                }
-                requester.inventory.addItem(potion)
-                requester.sendMessage("§c✗ Teleport request expired. Your Wormhole Potion has been returned.")
-                target.sendMessage("§7⌛ Teleport request from §b${requester.name} §7has §cexpired§7.")
+            val expired = requests.remove(target.uniqueId)
+            if (expired != null) {
+                refundPotion(expired.requester, expired.potionItem)
+                expired.requester.sendMessage("§c✗ Teleport request expired. Your Wormhole Potion has been returned.")
+                target.sendMessage("§7⌛ Teleport request from §b${expired.requester.name} §7has §cexpired§7.")
                 target.playSound(target.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.7f, 0.5f)
             }
         }, 30 * 20L)
     }
 
-    fun accept(uuid: UUID) {
-        val req = requests.remove(uuid) ?: return
-        if (System.currentTimeMillis() > req.expireTime) return
+    fun accept(targetUUID: UUID) {
+        val req = requests.remove(targetUUID) ?: return
+        if (System.currentTimeMillis() > req.expireTime) {
+            refundPotion(req.requester, req.potionItem)
+            return
+        }
 
         req.requester.teleport(req.target.location)
         req.requester.sendMessage("§aTeleport successful!")
         req.target.sendMessage("§aYou accepted the teleport request.")
     }
-//    fun accept(uuid: UUID) {
-//        val req = requests.remove(uuid) ?: return
-//        if (System.currentTimeMillis() > req.expireTime) return
-//
-//        if (req.requester == req.target && req.teleportToSpawn) {
-//            val spawn = req.requester.bedSpawnLocation ?: req.requester.world.spawnLocation
-//            req.requester.teleportAsync(spawn)
-//            req.requester.sendMessage("§aTeleported to spawn via Wormhole Potion!")
-//            return
-//        }
-//
-//        req.requester.teleport(req.target.location)
-//        req.requester.sendMessage("§aTeleport successful!")
-//        req.target.sendMessage("§aYou accepted the teleport request.")
-//    }
 
-    fun reject(uuid: UUID) {
-        val req = requests.remove(uuid) ?: return
-        if (System.currentTimeMillis() > req.expireTime) return
+    fun reject(targetUUID: UUID) {
+        val req = requests.remove(targetUUID) ?: return
+        if (System.currentTimeMillis() > req.expireTime) {
+            refundPotion(req.requester, req.potionItem)
+            return
+        }
 
-        req.requester.inventory.addItem(req.potionItem)
+        refundPotion(req.requester, req.potionItem)
         req.requester.sendMessage("§cTeleport request was rejected. Your potion has been returned.")
         req.target.sendMessage("§eYou rejected the teleport request.")
     }
@@ -93,13 +75,26 @@ object TeleportRequestManager : Manager {
     }
 
     fun isOnCooldown(uuid: UUID): Boolean {
-        val now = System.currentTimeMillis()
-        return (cooldowns[uuid] ?: 0L) > now
+        return (cooldowns[uuid] ?: 0L) > System.currentTimeMillis()
     }
 
     fun secondsLeft(uuid: UUID): Int {
-        val now = System.currentTimeMillis()
         val cooldownEnd = cooldowns[uuid] ?: return 0
-        return ((cooldownEnd - now) / 1000).toInt()
+        return ((cooldownEnd - System.currentTimeMillis()) / 1000).toInt()
+    }
+
+    private fun refundPotion(player: Player, potion: ItemStack) {
+        // Refund potion
+        val leftover = player.inventory.addItem(potion)
+        if (leftover.isNotEmpty()) {
+            leftover.values.forEach { player.world.dropItemNaturally(player.location, it) }
+        }
+
+        // Remove one glass bottle
+        val glass = player.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
+        glass?.let {
+            it.amount -= 1
+            if (it.amount <= 0) player.inventory.remove(it)
+        }
     }
 }
