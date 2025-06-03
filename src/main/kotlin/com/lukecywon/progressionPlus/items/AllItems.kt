@@ -22,6 +22,7 @@ object AllItems {
         EchoBlade
         FerociousBlade
         SoulPiercer
+        LuckTalisman
         // Add all other custom item objects here!
     }
 }

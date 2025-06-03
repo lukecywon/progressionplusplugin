@@ -51,6 +51,7 @@ class Initialize(private val plugin: JavaPlugin) {
             AshenWarhammerListener(),
             FerociousBladeListener(),
             SoulPiercerListener(),
+            LuckTalismanListener(),
         )
 
         listeners.forEach {
