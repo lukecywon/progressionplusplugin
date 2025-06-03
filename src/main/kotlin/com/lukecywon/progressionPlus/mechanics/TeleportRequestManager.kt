@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.mechanics
 
 import com.lukecywon.progressionPlus.commands.WormholeCommand
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -37,6 +38,11 @@ object TeleportRequestManager : Manager {
         // Timeout
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             if (requests.remove(target.uniqueId) != null) {
+                val bottle = requester.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
+                bottle?.apply {
+                    amount -= 1
+                    if (amount <= 0) requester.inventory.remove(this)
+                }
                 requester.inventory.addItem(potion)
                 requester.sendMessage("§c✗ Teleport request expired. Your Wormhole Potion has been returned.")
                 target.sendMessage("§7⌛ Teleport request from §b${requester.name} §7has §cexpired§7.")

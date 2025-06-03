@@ -25,17 +25,16 @@ object WormholeGUI {
             requester.playSound(requester.location, Sound.ENTITY_VILLAGER_NO, 0.6f, 1.0f)
 
             // Refund the potion
-            val leftover = requester.inventory.addItem(potionItem)
-            if (leftover.isNotEmpty()) {
-                leftover.values.forEach { requester.world.dropItemNaturally(requester.location, it) }
-            }
-
-            // Simulate used bottle
             val bottle = requester.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
             bottle?.apply {
                 amount -= 1
                 if (amount <= 0) requester.inventory.remove(this)
             }
+            val leftover = requester.inventory.addItem(potionItem)
+            if (leftover.isNotEmpty()) {
+                leftover.values.forEach { requester.world.dropItemNaturally(requester.location, it) }
+            }
+
 
             return false
         }

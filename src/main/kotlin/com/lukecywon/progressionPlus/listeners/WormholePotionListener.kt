@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.WormholePotion
 import com.lukecywon.progressionPlus.gui.WormholeGUI
 import com.lukecywon.progressionPlus.mechanics.TeleportRequestManager
+import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -23,7 +24,13 @@ class WormholePotionListener : Listener {
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.6f)
 
             // Refund potion
+            val bottle = player.inventory.contents.firstOrNull { it?.type == Material.GLASS_BOTTLE }
+            bottle?.let {
+                it.amount -= 1
+                if (it.amount <= 0) player.inventory.remove(it)
+            }
             player.inventory.addItem(e.item.clone())
+
             return
         }
 
