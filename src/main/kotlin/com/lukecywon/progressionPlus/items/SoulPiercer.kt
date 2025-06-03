@@ -28,7 +28,7 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
 
         meta.lore(listOf(
             Component.text("“Strike where it hurts most.”").color(NamedTextColor.GRAY),
-            Component.text("Every 5th hit ignores 50% of enemy armor.")
+            Component.text("Every 5th hit ignores 80% of enemy armor.")
                 .color(NamedTextColor.LIGHT_PURPLE)
                 .decoration(TextDecoration.ITALIC, false)
         ))
