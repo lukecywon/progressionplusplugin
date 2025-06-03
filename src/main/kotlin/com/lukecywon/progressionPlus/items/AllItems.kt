@@ -1,7 +1,5 @@
 package com.lukecywon.progressionPlus.items
 
-import com.ervinyap.survivalTestPlugin.items.VoidReaper
-
 object AllItems {
     fun registerAll() {
         MaxHeartFruit

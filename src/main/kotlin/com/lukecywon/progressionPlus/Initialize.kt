@@ -1,7 +1,5 @@
 package com.lukecywon.progressionPlus
 
-import com.ervinyap.survivalTestPlugin.items.VoidReaper
-import com.ervinyap.survivalTestPlugin.listeners.VoidReaperListener
 import com.lukecywon.progressionPlus.commands.ArtifactCommand
 import com.lukecywon.progressionPlus.commands.ArtifactTabCompleter
 import com.lukecywon.progressionPlus.commands.FixMeCommand

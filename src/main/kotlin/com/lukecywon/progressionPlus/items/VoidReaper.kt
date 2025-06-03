@@ -1,4 +1,4 @@
-package com.ervinyap.survivalTestPlugin.items
+package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
@@ -33,7 +33,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         meta.lore(listOf(
             Component.text("§6LEGENDARY"),
             Component.text("Right-click: Unleash stored souls in an AOE blast").color(NamedTextColor.GRAY),
-            Component.text("Left-click: Teleport and slash behind enemies you are looking at").color(NamedTextColor.DARK_GRAY),
+            Component.text("Left-click: Teleport and slash enemies you're looking at").color(NamedTextColor.DARK_GRAY),
             Component.text("Souls Stored: 0").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
         ))
 
@@ -44,8 +44,8 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
             EquipmentSlotGroup.HAND
         )
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
-        meta.setCustomModelData(9002)
 
+        meta.setCustomModelData(9002)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         meta.persistentDataContainer.set(soulKey, PersistentDataType.INTEGER, 0)
 
@@ -90,8 +90,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         world.spawnParticle(Particle.EXPLOSION, player.location, 1)
         world.playSound(player.location, Sound.ENTITY_WITHER_SPAWN, 1f, 0.5f)
 
-        val radius = 5.0
-        world.getNearbyEntities(player.location, radius, radius, radius).forEach {
+        world.getNearbyEntities(player.location, 5.0, 5.0, 5.0).forEach {
             if (it is LivingEntity && it != player) {
                 it.damage(4.0 * souls, player)
                 it.addPotionEffect(PotionEffect(PotionEffectType.WITHER, 40, 1))
@@ -103,8 +102,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
     }
 
     fun slashTeleport(player: Player) {
-        val target = player.getTargetEntity(10) as? LivingEntity
-        if (target == null || target == player) {
+        val target = player.getTargetEntity(10) as? LivingEntity ?: run {
             player.sendMessage("§7No valid target in sight.")
             player.world.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f)
             return
@@ -132,7 +130,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         meta.lore(listOf(
             Component.text("§6LEGENDARY"),
             Component.text("Right-click: Unleash stored souls in an AOE blast").color(NamedTextColor.GRAY),
-            Component.text("Left-click: Teleport and slash behind enemies you are looking at").color(NamedTextColor.DARK_GRAY),
+            Component.text("Left-click: Teleport and slash enemies you're looking at").color(NamedTextColor.DARK_GRAY),
             Component.text("Souls Stored: $count").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
         ))
         item.itemMeta = meta
