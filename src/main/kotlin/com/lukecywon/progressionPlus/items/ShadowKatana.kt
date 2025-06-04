@@ -9,6 +9,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -17,6 +18,8 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.NETHERITE_SWORD)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Shadow Katana")

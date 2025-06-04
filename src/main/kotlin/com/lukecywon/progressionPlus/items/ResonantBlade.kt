@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -12,6 +13,8 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Resonant Blade")

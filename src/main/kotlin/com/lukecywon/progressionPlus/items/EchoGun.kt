@@ -11,6 +11,7 @@ import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import java.util.*
 
@@ -21,6 +22,7 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
         val item = ItemStack(Material.ECHO_SHARD)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text()

@@ -20,6 +20,8 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
         val item = ItemStack(Material.DIAMOND_SWORD)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(
             Component.text("Soul Piercer")
                 .color(NamedTextColor.DARK_PURPLE)

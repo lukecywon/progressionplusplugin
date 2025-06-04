@@ -16,6 +16,8 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
         val item = ItemStack(Material.TRIDENT)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("⚔ Tribal Spear", Rarity.RARE.color))
 
         meta.lore(listOf(

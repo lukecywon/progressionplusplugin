@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -12,6 +13,8 @@ object HasteBanner : CustomItem("haste_banner", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.YELLOW_BANNER)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Haste Banner")

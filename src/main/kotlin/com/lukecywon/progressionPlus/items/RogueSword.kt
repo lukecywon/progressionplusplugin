@@ -10,6 +10,7 @@ import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -18,6 +19,8 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.GOLDEN_SWORD)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Rogue Sword")

@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -13,6 +14,8 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.EMERALD)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Luck Talisman")
