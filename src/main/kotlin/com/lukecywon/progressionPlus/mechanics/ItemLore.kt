@@ -31,7 +31,4 @@ object ItemLore {
 
     fun separator(): Component =
         Component.text("")
-
-    fun rarity(rarity: Rarity): Component =
-        Component.text(rarity.displayName, rarity.color).decorate(TextDecoration.BOLD)
 }

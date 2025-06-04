@@ -33,6 +33,11 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
             rarity.name
         )
 
+        // Set display name or lore with rarity color
+        val lore = meta.lore()?.toMutableList() ?: mutableListOf()
+        lore.add(Component.text(getRarity().displayName).color(getRarity().color).decorate(TextDecoration.BOLD))
+        meta.lore(lore)
+
         meta.persistentDataContainer.set(NamespacedKey(plugin, "unique_id"), PersistentDataType.STRING, UUID.randomUUID().toString())
 
         item.itemMeta = meta

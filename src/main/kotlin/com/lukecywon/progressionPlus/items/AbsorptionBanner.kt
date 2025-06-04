@@ -31,7 +31,6 @@ object AbsorptionBanner : CustomItem("absorption_banner", Rarity.COMMON) {
                 ItemLore.cooldown(300),
                 ItemLore.separator(),
                 ItemLore.lore("A radiant shield for allies."),
-                ItemLore.rarity(getRarity())
             )
         )
 
