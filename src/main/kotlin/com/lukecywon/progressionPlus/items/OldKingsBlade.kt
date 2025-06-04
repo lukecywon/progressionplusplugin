@@ -11,7 +11,7 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
-object OldKingsBlade : CustomItem("old_kings_blade", Rarity.EPIC) {
+object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.GOLDEN_SWORD)

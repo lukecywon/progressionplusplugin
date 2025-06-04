@@ -29,6 +29,7 @@ object AllItems {
         TwilightCrown
         OldKingsBlade
         SacrificialClock
+        ShadowKatana
         // Add all other custom item objects here!
     }
 }

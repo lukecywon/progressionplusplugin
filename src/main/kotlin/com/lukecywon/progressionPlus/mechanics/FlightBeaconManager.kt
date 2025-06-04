@@ -80,7 +80,7 @@ object FlightBeaconManager : Manager {
                             }
                         }
 
-                        if (player.gameMode != GameMode.CREATIVE) {
+                        if (player.gameMode != GameMode.CREATIVE && player.gameMode != GameMode.SPECTATOR) {
                             player.allowFlight = inRange
                             if (!inRange && player.isFlying) {
                                 player.isFlying = false

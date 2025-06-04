@@ -21,20 +21,29 @@ class NocturnHoodListener : Listener {
         object : BukkitRunnable() {
             override fun run() {
                 for (player in Bukkit.getOnlinePlayers()) {
-                    val helmet = player.inventory.helmet ?: continue
-                    if (!NocturnHood.isNocturnHood(helmet)) {
-                        active.remove(player.uniqueId)
-                        continue
+                    val helmet = player.inventory.helmet
+
+                    if (helmet != null && NocturnHood.isNocturnHood(helmet)) {
+                        active.add(player.uniqueId)
+
+                        val effect = player.getPotionEffect(PotionEffectType.NIGHT_VISION)
+                        val duration = effect?.duration ?: 0
+
+                        // Reapply only if not present or less than 100 ticks left
+                        if (effect == null || duration < 100) {
+                            player.addPotionEffect(
+                                PotionEffect(PotionEffectType.NIGHT_VISION, 600, 0, false, false, false)
+                            )
+                        }
+                    } else {
+                        if (active.contains(player.uniqueId)) {
+                            player.removePotionEffect(PotionEffectType.NIGHT_VISION)
+                            active.remove(player.uniqueId)
+                        }
                     }
-
-                    active.add(player.uniqueId)
-
-                    player.addPotionEffect(
-                        PotionEffect(PotionEffectType.NIGHT_VISION, 40, 0, false, false, false)
-                    )
                 }
             }
-        }.runTaskTimer(ProgressionPlus.getPlugin(), 0L, 20L) // Runs every second
+        }.runTaskTimer(ProgressionPlus.getPlugin(), 0L, 20L) // every second
     }
 
     @EventHandler

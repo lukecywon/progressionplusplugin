@@ -78,8 +78,8 @@ class VoidReaperListener : Listener {
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f)
             player.spawnParticle(Particle.SMOKE, player.eyeLocation, 10, 0.2, 0.2, 0.2, 0.01)
 
-            // Add short cooldown for missing the slash
-            slashCooldowns[uuid] = now
+            // Add short cooldown (2s) for missing the slash
+            slashCooldowns[uuid] = now - (SLASH_COOLDOWN_MS - 2000L)  // Ensures only 2s penalty
             player.sendActionBar("§7Missed. Cooldown: §e2s")
             Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
                 notifiedReady.remove(uuid)
