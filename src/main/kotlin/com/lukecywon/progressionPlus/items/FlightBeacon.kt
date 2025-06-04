@@ -35,7 +35,6 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
                 ItemLore.cooldown(0),
                 ItemLore.separator(),
                 ItemLore.lore("Built from brilliance, it bends the sky to your will."),
-                ItemLore.rarity(getRarity())
             )
         )
 

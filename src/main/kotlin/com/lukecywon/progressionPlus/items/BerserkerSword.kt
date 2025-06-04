@@ -34,12 +34,11 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Adrenaline rush", Activation.RIGHT_CLICK),
-                ItemLore.description("Grants the user strength and hunger"),
+                ItemLore.description("Grants the user strength and hunger for 15s"),
                 ItemLore.description("Halves the max health of the wielder"),
                 ItemLore.cooldown(30),
                 ItemLore.separator(),
                 ItemLore.lore("A reckless edge, fueled by fury and blood."),
-                ItemLore.rarity(getRarity())
             )
         )
 

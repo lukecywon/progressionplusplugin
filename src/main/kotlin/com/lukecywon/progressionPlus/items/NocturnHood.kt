@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -29,8 +31,11 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.RARE) {
 
         meta.lore(
             listOf(
-                Component.text("§7Grants §9Night Vision §7while worn."),
-                Component.text("§8Light pierces even the deepest dark.")
+                ItemLore.abilityuse("Night Vision", Activation.PASSIVE),
+                ItemLore.description("Grants Night Vision while worn"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("Light pierces even the deepest dark."),
             )
         )
 

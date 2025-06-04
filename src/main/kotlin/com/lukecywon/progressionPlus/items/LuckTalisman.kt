@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -22,10 +24,16 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.LEGENDARY) {
                 .color(NamedTextColor.GOLD)
                 .decorate(TextDecoration.BOLD)
         )
-        meta.lore(listOf(
-            Component.text("Right-click to gain Luck IV for 15s.").color(NamedTextColor.GREEN),
-            Component.text("Cooldown: 5 minutes").color(NamedTextColor.DARK_GRAY)
-        ))
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Fortune's Blessing", Activation.RIGHT_CLICK),
+                ItemLore.description("Grants Luck IV for 15 seconds"),
+                ItemLore.cooldown(300),
+                ItemLore.separator(),
+                ItemLore.lore("A charm whispered with fate, tilting odds in your favor."),
+            )
+        )
 
         meta.setCustomModelData(9035)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

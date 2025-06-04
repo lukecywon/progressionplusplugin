@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -22,10 +24,15 @@ object HasteBanner : CustomItem("haste_banner", Rarity.COMMON) {
                 .decoration(TextDecoration.BOLD, true)
         )
 
-        meta.lore(listOf(
-            Component.text("Right click to grant Haste I").color(NamedTextColor.GRAY),
-            Component.text("to nearby players for 30s").color(NamedTextColor.GRAY)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Haste", Activation.RIGHT_CLICK),
+                ItemLore.description("Grant Haste to nearby players for 30s"),
+                ItemLore.cooldown(300),
+                ItemLore.separator(),
+                ItemLore.lore("Forged for those who carve through stone and time."),
+            )
+        )
 
         meta.setCustomModelData(3002)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

@@ -34,11 +34,10 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Sonic Boom", Activation.RIGHT_CLICK),
-                ItemLore.description("Fires a deadly sonic wave in a straight line"),
+                ItemLore.description("Charges for 1s then fires a deadly sonic wave in a straight line"),
                 ItemLore.cooldown(30),
                 ItemLore.separator(),
                 ItemLore.lore("A remnant of ancient wrath, still echoing with vengeance."),
-                ItemLore.rarity(getRarity())
             )
         )
 

@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
@@ -16,7 +18,17 @@ object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(Component.text("Max Heart Fruit").color(NamedTextColor.RED))
-        meta.lore(listOf(Component.text("Eat to gain +1 max heart (up to 10)!").color(NamedTextColor.GOLD)))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Heart Bloom", Activation.CONSUME),
+                ItemLore.description("Permanently increases max health by 1 heart"),
+                ItemLore.description("Cannot be used above 10 hearts"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("The fruit of vitality, blooming only for those at their weakest."),
+            )
+        )
+
         meta.setCustomModelData(9020)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta

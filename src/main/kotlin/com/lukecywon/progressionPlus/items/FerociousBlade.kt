@@ -35,7 +35,6 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
                 ItemLore.cooldown(0),
                 ItemLore.separator(),
                 ItemLore.lore("Strikes twice when fate allows, always hungry for more."),
-                ItemLore.rarity(getRarity())
             )
         )
 
