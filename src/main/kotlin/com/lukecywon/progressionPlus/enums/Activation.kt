@@ -5,5 +5,6 @@ enum class Activation(val label: String) {
     SHIFT_RIGHT_CLICK("SHIFT + RIGHT CLICK"),
     CONSUME("CONSUME"),
     HIT("ON HIT"),
-    PASSIVE("PASSIVE")
+    PASSIVE("PASSIVE"),
+    ON_KILL("ON KILL")
 }
