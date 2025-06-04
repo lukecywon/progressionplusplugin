@@ -1,7 +1,9 @@
 package com.lukecywon.progressionPlus.items
 
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -24,19 +26,22 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
-            Component.text()
-                .append(Component.text("[").decorate(TextDecoration.OBFUSCATED).color(NamedTextColor.DARK_RED))
-                .append(Component.text("Berserker Sword").color(NamedTextColor.DARK_RED))
-                .append(Component.text("]").decorate(TextDecoration.OBFUSCATED).color(NamedTextColor.DARK_RED))
-                .build()
+            Component.text("Berserker Sword")
+                .color(NamedTextColor.DARK_RED)
+                .decoration(TextDecoration.BOLD, true)
         )
 
-        meta.lore(listOf(
-            Component.text("Unleash your rage at a deadly cost.").color(NamedTextColor.RED),
-            Component.text("Halves your hearts while held.").color(NamedTextColor.DARK_RED),
-            Component.text("Right-click after 10s to gain Strength I").color(NamedTextColor.GOLD),
-            Component.text("But suffer Hunger III").color(NamedTextColor.GRAY)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Adrenaline rush", Activation.RIGHT_CLICK),
+                ItemLore.description("Grants the user strength and hunger"),
+                ItemLore.description("Halves the max health of the wielder"),
+                ItemLore.cooldown(30),
+                ItemLore.separator(),
+                ItemLore.lore("A reckless edge, fueled by fury and blood."),
+                ItemLore.rarity(getRarity())
+            )
+        )
 
         // Optional: Add diamond-equivalent damage (stone base 5 + 2 = 7)
         val damageModifier = AttributeModifier(

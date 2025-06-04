@@ -1,8 +1,11 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
@@ -19,12 +22,20 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         // Set display name and lore
-        meta.displayName(Component.text("⚔ Ferocious Blade").color(Rarity.EPIC.color))
+        meta.displayName(
+            Component.text("Ferocious Blade")
+                .color(NamedTextColor.RED)
+                .decoration(TextDecoration.BOLD, true)
+        )
 
         meta.lore(
             listOf(
-                Component.text("A blade that thirsts for blood...").color(NamedTextColor.DARK_RED),
-                Component.text("50% chance to strike twice!").color(NamedTextColor.GOLD)
+                ItemLore.abilityuse("Relentless Blow", Activation.HIT),
+                ItemLore.description("50% chance to strike a second time on hit"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("Strikes twice when fate allows, always hungry for more."),
+                ItemLore.rarity(getRarity())
             )
         )
 

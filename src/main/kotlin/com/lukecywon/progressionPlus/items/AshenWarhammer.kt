@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -18,12 +20,22 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
 
-        meta.displayName(Component.text("Ashen Warhammer", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false))
-        meta.lore(listOf(
-            Component.text("On kill, leaves a lingering cloud", NamedTextColor.GRAY),
-            Component.text("that withers enemies nearby.", NamedTextColor.GRAY),
-            Component.text("\"Ashes to ashes, strength to dust.\"", NamedTextColor.DARK_RED, TextDecoration.ITALIC)
-        ))
+        meta.displayName(
+            Component.text("Ashen Warhammer")
+                .color(NamedTextColor.DARK_GRAY)
+                .decoration(TextDecoration.BOLD, true)
+        )
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Wither", Activation.ON_KILL),
+                ItemLore.description("Leaves a lingering smog that withers away enemies."),
+                ItemLore.cooldown(10),
+                ItemLore.separator(),
+                ItemLore.lore("A burning curse unleashed on those who fall."),
+                ItemLore.rarity(getRarity())
+            )
+        )
 
         meta.setCustomModelData(9031)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

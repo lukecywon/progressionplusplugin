@@ -45,7 +45,6 @@ class FlightBeaconListener : Listener {
 
         e.isCancelled = true // Prevent vanilla beacon GUI
 
-        val now = System.currentTimeMillis()
         val currentFuel = FlightBeaconManager.getFuelRemainingMillis(loc)
         val heldItem = player.inventory.itemInMainHand
 

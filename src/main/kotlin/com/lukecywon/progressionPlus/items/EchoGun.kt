@@ -1,7 +1,9 @@
 package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -16,7 +18,6 @@ import org.bukkit.inventory.ItemStack
 import java.util.*
 
 object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
-    private val cooldowns = mutableMapOf<UUID, Long>()
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ECHO_SHARD)
@@ -25,17 +26,21 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
-            Component.text()
-            .append(Component.text("=").decorate(TextDecoration.OBFUSCATED).color(getRarity().color))
-            .append(Component.text("Echo Gun").color(getRarity().color))
-            .append(Component.text("=").decorate(TextDecoration.OBFUSCATED).color(getRarity().color))
-            .build()
+            Component.text("Echo Gun")
+                .color(NamedTextColor.DARK_AQUA)
+                .decoration(TextDecoration.BOLD, true)
         )
 
-        meta.lore(listOf(
-            Component.text("Carved from the chest of an immortal warden.").color(NamedTextColor.DARK_RED),
-            Component.text("Feel it's heartbeat in your hands...").color(NamedTextColor.DARK_RED)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Sonic Boom", Activation.RIGHT_CLICK),
+                ItemLore.description("Fires a deadly sonic wave in a straight line"),
+                ItemLore.cooldown(30),
+                ItemLore.separator(),
+                ItemLore.lore("A remnant of ancient wrath, still echoing with vengeance."),
+                ItemLore.rarity(getRarity())
+            )
+        )
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
