@@ -38,8 +38,15 @@ class OldKingsBladeListener : Listener {
 
         e.isCancelled = true
 
+        if (player.isSneaking) {
+            activeSummons[player.uniqueId]?.forEach { if (!it.isDead) it.remove() }
+            activeSummons.remove(player.uniqueId)
+            player.sendMessage("§7Your undead followers have been dismissed.")
+            return
+        }
+
         val hasCrown = TwilightCrown.isTwilightCrown(player.inventory.helmet)
-        val cooldownMillis = if (hasCrown) 1.5 * 60 * 1000 else 3 * 60 * 1000
+        val cooldownMillis = if (hasCrown) 90_000L else 180_000L
 
         if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
             val millisLeft = CustomItem.getCooldownRemaining(itemId, player.uniqueId)
@@ -49,95 +56,116 @@ class OldKingsBladeListener : Listener {
             return
         }
 
-        if (player.isSneaking) {
-            activeSummons[player.uniqueId]?.forEach { if (!it.isDead) it.remove() }
-            activeSummons.remove(player.uniqueId)
-            player.sendMessage("§7Your undead followers have been dismissed.")
-            return
-        }
-
         activeSummons[player.uniqueId]?.forEach { if (!it.isDead) it.remove() }
 
         val world = player.world
         val origin = player.location
         val summoned = mutableListOf<LivingEntity>()
 
-        // --- Zombies ---
-        repeat(3) {
+        // Zombies
+        val zombieCount = if (hasCrown) 4 else 3
+        for (i in 0 until zombieCount) {
             val loc = origin.clone().add((Math.random() - 0.5) * 4, 0.0, (Math.random() - 0.5) * 4)
             val zombie = world.spawn(loc, Zombie::class.java)
-            zombie.customName = if (hasCrown) "§5Undead Guard" else "§7Wandering Thrall"
+            val isGeneral = hasCrown && i == 0
+            val name = when {
+                isGeneral -> "§9${player.name}'s Undead General"
+                hasCrown -> "§5${player.name}'s Undead Guard"
+                else -> "§7${player.name}'s Wandering Thrall"
+            }
+            zombie.customName = name
             zombie.isCustomNameVisible = true
             zombie.setAdult()
             zombie.isPersistent = false
             zombie.setRemoveWhenFarAway(false)
-            zombie.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 999999, 0, false, false))
-            if (hasCrown) zombie.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 999999, 1, false, false))
+            zombie.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, Int.MAX_VALUE, 0, false, false))
+
+            if (hasCrown) {
+                val speedLevel = if (isGeneral) 2 else 1
+                zombie.addPotionEffect(PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, speedLevel, false, false))
+            }
+
+            val weapon = ItemStack(if (isGeneral) Material.DIAMOND_SWORD else if (hasCrown) Material.IRON_SWORD else Material.STONE_SWORD)
+            if (isGeneral) weapon.addUnsafeEnchantment(Enchantment.SHARPNESS, 4)
+            else if (hasCrown) weapon.addUnsafeEnchantment(Enchantment.SHARPNESS, 2)
+            else weapon.addUnsafeEnchantment(Enchantment.SHARPNESS, 1)
 
             tagSummon(zombie, player)
-            equipMob(zombie,
-                weapon = ItemStack(if (hasCrown) Material.IRON_SWORD else Material.STONE_SWORD),
-                isBowUser = false,
-                useDiamondArmor = false,
-                useLeather = !hasCrown
+            equipMob(zombie, weapon, false,
+                useDiamondArmor = isGeneral,
+                useLeather = !hasCrown,
+                protectionLevel = if (isGeneral) 3 else if (hasCrown) 2 else 1
             )
             startTargetingTask(zombie, player)
             summoned.add(zombie)
         }
 
-        // --- Skeletons ---
-        repeat(if (hasCrown) 3 else 1) { i ->
+        // Skeletons
+        val skeletonCount = if (hasCrown) 3 else 1
+        for (i in 0 until skeletonCount) {
             val loc = origin.clone().add((Math.random() - 0.5) * 4, 0.0, (Math.random() - 0.5) * 4)
             val skeleton = world.spawn(loc, Skeleton::class.java)
             val isKnight = hasCrown && i == 0
 
-            skeleton.customName = when {
-                isKnight -> "§9Twilight Knight"
-                hasCrown -> "§5Twilight Archer"
-                else -> "§7Restless Bowman"
+            val name = when {
+                isKnight -> "§9${player.name}'s Twilight Knight"
+                hasCrown -> "§5${player.name}'s Twilight Archer"
+                else -> "§7${player.name}'s Restless Bowman"
             }
-
+            skeleton.customName = name
             skeleton.isCustomNameVisible = true
             skeleton.isPersistent = false
             skeleton.setRemoveWhenFarAway(false)
-            skeleton.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, 999999, 0, false, false))
+            skeleton.addPotionEffect(PotionEffect(PotionEffectType.FIRE_RESISTANCE, Int.MAX_VALUE, 0, false, false))
+
+            if (hasCrown) skeleton.addPotionEffect(PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 0, false, false))
 
             tagSummon(skeleton, player)
+
+            val bow = ItemStack(Material.BOW)
+            if (isKnight) {
+                bow.addUnsafeEnchantment(Enchantment.POWER, 5)
+                bow.addUnsafeEnchantment(Enchantment.FLAME, 2)
+            } else if (hasCrown) {
+                bow.addUnsafeEnchantment(Enchantment.POWER, 3)
+            } else {
+                bow.addUnsafeEnchantment(Enchantment.POWER, 1)
+            }
+
+            equipMob(skeleton, bow, true,
+                useDiamondArmor = isKnight,
+                useLeather = false,
+                protectionLevel = if (isKnight) 4 else if (hasCrown) 2 else 2
+            )
 
             if (isKnight) {
                 val horse = world.spawn(loc, SkeletonHorse::class.java)
                 horse.isTamed = true
                 horse.isPersistent = false
                 horse.setRemoveWhenFarAway(false)
+                horse.addPotionEffect(PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 0, false, false))
                 horse.addPassenger(skeleton)
                 tagSummon(horse, player)
                 summoned.add(horse)
-                val bow = ItemStack(Material.BOW)
-                bow.addUnsafeEnchantment(Enchantment.POWER, 5)
-                bow.addUnsafeEnchantment(Enchantment.FLAME, 2)
-                equipMob(skeleton, bow, isBowUser = true, useDiamondArmor = true, protectionLevel = 4)
-
-            } else {
-                equipMob(skeleton, ItemStack(Material.BOW), true, false, !hasCrown)
             }
 
             startTargetingTask(skeleton, player)
             summoned.add(skeleton)
         }
 
-        // --- Phantoms (only with crown) ---
+        // Phantoms
         if (hasCrown) {
             repeat(3) {
                 val loc = origin.clone().add((Math.random() - 0.5) * 6, 8.0, (Math.random() - 0.5) * 6)
                 val phantom = world.spawn(loc, Phantom::class.java)
-                phantom.customName = "§5Void Wraith"
+                phantom.customName = "§5${player.name}'s Void Wraith"
                 phantom.isCustomNameVisible = true
                 phantom.isPersistent = false
                 phantom.setRemoveWhenFarAway(false)
                 phantom.setSilent(true)
                 phantom.setShouldBurnInDay(false)
                 tagSummon(phantom, player)
-                startTargetingTask(phantom, player, range = 30.0, height = 20.0)
+                startTargetingTask(phantom, player, 30.0, 20.0)
                 summoned.add(phantom)
             }
         }
@@ -186,21 +214,16 @@ class OldKingsBladeListener : Listener {
                     cancel()
                     return
                 }
-
                 val targets = mob.getNearbyEntities(range, height, range)
                     .filterIsInstance<LivingEntity>()
                     .filter {
-                        it != summoner &&
-                                it !is ArmorStand &&
-                                it !is Item &&
-                                it !is Bat &&
+                        it != summoner && it !is ArmorStand && it !is Item && it !is Bat &&
                                 it.persistentDataContainer.get(SUMMON_KEY, PersistentDataType.STRING) != summoner.uniqueId.toString() &&
                                 !(it is Tameable && it.isTamed && it.owner?.uniqueId == summoner.uniqueId)
                     }
-
                 mob.target = targets.randomOrNull()
             }
-        }.runTaskTimer(plugin, 40L, 40L)
+        }.runTaskTimer(plugin, 10L, 40L)
     }
 
     private fun equipMob(
@@ -209,46 +232,46 @@ class OldKingsBladeListener : Listener {
         isBowUser: Boolean,
         useDiamondArmor: Boolean = false,
         useLeather: Boolean = false,
-        protectionLevel: Int = 2 // Default to Prot II
+        protectionLevel: Int = 2
     ) {
-        val material = when {
-            useDiamondArmor -> "DIAMOND"
-            useLeather -> "LEATHER"
-            else -> "IRON"
-        }
+        val armorMaterial = when {
+            useDiamondArmor -> Material.DIAMOND_HELMET
+            useLeather -> Material.LEATHER_HELMET
+            else -> Material.IRON_HELMET
+        }.name.removeSuffix("_HELMET")
 
         val armor = listOf(
-            ItemStack(Material.valueOf("${material}_HELMET")),
-            ItemStack(Material.valueOf("${material}_CHESTPLATE")),
-            ItemStack(Material.valueOf("${material}_LEGGINGS")),
-            ItemStack(Material.valueOf("${material}_BOOTS"))
-        )
-
-        armor.forEach {
-            it.addUnsafeEnchantment(Enchantment.PROTECTION, protectionLevel)
-            it.itemMeta = it.itemMeta.apply {
-                isUnbreakable = true
-                addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE)
+            Material.valueOf("${armorMaterial}_HELMET"),
+            Material.valueOf("${armorMaterial}_CHESTPLATE"),
+            Material.valueOf("${armorMaterial}_LEGGINGS"),
+            Material.valueOf("${armorMaterial}_BOOTS")
+        ).map {
+            ItemStack(it).apply {
+                addUnsafeEnchantment(Enchantment.PROTECTION, protectionLevel)
+                itemMeta = itemMeta.apply {
+                    isUnbreakable = true
+                    addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE)
+                }
             }
         }
 
-        weapon.itemMeta = weapon.itemMeta.apply {
+        weapon.itemMeta = weapon.itemMeta?.apply {
             isUnbreakable = true
             addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE)
         }
 
-        val eq = entity.equipment!!
-        eq.helmet = armor[0]
-        eq.chestplate = armor[1]
-        eq.leggings = armor[2]
-        eq.boots = armor[3]
-        eq.setItemInMainHand(weapon)
-
-        eq.helmetDropChance = 0f
-        eq.chestplateDropChance = 0f
-        eq.leggingsDropChance = 0f
-        eq.bootsDropChance = 0f
-        eq.itemInMainHandDropChance = 0f
+        entity.equipment?.apply {
+            helmet = armor[0]
+            chestplate = armor[1]
+            leggings = armor[2]
+            boots = armor[3]
+            setItemInMainHand(weapon)
+            helmetDropChance = 0f
+            chestplateDropChance = 0f
+            leggingsDropChance = 0f
+            bootsDropChance = 0f
+            itemInMainHandDropChance = 0f
+        }
     }
 
 }
