@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
@@ -32,6 +33,11 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
             PersistentDataType.STRING,
             rarity.name
         )
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
+        meta.isUnbreakable
 
         // Set display name or lore with rarity color
         val lore = meta.lore()?.toMutableList() ?: mutableListOf()

@@ -21,8 +21,6 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.RARE) {
         val item = ItemStack(Material.IRON_HELMET)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Nocturn Hood")
                 .color(NamedTextColor.DARK_AQUA)

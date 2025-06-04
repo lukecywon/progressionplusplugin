@@ -23,8 +23,6 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
         val item = ItemStack(Material.STONE_SWORD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Berserker Sword")
                 .color(NamedTextColor.DARK_RED)

@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -14,18 +16,21 @@ object SpeedBanner : CustomItem("speed_banner", Rarity.COMMON) {
         val item = ItemStack(Material.LIGHT_BLUE_BANNER)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Speed Banner")
                 .color(NamedTextColor.AQUA)
                 .decoration(TextDecoration.BOLD, true)
         )
 
-        meta.lore(listOf(
-            Component.text("Right click to grant Speed I").color(NamedTextColor.GRAY),
-            Component.text("to nearby players for 30s").color(NamedTextColor.GRAY)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Speed", Activation.RIGHT_CLICK),
+                ItemLore.description("Grant Speed to nearby players for 30s"),
+                ItemLore.cooldown(300),
+                ItemLore.separator(),
+                ItemLore.lore("For those who chase victory with every step."),
+            )
+        )
 
         meta.setCustomModelData(3001)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

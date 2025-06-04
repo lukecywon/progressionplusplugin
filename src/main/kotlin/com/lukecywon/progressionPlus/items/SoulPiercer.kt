@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -20,20 +22,21 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
         val item = ItemStack(Material.DIAMOND_SWORD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Soul Piercer")
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
 
-        meta.lore(listOf(
-            Component.text("“Strike where it hurts most.”").color(NamedTextColor.GRAY),
-            Component.text("Every 5th hit ignores 80% of enemy armor.")
-                .color(NamedTextColor.LIGHT_PURPLE)
-                .decoration(TextDecoration.ITALIC, false)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Armor Pierce", Activation.PASSIVE),
+                ItemLore.description("Every 5th hit ignores 80% of enemy armor"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("Strike where it hurts most."),
+            )
+        )
 
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         meta.isUnbreakable = true

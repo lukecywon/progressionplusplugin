@@ -27,6 +27,7 @@ object AllItems {
         SoulrendScythe
         NocturnHood
         TwilightCrown
+        TribalSpear
         OldKingsBlade
         SacrificialClock
         ShadowKatana

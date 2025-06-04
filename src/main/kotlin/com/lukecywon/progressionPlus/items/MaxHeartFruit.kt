@@ -15,8 +15,6 @@ object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
         val item = ItemStack(Material.GOLDEN_APPLE)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(Component.text("Max Heart Fruit").color(NamedTextColor.RED))
         meta.lore(
             listOf(

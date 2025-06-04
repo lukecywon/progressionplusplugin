@@ -19,8 +19,10 @@ class WormholePotionListener : Listener {
         if (!WormholePotion.isWormholePotion(e.item)) return
 
         if (TeleportRequestManager.isOnCooldown(player.uniqueId)) {
-            val secondsLeft = TeleportRequestManager.secondsLeft(player.uniqueId)
-            player.sendMessage("§cYou must wait §e$secondsLeft§c seconds before using another Wormhole Potion.")
+            val totalSeconds = TeleportRequestManager.secondsLeft(player.uniqueId)
+            val minutes = totalSeconds / 60
+            val seconds = totalSeconds % 60
+            player.sendMessage("§cYou must wait §e${minutes}m ${seconds}s§c before using another Wormhole Potion.")
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 0.8f, 0.6f)
 
             // Refund potion

@@ -16,8 +16,6 @@ object HasteBanner : CustomItem("haste_banner", Rarity.COMMON) {
         val item = ItemStack(Material.YELLOW_BANNER)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Haste Banner")
                 .color(NamedTextColor.YELLOW)
