@@ -11,6 +11,7 @@ import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -123,19 +124,14 @@ class OldKingsBladeListener : Listener {
             tagSummon(skeleton, player)
 
             val bow = ItemStack(Material.BOW)
-            if (isKnight) {
-                bow.addUnsafeEnchantment(Enchantment.POWER, 5)
-                bow.addUnsafeEnchantment(Enchantment.FLAME, 2)
-            } else if (hasCrown) {
-                bow.addUnsafeEnchantment(Enchantment.POWER, 3)
-            } else {
-                bow.addUnsafeEnchantment(Enchantment.POWER, 1)
-            }
+            bow.addUnsafeEnchantment(Enchantment.POWER, if (isKnight) 5 else if (hasCrown) 3 else 1)
+            if (isKnight) bow.addUnsafeEnchantment(Enchantment.FLAME, 2)
 
             equipMob(skeleton, bow, true,
                 useDiamondArmor = isKnight,
                 useLeather = false,
-                protectionLevel = if (isKnight) 4 else if (hasCrown) 2 else 2
+                useChainmail = !hasCrown,
+                protectionLevel = if (isKnight) 4 else 2
             )
 
             if (isKnight) {
@@ -165,7 +161,7 @@ class OldKingsBladeListener : Listener {
                 phantom.setSilent(true)
                 phantom.setShouldBurnInDay(false)
                 tagSummon(phantom, player)
-                startTargetingTask(phantom, player, 30.0, 20.0)
+                startTargetingTask(phantom, player, 40.0, 30.0)
                 summoned.add(phantom)
             }
         }
@@ -207,7 +203,7 @@ class OldKingsBladeListener : Listener {
         entity.persistentDataContainer.set(SUMMON_KEY, PersistentDataType.STRING, summoner.uniqueId.toString())
     }
 
-    private fun startTargetingTask(mob: Mob, summoner: Player, range: Double = 12.0, height: Double = 6.0) {
+    private fun startTargetingTask(mob: Mob, summoner: Player, range: Double = 20.0, height: Double = 10.0) {
         object : BukkitRunnable() {
             override fun run() {
                 if (!mob.isValid || mob.isDead) {
@@ -232,13 +228,15 @@ class OldKingsBladeListener : Listener {
         isBowUser: Boolean,
         useDiamondArmor: Boolean = false,
         useLeather: Boolean = false,
+        useChainmail: Boolean = false,
         protectionLevel: Int = 2
-    ) {
+    ){
         val armorMaterial = when {
-            useDiamondArmor -> Material.DIAMOND_HELMET
-            useLeather -> Material.LEATHER_HELMET
-            else -> Material.IRON_HELMET
-        }.name.removeSuffix("_HELMET")
+            useDiamondArmor -> "DIAMOND"
+            useLeather -> "LEATHER"
+            useChainmail -> "CHAINMAIL"
+            else -> "IRON"
+        }
 
         val armor = listOf(
             Material.valueOf("${armorMaterial}_HELMET"),
@@ -273,5 +271,39 @@ class OldKingsBladeListener : Listener {
             itemInMainHandDropChance = 0f
         }
     }
+
+    @EventHandler
+    fun onSummonedProjectileHit(e: EntityDamageByEntityEvent) {
+        val damager = e.damager
+        val target = e.entity as? LivingEntity ?: return
+
+        // Only check for projectile damage from skeletons
+        if (damager is Projectile) {
+            val shooter = damager.shooter as? LivingEntity ?: return
+
+            val shooterSummonerId = shooter.persistentDataContainer.get(SUMMON_KEY, PersistentDataType.STRING)
+            if (shooterSummonerId != null) {
+                val summonerUUID = UUID.fromString(shooterSummonerId)
+
+                // Cancel if the projectile hits the summoner
+                if (target.uniqueId == summonerUUID) {
+                    e.isCancelled = true
+                    return
+                }
+
+                // Cancel if the projectile hits other summons or tamed mobs
+                if (target.persistentDataContainer.get(SUMMON_KEY, PersistentDataType.STRING) == shooterSummonerId) {
+                    e.isCancelled = true
+                    return
+                }
+
+                if (target is Tameable && target.isTamed && target.owner?.uniqueId == summonerUUID) {
+                    e.isCancelled = true
+                    return
+                }
+            }
+        }
+    }
+
 
 }
