@@ -6,6 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
@@ -15,65 +16,79 @@ object SacrificialClockGUI {
 
     fun open(player: Player) {
         val inv = Bukkit.createInventory(null, 27, Component.text("§6Sacrificial Clock"))
+        val display = createDisplayItem(0)
+        val confirm = createConfirmItem()
+
+        inv.setItem(0, display) // Display score/tier
+        inv.setItem(26, confirm) // Confirm button
+
         activeInventories[player] = inv
-        player.openInventory(updateDisplay(inv))
+        player.openInventory(inv)
     }
 
     fun handleClick(e: InventoryClickEvent) {
-        if (e.slot == 26) {
-            val player = e.whoClicked as? Player ?: return
-            val inv = activeInventories[player] ?: return
-            val score = inv.contents.filterNotNull().sumOf {
-                it.amount * SacrificialClock.getScoreFromItem(it)
-            }
-            player.closeInventory()
-            activeInventories.remove(player)
-            object : BukkitRunnable() {
-                override fun run() {
-                    SacrificialClock.applyTierBuffs(player, score)
-                }
-            }.runTask(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin())
-            return
-        }
         val player = e.whoClicked as? Player ?: return
         val inv = activeInventories[player] ?: return
         if (e.clickedInventory != inv) return
 
         e.isCancelled = true
+
+        when (e.slot) {
+            4 -> { // Confirm slot
+                val score = inv.contents.slice(9..17).filterNotNull()
+                    .filterNotNull()
+                    .sumOf { it.amount * SacrificialClock.getScoreFromItem(it) }
+
+                player.closeInventory()
+                activeInventories.remove(player)
+
+                object : BukkitRunnable() {
+                    override fun run() {
+                        SacrificialClock.applyTierBuffs(player, score)
+                    }
+                }.runTask(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin())
+            }
+        }
+
         Bukkit.getScheduler().runTaskLater(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin(), Runnable {
             updateDisplay(inv)
         }, 1L)
     }
 
-    private fun updateDisplay(inv: Inventory): Inventory {
-        val score = inv.contents.filterNotNull().sumOf {
-            it.amount * SacrificialClock.getScoreFromItem(it)
-        }
+    private fun updateDisplay(inv: Inventory) {
+        val score = inv.contents.slice(9..17).filterNotNull()
+            .filterNotNull()
+            .sumOf { it.amount * SacrificialClock.getScoreFromItem(it) }
 
+        val display = createDisplayItem(score)
+        inv.setItem(0, display)
+    }
+
+    private fun createDisplayItem(score: Int): ItemStack {
         val tier = when {
             score >= 5000 -> "§6Tier V"
             score >= 2500 -> "§5Tier IV"
             score >= 1000 -> "§9Tier III"
-            score >= 300  -> "§aTier II"
-            score >= 100  -> "§fTier I"
+            score >= 300 -> "§aTier II"
+            score >= 100 -> "§fTier I"
             else -> "§7None"
         }
 
-        val displayItem = ItemStack(Material.GOLD_INGOT)
-        val meta = displayItem.itemMeta
+        val item = ItemStack(Material.GOLD_INGOT)
+        val meta = item.itemMeta
         meta.displayName(Component.text("§eSacrifice Total: §f$score"))
-        meta.lore(listOf(Component.text("§7Current Tier: $tier"), Component.text("§8Offer golden items to gain blessings.")))
-        displayItem.itemMeta = meta
+        meta.lore(listOf(Component.text("§7Current Tier: $tier"), Component.text("§8Insert golden items in slots 10–17.")))
+        item.itemMeta = meta
+        return item
+    }
 
-        inv.setItem(13, displayItem)
-        val confirmItem = ItemStack(Material.LIME_CONCRETE)
-        val confirmMeta = confirmItem.itemMeta
-        confirmMeta.displayName(Component.text("§aClick to Confirm Sacrifice"))
-        confirmMeta.lore(listOf(Component.text("§7Right-click to receive blessings.")))
-        confirmItem.itemMeta = confirmMeta
-
-        inv.setItem(26, confirmItem)
-        return inv
+    private fun createConfirmItem(): ItemStack {
+        val item = ItemStack(Material.LIME_CONCRETE)
+        val meta = item.itemMeta
+        meta.displayName(Component.text("§aClick to Confirm Sacrifice"))
+        meta.lore(listOf(Component.text("§7Confirm to receive blessings.")))
+        item.itemMeta = meta
+        return item
     }
 
     fun isSacrificeInventory(inventory: Inventory?): Boolean {

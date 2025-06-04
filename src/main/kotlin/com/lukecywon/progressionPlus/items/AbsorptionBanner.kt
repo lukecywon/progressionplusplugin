@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -19,10 +21,16 @@ object AbsorptionBanner : CustomItem("absorption_banner", Rarity.COMMON) {
                 .decoration(TextDecoration.BOLD, true)
         )
 
-        meta.lore(listOf(
-            Component.text("Right click to grant Absorption").color(NamedTextColor.GRAY),
-            Component.text("to nearby players for 30s").color(NamedTextColor.GRAY)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Absorption", Activation.RIGHT_CLICK),
+                ItemLore.description("Grant Absorption to nearby players for 30s"),
+                ItemLore.cooldown(300),
+                ItemLore.separator(),
+                ItemLore.lore("A radiant shield for allies."),
+                ItemLore.rarity(getRarity())
+            )
+        )
 
         meta.setCustomModelData(3005)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
