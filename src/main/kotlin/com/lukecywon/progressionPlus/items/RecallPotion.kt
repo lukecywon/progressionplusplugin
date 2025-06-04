@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -11,6 +12,9 @@ object RecallPotion : CustomItem("recall_potion", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.POTION)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Recall Potion").color(NamedTextColor.AQUA))
         meta.lore(listOf(Component.text("Drink to teleport to your spawn after 5s").color(NamedTextColor.GRAY)))
         meta.setCustomModelData(9022)

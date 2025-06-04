@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -11,6 +12,9 @@ object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.GOLDEN_APPLE)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Max Heart Fruit").color(NamedTextColor.RED))
         meta.lore(listOf(Component.text("Eat to gain +1 max heart (up to 10)!").color(NamedTextColor.GOLD)))
         meta.setCustomModelData(9020)

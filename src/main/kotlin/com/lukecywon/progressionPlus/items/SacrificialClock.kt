@@ -10,6 +10,7 @@ import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.attribute.AttributeModifier.Operation
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffect
@@ -38,6 +39,8 @@ object SacrificialClock : CustomItem("sacrificial_clock", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.CLOCK)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(Component.text("Sacrificial Clock").color(NamedTextColor.GOLD))
         meta.lore(listOf(

@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -14,6 +15,8 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BEACON)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(Component.text("Flight Beacon").color(NamedTextColor.AQUA))
         meta.lore(

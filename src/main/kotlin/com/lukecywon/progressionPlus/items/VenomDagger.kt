@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -11,6 +12,8 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.WOODEN_SWORD)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(Component.text("Venom Dagger").color(NamedTextColor.DARK_GREEN))
         meta.lore(listOf(

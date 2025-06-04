@@ -10,12 +10,16 @@ import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.persistence.PersistentDataType
 
 object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_HOE)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Soulrend Scythe").color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD))
         meta.lore(listOf(
             Component.text("§7Deals §c+1§7 damage per debuff on you."),

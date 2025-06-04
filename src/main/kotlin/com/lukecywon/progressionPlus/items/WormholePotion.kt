@@ -14,6 +14,8 @@ object WormholePotion : CustomItem("wormhole_potion", Rarity.EPIC) {
         val item = ItemStack(Material.POTION)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Wormhole Potion").color(NamedTextColor.LIGHT_PURPLE))
         meta.lore(listOf(Component.text("Drink to open a wormhole to another player.").color(NamedTextColor.GRAY)))
         meta.setCustomModelData(9025)

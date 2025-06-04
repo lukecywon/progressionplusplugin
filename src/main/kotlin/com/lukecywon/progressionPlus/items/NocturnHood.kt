@@ -12,11 +12,14 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 
 object NocturnHood : CustomItem("nocturn_hood", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_HELMET)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Nocturn Hood")

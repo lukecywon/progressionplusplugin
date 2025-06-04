@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -11,6 +12,9 @@ object HealthCrystal : CustomItem("health_crystal", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ENCHANTED_GOLDEN_APPLE)
         val meta = item.itemMeta
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Health Crystal").color(NamedTextColor.LIGHT_PURPLE))
         meta.lore(listOf(Component.text("Eat to gain +1 max heart (up to 20)!").color(NamedTextColor.AQUA)))
         meta.setCustomModelData(9021)
