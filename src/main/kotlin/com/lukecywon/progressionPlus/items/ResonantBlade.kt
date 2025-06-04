@@ -5,21 +5,16 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeModifier
-import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
 
-object EchoBlade : CustomItem("echo_blade", Rarity.RARE) {
+object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta
 
         meta.displayName(
-            Component.text("Echo Blade")
+            Component.text("Resonant Blade")
                 .color(NamedTextColor.BLUE)
                 .decorate(TextDecoration.BOLD)
         )
@@ -41,7 +36,7 @@ object EchoBlade : CustomItem("echo_blade", Rarity.RARE) {
         return applyMeta(item)
     }
 
-    fun isEchoBlade(item: ItemStack?): Boolean {
+    fun isResonantBlade(item: ItemStack?): Boolean {
         if (item == null || item.type != Material.IRON_SWORD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)

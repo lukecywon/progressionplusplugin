@@ -1,7 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.EchoBlade
-import org.bukkit.Bukkit
+import com.lukecywon.progressionPlus.items.ResonantBlade
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
@@ -11,9 +10,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
-import kotlin.collections.HashMap
 
-class EchoBladeListener : Listener {
+class ResonantBladeListener : Listener {
     private data class HitTracker(var hits: Int, var lastHitTime: Long)
 
     private val hitCounts = mutableMapOf<UUID, HitTracker>()
@@ -25,7 +23,7 @@ class EchoBladeListener : Listener {
         val attacker = e.damager as? Player ?: return
         val target = e.entity as? LivingEntity ?: return
         val item = attacker.inventory.itemInMainHand
-        if (!EchoBlade.isEchoBlade(item)) return
+        if (!ResonantBlade.isResonantBlade(item)) return
 
         val uuid = attacker.uniqueId
         val now = System.currentTimeMillis()
@@ -45,7 +43,7 @@ class EchoBladeListener : Listener {
 
         if (tracker.hits >= 5) {
             e.damage += 5.0
-            attacker.sendActionBar("§b✦ Echo Strike! Bonus damage dealt!")
+            attacker.sendActionBar("§b✦ Resonant Strike! Bonus damage dealt!")
             attacker.world.playSound(attacker.location, Sound.BLOCK_ANVIL_PLACE, 1f, 1.2f)
             attacker.world.spawnParticle(
                 Particle.CRIT,
