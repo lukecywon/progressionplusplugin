@@ -147,7 +147,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         // AoE damage
         world.getNearbyEntities(loc, radius, radius, radius).forEach {
             if (it is LivingEntity && it != player) {
-                it.damage(4.0 * souls, player)
+                it.damage(5.0 * souls, player)
                 it.addPotionEffect(PotionEffect(PotionEffectType.WITHER, 60, 1))
             }
         }
@@ -185,7 +185,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         }
 
         val soulCount = getSoulCount(item)
-        val damage = 4.0 + soulCount * 0.25
+        val damage = 4.0 + soulCount * 0.3
 
         val behind = target.location.clone().add(target.location.direction.multiply(-1)).apply {
             y = target.location.y
