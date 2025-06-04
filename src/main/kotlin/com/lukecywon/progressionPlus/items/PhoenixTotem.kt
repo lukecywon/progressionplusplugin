@@ -17,6 +17,8 @@ object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
         val item = ItemStack(Material.TOTEM_OF_UNDYING)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Phoenix Totem").color(NamedTextColor.GOLD))
         meta.lore(listOf(Component.text("Saved from death in a blaze of fire.").color(NamedTextColor.RED)))
         meta.setCustomModelData(9024)

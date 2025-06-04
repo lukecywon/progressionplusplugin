@@ -13,6 +13,8 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
         val item = ItemStack(Material.WOODEN_SWORD)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Venom Dagger").color(NamedTextColor.DARK_GREEN))
         meta.lore(listOf(
             Component.text("Coated in something unpleasant…").color(NamedTextColor.GREEN),

@@ -1,7 +1,9 @@
 package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -26,17 +28,22 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         val meta = item.itemMeta
 
         meta.displayName(
-            Component.text("☠ Void Reaper")
+            Component.text("Void Reaper")
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
 
-        meta.lore(listOf(
-            Component.text("§6LEGENDARY"),
-            Component.text("Right-click: Unleash stored souls in an AOE blast").color(NamedTextColor.GRAY),
-            Component.text("Left-click: Teleport and slash enemies you're looking at").color(NamedTextColor.DARK_GRAY),
-            Component.text("Souls Stored: 0").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
+                ItemLore.description("Teleport behind and slash the enemy you're looking at"),
+                ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
+                ItemLore.description("Unleash stored souls in an AOE blast"),
+                Component.text("Souls Stored: 0").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
+                ItemLore.separator(),
+                ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
+            )
+        )
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
@@ -143,12 +150,17 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
     fun updateLore(item: ItemStack) {
         val meta = item.itemMeta ?: return
         val count = getSoulCount(item)
-        meta.lore(listOf(
-            Component.text("§6LEGENDARY"),
-            Component.text("Right-click: Unleash stored souls in an AOE blast").color(NamedTextColor.GRAY),
-            Component.text("Left-click: Teleport and slash enemies you're looking at").color(NamedTextColor.DARK_GRAY),
-            Component.text("Souls Stored: $count").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
+                ItemLore.description("Teleport behind and slash the enemy you're looking at"),
+                ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
+                ItemLore.description("Unleash stored souls in an AOE blast"),
+                Component.text("Souls Stored: $count").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
+                ItemLore.separator(),
+                ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
+            )
+        )
         item.itemMeta = meta
     }
 

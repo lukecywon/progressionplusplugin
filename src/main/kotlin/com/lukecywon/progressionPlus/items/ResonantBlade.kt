@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.NamedTextColor
@@ -19,17 +21,18 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
                 .color(NamedTextColor.BLUE)
                 .decorate(TextDecoration.BOLD)
         )
-        meta.lore(listOf(
-            Component.text("“Strike true, strike fast…”")
-                .color(NamedTextColor.GRAY)
-                .decoration(TextDecoration.ITALIC, false),
-            Component.text("After 5 hits in 6s,")
-                .color(NamedTextColor.BLUE)
-                .decoration(TextDecoration.ITALIC, false),
-            Component.text("the 5th hit deals +5 bonus damage.")
-                .color(NamedTextColor.BLUE)
-                .decoration(TextDecoration.ITALIC, false)
-        ))
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Resonance", Activation.HIT),
+                ItemLore.description("Land 5 consecutive hits,"),
+                ItemLore.description("each within 3s of the last,"),
+                ItemLore.description("to deal +5 bonus damage on the final strike."),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("Strike in rhythm, and it answers with ruin."),
+            )
+        )
 
         meta.setCustomModelData(9030)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

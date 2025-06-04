@@ -40,6 +40,8 @@ object SacrificialClock : CustomItem("sacrificial_clock", Rarity.LEGENDARY) {
         val item = ItemStack(Material.CLOCK)
         val meta = item.itemMeta
 
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+
         meta.displayName(Component.text("Sacrificial Clock").color(NamedTextColor.GOLD))
         meta.lore(listOf(
             Component.text("Right-click to offer golden items for blessings.").color(NamedTextColor.GRAY),

@@ -6,5 +6,7 @@ enum class Activation(val label: String) {
     CONSUME("CONSUME"),
     HIT("ON HIT"),
     PASSIVE("PASSIVE"),
-    ON_KILL("ON KILL")
+    KILL("ON KILL"),
+    DEATH("ON DEATH"),
+    LEFT_CLICK("LEFT CLICK")
 }

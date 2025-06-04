@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -25,11 +27,15 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
                 .color(NamedTextColor.GOLD)
                 .decorate(TextDecoration.BOLD)
         )
-        meta.lore(listOf(
-            Component.text("Swift and deadly.").color(NamedTextColor.GRAY),
-            Component.text("Right-click to gain Speed I for 10s.").color(NamedTextColor.GREEN),
-            Component.text("Cooldown: 20 seconds").color(NamedTextColor.DARK_GRAY)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Swift Dash", Activation.RIGHT_CLICK),
+                ItemLore.description("Gain Speed for 10 seconds"),
+                ItemLore.cooldown(20),
+                ItemLore.separator(),
+                ItemLore.lore("A thief’s resolve, a killer’s edge."),
+            )
+        )
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
