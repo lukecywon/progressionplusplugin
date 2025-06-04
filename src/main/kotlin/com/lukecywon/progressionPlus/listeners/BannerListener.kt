@@ -17,8 +17,8 @@ import java.util.*
 
 class BannerListener : Listener {
 
-    private val cooldowns = mutableMapOf<UUID, Long>()
     private val cooldownMillis = 5 * 60 * 1000L // 5 minutes
+    private val itemId = "banner_ability"
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -36,20 +36,14 @@ class BannerListener : Listener {
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
-        // ✅ Moved cooldown check here *after* confirming it's a SpeedBanner
-        val now = System.currentTimeMillis()
-        val lastUsed = cooldowns[player.uniqueId] ?: 0
-        if (now - lastUsed < cooldownMillis) {
-            val remaining = ((cooldownMillis - (now - lastUsed)) / 1000)
-            val minutes = remaining / 60
-            val seconds = remaining % 60
+        if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
+            val millisLeft = CustomItem.getCooldownRemaining(itemId, player.uniqueId)
+            val minutes = (millisLeft / 1000) / 60
+            val seconds = (millisLeft / 1000) % 60
             player.sendMessage("§cBanners are on cooldown. Try again in ${minutes}m ${seconds}s.")
             e.isCancelled = true
             return
         }
-
-        e.isCancelled = true
-        cooldowns[player.uniqueId] = now
 
         val (type, effect) = when {
             SpeedBanner.isSpeedBanner(item) -> "§Speed Banner" to PotionEffect(PotionEffectType.SPEED, 20 * 30, 0)
@@ -60,8 +54,8 @@ class BannerListener : Listener {
             else -> return
         }
 
+        CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
         e.isCancelled = true
-        cooldowns[player.uniqueId] = now
 
         val radius = 5.0
         val targets = player.getNearbyEntities(radius, radius, radius).filterIsInstance<Player>() + player

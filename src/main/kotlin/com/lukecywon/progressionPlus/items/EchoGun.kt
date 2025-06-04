@@ -52,33 +52,14 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
     }
 
     fun shootSonicBoom(player: Player) {
-        val chargeTicks = 20L // 2 seconds (20 ticks per second)
+        val chargeTicks = 20L
         val world = player.world
         val location = player.location
-
-        val cooldownTime = 5_000L // 5 seconds in milliseconds
-        val now = System.currentTimeMillis()
-        val uuid = player.uniqueId
-
-        // Check if player is on cooldown
-        val lastUsed = cooldowns[uuid]
-        if (lastUsed != null && now - lastUsed < cooldownTime) {
-            val secondsLeft = (cooldownTime - (now - lastUsed)) / 1000.0
-            player.sendActionBar(
-                Component.text("⏳ Ability on cooldown: %.1f seconds left".format(secondsLeft)).color(
-                    NamedTextColor.RED))
-
-            return
-        }
-
-        cooldowns[uuid] = now
-
 
         world.playSound(location, Sound.BLOCK_BEACON_POWER_SELECT, 1f, 1.5f)
         world.spawnParticle(Particle.END_ROD, player.eyeLocation, 30, 0.5, 0.5, 0.5, 0.01)
         player.sendActionBar(Component.text("⚡ Charging... ⚡").color(NamedTextColor.YELLOW))
 
-        // Schedule actual firing after chargeTicks
         Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
             val direction = player.eyeLocation.direction.normalize()
             val start = player.eyeLocation
@@ -97,9 +78,7 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
                 }
             }
 
-            // Sound effect if nothing hit
             world.playSound(player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
-
         }, chargeTicks)
     }
 }

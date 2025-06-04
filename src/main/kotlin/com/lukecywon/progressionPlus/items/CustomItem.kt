@@ -53,4 +53,26 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
     fun getRarity(): Rarity {
         return rarity
     }
+
+    companion object {
+        private val cooldowns: MutableMap<Pair<String, UUID>, Long> = mutableMapOf()
+
+        fun setCooldown(itemId: String, playerId: UUID, durationMillis: Long) {
+            cooldowns[itemId to playerId] = System.currentTimeMillis() + durationMillis
+        }
+
+        fun isOnCooldown(itemId: String, playerId: UUID): Boolean {
+            val expiry = cooldowns[itemId to playerId] ?: return false
+            return System.currentTimeMillis() < expiry
+        }
+
+        fun getCooldownRemaining(itemId: String, playerId: UUID): Long {
+            val expiry = cooldowns[itemId to playerId] ?: return 0
+            return (expiry - System.currentTimeMillis()).coerceAtLeast(0)
+        }
+
+        fun clearCooldowns(playerId: UUID) {
+            cooldowns.keys.removeIf { it.second == playerId }
+        }
+    }
 }

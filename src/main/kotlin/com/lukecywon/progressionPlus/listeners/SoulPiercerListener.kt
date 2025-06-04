@@ -30,7 +30,7 @@ class SoulPiercerListener : Listener {
             val armorReduction = armor * 0.8
             e.damage += armorReduction
 
-            attacker.sendActionBar("§5✦ Soulpiercer! 50% armor ignored!")
+            attacker.sendActionBar("§5✦ Soulpiercer! 80% armor ignored!")
             attacker.world.playSound(attacker.location, Sound.ITEM_TRIDENT_THUNDER, 1f, 1.2f)
             attacker.world.spawnParticle(
                 Particle.SOUL_FIRE_FLAME,
@@ -42,23 +42,6 @@ class SoulPiercerListener : Listener {
         } else {
             attacker.sendActionBar("§7Soulpiercer: §d$hits§7/5")
         }
-    }
-
-    private fun calculateTrueDamage(baseDamage: Double, target: LivingEntity): Double {
-        val armor = target.getAttribute(Attribute.ARMOR)?.value ?: 0.0
-        val toughness = target.getAttribute(Attribute.ARMOR_TOUGHNESS)?.value ?: 0.0
-
-        val reduced = kotlin.math.max(
-            armor / 5.0,
-            armor - baseDamage / (2.0 + toughness / 4.0)
-        ).coerceAtMost(20.0)
-
-        val reductionRatio = reduced / 25.0
-        val actualReduction = baseDamage * reductionRatio
-
-        val ignoredAmount = actualReduction * 0.8  // we ignore 80% of the reduced amount
-
-        return baseDamage - ignoredAmount
     }
 
 }

@@ -19,11 +19,15 @@ object AllItems {
         RogueSword
         VenomDagger
         AshenWarhammer
-        EchoBlade
+        ResonantBlade
         FerociousBlade
         SoulPiercer
         LuckTalisman
         VoidReaper
+        SoulrendScythe
+        NocturnHood
+        TwilightCrown
+        OldKingsBlade
         SacrificialClock
         // Add all other custom item objects here!
     }

@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.items.AshenWarhammer
+import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.AreaEffectCloud
@@ -13,9 +14,9 @@ import org.bukkit.potion.PotionEffectType
 import java.util.*
 
 class AshenWarhammerListener : Listener {
-    private val cooldowns = mutableMapOf<UUID, Long>()
     private val cloudSources = mutableMapOf<UUID, UUID>()  // cloud UUID → killer UUID
-    private val COOLDOWN_MS = 10_000
+    private val itemId = "ashen_warhammer"
+    private val cooldownMillis = 10_000L
 
     @EventHandler
     fun onKill(e: EntityDeathEvent) {
@@ -23,13 +24,10 @@ class AshenWarhammerListener : Listener {
         val weapon = killer.inventory.itemInMainHand
         if (!AshenWarhammer.isAshenWarhammer(weapon)) return
 
-        val now = System.currentTimeMillis()
-        val uuid = killer.uniqueId
-        if ((cooldowns[uuid] ?: 0) > now) return
-        cooldowns[uuid] = now + COOLDOWN_MS
+        if (CustomItem.isOnCooldown(itemId, killer.uniqueId)) return
+        CustomItem.setCooldown(itemId, killer.uniqueId, cooldownMillis)
 
         val loc = e.entity.location
-
         val cloud = loc.world.spawn(loc, AreaEffectCloud::class.java).apply {
             radius = 3.0f
             duration = 100 // 5 seconds

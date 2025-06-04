@@ -1,18 +1,18 @@
 package com.lukecywon.progressionPlus.listeners
 
+import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.RogueSword
 import org.bukkit.Sound
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import java.util.*
 
 class RogueSwordListener : Listener {
-    private val cooldowns = mutableMapOf<UUID, Long>()
+    private val itemId = "rogue_sword"
+    private val cooldownMillis = 20_000L
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -22,11 +22,11 @@ class RogueSwordListener : Listener {
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
         if (!RogueSword.isRogueSword(item)) return
 
-        val now = System.currentTimeMillis()
-        val cooldownEnd = cooldowns[player.uniqueId] ?: 0L
-        if (now < cooldownEnd) {
-            val secondsLeft = ((cooldownEnd - now) / 1000).toInt()
-            player.sendMessage("§cRogue Sword is on cooldown for §e$secondsLeft§c more second(s)!")
+        if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
+            val millisLeft = CustomItem.getCooldownRemaining(itemId, player.uniqueId)
+            val minutes = (millisLeft / 1000) / 60
+            val seconds = (millisLeft / 1000) % 60
+            player.sendMessage("§cRogue Sword is on cooldown for §e${minutes}m ${seconds}s§c!")
             return
         }
 
@@ -35,7 +35,7 @@ class RogueSwordListener : Listener {
         player.sendMessage("§aYou feel a surge of speed!")
         player.playSound(player.location, Sound.ENTITY_BAT_TAKEOFF, 1f, 1.5f)
 
-        cooldowns[player.uniqueId] = now + 20_000
+        CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
         e.isCancelled = true
     }
 }

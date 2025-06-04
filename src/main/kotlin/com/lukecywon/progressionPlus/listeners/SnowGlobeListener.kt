@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
+import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.SnowGlobe
 import org.bukkit.Bukkit
 import org.bukkit.Particle
@@ -15,27 +16,29 @@ import org.bukkit.util.Vector
 import java.util.*
 
 class SnowGlobeListener : Listener {
-    private val cooldowns = mutableMapOf<UUID, Long>()
+    private val itemId = "snow_globe"
+    private val cooldownMillis = 15_000L
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
+
         if (!SnowGlobe.isSnowGlobe(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true // Always cancel snowball throw
 
-        val now = System.currentTimeMillis()
-        val lastUsed = cooldowns[player.uniqueId] ?: 0L
-        if (now - lastUsed < 15_000) {
-            val secondsLeft = ((15_000 - (now - lastUsed)) / 1000).toInt()
-            player.sendMessage("§cSnowglobe is on cooldown for $secondsLeft more seconds.")
+        if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
+            val millisLeft = CustomItem.getCooldownRemaining(itemId, player.uniqueId)
+            val minutes = (millisLeft / 1000) / 60
+            val seconds = (millisLeft / 1000) % 60
+            player.sendMessage("§cSnowglobe is on cooldown for ${minutes}m ${seconds}s.")
             return
         }
 
-        cooldowns[player.uniqueId] = now
+        CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
 
         val originalVelocities = mutableMapOf<Int, Vector>()
 

@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.mechanics
 
 import com.lukecywon.progressionPlus.items.BerserkerSword
+import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.*
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
@@ -12,8 +13,8 @@ import java.util.*
 
 object BerserkerSwordManager : Manager {
     val originalHealth: MutableMap<UUID, Double> = mutableMapOf()
-    private val cooldowns = mutableMapOf<UUID, Long>()
-    private const val COOLDOWN_MS = 30_000L
+    private const val itemId = "berserker_sword"
+    private const val cooldownMillis = 30_000L
 
     override fun start(plugin: JavaPlugin) {
         object : BukkitRunnable() {
@@ -25,10 +26,13 @@ object BerserkerSwordManager : Manager {
                     val wasHolding = originalHealth.containsKey(uuid)
 
                     if (isHolding && !wasHolding) {
-                        originalHealth[uuid] = attr.baseValue
-                        attr.baseValue = (attr.baseValue / 2).coerceAtLeast(2.0)
-                    } else if (!isHolding && wasHolding) {
-                        attr.baseValue = originalHealth.remove(uuid) ?: 20.0
+                        val current = attr.baseValue
+                        val expectedHalved = (current * 2).coerceAtMost(40.0) // avoid stacking halves
+
+                        if (current >= expectedHalved - 0.01) { // sanity check
+                            originalHealth[uuid] = current
+                            attr.baseValue = (current / 2).coerceAtLeast(2.0)
+                        }
                     }
                 }
             }
@@ -39,12 +43,9 @@ object BerserkerSwordManager : Manager {
         val uuid = player.uniqueId
         if (!BerserkerSword.isBerserkerSword(player.inventory.itemInMainHand)) return
 
-        val now = System.currentTimeMillis()
-        val lastUsed = cooldowns[uuid] ?: 0L
-
-        if (now - lastUsed < COOLDOWN_MS) {
-            val remaining = ((COOLDOWN_MS - (now - lastUsed)) / 1000).toInt()
-            player.sendMessage("§7You must wait §c$remaining seconds§7 before unleashing your rage again!")
+        if (CustomItem.isOnCooldown(itemId, uuid)) {
+            val remaining = CustomItem.getCooldownRemaining(itemId, uuid) / 1000
+            player.sendMessage("§7You must wait §c${remaining}s§7 before unleashing your rage again!")
             return
         }
 
@@ -52,7 +53,7 @@ object BerserkerSwordManager : Manager {
         player.addPotionEffect(PotionEffect(PotionEffectType.HUNGER, 20 * 15, 4))
         player.sendMessage("§cYou embrace the fury of battle!")
 
-        cooldowns[uuid] = now
+        CustomItem.setCooldown(itemId, uuid, cooldownMillis)
     }
 
     fun restoreHealthOnDeath(player: Player) {
@@ -63,10 +64,5 @@ object BerserkerSwordManager : Manager {
 
     fun cleanup(player: Player) {
         originalHealth.remove(player.uniqueId)
-        cooldowns.remove(player.uniqueId)
-    }
-
-    fun isHalved(player: Player): Boolean {
-        return originalHealth.containsKey(player.uniqueId)
     }
 }

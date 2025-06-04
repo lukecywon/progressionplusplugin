@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.mechanics
 
 import com.lukecywon.progressionPlus.commands.WormholeCommand
+import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -11,7 +12,8 @@ import java.util.*
 
 object TeleportRequestManager : Manager {
     private val requests = mutableMapOf<UUID, PendingTeleport>()
-    private val cooldowns = mutableMapOf<UUID, Long>()
+    private const val itemId = "wormhole_potion"
+    private const val cooldownMillis = 35_000L
 
     override fun start(plugin: JavaPlugin) {
         plugin.getCommand("wormhole")?.setExecutor(WormholeCommand())
@@ -26,7 +28,7 @@ object TeleportRequestManager : Manager {
         val pending = PendingTeleport(requester, target, System.currentTimeMillis() + 30_000, potion)
         requests[target.uniqueId] = pending
 
-        cooldowns[requester.uniqueId] = System.currentTimeMillis() + 35_000
+        CustomItem.setCooldown(itemId, requester.uniqueId, cooldownMillis)
 
         target.sendMessage("§d✧ §b${requester.name} §7wants to teleport to you.")
         target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30 seconds§7.")
@@ -75,12 +77,12 @@ object TeleportRequestManager : Manager {
     }
 
     fun isOnCooldown(uuid: UUID): Boolean {
-        return (cooldowns[uuid] ?: 0L) > System.currentTimeMillis()
+        return CustomItem.isOnCooldown(itemId, uuid)
     }
 
     fun secondsLeft(uuid: UUID): Int {
-        val cooldownEnd = cooldowns[uuid] ?: return 0
-        return ((cooldownEnd - System.currentTimeMillis()) / 1000).toInt()
+        val millisLeft = CustomItem.getCooldownRemaining(itemId, uuid)
+        return (millisLeft / 1000).toInt()
     }
 
     private fun refundPotion(player: Player, potion: ItemStack) {

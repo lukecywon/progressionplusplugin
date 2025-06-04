@@ -47,13 +47,17 @@ class Initialize(private val plugin: JavaPlugin) {
             HeartLossOnDeathListener(),
             RogueSwordListener(),
             VenomDaggerListener(),
-            EchoBladeListener(),
+            ResonantBladeListener(),
             AshenWarhammerListener(),
             FerociousBladeListener(),
             SoulPiercerListener(),
             LuckTalismanListener(),
             VoidReaperListener(),
             SacrificialClockListener(),
+            SoulrendScytheListener(),
+            NocturnHoodListener(),
+            TwilightCrownListener(),
+            OldKingsBladeListener(),
         )
 
         listeners.forEach {

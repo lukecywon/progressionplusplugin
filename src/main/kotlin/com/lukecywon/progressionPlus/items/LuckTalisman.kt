@@ -20,7 +20,7 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.LEGENDARY) {
                 .decorate(TextDecoration.BOLD)
         )
         meta.lore(listOf(
-            Component.text("Right-click to gain Luck II for 15s.").color(NamedTextColor.GREEN),
+            Component.text("Right-click to gain Luck IV for 15s.").color(NamedTextColor.GREEN),
             Component.text("Cooldown: 5 minutes").color(NamedTextColor.DARK_GRAY)
         ))
 
