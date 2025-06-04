@@ -49,6 +49,8 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
 
 
 
+
+
         item.itemMeta = meta
         return applyMeta(item)
     }

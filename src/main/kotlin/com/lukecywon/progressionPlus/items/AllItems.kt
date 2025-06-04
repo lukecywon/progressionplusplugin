@@ -30,6 +30,12 @@ object AllItems {
         OldKingsBlade
         SacrificialClock
         ShadowKatana
+        TribalSpear
+        WoodenHelmet
+        WoodenChestplate
+        WoodenLeggings
+        WoodenBoots
+        ExecutionerSword
         // Add all other custom item objects here!
     }
 }
