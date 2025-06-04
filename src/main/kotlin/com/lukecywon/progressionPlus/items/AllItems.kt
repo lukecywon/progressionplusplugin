@@ -24,6 +24,7 @@ object AllItems {
         SoulPiercer
         LuckTalisman
         VoidReaper
+        VeilOfWhispers
         // Add all other custom item objects here!
     }
 }
