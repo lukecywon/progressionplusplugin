@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
 object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
-    val beaconKey = NamespacedKey("progressionPlus", "flight_beacon")
+    val beaconKey = NamespacedKey("survivaltestplugin", "flight_beacon")
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BEACON)
