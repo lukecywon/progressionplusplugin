@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus
 
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class ProgressionPlus : JavaPlugin() {

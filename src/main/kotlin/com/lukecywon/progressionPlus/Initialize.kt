@@ -53,7 +53,7 @@ class Initialize(private val plugin: JavaPlugin) {
             SoulPiercerListener(),
             LuckTalismanListener(),
             VoidReaperListener(),
-            VeilOfWhispersListener(),
+            SacrificialClockListener(),
         )
 
         listeners.forEach {
