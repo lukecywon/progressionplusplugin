@@ -32,6 +32,8 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
                 ItemLore.description("Leaves a lingering smog that withers away enemies for 5s"),
                 ItemLore.cooldown(10),
                 ItemLore.separator(),
+                ItemLore.stats(7f, 1f),
+                ItemLore.separator(),
                 ItemLore.lore("A burning curse unleashed on those who fall."),
             )
         )

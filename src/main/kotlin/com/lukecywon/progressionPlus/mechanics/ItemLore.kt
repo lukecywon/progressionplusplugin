@@ -29,6 +29,10 @@ object ItemLore {
     fun lore(text: String): Component =
         Component.text(text, NamedTextColor.DARK_GRAY).decorate(TextDecoration.ITALIC)
 
+    fun stats(damage: Float, speed: Float): Component =
+        Component.text("Stats:", NamedTextColor.DARK_AQUA)
+            .append(Component.text("\n${damage} Damage\n${speed} Attack Speed", NamedTextColor.GRAY))
+
     fun separator(): Component =
         Component.text("")
 }
