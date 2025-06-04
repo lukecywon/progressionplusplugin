@@ -16,8 +16,6 @@ object HealthCrystal : CustomItem("health_crystal", Rarity.EPIC) {
         val item = ItemStack(Material.ENCHANTED_GOLDEN_APPLE)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Health Crystal")
                 .color(NamedTextColor.LIGHT_PURPLE)

@@ -19,8 +19,6 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
         val item = ItemStack(Material.STONE_SWORD)
         val meta = item.itemMeta ?: return item
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         // Set display name and lore
         meta.displayName(
             Component.text("Ferocious Blade")

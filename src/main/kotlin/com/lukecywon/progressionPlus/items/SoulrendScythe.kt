@@ -18,8 +18,6 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
         val item = ItemStack(Material.IRON_HOE)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(Component.text("Soulrend Scythe").color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD))
         meta.lore(listOf(
             Component.text("§7Deals §c+1§7 damage per debuff on you."),

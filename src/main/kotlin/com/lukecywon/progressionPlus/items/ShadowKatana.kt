@@ -19,8 +19,6 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
         val item = ItemStack(Material.NETHERITE_SWORD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Shadow Katana")
                 .color(NamedTextColor.DARK_PURPLE)

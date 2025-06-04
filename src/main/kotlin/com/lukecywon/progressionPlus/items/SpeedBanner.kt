@@ -14,8 +14,6 @@ object SpeedBanner : CustomItem("speed_banner", Rarity.COMMON) {
         val item = ItemStack(Material.LIGHT_BLUE_BANNER)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Speed Banner")
                 .color(NamedTextColor.AQUA)

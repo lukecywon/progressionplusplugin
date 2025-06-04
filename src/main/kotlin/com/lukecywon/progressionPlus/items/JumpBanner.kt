@@ -16,8 +16,6 @@ object JumpBanner : CustomItem("jump_banner", Rarity.COMMON) {
         val item = ItemStack(Material.LIME_BANNER)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Jump Banner")
                 .color(NamedTextColor.GREEN)

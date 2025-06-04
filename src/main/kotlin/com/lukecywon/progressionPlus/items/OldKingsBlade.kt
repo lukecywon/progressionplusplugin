@@ -17,8 +17,6 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
         val item = ItemStack(Material.GOLDEN_SWORD)
         val meta = item.itemMeta ?: return item
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(Component.text("☠ Old King's Blade").color(Rarity.EPIC.color))
 
         meta.lore(

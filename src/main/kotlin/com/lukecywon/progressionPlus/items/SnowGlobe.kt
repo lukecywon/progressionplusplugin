@@ -13,8 +13,6 @@ object SnowGlobe : CustomItem("snowglobe", Rarity.LEGENDARY) {
         val item = ItemStack(Material.SNOWBALL)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(Component.text("Snowglobe").color(NamedTextColor.AQUA))
         meta.lore(listOf(
             Component.text("Right click to create a slowing snow globe!").color(NamedTextColor.GRAY),
