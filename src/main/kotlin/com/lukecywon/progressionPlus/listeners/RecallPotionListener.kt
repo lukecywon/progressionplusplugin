@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.RecallPotion
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -16,14 +17,28 @@ import java.util.*
 
 class RecallPotionListener : Listener {
     private val activeRecalls = mutableMapOf<UUID, BukkitTask>()
+    private val recallCooldowns = mutableMapOf<UUID, Long>()  // Stores last used timestamps
+
+    // Use your existing cooldown system
+    val itemId = "recall_potion"
+    val cooldownMillis = 5 * 60 * 1000L
+
 
     @EventHandler
     fun onDrinkRecallPotion(e: PlayerItemConsumeEvent) {
         val player = e.player
+        val uuid = player.uniqueId
 
         if (!RecallPotion.isRecallPotion(e.item)) return
 
-        val uuid = player.uniqueId
+        // Cooldown check
+        if (CustomItem.isOnCooldown(itemId, uuid)) {
+            val millisLeft = CustomItem.getCooldownRemaining(itemId, uuid)
+            val minutes = (millisLeft / 1000) / 60
+            val seconds = (millisLeft / 1000) % 60
+            player.sendMessage("§cRecall Potion is on cooldown for §e${minutes}m ${seconds}s§c!")
+            return
+        }
 
         player.sendMessage("§bRecalling in 5 seconds. Don’t move or take damage!")
         player.playSound(player.location, Sound.BLOCK_PORTAL_AMBIENT, 0.6f, 1.4f)
@@ -45,13 +60,17 @@ class RecallPotionListener : Listener {
                     player.teleportAsync(loc)
                     player.sendMessage("§aRecalled!")
                     player.playSound(loc, Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1f, 1f)
+
+
+                    CustomItem.setCooldown(itemId, uuid, cooldownMillis)
+
                     activeRecalls.remove(uuid)?.cancel()
                 } else {
                     player.sendActionBar("§eTeleporting in §c$secondsLeft...")
                     secondsLeft--
                 }
             }
-        }, 0L, 20L) // 20L = 1 second
+        }, 0L, 20L)
 
         activeRecalls[uuid] = task
     }
@@ -76,11 +95,7 @@ class RecallPotionListener : Listener {
         val from = e.from
         val to = e.to ?: return
 
-        // Block-level movement check
-        if (from.x.toInt() != to.x.toInt() ||
-            from.y.toInt() != to.y.toInt() ||
-            from.z.toInt() != to.z.toInt()) {
-
+        if (from.blockX != to.blockX || from.blockY != to.blockY || from.blockZ != to.blockZ) {
             player.sendMessage("§cRecall canceled due to movement!")
             player.playSound(player.location, Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 0.7f)
             cancelRecallWithRefund(player)
@@ -92,17 +107,14 @@ class RecallPotionListener : Listener {
         val uuid = player.uniqueId
         activeRecalls.remove(uuid)?.cancel()
 
-        // Refund the recall potion
         val potion = RecallPotion.createItemStack()
         val inventory = player.inventory
-
-        // Add potion back or drop
         val leftover = inventory.addItem(potion)
+
         if (leftover.isNotEmpty()) {
             leftover.values.forEach { player.world.dropItemNaturally(player.location, it) }
         }
 
-        // 🔥 Remove 1 glass bottle
         val glassBottle = inventory.contents.firstOrNull { it != null && it.type == Material.GLASS_BOTTLE }
         if (glassBottle != null) {
             glassBottle.amount -= 1
@@ -111,7 +123,6 @@ class RecallPotionListener : Listener {
             }
         }
 
-        player.sendMessage("§eYour Recall Potion was returned, but the bottle shattered.")
+        player.sendMessage("§eYour Recall Potion was returned!")
     }
-
 }
