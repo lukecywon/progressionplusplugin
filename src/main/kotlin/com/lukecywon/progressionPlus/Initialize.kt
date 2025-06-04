@@ -1,9 +1,6 @@
 package com.lukecywon.progressionPlus
 
-import com.lukecywon.progressionPlus.commands.ArtifactCommand
-import com.lukecywon.progressionPlus.commands.ArtifactTabCompleter
-import com.lukecywon.progressionPlus.commands.FixMeCommand
-import com.lukecywon.progressionPlus.commands.WormholeCommand
+import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
 import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
@@ -28,6 +25,10 @@ class Initialize(private val plugin: JavaPlugin) {
         plugin.getCommand("artifact")?.tabCompleter = ArtifactTabCompleter()
         plugin.getCommand("fixme")?.setExecutor(FixMeCommand())
         plugin.getCommand("wormhole")?.setExecutor(WormholeCommand())
+        plugin.getCommand("cooldown")?.setExecutor(CooldownCommand())
+        plugin.getCommand("cooldown")?.tabCompleter = CooldownTabCompleter()
+        plugin.getCommand("addsouls")?.setExecutor(AddSoulsCommand())
+
     }
 
     private fun listeners() {

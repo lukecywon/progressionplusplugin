@@ -15,3 +15,13 @@ commands:
   wormhole:
     description: Wormhole teleport command
     usage: /wormhole <accept|reject>
+  cooldown:
+    description: Manage item cooldowns
+    usage: /cooldown clear <player>
+    permission: progressionplus.artifact
+    permission-message: You do not have permission.
+  addsouls:
+    description: Adds souls to the Void Reaper
+    usage: /addsouls [amount]
+    permission: progressionplus.artifact
+    permission-message: You do not have permission to use this command.
