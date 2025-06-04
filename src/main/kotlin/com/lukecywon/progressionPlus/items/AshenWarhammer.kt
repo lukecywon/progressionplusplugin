@@ -28,7 +28,7 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
 
         meta.lore(
             listOf(
-                ItemLore.abilityuse("Wither", Activation.ON_KILL),
+                ItemLore.abilityuse("Wither", Activation.KILL),
                 ItemLore.description("Leaves a lingering smog that withers away enemies for 5s"),
                 ItemLore.cooldown(10),
                 ItemLore.stats(7f, 1f),

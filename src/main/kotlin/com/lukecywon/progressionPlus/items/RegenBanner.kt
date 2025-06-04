@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -21,11 +23,15 @@ object RegenBanner : CustomItem("regen_banner", Rarity.COMMON) {
                 .color(NamedTextColor.LIGHT_PURPLE)
                 .decoration(TextDecoration.BOLD, true)
         )
-
-        meta.lore(listOf(
-            Component.text("Right click to grant Regeneration").color(NamedTextColor.GRAY),
-            Component.text("to nearby players for 30s").color(NamedTextColor.GRAY)
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Regeneration", Activation.RIGHT_CLICK),
+                ItemLore.description("Grant Regeneration to nearby players for 30s"),
+                ItemLore.cooldown(300),
+                ItemLore.separator(),
+                ItemLore.lore("A soothing wave flows forth, mending wounds and weary souls."),
+            )
+        )
 
         meta.setCustomModelData(3003)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

@@ -13,7 +13,7 @@ import java.util.*
 object TeleportRequestManager : Manager {
     private val requests = mutableMapOf<UUID, PendingTeleport>()
     private const val itemId = "wormhole_potion"
-    private const val cooldownMillis = 35_000L
+    private const val cooldownMillis = 300_000L
 
     override fun start(plugin: JavaPlugin) {
         plugin.getCommand("wormhole")?.setExecutor(WormholeCommand())
@@ -31,7 +31,7 @@ object TeleportRequestManager : Manager {
         CustomItem.setCooldown(itemId, requester.uniqueId, cooldownMillis)
 
         target.sendMessage("§d✧ §b${requester.name} §7wants to teleport to you.")
-        target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30 seconds§7.")
+        target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30s§7.")
 
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             val expired = requests.remove(target.uniqueId)

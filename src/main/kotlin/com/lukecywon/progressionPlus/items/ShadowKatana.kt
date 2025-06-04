@@ -1,7 +1,9 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
@@ -26,12 +28,17 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
-        meta.lore(listOf(
-            Component.text("Slashes faster than the eye can see.").color(NamedTextColor.GRAY),
-            Component.text("Leaves a lingering slash trail for 5 seconds.").color(NamedTextColor.GRAY),
-            Component.text("Right-click to dash.").color(NamedTextColor.LIGHT_PURPLE),
-            Component.text("Cooldown: 15 seconds").color(NamedTextColor.DARK_GRAY)
-        ))
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Shadow Dash", Activation.RIGHT_CLICK),
+                ItemLore.description("Dash forward and slash through enemies"),
+                ItemLore.description("Leaves a slash trail for 5s"),
+                ItemLore.cooldown(15),
+                ItemLore.separator(),
+                ItemLore.lore("Slashes faster than the eye can see."),
+            )
+        )
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
