@@ -32,6 +32,9 @@ object AllItems {
         SacrificialClock
         ShadowKatana
         PhantomCharm
+        VerdantCleaver
+        TectonicFang
+        EarthSplitter
         // Add all other custom item objects here!
     }
 }

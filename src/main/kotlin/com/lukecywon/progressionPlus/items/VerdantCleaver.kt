@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object Chainsaw : CustomItem("chainsaw", Rarity.UNCOMMON) {
+object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_AXE)
         val meta = item.itemMeta
@@ -20,15 +20,17 @@ object Chainsaw : CustomItem("chainsaw", Rarity.UNCOMMON) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
-            Component.text("Chainsaw")
-                .color(NamedTextColor.GOLD)
+            Component.text("Verdant Cleaver")
+                .color(NamedTextColor.GREEN)
                 .decorate(TextDecoration.BOLD)
         )
 
         meta.lore(
             listOf(
-                ItemLore.abilityuse("Timber!", Activation.WHEN_HELD),
+                ItemLore.abilityuse("Timber!", Activation.BLOCK_BROKEN),
                 ItemLore.description("Chops down entire trees when breaking the base log."),
+                ItemLore.abilityuse("Change vein size", Activation.RIGHT_CLICK),
+                ItemLore.cooldown(0),
                 ItemLore.separator(),
                 ItemLore.lore("The lumberjack’s best friend.")
             )
@@ -41,9 +43,29 @@ object Chainsaw : CustomItem("chainsaw", Rarity.UNCOMMON) {
         return applyMeta(item)
     }
 
-    fun isChainsaw(item: ItemStack?): Boolean {
+    fun isVerdantCleaver(item: ItemStack?): Boolean {
         if (item == null || item.type != Material.IRON_AXE) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+
+    val sizeKey = NamespacedKey(plugin, "verdant_cleaver_size")
+
+    fun getVeinSize(item: ItemStack?): Int {
+        val meta = item?.itemMeta ?: return 64
+        return meta.persistentDataContainer.get(sizeKey, PersistentDataType.INTEGER) ?: 64
+    }
+
+    fun cycleVeinSize(item: ItemStack): Int {
+        val meta = item.itemMeta ?: return 64
+        val current = getVeinSize(item)
+        val next = when (current) {
+            32 -> 64
+            64 -> 128
+            else -> 32
+        }
+        meta.persistentDataContainer.set(sizeKey, PersistentDataType.INTEGER, next)
+        item.itemMeta = meta
+        return next
     }
 }

@@ -61,6 +61,9 @@ class Initialize(private val plugin: JavaPlugin) {
             OldKingsBladeListener(),
             ShadowKatanaListener(),
             PhantomCharmListener(),
+            VerdantCleaverListener(),
+            TectonicFangListener(),
+            EarthSplitterListener(),
         )
 
         listeners.forEach {

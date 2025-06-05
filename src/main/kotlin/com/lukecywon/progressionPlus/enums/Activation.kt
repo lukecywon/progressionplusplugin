@@ -11,4 +11,5 @@ enum class Activation(val label: String) {
     LEFT_CLICK("LEFT CLICK"),
     OFFHAND("OFF HAND"),
     WHEN_HELD("WHEN HELD"),
+    BLOCK_BROKEN("BLOCK BROKEN"),
 }
