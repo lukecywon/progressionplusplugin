@@ -8,5 +8,6 @@ enum class Activation(val label: String) {
     PASSIVE("PASSIVE"),
     KILL("ON KILL"),
     DEATH("ON DEATH"),
-    LEFT_CLICK("LEFT CLICK")
+    LEFT_CLICK("LEFT CLICK"),
+    OFFHAND("OFF HAND"),
 }
