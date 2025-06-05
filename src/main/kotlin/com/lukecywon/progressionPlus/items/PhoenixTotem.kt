@@ -1,12 +1,9 @@
 package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
@@ -22,22 +19,8 @@ object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(
-            Component.text("Phoenix Totem")
-                .color(NamedTextColor.GOLD)
-                .decorate(TextDecoration.BOLD)
-        )
-
-        meta.lore(
-            listOf(
-                ItemLore.abilityuse("Rebirth", Activation.DEATH),
-                ItemLore.description("Prevents death and brings you to your spawn"),
-                ItemLore.cooldown(0),
-                ItemLore.separator(),
-                ItemLore.lore("When all seems lost, it saves you in a blaze of fire."),
-            )
-        )
-
+        meta.displayName(Component.text("Phoenix Totem").color(NamedTextColor.GOLD))
+        meta.lore(listOf(Component.text("Saved from death in a blaze of fire.").color(NamedTextColor.RED)))
         meta.setCustomModelData(9024)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta

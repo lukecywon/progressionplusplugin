@@ -1,11 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
-import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
@@ -22,23 +19,7 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(
-            Component.text("Old King's Blade")
-                .color(NamedTextColor.DARK_BLUE)
-                .decorate(TextDecoration.BOLD)
-        )
-
-        meta.lore(
-            listOf(
-                ItemLore.abilityuse("Raise Undead", Activation.RIGHT_CLICK),
-                ItemLore.description("Summon undead followers to fight for you"),
-                ItemLore.abilityuse("Raise Undead", Activation.SHIFT_RIGHT_CLICK),
-                ItemLore.description("Dismiss your army"),
-                ItemLore.cooldown(180),
-                ItemLore.separator(),
-                ItemLore.lore("Once wielded by a long-dead monarch."),
-            )
-        )
+        meta.displayName(Component.text("☠ Old King's Blade").color(Rarity.EPIC.color))
 
         meta.lore(
             listOf(

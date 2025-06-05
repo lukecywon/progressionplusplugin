@@ -17,8 +17,6 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.LEGENDARY) {
         val item = ItemStack(Material.EMERALD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Luck Talisman")
                 .color(NamedTextColor.GOLD)

@@ -16,8 +16,6 @@ object RegenBanner : CustomItem("regen_banner", Rarity.COMMON) {
         val item = ItemStack(Material.PINK_BANNER)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Regen Banner")
                 .color(NamedTextColor.LIGHT_PURPLE)

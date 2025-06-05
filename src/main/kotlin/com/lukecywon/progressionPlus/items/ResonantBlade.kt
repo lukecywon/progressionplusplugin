@@ -16,8 +16,6 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Resonant Blade")
                 .color(NamedTextColor.BLUE)

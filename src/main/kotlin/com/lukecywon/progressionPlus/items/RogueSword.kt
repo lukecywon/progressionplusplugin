@@ -22,8 +22,6 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
         val item = ItemStack(Material.GOLDEN_SWORD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Rogue Sword")
                 .color(NamedTextColor.GOLD)

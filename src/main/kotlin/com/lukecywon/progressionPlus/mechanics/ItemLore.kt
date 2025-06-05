@@ -1,10 +1,11 @@
 package com.lukecywon.progressionPlus.mechanics
 
 import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.attribute.Attribute
+import org.bukkit.inventory.ItemStack
 
 object ItemLore {
     fun abilityuse(text: String, activation: Activation): Component =
@@ -29,8 +30,13 @@ object ItemLore {
     fun lore(text: String): Component =
         Component.text(text, NamedTextColor.DARK_GRAY).decorate(TextDecoration.ITALIC)
 
-    fun stats(damage: Float, speed: Float): Component =
-        Component.text("Stats: ${damage} Damage, ${speed} Attack Speed", NamedTextColor.AQUA)
+    fun stats(itemStack: ItemStack): Component {
+        return Component.text(
+            "Stats: ${itemStack.itemMeta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)} Damage, " +
+                    "${itemStack.itemMeta.getAttributeModifiers(Attribute.ATTACK_SPEED)} Attack Speed",
+            NamedTextColor.AQUA
+        )
+    }
 
     fun separator(): Component =
         Component.text("")

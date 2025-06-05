@@ -7,8 +7,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -16,9 +14,6 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.GOLDEN_AXE)
         val meta = item.itemMeta
-
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
 
         meta.displayName(
             Component.text("Ashen Warhammer")
@@ -31,7 +26,7 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
                 ItemLore.abilityuse("Wither", Activation.KILL),
                 ItemLore.description("Leaves a lingering smog that withers away enemies for 5s"),
                 ItemLore.cooldown(10),
-                ItemLore.stats(7f, 1f),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("A burning curse unleashed on those who fall."),
             )

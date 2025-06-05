@@ -27,8 +27,6 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         val item = ItemStack(Material.NETHERITE_HOE)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Void Reaper")
                 .color(NamedTextColor.DARK_PURPLE)

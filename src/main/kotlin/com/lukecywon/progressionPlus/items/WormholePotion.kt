@@ -1,11 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
-import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
@@ -19,22 +16,8 @@ object WormholePotion : CustomItem("wormhole_potion", Rarity.EPIC) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(
-            Component.text("Wormhole Potion")
-                .color(NamedTextColor.LIGHT_PURPLE)
-                .decorate(TextDecoration.BOLD)
-        )
-
-        meta.lore(
-            listOf(
-                ItemLore.abilityuse("Wormhole Link", Activation.CONSUME),
-                ItemLore.description("Drink to teleport to another online player"),
-                ItemLore.cooldown(300),
-                ItemLore.separator(),
-                ItemLore.lore("A potion brewed from stardust and twisted time."),
-            )
-        )
-
+        meta.displayName(Component.text("Wormhole Potion").color(NamedTextColor.LIGHT_PURPLE))
+        meta.lore(listOf(Component.text("Drink to open a wormhole to another player.").color(NamedTextColor.GRAY)))
         meta.setCustomModelData(9025)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 

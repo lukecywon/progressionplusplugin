@@ -19,8 +19,6 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
         val item = ItemStack(Material.BEACON)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Flight Beacon")
                 .color(NamedTextColor.AQUA)

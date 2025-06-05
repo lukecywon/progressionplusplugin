@@ -23,8 +23,6 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
         val item = ItemStack(Material.ECHO_SHARD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Echo Gun")
                 .color(NamedTextColor.DARK_AQUA)
