@@ -70,7 +70,13 @@ class TectonicFangListener : Listener {
 
         e.isCancelled = true
 
-        collectSameTypeBlocks(block, targetType, visited, toBreak, max, directionVector)
+        val isOre = block.type.name.endsWith("_ORE")
+
+        if (isOre) {
+            collectBFSBlocks(block, targetType, visited, toBreak, max)
+        } else {
+            collectSameTypeBlocks(block, targetType, visited, toBreak, max, directionVector)
+        }
 
         object : BukkitRunnable() {
             var i = 0
@@ -136,7 +142,7 @@ class TectonicFangListener : Listener {
 
         if (result.size >= max) return
 
-        // Step 2: Prioritize expansion from opposite face
+        // Step 2: Expand from opposite face
         val sorted = postCubeQueue.sortedBy {
             val dx = it.x - centerX
             val dy = it.y - centerY
@@ -147,6 +153,44 @@ class TectonicFangListener : Listener {
         for (block in sorted) {
             if (result.size >= max) break
             result.add(block)
+        }
+    }
+
+    private fun collectBFSBlocks(
+        start: Block,
+        targetType: Material,
+        visited: MutableSet<Block>,
+        result: MutableList<Block>,
+        max: Int
+    ) {
+        val faceQueue = ArrayDeque<Block>()
+        val diagonalQueue = ArrayDeque<Block>()
+
+        faceQueue.add(start)
+        visited.add(start)
+
+        while ((faceQueue.isNotEmpty() || diagonalQueue.isNotEmpty()) && result.size < max) {
+            val current = if (faceQueue.isNotEmpty()) faceQueue.removeFirst() else diagonalQueue.removeFirst()
+            result.add(current)
+
+            for (dx in -1..1) {
+                for (dy in -1..1) {
+                    for (dz in -1..1) {
+                        if (dx == 0 && dy == 0 && dz == 0) continue
+
+                        val next = current.location.clone().add(dx.toDouble(), dy.toDouble(), dz.toDouble()).block
+                        if (next in visited || next.type != targetType) continue
+
+                        visited.add(next)
+
+                        if ((kotlin.math.abs(dx) + kotlin.math.abs(dy) + kotlin.math.abs(dz)) == 1) {
+                            faceQueue.add(next)
+                        } else {
+                            diagonalQueue.add(next)
+                        }
+                    }
+                }
+            }
         }
     }
 }
