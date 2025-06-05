@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -20,14 +22,21 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(Component.text("👑 Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
+        meta.displayName(
+            Component.text("Tribal Spear")
+                .color(NamedTextColor.DARK_GREEN)
+                .decoration(TextDecoration.BOLD, true)
+        )
 
-        meta.lore(listOf(
-            Component.text("§7The crown once worn by a forgotten monarch."),
-            Component.text("§8Its power resonates with ancient relics..."),
-            Component.text("§8Whispers stir when paired with the §dOld King's Blade§8."),
-            Component.text("§7Those who listen closely may command what lies beyond.")
-        ))
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Spear Throw", Activation.RIGHT_CLICK),
+                ItemLore.description("Toss a sharp stick forward"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("A weapon passed down through forgotten bloodlines."),
+            )
+        )
 
         meta.addAttributeModifier(
             Attribute.ARMOR,

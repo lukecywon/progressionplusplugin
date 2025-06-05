@@ -1,8 +1,11 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
@@ -15,12 +18,21 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(Component.text("Venom Dagger").color(NamedTextColor.DARK_GREEN))
-        meta.lore(listOf(
-            Component.text("Coated in something unpleasant…").color(NamedTextColor.GREEN),
-            Component.text("Applies Poison and Weakness on hit.").color(NamedTextColor.GRAY),
-            Component.text("Cooldown: 7 seconds").color(NamedTextColor.DARK_GRAY)
-        ))
+        meta.displayName(
+            Component.text("Tribal Spear")
+                .color(NamedTextColor.DARK_GREEN)
+                .decoration(TextDecoration.BOLD, true)
+        )
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Spear Throw", Activation.RIGHT_CLICK),
+                ItemLore.description("Toss a sharp stick forward"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("A weapon passed down through forgotten bloodlines."),
+            )
+        )
 
         meta.setCustomModelData(9028)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

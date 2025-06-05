@@ -28,6 +28,7 @@ object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
             listOf(
                 ItemLore.abilityuse("Phantom Repellent", Activation.OFFHAND),
                 ItemLore.description("Prevents phantoms from targeting you."),
+                ItemLore.cooldown(0),
                 ItemLore.separator(),
                 ItemLore.lore("It hums softly in the night air.")
             )

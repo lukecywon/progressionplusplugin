@@ -1,8 +1,11 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
@@ -15,11 +18,23 @@ object SnowGlobe : CustomItem("snowglobe", Rarity.LEGENDARY) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(Component.text("Snowglobe").color(NamedTextColor.AQUA))
-        meta.lore(listOf(
-            Component.text("Right click to create a slowing snow globe!").color(NamedTextColor.GRAY),
-            Component.text("All entities except you move 50% slower for 10s").color(NamedTextColor.DARK_AQUA)
-        ))
+        meta.displayName(
+            Component.text("Snow Globe")
+                .color(NamedTextColor.AQUA)
+                .decorate(TextDecoration.BOLD)
+        )
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Frost Zone", Activation.RIGHT_CLICK),
+                ItemLore.description("Creates a slowing snow globe"),
+                ItemLore.description("All entities except you move 50% slower for 10s"),
+                ItemLore.cooldown(15),
+                ItemLore.separator(),
+                ItemLore.lore("A swirling prison of frost, where time itself staggers."),
+            )
+        )
+
         meta.setCustomModelData(9027) // Pick any custom model data you want
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta

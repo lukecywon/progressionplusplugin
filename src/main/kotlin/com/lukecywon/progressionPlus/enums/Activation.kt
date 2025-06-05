@@ -10,4 +10,5 @@ enum class Activation(val label: String) {
     DEATH("ON DEATH"),
     LEFT_CLICK("LEFT CLICK"),
     OFFHAND("OFF HAND"),
+    WHEN_HELD("WHEN HELD"),
 }
