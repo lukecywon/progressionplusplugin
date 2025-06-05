@@ -31,6 +31,7 @@ object AllItems {
         OldKingsBlade
         SacrificialClock
         ShadowKatana
+        PhantomCharm
         // Add all other custom item objects here!
     }
 }

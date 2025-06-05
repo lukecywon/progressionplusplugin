@@ -60,6 +60,7 @@ class Initialize(private val plugin: JavaPlugin) {
             TwilightCrownListener(),
             OldKingsBladeListener(),
             ShadowKatanaListener(),
+            PhantomCharmListener(),
         )
 
         listeners.forEach {
