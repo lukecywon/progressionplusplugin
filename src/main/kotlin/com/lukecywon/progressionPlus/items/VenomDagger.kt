@@ -19,18 +19,18 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
-            Component.text("Tribal Spear")
+            Component.text("Venom Dagger")
                 .color(NamedTextColor.DARK_GREEN)
-                .decoration(TextDecoration.BOLD, true)
+                .decorate(TextDecoration.BOLD)
         )
 
         meta.lore(
             listOf(
-                ItemLore.abilityuse("Spear Throw", Activation.RIGHT_CLICK),
-                ItemLore.description("Toss a sharp stick forward"),
-                ItemLore.cooldown(0),
+                ItemLore.abilityuse("Venom Strike", Activation.HIT),
+                ItemLore.description("Inflicts Poison and Weakness on hit"),
+                ItemLore.cooldown(7),
                 ItemLore.separator(),
-                ItemLore.lore("A weapon passed down through forgotten bloodlines."),
+                ItemLore.lore("Drenched in a vile toxin…")
             )
         )
 
