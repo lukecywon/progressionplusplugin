@@ -75,7 +75,7 @@ class Initialize(private val plugin: JavaPlugin) {
             ContainmentSigilListener(),
             SpawnEggBlockerListener(),
             EnchantmentExtractorListener(),
-            AbyssalBoxListener(),
+            AshbornePendantListener(),
         )
 
         listeners.forEach {

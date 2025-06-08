@@ -40,7 +40,7 @@ object AllItems {
         HeadsmansEdge
         ContainmentSigil
         EnchantmentExtractor
-        AbyssalBox
+        AshbornePendant
         // Add all other custom item objects here!
     }
 }
