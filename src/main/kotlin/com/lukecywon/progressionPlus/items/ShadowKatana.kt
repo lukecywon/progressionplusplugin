@@ -21,22 +21,39 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
         val item = ItemStack(Material.NETHERITE_SWORD)
         val meta = item.itemMeta
 
+//        meta.displayName(
+//            Component.text("Shadow Katana")
+//                .color(NamedTextColor.DARK_PURPLE)
+//                .decorate(TextDecoration.BOLD)
+//        )
+
         meta.displayName(
-            Component.text("Shadow Katana")
+            Component.text("影の刀")
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
 
         meta.lore(
             listOf(
-                ItemLore.abilityuse("Shadow Dash", Activation.RIGHT_CLICK),
-                ItemLore.description("Dash forward and slash through enemies"),
-                ItemLore.description("Leaves a slash trail for 5s"),
+                ItemLore.abilityuse("シャドウダッシュ", Activation.RIGHT_CLICK),
+                ItemLore.description("前方に素早くダッシュし、敵を斬り抜ける"),
+                ItemLore.description("5秒間、斬撃の軌跡を残す"),
                 ItemLore.cooldown(15),
                 ItemLore.separator(),
-                ItemLore.lore("Slashes faster than the eye can see."),
+                ItemLore.lore("目にも留まらぬ速さで斬り裂く。")
             )
         )
+
+//        meta.lore(
+//            listOf(
+//                ItemLore.abilityuse("Shadow Dash", Activation.RIGHT_CLICK),
+//                ItemLore.description("Dash forward and slash through enemies"),
+//                ItemLore.description("Leaves a slash trail for 5s"),
+//                ItemLore.cooldown(15),
+//                ItemLore.separator(),
+//                ItemLore.lore("Slashes faster than the eye can see."),
+//            )
+//        )
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),

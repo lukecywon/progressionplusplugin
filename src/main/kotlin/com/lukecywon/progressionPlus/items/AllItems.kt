@@ -35,6 +35,12 @@ object AllItems {
         VerdantCleaver
         TectonicFang
         EarthSplitter
+        EarthshatterHammer
+        NetherEye
+        HeadsmansEdge
+        ContainmentSigil
+        EnchantmentExtractor
+        AbyssalBox
         // Add all other custom item objects here!
     }
 }

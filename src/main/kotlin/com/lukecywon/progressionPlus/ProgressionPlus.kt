@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin
 class ProgressionPlus : JavaPlugin() {
     override fun onEnable() {
         instance = this
+        saveDefaultConfig()
         Initialize(this)
         println("ProgressionPlus has been enabled.")
     }
