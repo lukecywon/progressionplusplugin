@@ -47,7 +47,7 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
         )
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
-        meta.setCustomModelData(9045)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "soulrend_scythe")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

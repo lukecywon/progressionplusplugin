@@ -44,7 +44,7 @@ object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-        meta.setCustomModelData(9021)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "headsmans_edge")
         item.itemMeta = meta
 
         return applyMeta(item)

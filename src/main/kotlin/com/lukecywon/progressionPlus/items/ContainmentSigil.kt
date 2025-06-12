@@ -34,7 +34,7 @@ object ContainmentSigil : CustomItem("containment_sigil", Rarity.RARE) {
             )
         )
 
-        meta.setCustomModelData(9040)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "containment_sigil")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

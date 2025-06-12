@@ -54,7 +54,8 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
         )
         meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackspeedmodifier)
 
-        meta.setCustomModelData(9026)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "rogue_sword")
+
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 
