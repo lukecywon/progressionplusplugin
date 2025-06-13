@@ -16,11 +16,24 @@ import org.bukkit.persistence.PersistentDataType
 import org.bukkit.Material
 
 class LegendaryItemListener : Listener {
-    private fun isLegendary(item: ItemStack?): Boolean {
-        val rarityKey = NamespacedKey(ProgressionPlus.getPlugin(), "rarity")
-        val meta = item?.itemMeta ?: return false
-        val container = meta.persistentDataContainer
-        return container.get(rarityKey, PersistentDataType.STRING) == "LEGENDARY"
+    companion object {
+        fun isLegendary(item: ItemStack?): Boolean {
+            val rarityKey = NamespacedKey(ProgressionPlus.getPlugin(), "rarity")
+            val meta = item?.itemMeta ?: return false
+            val container = meta.persistentDataContainer
+            return container.get(rarityKey, PersistentDataType.STRING) == "LEGENDARY"
+        }
+
+        fun hasMoreThanOneLegendary(player: Player): Boolean {
+            var count = 0
+            for (item in player.inventory.contents) {
+                if (isLegendary(item)) {
+                    count++
+                    if (count > 1) return true
+                }
+            }
+            return false
+        }
     }
 
     private fun hasOtherLegendary(player: Player, excluding: ItemStack?): Boolean {
