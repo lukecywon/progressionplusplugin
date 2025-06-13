@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.items.MerchantsContract
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 class MerchantsContractListener : Listener {
@@ -18,5 +19,10 @@ class MerchantsContractListener : Listener {
 
         e.isCancelled = true
         MerchantsGUI.openPlayerSelectGUI(player)
+    }
+
+    @EventHandler
+    fun onInventoryClick(e: InventoryClickEvent) {
+        MerchantsGUI.handleClick(e)
     }
 }
