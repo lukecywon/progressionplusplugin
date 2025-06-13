@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus.mechanics
 
+import com.lukecywon.progressionPlus.gui.MerchantsTradeGUI
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.Sound
@@ -38,7 +39,7 @@ object MerchantsRequestManager {
         requester.playSound(requester.location, Sound.ENTITY_VILLAGER_YES, 1f, 1f)
         target.playSound(target.location, Sound.ENTITY_VILLAGER_YES, 1f, 1f)
 
-        MerchantsTradeSessionManager.openTradeGUI(requester, target)
+        MerchantsTradeGUI.open(requester, target)
         return true
     }
 
