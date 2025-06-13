@@ -38,7 +38,7 @@ object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
             )
         )
 
-        meta.setCustomModelData(9024)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "phoenix_totem")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

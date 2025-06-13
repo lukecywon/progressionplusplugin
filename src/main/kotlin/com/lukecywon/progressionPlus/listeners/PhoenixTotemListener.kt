@@ -30,8 +30,9 @@ class PhoenixTotemListener : Listener {
         object : BukkitRunnable() {
             override fun run() {
                 val overworld = Bukkit.getWorlds().firstOrNull { it.environment == World.Environment.NORMAL }
-                val spawn = player.bedSpawnLocation ?: overworld?.spawnLocation ?: player.world.spawnLocation
-                player.teleport(spawn)
+                val rawSpawn = player.bedSpawnLocation ?: overworld?.spawnLocation ?: player.world.spawnLocation
+                val safeSpawn = findSafeSpawn(rawSpawn)
+                player.teleport(safeSpawn)
 
                 spawnMassiveFireBurst(deathLocation, 2.5, 300)
                 spawnFireRings(deathLocation.clone().add(0.0, 0.5, 0.0))
@@ -111,6 +112,31 @@ class PhoenixTotemListener : Listener {
                 }
             }
         }
+    }
+
+    private fun findSafeSpawn(start: Location): Location {
+        val world = start.world
+        var loc = start.clone()
+        val maxY = world.maxHeight
+
+        // Step 1: Move up if inside blocks
+        while (loc.block.type != Material.AIR && loc.y < maxY) {
+            loc.add(0.0, 1.0, 0.0)
+        }
+
+        // Step 2: Ensure 2 blocks of headroom
+        val headroom = loc.clone().add(0.0, 1.0, 0.0)
+        if (headroom.block.type != Material.AIR) {
+            loc = world.getHighestBlockAt(loc).location.add(0.5, 1.0, 0.5)
+        }
+
+        // Step 3: Prevent void or lava
+        val below = loc.clone().add(0.0, -1.0, 0.0)
+        if (below.block.type == Material.AIR || below.block.isLiquid || below.block.type == Material.LAVA) {
+            loc = world.getHighestBlockAt(loc).location.add(0.5, 1.0, 0.5)
+        }
+
+        return loc
     }
 
 
