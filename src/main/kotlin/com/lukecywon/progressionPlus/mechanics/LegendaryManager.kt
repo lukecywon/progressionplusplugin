@@ -8,6 +8,8 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 object LegendaryManager : Manager {
@@ -24,7 +26,8 @@ object LegendaryManager : Manager {
                     }
 
                     if (LegendaryItemListener.hasMoreThanOneLegendary(player)) {
-                        player.walkSpeed = 0f
+                        player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 20, 255))
+                        player.addPotionEffect(PotionEffect(PotionEffectType.JUMP_BOOST, 20, 128))
                         player.showTitle(
                             Title.title(
                                 Component.text("WARNING!", NamedTextColor.RED),
@@ -52,9 +55,6 @@ object LegendaryManager : Manager {
         player.damage(999.0)
         world.spawnParticle(Particle.EXPLOSION, player.location, 1)
         world.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, 2f, 0.8f)
-
-        // Reset player walk speed
-        player.walkSpeed = 0.2f
     }
 
 }
