@@ -53,7 +53,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         )
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
-        meta.setCustomModelData(9002)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "void_reaper")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         meta.persistentDataContainer.set(soulKey, PersistentDataType.INTEGER, 0)
 

@@ -63,7 +63,7 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
         )
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
-        meta.setCustomModelData(9057)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "shadow_katana")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 
