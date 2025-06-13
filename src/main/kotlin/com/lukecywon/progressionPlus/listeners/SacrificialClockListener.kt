@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.items.SacrificialClock
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 class SacrificialClockListener : Listener {
@@ -19,5 +20,10 @@ class SacrificialClockListener : Listener {
 
         e.isCancelled = true
         SacrificialClockGUI.open(player)
+    }
+
+    @EventHandler
+    fun onInventoryClick(e: InventoryClickEvent) {
+        SacrificialClockGUI.handleClick(e)
     }
 }
