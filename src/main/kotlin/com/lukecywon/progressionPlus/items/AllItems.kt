@@ -33,6 +33,12 @@ object AllItems {
         OldKingsBlade
         SacrificialClock
         ShadowKatana
+        TribalSpear
+        WoodenHelmet
+        WoodenChestplate
+        WoodenLeggings
+        WoodenBoots
+        ExecutionerSword
         PhantomCharm
         VerdantCleaver
         TectonicFang

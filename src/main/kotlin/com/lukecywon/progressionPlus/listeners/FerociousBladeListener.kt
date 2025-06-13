@@ -28,6 +28,7 @@ class FerociousBladeListener : Listener {
         if (chance < 0.5) {
             // Delay second hit slightly to avoid visual overlap
             Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
+                target.noDamageTicks = 0
                 target.damage(event.damage, damager)
                 target.world.playSound(target.location, Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1f, 1.5f)
                 target.world.spawnParticle(Particle.SWEEP_ATTACK, target.location.add(0.0, target.height / 2, 0.0), 5, 0.5, 0.5, 0.5, 0.01)
