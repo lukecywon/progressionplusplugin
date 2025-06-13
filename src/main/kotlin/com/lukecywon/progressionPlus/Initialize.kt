@@ -6,6 +6,7 @@ import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
 import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
 import com.lukecywon.progressionPlus.mechanics.Manager
 import com.lukecywon.progressionPlus.items.*
+import com.lukecywon.progressionPlus.mechanics.LegendaryManager
 import com.lukecywon.progressionPlus.recipes.*
 import com.yourplugin.listeners.NetherAccessListener
 
@@ -114,6 +115,7 @@ class Initialize(private val plugin: JavaPlugin) {
         val mechanics = listOf<Manager>(
             BerserkerSwordManager,
             FlightBeaconManager,
+            LegendaryManager
         )
 
         mechanics.forEach {
