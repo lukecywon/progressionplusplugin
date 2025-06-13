@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.CustomItemWithRecipe
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -12,7 +13,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
+object FlightBeacon : CustomItemWithRecipe("flight_beacon", Rarity.EPIC) {
     val beaconKey = NamespacedKey("survivaltestplugin", "flight_beacon")
 
     override fun createItemStack(): ItemStack {
@@ -47,5 +48,20 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
         if (item == null || item.type != Material.BEACON) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(beaconKey, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<Material?> {
+        return listOf(
+            Material.DIAMOND_BLOCK, Material.DIAMOND_BLOCK, Material.DIAMOND_BLOCK,
+            Material.DIAMOND_BLOCK, Material.NETHER_STAR, Material.DIAMOND_BLOCK,
+            Material.NETHERITE_BLOCK, Material.NETHERITE_BLOCK, Material.NETHERITE_BLOCK
+        )
+    }
+
+    override fun getExtraInfo(): List<String> {
+        return listOf(
+            "§7Only obtainable from the Ender Dragon.",
+            "§7Stores souls for devastating AoE slashes."
+        )
     }
 }

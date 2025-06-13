@@ -59,6 +59,10 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         return rarity
     }
 
+    open fun getExtraInfo(): List<String> {
+        return emptyList() // By default, no extra info
+    }
+
     companion object {
         private val cooldowns: MutableMap<Pair<String, UUID>, Long> = mutableMapOf()
 

@@ -9,4 +9,6 @@ object CustomItemRegistry {
 
     fun getAllNames(): List<String> = items.keys.toList()
     fun getItem(name: String): CustomItem? = items[name.lowercase()]
+
+    fun getAll(): List<CustomItem> = items.values.toList()
 }
