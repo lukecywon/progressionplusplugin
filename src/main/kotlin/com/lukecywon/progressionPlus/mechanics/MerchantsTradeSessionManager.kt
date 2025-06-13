@@ -12,14 +12,21 @@ import org.bukkit.inventory.ItemStack
 import java.util.*
 
 object MerchantsTradeSessionManager {
-    private val activeTrades = mutableMapOf<UUID, TradeSession>() // player UUID → session
+    private val activeTrades = mutableMapOf<UUID, TradeSession>()
+
+    private val p1Slots = listOf(10, 11, 12, 19, 20, 21)
+    private val p2Slots = listOf(14, 15, 16, 23, 24, 25)
+    private const val p1AcceptSlot = 22
+    private const val p2AcceptSlot = 31
+
+    private const val GUI_TITLE_PREFIX = "Trading: "
 
     fun openTradeGUI(p1: Player, p2: Player) {
-        val inv = Bukkit.createInventory(TradeHolder(p1, p2), 54, "Trade with ${p2.name}")
+        val title = "$GUI_TITLE_PREFIX${p1.name} ↔ ${p2.name}"
+        val inv = Bukkit.createInventory(TradeHolder(p1, p2), 54, title)
 
-        // Accept buttons
-        inv.setItem(22, acceptButton())
-        inv.setItem(31, acceptButton())
+        inv.setItem(p1AcceptSlot, acceptButton("§eAccept Trade"))
+        inv.setItem(p2AcceptSlot, acceptButton("§eAccept Trade"))
 
         val session = TradeSession(p1, p2, inv)
         activeTrades[p1.uniqueId] = session
@@ -32,21 +39,26 @@ object MerchantsTradeSessionManager {
     fun handleClick(e: InventoryClickEvent) {
         val player = e.whoClicked as? Player ?: return
         val session = activeTrades[player.uniqueId] ?: return
+        if (!e.view.title.startsWith(GUI_TITLE_PREFIX)) return
         if (e.inventory != session.inventory) return
-        e.isCancelled = true
 
+        e.isCancelled = true
         val slot = e.rawSlot
-        if (slot == 22 || slot == 31) {
+
+        // Accept button logic
+        if (slot == p1AcceptSlot || slot == p2AcceptSlot) {
             session.markAccepted(player)
             player.sendMessage("§aYou marked your trade as ready.")
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
-
-            // Refresh accept buttons
             session.updateAcceptButtons()
+            if (session.isBothAccepted()) finishTrade(session)
+            return
+        }
 
-            if (session.isBothAccepted()) {
-                finishTrade(session)
-            }
+        // Reset acceptance if they modify offer
+        if ((player == session.p1 && slot in p1Slots) || (player == session.p2 && slot in p2Slots)) {
+            session.resetAcceptance()
+            session.updateAcceptButtons()
         }
     }
 
@@ -55,7 +67,6 @@ object MerchantsTradeSessionManager {
         val session = activeTrades[player.uniqueId] ?: return
         if (e.inventory != session.inventory) return
 
-        // Trade cancelled
         session.p1.sendMessage("§cTrade canceled.")
         session.p2.sendMessage("§cTrade canceled.")
         session.p1.playSound(session.p1.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
@@ -67,18 +78,12 @@ object MerchantsTradeSessionManager {
 
     private fun finishTrade(session: TradeSession) {
         val inv = session.inventory
-
-        val p1Slots = (0..3) + (9..12)
-        val p2Slots = (6..8) + (15..18)
-
         val p1Items = getOffer(inv, p1Slots)
         val p2Items = getOffer(inv, p2Slots)
 
-        // Clear inventory slots
         p1Slots.forEach { inv.setItem(it, null) }
         p2Slots.forEach { inv.setItem(it, null) }
 
-        // Give items
         p1Items.forEach { giveSafely(session.p2, it) }
         p2Items.forEach { giveSafely(session.p1, it) }
 
@@ -94,14 +99,14 @@ object MerchantsTradeSessionManager {
         activeTrades.remove(session.p2.uniqueId)
     }
 
-    private fun getOffer(inv: Inventory, slots: Collection<Int>): List<ItemStack> {
+    private fun getOffer(inv: Inventory, slots: List<Int>): List<ItemStack> {
         return slots.mapNotNull { inv.getItem(it)?.clone() }
     }
 
-    private fun acceptButton(): ItemStack {
+    private fun acceptButton(displayName: String): ItemStack {
         return ItemStack(Material.LIME_DYE).apply {
             val meta = itemMeta
-            meta.setDisplayName("§aAccept Trade")
+            meta.setDisplayName(displayName)
             itemMeta = meta
         }
     }
@@ -114,9 +119,7 @@ object MerchantsTradeSessionManager {
     }
 
     private class TradeHolder(val p1: Player, val p2: Player) : InventoryHolder {
-        override fun getInventory(): Inventory {
-            error("not needed")
-        }
+        override fun getInventory(): Inventory = Bukkit.createInventory(null, 0)
     }
 
     private class TradeSession(
@@ -131,19 +134,16 @@ object MerchantsTradeSessionManager {
             if (player == p2) p2Accepted = true
         }
 
+        fun resetAcceptance() {
+            p1Accepted = false
+            p2Accepted = false
+        }
+
         fun isBothAccepted(): Boolean = p1Accepted && p2Accepted
 
         fun updateAcceptButtons() {
-            inventory.setItem(22, acceptButton().apply {
-                val meta = itemMeta
-                meta.setDisplayName(if (p1Accepted) "§a✔ Accepted" else "§eAccept Trade")
-                itemMeta = meta
-            })
-            inventory.setItem(31, acceptButton().apply {
-                val meta = itemMeta
-                meta.setDisplayName(if (p2Accepted) "§a✔ Accepted" else "§eAccept Trade")
-                itemMeta = meta
-            })
+            inventory.setItem(p1AcceptSlot, acceptButton(if (p1Accepted) "§a✔ Accepted" else "§eAccept Trade"))
+            inventory.setItem(p2AcceptSlot, acceptButton(if (p2Accepted) "§a✔ Accepted" else "§eAccept Trade"))
         }
     }
 }

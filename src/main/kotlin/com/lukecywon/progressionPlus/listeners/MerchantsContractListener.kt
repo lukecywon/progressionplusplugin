@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.gui.MerchantsGUI
 import com.lukecywon.progressionPlus.items.MerchantsContract
+import com.lukecywon.progressionPlus.mechanics.MerchantsTradeSessionManager
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -24,5 +25,8 @@ class MerchantsContractListener : Listener {
     @EventHandler
     fun onInventoryClick(e: InventoryClickEvent) {
         MerchantsGUI.handleClick(e)
+        MerchantsTradeSessionManager.handleClick(e) // ← add this line
     }
+
+
 }
