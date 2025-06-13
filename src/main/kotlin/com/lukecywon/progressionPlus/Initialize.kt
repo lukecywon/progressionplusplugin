@@ -29,6 +29,7 @@ class Initialize(private val plugin: JavaPlugin) {
         plugin.getCommand("cooldown")?.setExecutor(CooldownCommand())
         plugin.getCommand("cooldown")?.tabCompleter = CooldownTabCompleter()
         plugin.getCommand("addsouls")?.setExecutor(AddSoulsCommand())
+        plugin.getCommand("trade")?.setExecutor(MerchantsCommand())
 
     }
 

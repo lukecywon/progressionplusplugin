@@ -44,6 +44,7 @@ object AllItems {
         EnchantmentExtractor
         AshbornePendant
         ItemEncyclopedia
+        MerchantsContract
         //AbyssalBox
         // Add all other custom item objects here!
     }

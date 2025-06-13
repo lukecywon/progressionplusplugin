@@ -25,3 +25,6 @@ commands:
     usage: /addsouls [amount]
     permission: progressionplus.artifact
     permission-message: You do not have permission to use this command.
+  trade:
+    description: Accept or reject a trade request
+    usage: /trade <accept|reject>
