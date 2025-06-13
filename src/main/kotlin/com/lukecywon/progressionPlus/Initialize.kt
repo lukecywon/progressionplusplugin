@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
 import com.lukecywon.progressionPlus.mechanics.Manager
 import com.lukecywon.progressionPlus.items.*
 import com.lukecywon.progressionPlus.recipes.*
+import com.yourplugin.listeners.NetherAccessListener
 
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -60,7 +61,25 @@ class Initialize(private val plugin: JavaPlugin) {
             TwilightCrownListener(),
             OldKingsBladeListener(),
             ShadowKatanaListener(),
-            ExecutionerSwordListener()
+            PhantomCharmListener(),
+            VerdantCleaverListener(),
+            TectonicFangListener(),
+            EarthSplitterListener(),
+            EarthshatterHammerListener(),
+            NetherAccessListener(),
+            NetherEyeListener(),
+            NetherPortalIgniteListener(),
+            StructureLootListener(),
+            ElderGuardianDropListener(),
+            HeadsmansEdgeListener(),
+            ContainmentSigilListener(),
+            SpawnEggBlockerListener(),
+            EnchantmentExtractorListener(),
+            AshbornePendantListener(),
+            MerchantsContractListener(),
+
+            ItemEncyclopediaListener(),
+            //AbyssalBoxListener(),
         )
 
         listeners.forEach {

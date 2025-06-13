@@ -1,9 +1,12 @@
 package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.attribute.Attribute
@@ -42,11 +45,22 @@ object SacrificialClock : CustomItem("sacrificial_clock", Rarity.LEGENDARY) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(Component.text("Sacrificial Clock").color(NamedTextColor.GOLD))
-        meta.lore(listOf(
-            Component.text("Right-click to offer golden items for blessings.").color(NamedTextColor.GRAY),
-            Component.text("One legendary item allowed at a time.").color(NamedTextColor.DARK_RED)
-        ))
+        meta.displayName(
+            Component.text("Sacrificial Clock")
+                .color(NamedTextColor.GOLD)
+                .decorate(TextDecoration.BOLD)
+        )
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Golden Sacrifice", Activation.RIGHT_CLICK),
+                ItemLore.description("Offer golden items in exchange for blessings"),
+                ItemLore.cooldown(300),
+                ItemLore.separator(),
+                ItemLore.lore("True blessings are born from sacrifice, not greed."),
+            )
+        )
+
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

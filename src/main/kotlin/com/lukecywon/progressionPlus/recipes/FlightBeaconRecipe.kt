@@ -21,7 +21,7 @@ class FlightBeaconRecipe : Recipe {
         )
         recipe.setIngredient('D', Material.DIAMOND_BLOCK)
         recipe.setIngredient('N', Material.NETHERITE_BLOCK)
-        recipe.setIngredient('C', Material.END_CRYSTAL) //replace with flight core late
+        recipe.setIngredient('C', Material.END_CRYSTAL) //replace with flight core later
 
         return recipe
     }

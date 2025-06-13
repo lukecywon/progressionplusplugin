@@ -30,7 +30,7 @@ class NocturnHoodListener : Listener {
                         val duration = effect?.duration ?: 0
 
                         // Reapply only if not present or less than 100 ticks left
-                        if (effect == null || duration < 100) {
+                        if (effect == null || duration < 240) {
                             player.addPotionEffect(
                                 PotionEffect(PotionEffectType.NIGHT_VISION, 600, 0, false, false, false)
                             )

@@ -1,5 +1,7 @@
 package com.lukecywon.progressionPlus.items
 
+import org.bukkit.entity.Item
+
 object AllItems {
     fun registerAll() {
         MaxHeartFruit
@@ -37,6 +39,18 @@ object AllItems {
         WoodenLeggings
         WoodenBoots
         ExecutionerSword
+        PhantomCharm
+        VerdantCleaver
+        TectonicFang
+        EarthSplitter
+        EarthshatterHammer
+        NetherEye
+        HeadsmansEdge
+        ContainmentSigil
+        EnchantmentExtractor
+        AshbornePendant
+        ItemEncyclopedia
+        //AbyssalBox
         // Add all other custom item objects here!
     }
 }

@@ -2,7 +2,7 @@ package com.lukecywon.progressionPlus.mechanics
 
 import com.lukecywon.progressionPlus.items.BerserkerSword
 import com.lukecywon.progressionPlus.items.CustomItem
-import org.bukkit.*
+import org.bukkit.Bukkit
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
@@ -26,13 +26,10 @@ object BerserkerSwordManager : Manager {
                     val wasHolding = originalHealth.containsKey(uuid)
 
                     if (isHolding && !wasHolding) {
-                        val current = attr.baseValue
-                        val expectedHalved = (current * 2).coerceAtMost(40.0) // avoid stacking halves
-
-                        if (current >= expectedHalved - 0.01) { // sanity check
-                            originalHealth[uuid] = current
-                            attr.baseValue = (current / 2).coerceAtLeast(2.0)
-                        }
+                        originalHealth[uuid] = attr.baseValue
+                        attr.baseValue = (attr.baseValue / 2).coerceAtLeast(2.0)
+                    } else if (!isHolding && wasHolding) {
+                        attr.baseValue = originalHealth.remove(uuid) ?: 20.0
                     }
                 }
             }
@@ -40,9 +37,9 @@ object BerserkerSwordManager : Manager {
     }
 
     fun handleRightClick(player: Player) {
-        val uuid = player.uniqueId
         if (!BerserkerSword.isBerserkerSword(player.inventory.itemInMainHand)) return
 
+        val uuid = player.uniqueId
         if (CustomItem.isOnCooldown(itemId, uuid)) {
             val remaining = CustomItem.getCooldownRemaining(itemId, uuid) / 1000
             player.sendMessage("§7You must wait §c${remaining}s§7 before unleashing your rage again!")
@@ -63,6 +60,12 @@ object BerserkerSwordManager : Manager {
     }
 
     fun cleanup(player: Player) {
-        originalHealth.remove(player.uniqueId)
+        val attr = player.getAttribute(Attribute.MAX_HEALTH) ?: return
+        val original = originalHealth.remove(player.uniqueId) ?: return
+        attr.baseValue = original
+    }
+
+    fun isHalved(player: Player): Boolean {
+        return originalHealth.containsKey(player.uniqueId)
     }
 }

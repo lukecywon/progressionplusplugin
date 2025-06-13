@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
@@ -31,6 +32,8 @@ class OldKingsBladeListener : Listener {
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
+        if (e.hand != EquipmentSlot.HAND) return
+
         val player = e.player
         val item = player.inventory.itemInMainHand
 

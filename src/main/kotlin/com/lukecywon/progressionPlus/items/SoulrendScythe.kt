@@ -1,6 +1,8 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import net.kyori.adventure.text.Component
@@ -20,11 +22,22 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
-        meta.displayName(Component.text("Soulrend Scythe").color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD))
-        meta.lore(listOf(
-            Component.text("§7Deals §c+1§7 damage per debuff on you."),
-            Component.text("§7Restores §c25%§7 of damage as health."),
-        ))
+        meta.displayName(
+            Component.text("Soulrend Scythe")
+                .color(NamedTextColor.DARK_RED)
+                .decorate(TextDecoration.BOLD)
+        )
+
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Lifesteal", Activation.PASSIVE),
+                ItemLore.description("Deals +1 damage per debuff on you"),
+                ItemLore.description("Restores 25% of damage dealt as health"),
+                ItemLore.cooldown(0),
+                ItemLore.separator(),
+                ItemLore.lore("The more you suffer, the deeper it carves."),
+            )
+        )
 
         val damageModifier = AttributeModifier(
             NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
@@ -34,7 +47,7 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
         )
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
-        meta.setCustomModelData(9045)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "soulrend_scythe")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
