@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 import org.bukkit.persistence.PersistentDataType
@@ -33,7 +34,7 @@ object ItemEncyclopedia : CustomItem("item_encyclopedia", Rarity.COMMON) {
             )
         )
 
-        meta.setCustomModelData(9001)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "item_encyclopedia")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 
