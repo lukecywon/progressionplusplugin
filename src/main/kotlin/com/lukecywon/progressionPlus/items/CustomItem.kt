@@ -34,10 +34,10 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
             rarity.name
         )
 
+        meta.isUnbreakable = true
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
-        meta.isUnbreakable
 
         // Set display name or lore with rarity color
         val lore = meta.lore()?.toMutableList() ?: mutableListOf()

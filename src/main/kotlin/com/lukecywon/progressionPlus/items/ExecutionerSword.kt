@@ -4,7 +4,6 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
@@ -28,8 +27,8 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.EPIC) {
             ItemLore.lore("The final sight of many men."),
         ))
 
+        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
-
-        return item
+        return applyMeta(item)
     }
 }
