@@ -35,6 +35,7 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
                 ItemLore.description("Grants the user strength and hunger for 15s"),
                 ItemLore.description("Halves the max health of the wielder"),
                 ItemLore.cooldown(30),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("A reckless edge, fueled by fury and blood."),
             )

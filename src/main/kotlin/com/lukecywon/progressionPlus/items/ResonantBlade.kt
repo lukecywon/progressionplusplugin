@@ -29,6 +29,7 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
                 ItemLore.description("each within 3s of the last,"),
                 ItemLore.description("to deal +5 bonus damage on the final strike."),
                 ItemLore.cooldown(0),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Strike in rhythm, and it answers with ruin."),
             )

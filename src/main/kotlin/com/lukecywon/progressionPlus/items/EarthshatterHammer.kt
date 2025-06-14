@@ -26,6 +26,7 @@ object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
                 ItemLore.abilityuse("Earthshatter", Activation.RIGHT_CLICK),
                 ItemLore.description("Launch blocks upward in a shockwave"),
                 ItemLore.cooldown(30),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("A mighty blow that shakes the land.")
             )

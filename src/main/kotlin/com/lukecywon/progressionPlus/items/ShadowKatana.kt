@@ -39,6 +39,7 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
                 ItemLore.description("前方に素早くダッシュし、敵を斬り抜ける"),
                 ItemLore.description("5秒間、斬撃の軌跡を残す"),
                 ItemLore.cooldown(15),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("目にも留まらぬ速さで斬り裂く。")
             )

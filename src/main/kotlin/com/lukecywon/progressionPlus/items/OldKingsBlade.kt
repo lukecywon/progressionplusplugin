@@ -37,6 +37,7 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
                 ItemLore.abilityuse("Raise Undead", Activation.SHIFT_RIGHT_CLICK),
                 ItemLore.description("Dismiss your army"),
                 ItemLore.cooldown(180),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Once wielded by a long-dead monarch."),
             )
