@@ -53,6 +53,7 @@ object AllItems {
         MerchantsContract
         AbyssalBox
         BuilderWand
+        Peacemaker
         // Add all other custom item objects here!
     }
 }

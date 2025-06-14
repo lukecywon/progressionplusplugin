@@ -82,6 +82,7 @@ class Initialize(private val plugin: JavaPlugin) {
             AbyssalBoxListener(),
             ItemEncyclopediaListener(),
             BuilderWandListener(),
+            PeacemakerListener(),
         )
 
         listeners.forEach {

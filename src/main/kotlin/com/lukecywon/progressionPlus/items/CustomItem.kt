@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
 
 abstract class CustomItem(private val name: String, private val rarity: Rarity) {
-    protected val key: NamespacedKey
+    val key: NamespacedKey
     protected val plugin: JavaPlugin
 
     init {
