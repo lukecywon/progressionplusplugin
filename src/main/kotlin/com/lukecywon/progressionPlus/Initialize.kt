@@ -81,6 +81,7 @@ class Initialize(private val plugin: JavaPlugin) {
             MerchantsContractListener(),
             AbyssalBoxListener(),
             ItemEncyclopediaListener(),
+            BuilderWandListener(),
         )
 
         listeners.forEach {

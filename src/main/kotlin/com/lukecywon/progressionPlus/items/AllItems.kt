@@ -52,6 +52,7 @@ object AllItems {
         ItemEncyclopedia
         MerchantsContract
         AbyssalBox
+        BuilderWand
         // Add all other custom item objects here!
     }
 }
