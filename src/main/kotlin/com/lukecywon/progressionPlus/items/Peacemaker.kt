@@ -30,12 +30,12 @@ object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Bullet Load", Activation.SHIFT_RIGHT_CLICK),
-                ItemLore.description("Hold Shift + Right Click to load 1 bullet (2s)"),
+                ItemLore.description("Load a bullet into the chamber"),
                 ItemLore.abilityuse("Shoot", Activation.RIGHT_CLICK),
                 ItemLore.description("Fire a bullet with slight spread"),
                 ItemLore.abilityuse("Fan the Hammer", Activation.LEFT_CLICK),
                 ItemLore.description("Unload all bullets rapidly in a wide arc"),
-                ItemLore.cooldown(1), // 1 second cooldown
+                ItemLore.cooldown(2),
                 ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("It's high noon."),
