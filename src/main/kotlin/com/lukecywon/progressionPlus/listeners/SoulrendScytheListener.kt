@@ -51,9 +51,16 @@ class SoulrendScytheListener : Listener {
         if (!SoulrendScythe.isThisItem(item)) return
 
         // === Calculate bonus damage from negative effects ===
-        val bonusDamage = player.activePotionEffects
-            .filter { it.type in NEGATIVE_EFFECTS }
-            .sumOf { it.amplifier + 1 }
+        val bonusDamage = player.activePotionEffects.sumOf {
+            val level = it.amplifier + 1
+            when (it.type) {
+                PotionEffectType.BAD_OMEN,
+                PotionEffectType.RAID_OMEN,
+                PotionEffectType.TRIAL_OMEN -> level * 0.5
+                in NEGATIVE_EFFECTS -> level.toDouble()
+                else -> 0.0
+            }
+        }
 
         val baseDamage = 5.0
         val totalDamage = baseDamage + bonusDamage

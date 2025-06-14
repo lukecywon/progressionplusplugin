@@ -17,7 +17,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_HOE)
+        val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
@@ -32,6 +32,7 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
             listOf(
                 ItemLore.abilityuse("Lifesteal", Activation.PASSIVE),
                 ItemLore.description("Deals +1 damage per debuff on you"),
+                ItemLore.description("Reduced boost from bad omen"),
                 ItemLore.description("Restores 25% of damage dealt as health"),
                 ItemLore.cooldown(0),
                 ItemLore.stats(item),
@@ -48,6 +49,14 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
         )
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
+        val speedModifier = AttributeModifier(
+            NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
+            -2.4, // vanilla sword speed is 1.6 = 4.0 base - 2.4 modifier
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, speedModifier)
+
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "soulrend_scythe")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
@@ -55,7 +64,7 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
     }
 
     fun isSoulrendScythe(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_HOE) return false
+        if (item == null || item.type != Material.IRON_SWORD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }
