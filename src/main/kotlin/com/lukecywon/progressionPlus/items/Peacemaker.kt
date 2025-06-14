@@ -18,7 +18,7 @@ import java.util.*
 
 object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.TRIPWIRE_HOOK) // You can change the model if needed
+        val item = ItemStack(Material.IRON_HOE) // You can change the model if needed
         val meta = item.itemMeta
 
         meta.displayName(
@@ -31,11 +31,14 @@ object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
             listOf(
                 ItemLore.abilityuse("Bullet Load", Activation.SHIFT_RIGHT_CLICK),
                 ItemLore.description("Hold Shift + Right Click to load 1 bullet (2s)"),
-                ItemLore.description("Right Click to fire a bullet"),
-                ItemLore.cooldown(0),
+                ItemLore.abilityuse("Shoot", Activation.RIGHT_CLICK),
+                ItemLore.description("Fire a bullet with slight spread"),
+                ItemLore.abilityuse("Fan the Hammer", Activation.LEFT_CLICK),
+                ItemLore.description("Unload all bullets rapidly in a wide arc"),
+                ItemLore.cooldown(1), // 1 second cooldown
                 ItemLore.stats(item),
                 ItemLore.separator(),
-                ItemLore.lore("Speak softly, shoot loudly.")
+                ItemLore.lore("It's high noon."),
             )
         )
 

@@ -37,7 +37,7 @@ class PeacemakerListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (e.action == Action.RIGHT_CLICK_BLOCK &&
-            item.type == Material.TRIPWIRE_HOOK &&
+            item.type == Material.IRON_HOE &&
             item.itemMeta.persistentDataContainer.has(Peacemaker.key, PersistentDataType.BYTE)) {
             e.isCancelled = true
         }
