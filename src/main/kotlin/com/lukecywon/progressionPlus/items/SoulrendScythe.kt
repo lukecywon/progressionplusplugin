@@ -34,6 +34,7 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
                 ItemLore.description("Deals +1 damage per debuff on you"),
                 ItemLore.description("Restores 25% of damage dealt as health"),
                 ItemLore.cooldown(0),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("The more you suffer, the deeper it carves."),
             )

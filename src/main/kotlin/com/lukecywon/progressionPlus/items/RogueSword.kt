@@ -32,6 +32,7 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
                 ItemLore.abilityuse("Swift Dash", Activation.RIGHT_CLICK),
                 ItemLore.description("Gain Speed for 10 seconds"),
                 ItemLore.cooldown(20),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("A thief’s resolve, a killer’s edge."),
             )

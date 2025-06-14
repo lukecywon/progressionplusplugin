@@ -29,6 +29,7 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
                 ItemLore.abilityuse("Venom Strike", Activation.HIT),
                 ItemLore.description("Inflicts Poison and Weakness on hit"),
                 ItemLore.cooldown(7),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Drenched in a vile toxin…")
             )

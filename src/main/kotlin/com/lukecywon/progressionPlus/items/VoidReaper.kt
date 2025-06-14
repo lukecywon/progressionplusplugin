@@ -37,9 +37,12 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
             listOf(
                 ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
                 ItemLore.description("Teleport behind and slash the enemy you're looking at"),
+                ItemLore.cooldown(7),
                 ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
                 ItemLore.description("Unleash stored souls in an AOE blast"),
                 Component.text("Souls Stored: 0").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
+                ItemLore.cooldown(2),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
             )

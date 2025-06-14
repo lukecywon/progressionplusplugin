@@ -30,6 +30,7 @@ object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
             listOf(
                 ItemLore.abilityuse("20% chance to behead mobs with skulls", Activation.KILL),
                 ItemLore.description("Works on skeletons, zombies, creepers, piglins and players."),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("The axe of judgment, used by executioners of old.")
             )

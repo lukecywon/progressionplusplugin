@@ -31,6 +31,7 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
                 ItemLore.abilityuse("Relentless Blow", Activation.HIT),
                 ItemLore.description("50% chance to strike a second time on hit"),
                 ItemLore.cooldown(0),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Strikes twice when fate allows, always hungry for more."),
             )

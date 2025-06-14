@@ -4,7 +4,9 @@ import com.lukecywon.progressionPlus.enums.Activation
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Material
 import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.ItemStack
 
 object ItemLore {
@@ -31,13 +33,73 @@ object ItemLore {
         Component.text(text, NamedTextColor.DARK_GRAY).decorate(TextDecoration.ITALIC)
 
     fun stats(itemStack: ItemStack): Component {
+        val type = itemStack.type
+        val meta = itemStack.itemMeta
+
+        val baseStats = getBaseStats(type)
+
+        // Add custom modifiers if they exist
+        val damageMods = meta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)
+        val speedMods = meta.getAttributeModifiers(Attribute.ATTACK_SPEED)
+
+        val extraDamage = damageMods?.sumOf { it.amount } ?: 0.0
+        val extraSpeed = speedMods?.sumOf { it.amount } ?: 0.0
+
+        val totalDamage = baseStats.first + extraDamage
+        val totalSpeed = baseStats.second + extraSpeed
+
         return Component.text(
-            "Stats: ${itemStack.itemMeta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)} Damage, " +
-                    "${itemStack.itemMeta.getAttributeModifiers(Attribute.ATTACK_SPEED)} Attack Speed",
+            "Stats: %.1f Damage, %.2f Attack Speed".format(totalDamage, totalSpeed),
             NamedTextColor.AQUA
         )
     }
 
     fun separator(): Component =
         Component.text("")
+
+    private fun getBaseStats(material: Material): Pair<Double, Double> {
+        return when (material) {
+            // SWORDS
+            Material.WOODEN_SWORD     ->  4.0 to 1.6
+            Material.STONE_SWORD      ->  5.0 to 1.6
+            Material.IRON_SWORD       ->  6.0 to 1.6
+            Material.GOLDEN_SWORD     ->  4.0 to 1.6
+            Material.DIAMOND_SWORD    ->  7.0 to 1.6
+            Material.NETHERITE_SWORD  ->  8.0 to 1.6
+
+            // AXES
+            Material.WOODEN_AXE       ->  7.0 to 0.8
+            Material.STONE_AXE        ->  9.0 to 0.8
+            Material.IRON_AXE         ->  9.0 to 0.9
+            Material.GOLDEN_AXE       ->  7.0 to 1.0
+            Material.DIAMOND_AXE      ->  9.0 to 1.0
+            Material.NETHERITE_AXE    -> 10.0 to 1.0
+
+            // PICKAXES
+            Material.WOODEN_PICKAXE   ->  2.0 to 1.2
+            Material.STONE_PICKAXE    ->  3.0 to 1.2
+            Material.IRON_PICKAXE     ->  4.0 to 1.2
+            Material.GOLDEN_PICKAXE   ->  2.0 to 1.2
+            Material.DIAMOND_PICKAXE  ->  5.0 to 1.2
+            Material.NETHERITE_PICKAXE->  6.0 to 1.2
+
+            // SHOVELS
+            Material.WOODEN_SHOVEL    ->  1.5 to 1.0
+            Material.STONE_SHOVEL     ->  2.5 to 1.0
+            Material.IRON_SHOVEL      ->  3.5 to 1.0
+            Material.GOLDEN_SHOVEL    ->  1.5 to 1.0
+            Material.DIAMOND_SHOVEL   ->  4.5 to 1.0
+            Material.NETHERITE_SHOVEL ->  5.5 to 1.0
+
+            // HOES (Attack Damage differs from others)
+            Material.WOODEN_HOE       ->  1.0 to 1.0
+            Material.STONE_HOE        ->  1.0 to 2.0
+            Material.IRON_HOE         ->  1.0 to 3.0
+            Material.GOLDEN_HOE       ->  1.0 to 1.0
+            Material.DIAMOND_HOE      ->  1.0 to 4.0
+            Material.NETHERITE_HOE    ->  1.0 to 4.0
+
+            else -> 0.0 to 0.0
+        }
+    }
 }

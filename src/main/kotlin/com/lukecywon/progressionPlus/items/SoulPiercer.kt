@@ -33,6 +33,7 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
                 ItemLore.abilityuse("Armor Pierce", Activation.PASSIVE),
                 ItemLore.description("Every 5th hit ignores 80% of enemy armor"),
                 ItemLore.cooldown(0),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Strike where it hurts most."),
             )

@@ -39,14 +39,14 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
             )
         )
 
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-            10.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
+//        val damageModifier = AttributeModifier(
+//            NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
+//            10.0,
+//            AttributeModifier.Operation.ADD_NUMBER,
+//            EquipmentSlotGroup.HAND
+//        )
+//
+//        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "echo_gun")
 

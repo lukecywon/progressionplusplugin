@@ -32,6 +32,7 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
                 ItemLore.abilityuse("Spear Throw", Activation.RIGHT_CLICK),
                 ItemLore.description("Toss a sharp stick forward"),
                 ItemLore.cooldown(0),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("A weapon passed down through forgotten bloodlines."),
             )
