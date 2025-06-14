@@ -51,7 +51,7 @@ class Initialize(private val plugin: JavaPlugin) {
             HeartLossOnDeathListener(),
             RogueSwordListener(),
             VenomDaggerListener(),
-            FerociousBladeListener(),
+            ResonantBladeListener(),
             AshenWarhammerListener(),
             FerociousBladeListener(),
             SoulPiercerListener(),
