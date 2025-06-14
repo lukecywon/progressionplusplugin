@@ -51,7 +51,7 @@ object AllItems {
         AshbornePendant
         ItemEncyclopedia
         MerchantsContract
-        //AbyssalBox
+        AbyssalBox
         // Add all other custom item objects here!
     }
 }
