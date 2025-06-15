@@ -12,11 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Initialize(private val plugin: JavaPlugin) {
     init {
+        AllItems.registerAll()
         commands()
         listeners()
         recipes()
         mechanics()
-        AllItems.registerAll()
     }
 
     private fun commands() {
@@ -80,6 +80,7 @@ class Initialize(private val plugin: JavaPlugin) {
             ItemEncyclopediaListener(),
             BuilderWandListener(),
             PeacemakerListener(),
+            RecipeUnlockListener(),
         )
 
         listeners.forEach {
@@ -88,12 +89,7 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     private fun recipes() {
-        val customItemsWithRecipes = AllItems::class
-            .members
-            .filter { it.returnType.classifier == CustomItemWithRecipe::class }
-            .mapNotNull { it.call(AllItems) as? CustomItemWithRecipe }
-
-        customItemsWithRecipes.forEach {
+        AllItems.recipeItems.forEach {
             val recipe = RecipeGenerator.generateRecipe(it)
             val key = it.key
 
@@ -104,7 +100,6 @@ class Initialize(private val plugin: JavaPlugin) {
             Bukkit.addRecipe(recipe)
         }
     }
-
 
     private fun mechanics() {
         val mechanics = listOf<Manager>(

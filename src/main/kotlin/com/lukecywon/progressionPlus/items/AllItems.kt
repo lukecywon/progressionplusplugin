@@ -1,59 +1,65 @@
 package com.lukecywon.progressionPlus.items
 
-import org.bukkit.entity.Item
+import com.lukecywon.progressionPlus.mechanics.CustomItemWithRecipe
 
 object AllItems {
+    val allItems = mutableListOf<CustomItem>()            // Optional: track all CustomItems
+    val recipeItems = mutableListOf<CustomItemWithRecipe>() // Track only recipe-enabled items
+
     fun registerAll() {
-        MaxHeartFruit
-        EchoGun
-        BerserkerSword
-        FlightBeacon
-        HasteBanner
-        SpeedBanner
-        AbsorptionBanner
-        RegenBanner
-        JumpBanner
-        HealthCrystal
-        RecallPotion
-        PhoenixTotem
-        WormholePotion
-        SnowGlobe
-        RogueSword
-        VenomDagger
-        AshenWarhammer
-        ResonantBlade
-        FerociousBlade
-        SoulPiercer
-        LuckTalisman
-        VoidReaper
-        SoulrendScythe
-        NocturnHood
-        TwilightCrown
-        TribalSpear
-        OldKingsBlade
-        SacrificialClock
-        ShadowKatana
-        TribalSpear
-        WoodenHelmet
-        WoodenChestplate
-        WoodenLeggings
-        WoodenBoots
-        ExecutionerSword
-        PhantomCharm
-        VerdantCleaver
-        TectonicFang
-        EarthSplitter
-        EarthshatterHammer
-        NetherEye
-        HeadsmansEdge
-        ContainmentSigil
-        EnchantmentExtractor
-        AshbornePendant
-        ItemEncyclopedia
-        MerchantsContract
-        AbyssalBox
-        BuilderWand
-        Peacemaker
-        // Add all other custom item objects here!
+        fun reg(item: CustomItem) {
+            allItems.add(item)
+            if (item is CustomItemWithRecipe) recipeItems.add(item)
+        }
+
+        reg(MaxHeartFruit)
+        reg(EchoGun)
+        reg(BerserkerSword)
+        reg(FlightBeacon)
+        reg(HasteBanner)
+        reg(SpeedBanner)
+        reg(AbsorptionBanner)
+        reg(RegenBanner)
+        reg(JumpBanner)
+        reg(HealthCrystal)
+        reg(RecallPotion)
+        reg(PhoenixTotem)
+        reg(WormholePotion)
+        reg(SnowGlobe)
+        reg(RogueSword)
+        reg(VenomDagger)
+        reg(AshenWarhammer)
+        reg(ResonantBlade)
+        reg(FerociousBlade)
+        reg(SoulPiercer)
+        reg(LuckTalisman)
+        reg(VoidReaper)
+        reg(SoulrendScythe)
+        reg(NocturnHood)
+        reg(TwilightCrown)
+        reg(TribalSpear)
+        reg(OldKingsBlade)
+        reg(SacrificialClock)
+        reg(ShadowKatana)
+        reg(WoodenHelmet)
+        reg(WoodenChestplate)
+        reg(WoodenLeggings)
+        reg(WoodenBoots)
+        reg(ExecutionerSword)
+        reg(PhantomCharm)
+        reg(VerdantCleaver)
+        reg(TectonicFang)
+        reg(EarthSplitter)
+        reg(EarthshatterHammer)
+        reg(NetherEye)
+        reg(HeadsmansEdge)
+        reg(ContainmentSigil)
+        reg(EnchantmentExtractor)
+        reg(AshbornePendant)
+        reg(ItemEncyclopedia)
+        reg(MerchantsContract)
+        reg(AbyssalBox)
+        reg(BuilderWand)
+        reg(Peacemaker)
     }
 }
