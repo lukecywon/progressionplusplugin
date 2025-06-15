@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.ResonantBlade
+import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity

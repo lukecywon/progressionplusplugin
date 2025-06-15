@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.VoidReaper
+import com.lukecywon.progressionPlus.items.weapons.legendary.VoidReaper
 import org.bukkit.*
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler

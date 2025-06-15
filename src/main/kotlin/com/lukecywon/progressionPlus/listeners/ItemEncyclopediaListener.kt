@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.ItemEncyclopedia
+import com.lukecywon.progressionPlus.items.utility.common.ItemEncyclopedia
 import com.lukecywon.progressionPlus.ui.ItemDetailGUI
 import com.lukecywon.progressionPlus.ui.ItemListGUI
 import com.lukecywon.progressionPlus.ui.RarityGUI

@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.RogueSword
+import com.lukecywon.progressionPlus.items.weapons.uncommon.RogueSword
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

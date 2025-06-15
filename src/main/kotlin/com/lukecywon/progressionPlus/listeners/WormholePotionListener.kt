@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.WormholePotion
+import com.lukecywon.progressionPlus.items.utility.epic.WormholePotion
 import com.lukecywon.progressionPlus.gui.WormholeGUI
 import com.lukecywon.progressionPlus.mechanics.TeleportRequestManager
 import org.bukkit.Material

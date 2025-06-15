@@ -1,8 +1,8 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.BerserkerSword
-import com.lukecywon.progressionPlus.items.HealthCrystal
+import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
+import com.lukecywon.progressionPlus.items.utility.epic.HealthCrystal
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title

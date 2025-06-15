@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.BuilderWand
+import com.lukecywon.progressionPlus.items.utility.epic.BuilderWand
 import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.GameMode
 import org.bukkit.Material

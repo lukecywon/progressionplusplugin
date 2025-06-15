@@ -1,11 +1,9 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.SoulrendScythe
-import org.bukkit.Material
+import com.lukecywon.progressionPlus.items.weapons.epic.SoulrendScythe
 import org.bukkit.Particle
 import org.bukkit.Sound
-import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

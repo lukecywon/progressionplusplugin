@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.*
+import com.lukecywon.progressionPlus.items.utility.common.*
 import org.bukkit.Particle
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -13,7 +14,6 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
-import java.util.*
 
 class BannerListener : Listener {
 

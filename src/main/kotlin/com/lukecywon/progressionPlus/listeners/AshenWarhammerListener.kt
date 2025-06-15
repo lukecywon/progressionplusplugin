@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.AshenWarhammer
+import com.lukecywon.progressionPlus.items.weapons.rare.AshenWarhammer
 import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Particle
 import org.bukkit.Sound

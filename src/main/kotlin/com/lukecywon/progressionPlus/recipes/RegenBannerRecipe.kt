@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.recipes
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.RegenBanner
+import com.lukecywon.progressionPlus.items.utility.common.RegenBanner
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ShapedRecipe

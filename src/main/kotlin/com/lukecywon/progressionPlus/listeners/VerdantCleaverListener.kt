@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.VerdantCleaver
+import com.lukecywon.progressionPlus.items.weapons.uncommon.VerdantCleaver
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.Sound

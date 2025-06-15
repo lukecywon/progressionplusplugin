@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.EnchantmentExtractor
+import com.lukecywon.progressionPlus.items.utility.uncommon.EnchantmentExtractor
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

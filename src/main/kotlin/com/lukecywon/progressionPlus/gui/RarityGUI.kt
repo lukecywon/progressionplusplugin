@@ -1,8 +1,6 @@
 package com.lukecywon.progressionPlus.ui
 
 import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.items.ItemEncyclopedia.key
-import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -14,8 +12,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.BookMeta
-import org.bukkit.persistence.PersistentDataType
 
 object RarityGUI {
     private const val SIZE = 9 * 5

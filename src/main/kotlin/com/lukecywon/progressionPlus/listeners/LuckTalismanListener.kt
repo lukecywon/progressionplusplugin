@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.LuckTalisman
+import com.lukecywon.progressionPlus.items.utility.legendary.LuckTalisman
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler

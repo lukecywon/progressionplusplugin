@@ -1,11 +1,9 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.SnowGlobe
-import org.bukkit.Bukkit
+import com.lukecywon.progressionPlus.items.utility.legendary.SnowGlobe
 import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -13,7 +11,6 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
-import java.util.*
 
 class SnowGlobeListener : Listener {
     private val itemId = "snow_globe"

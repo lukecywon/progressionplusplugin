@@ -1,12 +1,11 @@
 package com.lukecywon.progressionPlus.gui
 
-import com.lukecywon.progressionPlus.items.SacrificialClock
+import com.lukecywon.progressionPlus.items.utility.legendary.SacrificialClock
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable

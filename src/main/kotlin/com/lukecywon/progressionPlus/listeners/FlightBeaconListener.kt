@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.FlightBeacon
+import com.lukecywon.progressionPlus.items.utility.epic.FlightBeacon
 import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
 import org.bukkit.Material
 import org.bukkit.event.EventHandler

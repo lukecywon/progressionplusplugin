@@ -1,11 +1,8 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.FerociousBlade
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
+import com.lukecywon.progressionPlus.items.weapons.epic.FerociousBlade
 import org.bukkit.Bukkit
-import org.bukkit.Color
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity

@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.gui.SacrificialClockGUI
-import com.lukecywon.progressionPlus.items.SacrificialClock
+import com.lukecywon.progressionPlus.items.utility.legendary.SacrificialClock
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action

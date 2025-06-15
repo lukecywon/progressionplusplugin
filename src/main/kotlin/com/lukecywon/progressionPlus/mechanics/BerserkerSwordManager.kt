@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.mechanics
 
-import com.lukecywon.progressionPlus.items.BerserkerSword
+import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
 import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Bukkit
 import org.bukkit.attribute.Attribute

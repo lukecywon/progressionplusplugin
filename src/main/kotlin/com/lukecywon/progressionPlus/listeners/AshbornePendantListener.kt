@@ -1,16 +1,12 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.AshbornePendant
+import com.lukecywon.progressionPlus.items.weapons.rare.AshbornePendant
 import com.lukecywon.progressionPlus.items.CustomItem
-import org.bukkit.Bukkit
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
 import kotlin.math.pow

@@ -1,10 +1,8 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.EarthshatterHammer
+import com.lukecywon.progressionPlus.items.weapons.epic.EarthshatterHammer
 import org.bukkit.*
-import org.bukkit.block.Block
-import org.bukkit.block.data.BlockData
 import org.bukkit.entity.FallingBlock
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler

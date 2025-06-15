@@ -1,5 +1,33 @@
 package com.lukecywon.progressionPlus.items
 
+import com.lukecywon.progressionPlus.items.armor.common.WoodenBoots
+import com.lukecywon.progressionPlus.items.armor.common.WoodenChestplate
+import com.lukecywon.progressionPlus.items.armor.common.WoodenHelmet
+import com.lukecywon.progressionPlus.items.armor.common.WoodenLeggings
+import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
+import com.lukecywon.progressionPlus.items.armor.rare.NocturnHood
+import com.lukecywon.progressionPlus.items.utility.common.*
+import com.lukecywon.progressionPlus.items.utility.epic.*
+import com.lukecywon.progressionPlus.items.utility.legendary.LuckTalisman
+import com.lukecywon.progressionPlus.items.utility.legendary.NetherEye
+import com.lukecywon.progressionPlus.items.utility.legendary.SacrificialClock
+import com.lukecywon.progressionPlus.items.utility.legendary.SnowGlobe
+import com.lukecywon.progressionPlus.items.utility.rare.ContainmentSigil
+import com.lukecywon.progressionPlus.items.utility.rare.EarthSplitter
+import com.lukecywon.progressionPlus.items.utility.rare.MerchantsContract
+import com.lukecywon.progressionPlus.items.utility.rare.RecallPotion
+import com.lukecywon.progressionPlus.items.utility.uncommon.EnchantmentExtractor
+import com.lukecywon.progressionPlus.items.utility.uncommon.MaxHeartFruit
+import com.lukecywon.progressionPlus.items.utility.uncommon.PhantomCharm
+import com.lukecywon.progressionPlus.items.weapons.epic.*
+import com.lukecywon.progressionPlus.items.weapons.legendary.EchoGun
+import com.lukecywon.progressionPlus.items.weapons.legendary.VoidReaper
+import com.lukecywon.progressionPlus.items.weapons.rare.*
+import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
+import com.lukecywon.progressionPlus.items.weapons.uncommon.RogueSword
+import com.lukecywon.progressionPlus.items.weapons.uncommon.VenomDagger
+import com.lukecywon.progressionPlus.items.weapons.uncommon.VerdantCleaver
+
 object AllItems {
     val allItems = mutableListOf<CustomItem>()            // Optional: track all CustomItems
 

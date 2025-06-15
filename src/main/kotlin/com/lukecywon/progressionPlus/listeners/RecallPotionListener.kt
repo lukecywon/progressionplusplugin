@@ -2,7 +2,7 @@ package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.RecallPotion
+import com.lukecywon.progressionPlus.items.utility.rare.RecallPotion
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound

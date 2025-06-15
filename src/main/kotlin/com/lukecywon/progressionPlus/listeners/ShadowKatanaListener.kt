@@ -2,7 +2,7 @@ package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.ShadowKatana
+import com.lukecywon.progressionPlus.items.weapons.epic.ShadowKatana
 import org.bukkit.*
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler

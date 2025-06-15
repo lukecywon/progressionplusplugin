@@ -1,7 +1,6 @@
 package com.lukecywon.progressionPlus.commands
 
-import com.lukecywon.progressionPlus.items.VoidReaper
-import org.bukkit.Bukkit
+import com.lukecywon.progressionPlus.items.weapons.legendary.VoidReaper
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

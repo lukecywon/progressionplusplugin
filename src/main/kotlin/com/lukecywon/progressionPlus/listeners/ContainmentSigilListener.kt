@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.ContainmentSigil
+import com.lukecywon.progressionPlus.items.utility.rare.ContainmentSigil
 import com.lukecywon.progressionPlus.ProgressionPlus
 import org.bukkit.Bukkit
 import org.bukkit.Material

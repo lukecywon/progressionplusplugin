@@ -2,7 +2,7 @@ package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.gui.MerchantsGUI
 import com.lukecywon.progressionPlus.gui.MerchantsTradeGUI
-import com.lukecywon.progressionPlus.items.MerchantsContract
+import com.lukecywon.progressionPlus.items.utility.rare.MerchantsContract
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

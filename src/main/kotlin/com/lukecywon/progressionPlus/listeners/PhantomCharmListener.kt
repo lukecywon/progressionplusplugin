@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners
 
-import com.lukecywon.progressionPlus.items.PhantomCharm
+import com.lukecywon.progressionPlus.items.utility.uncommon.PhantomCharm
 import org.bukkit.entity.Phantom
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

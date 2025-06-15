@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.TwilightCrown
+import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
 import org.bukkit.*
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
