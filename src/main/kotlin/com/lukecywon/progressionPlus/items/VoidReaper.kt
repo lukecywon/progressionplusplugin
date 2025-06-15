@@ -24,8 +24,11 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
     private val soulKey = NamespacedKey("survivaltestplugin", "souls")
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.NETHERITE_HOE)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.NETHERITE_HOE)
+
+        item = applyBaseDamage(item, 11.0)
+        item = applyBaseAttackSpeed(item, 4.0)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Void Reaper")
@@ -47,14 +50,6 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
                 ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
             )
         )
-
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-            10.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "void_reaper")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

@@ -34,22 +34,18 @@ object ItemLore {
 
     fun stats(itemStack: ItemStack): Component {
         val type = itemStack.type
-        val meta = itemStack.itemMeta
+        val meta = itemStack.itemMeta ?: return Component.empty()
 
-        val baseStats = getBaseStats(type)
+        val (baseDamage, baseSpeed) = getBaseStats(type)
 
-        // Add custom modifiers if they exist
-        val damageMods = meta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)
-        val speedMods = meta.getAttributeModifiers(Attribute.ATTACK_SPEED)
+        val damageMod = meta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)?.sumOf { it.amount } ?: 0.0
+        val speedMod = meta.getAttributeModifiers(Attribute.ATTACK_SPEED)?.sumOf { it.amount } ?: 0.0
 
-        val extraDamage = damageMods?.sumOf { it.amount } ?: 0.0
-        val extraSpeed = speedMods?.sumOf { it.amount } ?: 0.0
-
-        val totalDamage = baseStats.first + extraDamage
-        val totalSpeed = baseStats.second + extraSpeed
+        val displayDamage = if (damageMod != 0.0) baseDamage + damageMod else baseDamage
+        val displaySpeed = if (speedMod != 0.0) baseSpeed + speedMod else baseSpeed
 
         return Component.text(
-            "Stats: %.1f Damage, %.2f Attack Speed".format(totalDamage, totalSpeed),
+            "Stats: %.1f Damage, %.2f Attack Speed".format(displayDamage, displaySpeed),
             NamedTextColor.AQUA
         )
     }
@@ -57,7 +53,7 @@ object ItemLore {
     fun separator(): Component =
         Component.text("")
 
-    private fun getBaseStats(material: Material): Pair<Double, Double> {
+    public fun getBaseStats(material: Material): Pair<Double, Double> {
         return when (material) {
             // SWORDS
             Material.WOODEN_SWORD     ->  4.0 to 1.6
