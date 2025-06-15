@@ -63,9 +63,9 @@ object RarityGUI {
 
     private fun createConcrete(material: Material, rarity: Rarity): ItemStack {
         return ItemStack(material).apply {
-            val meta = Bukkit.getItemFactory().getItemMeta(material) ?: return@apply
-            meta.displayName(Component.text(rarity.displayName).color(rarity.color).decoration(TextDecoration.ITALIC, false))
-            itemMeta = meta
+            itemMeta = itemMeta?.apply {
+                displayName(Component.text(rarity.displayName).color(rarity.color).decoration(TextDecoration.ITALIC, false))
+            }
         }
     }
 
@@ -97,7 +97,7 @@ object RarityGUI {
     fun handleClick(e: InventoryClickEvent) {
         val player = e.whoClicked as? Player ?: return
         val title = e.view.title // returns a String (yes, deprecated)
-        if (!title.startsWith(RAW_TITLE)) return
+        if (title != RAW_TITLE) return
 
         e.isCancelled = true
         val clicked = e.currentItem ?: return
