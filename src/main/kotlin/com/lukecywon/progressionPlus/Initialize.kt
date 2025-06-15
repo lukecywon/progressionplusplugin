@@ -4,14 +4,14 @@ import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.items.*
 import com.lukecywon.progressionPlus.listeners.armor.legendary.TwilightCrownListener
-import com.lukecywon.progressionPlus.listeners.armor.rare.NocturnHoodListener
+import com.lukecywon.progressionPlus.listeners.armor.uncommon.NocturnHoodListener
 import com.lukecywon.progressionPlus.listeners.loot.ElderGuardianDropListener
 import com.lukecywon.progressionPlus.listeners.loot.StructureLootListener
 import com.lukecywon.progressionPlus.listeners.mechanics.*
 import com.lukecywon.progressionPlus.listeners.utility.common.BannerListener
 import com.lukecywon.progressionPlus.listeners.utility.common.ItemEncyclopediaListener
 import com.lukecywon.progressionPlus.listeners.utility.epic.*
-import com.lukecywon.progressionPlus.listeners.utility.legendary.LuckTalismanListener
+import com.lukecywon.progressionPlus.listeners.utility.epic.LuckTalismanListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.NetherEyeListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.SacrificialClockListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.SnowGlobeListener

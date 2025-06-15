@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.armor.rare
+package com.lukecywon.progressionPlus.items.armor.uncommon
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -15,7 +15,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.EquipmentSlotGroup
 
-object NocturnHood : CustomItem("nocturn_hood", Rarity.RARE) {
+object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_HELMET)
         val meta = item.itemMeta

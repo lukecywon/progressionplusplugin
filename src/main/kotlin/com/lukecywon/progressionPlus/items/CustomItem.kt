@@ -112,11 +112,6 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         return item
     }
 
-    open fun applyBaseAttackSpeed(item: ItemStack): ItemStack {
-        val baseSpeed = ItemLore.getBaseStats(item.type).second
-        return applyBaseAttackSpeed(item, baseSpeed)
-    }
-
     companion object {
         private val cooldowns: MutableMap<Pair<String, UUID>, Long> = mutableMapOf()
 
