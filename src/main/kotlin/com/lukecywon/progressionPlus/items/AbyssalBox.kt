@@ -19,7 +19,7 @@ object AbyssalBox : CustomItem("abyssal_box", Rarity.EPIC) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BLACK_SHULKER_BOX)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Abyssal Box")
@@ -43,7 +43,6 @@ object AbyssalBox : CustomItem("abyssal_box", Rarity.EPIC) {
             meta.persistentDataContainer.set(boxIdKey, PersistentDataType.STRING, UUID.randomUUID().toString())
         }
 
-        meta.setCustomModelData(9050)
         item.itemMeta = meta
         return applyMeta(item)
     }

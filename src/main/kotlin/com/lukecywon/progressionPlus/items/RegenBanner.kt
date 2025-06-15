@@ -31,7 +31,6 @@ object RegenBanner : CustomItem("regen_banner", Rarity.COMMON) {
             )
         )
 
-        meta.setCustomModelData(3003)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

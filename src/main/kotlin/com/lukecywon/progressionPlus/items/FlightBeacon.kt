@@ -37,9 +37,7 @@ object FlightBeacon : CustomItemWithRecipe("flight_beacon", Rarity.EPIC) {
             )
         )
 
-        meta.setCustomModelData(9003)
         meta.persistentDataContainer.set(beaconKey, PersistentDataType.BYTE, 1)
-
         item.itemMeta = meta
         return applyMeta(item)
     }

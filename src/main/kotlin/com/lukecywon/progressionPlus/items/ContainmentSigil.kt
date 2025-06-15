@@ -15,7 +15,7 @@ object ContainmentSigil : CustomItem("containment_sigil", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.PAPER)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Containment Sigil")

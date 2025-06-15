@@ -7,13 +7,12 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
 object EnchantmentExtractor : CustomItem("enchantment_extractor", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.QUARTZ)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Enchantment Extractor")

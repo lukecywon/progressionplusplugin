@@ -12,8 +12,10 @@ import org.bukkit.persistence.PersistentDataType
 
 object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.GOLDEN_AXE)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.GOLDEN_AXE)
+        item = applyBaseDamage(item)
+        item = applyBaseAttackSpeed(item)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Ashen Warhammer")
@@ -32,7 +34,6 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
             )
         )
 
-        meta.setCustomModelData(9031)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

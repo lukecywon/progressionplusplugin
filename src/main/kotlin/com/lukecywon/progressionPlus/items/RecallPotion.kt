@@ -16,8 +16,6 @@ object RecallPotion : CustomItem("recall_potion", Rarity.RARE) {
         val item = ItemStack(Material.POTION)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Recall Potion")
                 .color(NamedTextColor.AQUA)
@@ -34,7 +32,6 @@ object RecallPotion : CustomItem("recall_potion", Rarity.RARE) {
             )
         )
 
-        meta.setCustomModelData(9022)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

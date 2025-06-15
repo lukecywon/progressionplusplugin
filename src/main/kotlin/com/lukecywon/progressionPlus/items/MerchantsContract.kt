@@ -30,8 +30,6 @@ object MerchantsContract : CustomItem("merchants_contract", Rarity.RARE) {
                 ItemLore.lore("Signed in ink, bound by trust.")
             )
         )
-        meta.setCustomModelData(9052)
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta

@@ -33,7 +33,6 @@ object NetherEye : CustomItem("nether_eye", Rarity.LEGENDARY) {
             )
         )
 
-        meta.setCustomModelData(8000) // optional
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 

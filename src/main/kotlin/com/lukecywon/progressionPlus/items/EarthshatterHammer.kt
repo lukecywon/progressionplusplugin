@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.NamespacedKey
 import org.bukkit.persistence.PersistentDataType
 
 object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
@@ -31,6 +30,7 @@ object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
                 ItemLore.lore("A mighty blow that shakes the land.")
             )
         )
+
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

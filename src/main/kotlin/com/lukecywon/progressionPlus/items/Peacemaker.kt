@@ -18,8 +18,10 @@ import java.util.*
 
 object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_HOE) // You can change the model if needed
-        val meta = item.itemMeta
+        var item = ItemStack(Material.IRON_HOE)
+        item = applyBaseDamage(item, 0.0)
+        item = applyBaseAttackSpeed(item, 1.0)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Peacemaker")
@@ -41,24 +43,6 @@ object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
                 ItemLore.lore("It's high noon."),
             )
         )
-
-        // Optional: reduce attack speed so it's not used as a melee weapon
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
-            -2.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        val speedModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
-            -3.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
-        meta.addAttributeModifier(Attribute.ATTACK_SPEED, speedModifier)
-
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "peacemaker")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

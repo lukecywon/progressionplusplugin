@@ -1,6 +1,5 @@
 package com.lukecywon.progressionPlus.items
 
-import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.mechanics.ItemLore
@@ -16,7 +15,7 @@ object BuilderWand : CustomItem("builder_wand", Rarity.EPIC) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BLAZE_ROD)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Builder’s Wand")
@@ -39,7 +38,6 @@ object BuilderWand : CustomItem("builder_wand", Rarity.EPIC) {
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "builder_wand")
         item.itemMeta = meta
-
         return applyMeta(item)
     }
 

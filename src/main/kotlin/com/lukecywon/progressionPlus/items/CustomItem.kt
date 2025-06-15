@@ -2,13 +2,17 @@ package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
+import org.bukkit.attribute.AttributeModifier
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.attribute.Attribute
 import java.util.*
 
 abstract class CustomItem(private val name: String, private val rarity: Rarity) {
@@ -44,7 +48,11 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         lore.add(Component.text(getRarity().displayName).color(getRarity().color).decorate(TextDecoration.BOLD))
         meta.lore(lore)
 
-        meta.persistentDataContainer.set(NamespacedKey(plugin, "unique_id"), PersistentDataType.STRING, UUID.randomUUID().toString())
+        meta.persistentDataContainer.set(
+            NamespacedKey(plugin, "unique_id"),
+            PersistentDataType.STRING,
+            UUID.randomUUID().toString()
+        )
 
         item.itemMeta = meta
         return item
@@ -61,6 +69,47 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
 
     open fun getExtraInfo(): List<String> {
         return emptyList() // By default, no extra info
+    }
+
+    open fun applyBaseDamage(item: ItemStack, newBaseDamage: Double? = null): ItemStack {
+        val meta = item.itemMeta ?: return item.clone()
+        val baseDamage = ItemLore.getBaseStats(item.type).first
+        val finalBase = newBaseDamage ?: baseDamage
+        val difference = finalBase - baseDamage
+
+        val modifier = AttributeModifier(
+            NamespacedKey(ProgressionPlus.getPlugin(), "damage"),
+            difference,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, modifier)
+        item.itemMeta = meta
+
+        return item
+    }
+
+    open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double? = null): ItemStack {
+        val meta = item.itemMeta ?: return item.clone()
+        val baseSpeed = ItemLore.getBaseStats(item.type).second
+        val finalSpeed = newBaseSpeed ?: baseSpeed
+        val difference = finalSpeed - baseSpeed
+
+        val modifier = AttributeModifier(
+            NamespacedKey(ProgressionPlus.getPlugin(), "attack_speed"),
+            difference,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, modifier)
+        item.itemMeta = meta
+
+        return item
+    }
+
+    open fun applyBaseAttackSpeed(item: ItemStack): ItemStack {
+        val baseSpeed = ItemLore.getBaseStats(item.type).second
+        return applyBaseDamage(item, baseSpeed)
     }
 
     companion object {

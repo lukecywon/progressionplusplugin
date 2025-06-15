@@ -8,20 +8,15 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeModifier
-import org.bukkit.inventory.EquipmentSlot
-import org.bukkit.inventory.EquipmentSlotGroup
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
 
 object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.STONE_SWORD)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.STONE_SWORD)
+        item = applyBaseDamage(item, 7.0)
+        item = applyBaseAttackSpeed(item)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Berserker Sword")
@@ -41,18 +36,7 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
             )
         )
 
-        // Optional: Add diamond-equivalent damage (stone base 5 + 2 = 7)
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-            7.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
-
-        meta.setCustomModelData(9025)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
-
         item.itemMeta = meta
         return applyMeta(item)
     }
@@ -62,6 +46,4 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }
-
-
 }

@@ -32,7 +32,6 @@ object SpeedBanner : CustomItem("speed_banner", Rarity.COMMON) {
             )
         )
 
-        meta.setCustomModelData(3001)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta

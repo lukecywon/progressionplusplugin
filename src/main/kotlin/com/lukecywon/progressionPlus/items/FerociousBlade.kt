@@ -16,8 +16,10 @@ import org.bukkit.inventory.ItemStack
 object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.STONE_SWORD)
-        val meta = item.itemMeta ?: return item
+        var item = ItemStack(Material.STONE_SWORD)
+        item = applyBaseDamage(item, 10.0)
+        item = applyBaseAttackSpeed(item, -0.4)
+        val meta = item.itemMeta!!
 
         // Set display name and lore
         meta.displayName(
@@ -37,28 +39,7 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
             )
         )
 
-        meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
-        meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
-        meta.addAttributeModifier(
-            Attribute.ATTACK_DAMAGE,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-                5.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-            )
-        )
-        meta.addAttributeModifier(
-            Attribute.ATTACK_SPEED,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-                -2.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-            )
-        )
-
         item.itemMeta = meta
-
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         return applyMeta(item)
     }
 }

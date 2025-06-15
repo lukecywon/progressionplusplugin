@@ -13,7 +13,7 @@ import org.bukkit.persistence.PersistentDataType
 object AbsorptionBanner : CustomItem("absorption_banner", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ORANGE_BANNER)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Absorption Banner")
@@ -31,7 +31,6 @@ object AbsorptionBanner : CustomItem("absorption_banner", Rarity.COMMON) {
             )
         )
 
-        meta.setCustomModelData(3005)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

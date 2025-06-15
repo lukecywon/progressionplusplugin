@@ -20,8 +20,6 @@ object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
         val item = ItemStack(Material.TOTEM_OF_UNDYING)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Phoenix Totem")
                 .color(NamedTextColor.GOLD)

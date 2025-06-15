@@ -46,7 +46,6 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.RARE) {
         )
         meta.addAttributeModifier(Attribute.ARMOR, noArmor)
 
-        meta.setCustomModelData(9055) // Your model data ID
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
