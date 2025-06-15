@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.mechanics
 
-import com.lukecywon.progressionPlus.listeners.LegendaryItemListener
+import com.lukecywon.progressionPlus.listeners.mechanics.LegendaryItemListener
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
