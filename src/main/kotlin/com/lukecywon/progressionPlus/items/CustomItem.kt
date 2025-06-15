@@ -48,7 +48,11 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         lore.add(Component.text(getRarity().displayName).color(getRarity().color).decorate(TextDecoration.BOLD))
         meta.lore(lore)
 
-        meta.persistentDataContainer.set(NamespacedKey(plugin, "unique_id"), PersistentDataType.STRING, UUID.randomUUID().toString())
+        meta.persistentDataContainer.set(
+            NamespacedKey(plugin, "unique_id"),
+            PersistentDataType.STRING,
+            UUID.randomUUID().toString()
+        )
 
         item.itemMeta = meta
         return item
@@ -86,7 +90,12 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         return item
     }
 
-    open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double): ItemStack {
+    open fun applyBaseDamage(item: ItemStack): ItemStack {
+        val baseDamage = ItemLore.getBaseStats(item.type).first
+        return applyBaseDamage(item, baseDamage)
+    }
+
+        open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double): ItemStack {
         val meta = item.itemMeta ?: return item.clone()
         val baseSpeed = ItemLore.getBaseStats(item.type).second
         val difference = newBaseSpeed - baseSpeed
@@ -103,6 +112,11 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         }
 
         return item
+    }
+
+    open fun applyBaseAttackSpeed(item: ItemStack): ItemStack {
+        val baseSpeed = ItemLore.getBaseStats(item.type).second
+        return applyBaseDamage(item, baseSpeed)
     }
 
     companion object {
