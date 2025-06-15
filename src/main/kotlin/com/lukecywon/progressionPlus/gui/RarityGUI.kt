@@ -97,7 +97,7 @@ object RarityGUI {
     fun handleClick(e: InventoryClickEvent) {
         val player = e.whoClicked as? Player ?: return
         val title = e.view.title // returns a String (yes, deprecated)
-        if (title != RAW_TITLE) return
+        if (!title.startsWith(RAW_TITLE)) return
 
         e.isCancelled = true
         val clicked = e.currentItem ?: return
