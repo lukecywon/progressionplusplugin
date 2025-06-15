@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.weapons.rare
+package com.lukecywon.progressionPlus.listeners.weapons.epic
 
 import com.lukecywon.progressionPlus.items.weapons.epic.Peacemaker
 import com.lukecywon.progressionPlus.ProgressionPlus
