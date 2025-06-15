@@ -133,6 +133,8 @@ class PeacemakerListener : Listener {
             player.sendActionBar(Component.text("§7[§fPeacemaker§7] §cCooling down..."))
             return
         }
+        // ❗ Cancel reload if mid-reload
+        cancelReloadIfActive(player)
 
         fireLaser(player, 0.0)
         CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
