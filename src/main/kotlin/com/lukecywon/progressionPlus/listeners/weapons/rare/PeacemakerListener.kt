@@ -70,7 +70,7 @@ class PeacemakerListener : Listener {
                 return
             }
 
-            val endTime = System.currentTimeMillis() + 2000
+            val endTime = System.currentTimeMillis() + 10
             loadTimers[player.uniqueId] = endTime
             player.sendActionBar(Component.text("§7[§fPeacemaker§7] §fLoading bullet..."))
 
@@ -212,7 +212,7 @@ class PeacemakerListener : Listener {
             player.world.spawnParticle(Particle.DUST, current, 1, 0.0, 0.0, 0.0, 0.0, DustOptions(Color.WHITE, 1.0f))
             if (current.block.type.isSolid) break
 
-            val target = player.world.getNearbyEntities(current, 0.5, 0.5, 0.5)
+            val target = player.world.getNearbyEntities(current, 0.3, 0.3, 0.3)
                 .firstOrNull { it is LivingEntity && it != player } as? LivingEntity
 
             if (target != null) {
