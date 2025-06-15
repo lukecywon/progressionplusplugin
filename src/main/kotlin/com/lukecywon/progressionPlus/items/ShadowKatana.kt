@@ -18,8 +18,10 @@ import java.util.*
 
 object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.NETHERITE_SWORD)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.NETHERITE_SWORD)
+        item = applyBaseDamage(item, 13.0)
+        item = applyBaseAttackSpeed(item)
+        val meta = item.itemMeta!!
 
 //        meta.displayName(
 //            Component.text("Shadow Katana")
@@ -33,36 +35,28 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
                 .decorate(TextDecoration.BOLD)
         )
 
-        meta.lore(
-            listOf(
-                ItemLore.abilityuse("シャドウダッシュ", Activation.RIGHT_CLICK),
-                ItemLore.description("前方に素早くダッシュし、敵を斬り抜ける"),
-                ItemLore.description("5秒間、斬撃の軌跡を残す"),
-                ItemLore.cooldown(15),
-                ItemLore.stats(item),
-                ItemLore.separator(),
-                ItemLore.lore("目にも留まらぬ速さで斬り裂く。")
-            )
-        )
-
 //        meta.lore(
 //            listOf(
-//                ItemLore.abilityuse("Shadow Dash", Activation.RIGHT_CLICK),
-//                ItemLore.description("Dash forward and slash through enemies"),
-//                ItemLore.description("Leaves a slash trail for 5s"),
+//                ItemLore.abilityuse("シャドウダッシュ", Activation.RIGHT_CLICK),
+//                ItemLore.description("前方に素早くダッシュし、敵を斬り抜ける"),
+//                ItemLore.description("5秒間、斬撃の軌跡を残す"),
 //                ItemLore.cooldown(15),
+//                ItemLore.stats(item),
 //                ItemLore.separator(),
-//                ItemLore.lore("Slashes faster than the eye can see."),
+//                ItemLore.lore("目にも留まらぬ速さで斬り裂く。")
 //            )
 //        )
 
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
-            7.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Shadow Dash", Activation.RIGHT_CLICK),
+                ItemLore.description("Dash forward and slash through enemies"),
+                ItemLore.description("Leaves a slash trail for 5s"),
+                ItemLore.cooldown(15),
+                ItemLore.separator(),
+                ItemLore.lore("Slashes faster than the eye can see."),
+            )
         )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "shadow_katana")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

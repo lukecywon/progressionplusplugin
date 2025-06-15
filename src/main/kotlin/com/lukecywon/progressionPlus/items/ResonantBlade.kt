@@ -35,7 +35,6 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
             )
         )
 
-        meta.setCustomModelData(9030)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

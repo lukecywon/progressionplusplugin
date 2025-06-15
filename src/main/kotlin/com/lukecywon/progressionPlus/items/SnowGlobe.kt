@@ -14,7 +14,7 @@ import org.bukkit.persistence.PersistentDataType
 object SnowGlobe : CustomItem("snowglobe", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.SNOWBALL)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
@@ -35,7 +35,6 @@ object SnowGlobe : CustomItem("snowglobe", Rarity.LEGENDARY) {
             )
         )
 
-        meta.setCustomModelData(9027) // Pick any custom model data you want
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

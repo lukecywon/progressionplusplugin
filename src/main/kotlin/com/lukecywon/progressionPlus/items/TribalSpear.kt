@@ -19,8 +19,6 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
         val item = ItemStack(Material.TRIDENT)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Tribal Spear")
                 .color(NamedTextColor.DARK_GREEN)
@@ -32,14 +30,12 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
                 ItemLore.abilityuse("Spear Throw", Activation.RIGHT_CLICK),
                 ItemLore.description("Toss a sharp stick forward"),
                 ItemLore.cooldown(0),
-                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("A weapon passed down through forgotten bloodlines."),
             )
         )
 
         meta.addEnchant(Enchantment.LOYALTY, 1, false)
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
 
         meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
         meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
@@ -59,10 +55,6 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
                 AttributeModifier.Operation.ADD_NUMBER,
             )
         )
-
-
-
-
 
         item.itemMeta = meta
         return applyMeta(item)

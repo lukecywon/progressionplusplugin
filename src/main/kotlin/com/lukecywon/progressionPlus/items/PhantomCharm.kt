@@ -17,8 +17,6 @@ object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
         val item = ItemStack(Material.AMETHYST_SHARD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Phantom Charm")
                 .color(NamedTextColor.LIGHT_PURPLE)
@@ -34,7 +32,6 @@ object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
             )
         )
 
-        meta.setCustomModelData(9032)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 

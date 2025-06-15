@@ -36,10 +36,8 @@ object EarthSplitter : CustomItem("earth_splitter", Rarity.RARE) {
             )
         )
 
-        meta.setCustomModelData(9036)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
-
         return applyMeta(item)
     }
 

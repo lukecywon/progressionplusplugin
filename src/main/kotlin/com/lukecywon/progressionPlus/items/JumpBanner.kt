@@ -32,7 +32,6 @@ object JumpBanner : CustomItem("jump_banner", Rarity.COMMON) {
             )
         )
 
-        meta.setCustomModelData(3004)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

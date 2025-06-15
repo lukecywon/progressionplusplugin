@@ -53,7 +53,7 @@ object ItemLore {
     fun separator(): Component =
         Component.text("")
 
-    public fun getBaseStats(material: Material): Pair<Double, Double> {
+    fun getBaseStats(material: Material): Pair<Double, Double> {
         return when (material) {
             // SWORDS
             Material.WOODEN_SWORD     ->  4.0 to 1.6
@@ -94,6 +94,8 @@ object ItemLore {
             Material.GOLDEN_HOE       ->  1.0 to 1.0
             Material.DIAMOND_HOE      ->  1.0 to 4.0
             Material.NETHERITE_HOE    ->  1.0 to 4.0
+
+            Material.TRIDENT -> 8.0 to 1.1
 
             else -> 0.0 to 0.0
         }

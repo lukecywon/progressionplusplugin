@@ -17,8 +17,10 @@ import org.bukkit.persistence.PersistentDataType
 
 object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_SWORD)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.IRON_SWORD)
+        item = applyBaseDamage(item, 11.0)
+        item = applyBaseAttackSpeed(item, -0.8)
+        val meta = item.itemMeta!!
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
@@ -40,22 +42,6 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
                 ItemLore.lore("The more you suffer, the deeper it carves."),
             )
         )
-
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
-            5.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
-
-        val speedModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
-            -2.4, // vanilla sword speed is 1.6 = 4.0 base - 2.4 modifier
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_SPEED, speedModifier)
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "soulrend_scythe")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)

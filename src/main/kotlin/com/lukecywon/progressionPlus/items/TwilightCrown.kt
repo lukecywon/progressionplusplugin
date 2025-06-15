@@ -20,8 +20,6 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
         val item = ItemStack(Material.GOLDEN_HELMET)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(Component.text("👑 Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
 
         meta.lore(listOf(
@@ -41,8 +39,6 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
             )
         )
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-        meta.setCustomModelData(9050)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 

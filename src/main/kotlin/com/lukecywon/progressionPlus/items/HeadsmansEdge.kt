@@ -17,8 +17,10 @@ import org.bukkit.inventory.ItemStack
 object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.NETHERITE_AXE)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.STONE_SWORD)
+        item = applyBaseDamage(item, 17.0)
+        item = applyBaseAttackSpeed(item)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Headsman's Edge")
@@ -35,14 +37,6 @@ object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
                 ItemLore.lore("The axe of judgment, used by executioners of old.")
             )
         )
-
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "headsman_damage"),
-            7.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "headsmans_edge")

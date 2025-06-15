@@ -71,45 +71,38 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         return emptyList() // By default, no extra info
     }
 
-    open fun applyBaseDamage(item: ItemStack, newBaseDamage: Double): ItemStack {
+    open fun applyBaseDamage(item: ItemStack, newBaseDamage: Double? = null): ItemStack {
         val meta = item.itemMeta ?: return item.clone()
         val baseDamage = ItemLore.getBaseStats(item.type).first
-        val difference = newBaseDamage - baseDamage
+        val finalBase = newBaseDamage ?: baseDamage
+        val difference = finalBase - baseDamage
 
-        if (difference != 0.0) {
-            val modifier = AttributeModifier(
-                NamespacedKey(ProgressionPlus.getPlugin(), "damage"),
-                difference,
-                AttributeModifier.Operation.ADD_NUMBER,
-                EquipmentSlotGroup.HAND
-            )
-            meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, modifier)
-            item.itemMeta = meta
-        }
+        val modifier = AttributeModifier(
+            NamespacedKey(ProgressionPlus.getPlugin(), "damage"),
+            difference,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, modifier)
+        item.itemMeta = meta
 
         return item
     }
 
-    open fun applyBaseDamage(item: ItemStack): ItemStack {
-        val baseDamage = ItemLore.getBaseStats(item.type).first
-        return applyBaseDamage(item, baseDamage)
-    }
-
-        open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double): ItemStack {
+    open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double? = null): ItemStack {
         val meta = item.itemMeta ?: return item.clone()
         val baseSpeed = ItemLore.getBaseStats(item.type).second
-        val difference = newBaseSpeed - baseSpeed
+        val finalSpeed = newBaseSpeed ?: baseSpeed
+        val difference = finalSpeed - baseSpeed
 
-        if (difference != 0.0) {
-            val modifier = AttributeModifier(
-                NamespacedKey(ProgressionPlus.getPlugin(), "attack_speed"),
-                difference,
-                AttributeModifier.Operation.ADD_NUMBER,
-                EquipmentSlotGroup.HAND
-            )
-            meta.addAttributeModifier(Attribute.ATTACK_SPEED, modifier)
-            item.itemMeta = meta
-        }
+        val modifier = AttributeModifier(
+            NamespacedKey(ProgressionPlus.getPlugin(), "attack_speed"),
+            difference,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.HAND
+        )
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, modifier)
+        item.itemMeta = meta
 
         return item
     }

@@ -16,8 +16,6 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
         val item = ItemStack(Material.WOODEN_SWORD)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Venom Dagger")
                 .color(NamedTextColor.DARK_GREEN)
@@ -35,7 +33,6 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
             )
         )
 
-        meta.setCustomModelData(9028)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

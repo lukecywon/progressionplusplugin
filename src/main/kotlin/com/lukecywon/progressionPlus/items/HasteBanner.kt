@@ -32,7 +32,6 @@ object HasteBanner : CustomItem("haste_banner", Rarity.COMMON) {
             )
         )
 
-        meta.setCustomModelData(3002)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

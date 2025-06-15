@@ -33,7 +33,6 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.LEGENDARY) {
             )
         )
 
-        meta.setCustomModelData(9035)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta

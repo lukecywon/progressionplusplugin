@@ -27,7 +27,6 @@ object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
             )
         )
 
-        meta.setCustomModelData(9020)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

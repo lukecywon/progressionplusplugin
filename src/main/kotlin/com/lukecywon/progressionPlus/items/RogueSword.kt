@@ -19,8 +19,10 @@ import java.util.*
 
 object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.GOLDEN_SWORD)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.GOLDEN_SWORD)
+        item = applyBaseDamage(item, 8.0)
+        item = applyBaseAttackSpeed(item, 2.2)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Rogue Sword")
@@ -37,23 +39,6 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
                 ItemLore.lore("A thief’s resolve, a killer’s edge."),
             )
         )
-
-        val damageModifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
-            5.0,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier)
-
-        val attackspeedmodifier = AttributeModifier(
-            NamespacedKey(NamespacedKey.MINECRAFT, "attack_speed"),
-            0.8,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackspeedmodifier)
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "rogue_sword")
 

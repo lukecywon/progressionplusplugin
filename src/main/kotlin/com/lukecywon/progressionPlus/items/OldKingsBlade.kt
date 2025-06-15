@@ -17,16 +17,14 @@ import org.bukkit.inventory.ItemStack
 object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.GOLDEN_SWORD)
-        val meta = item.itemMeta ?: return item
-
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
-        meta.displayName(Component.text("☠ Old King's Blade").color(Rarity.EPIC.color))
+        var item = ItemStack(Material.GOLDEN_SWORD)
+        item = applyBaseDamage(item, 10.0)
+        item = applyBaseAttackSpeed(item)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Old King's Blade")
-                .color(NamedTextColor.DARK_BLUE)
+                .color(Rarity.EPIC.color)
                 .decorate(TextDecoration.BOLD)
         )
 
@@ -43,20 +41,6 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
             )
         )
 
-        meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
-        meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
-
-        meta.addAttributeModifier(
-            Attribute.ATTACK_DAMAGE,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "attack_damage"),
-                6.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-                EquipmentSlotGroup.HAND
-            )
-        )
-
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         item.itemMeta = meta
 
         return applyMeta(item)

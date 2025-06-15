@@ -13,7 +13,7 @@ import org.bukkit.persistence.PersistentDataType
 object AshbornePendant : CustomItem("ashborne_pendant", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BLAZE_POWDER)
-        val meta = item.itemMeta
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Ashborne Pendant")
@@ -32,7 +32,6 @@ object AshbornePendant : CustomItem("ashborne_pendant", Rarity.RARE) {
             )
         )
 
-        meta.setCustomModelData(9053)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

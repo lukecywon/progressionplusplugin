@@ -17,8 +17,6 @@ object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
         val item = ItemStack(Material.IRON_AXE)
         val meta = item.itemMeta
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Verdant Cleaver")
                 .color(NamedTextColor.GREEN)
@@ -36,7 +34,6 @@ object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
             )
         )
 
-        meta.setCustomModelData(9033)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 

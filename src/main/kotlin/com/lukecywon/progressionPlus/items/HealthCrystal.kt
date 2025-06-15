@@ -33,7 +33,6 @@ object HealthCrystal : CustomItem("health_crystal", Rarity.EPIC) {
             )
         )
 
-        meta.setCustomModelData(9021)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

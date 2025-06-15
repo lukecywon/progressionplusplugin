@@ -17,8 +17,6 @@ object TectonicFang : CustomItem("tectonic_fang", Rarity.EPIC) {
         val item = ItemStack(Material.IRON_PICKAXE)
         val meta = item.itemMeta ?: return item
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-
         meta.displayName(
             Component.text("Tectonic Fang")
                 .color(NamedTextColor.DARK_RED)
@@ -36,7 +34,6 @@ object TectonicFang : CustomItem("tectonic_fang", Rarity.EPIC) {
             )
         )
 
-        meta.setCustomModelData(9035)
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 
