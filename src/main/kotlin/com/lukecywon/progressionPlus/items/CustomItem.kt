@@ -109,7 +109,7 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
 
     open fun applyBaseAttackSpeed(item: ItemStack): ItemStack {
         val baseSpeed = ItemLore.getBaseStats(item.type).second
-        return applyBaseDamage(item, baseSpeed)
+        return applyBaseAttackSpeed(item, baseSpeed)
     }
 
     companion object {
