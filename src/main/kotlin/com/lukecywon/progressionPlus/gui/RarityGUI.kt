@@ -63,9 +63,9 @@ object RarityGUI {
 
     private fun createConcrete(material: Material, rarity: Rarity): ItemStack {
         return ItemStack(material).apply {
-            itemMeta = itemMeta?.apply {
-                displayName(Component.text(rarity.displayName).color(rarity.color).decoration(TextDecoration.ITALIC, false))
-            }
+            val meta = Bukkit.getItemFactory().getItemMeta(material) ?: return@apply
+            meta.displayName(Component.text(rarity.displayName).color(rarity.color).decoration(TextDecoration.ITALIC, false))
+            itemMeta = meta
         }
     }
 
