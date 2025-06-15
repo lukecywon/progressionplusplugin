@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.weapons.epic
+package com.lukecywon.progressionPlus.listeners.weapons.rare
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.utility.rare.TectonicFang

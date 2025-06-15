@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.armor.rare
+package com.lukecywon.progressionPlus.listeners.armor.uncommon
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood

@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.utility.legendary
+package com.lukecywon.progressionPlus.listeners.utility.epic
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.utility.epic.LuckTalisman
