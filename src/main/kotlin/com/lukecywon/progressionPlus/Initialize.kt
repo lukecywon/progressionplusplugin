@@ -89,7 +89,10 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     private fun recipes() {
-        AllItems.recipeItems.forEach {
+        AllItems.allItems.forEach {
+            // Only add items with non-empty recipes
+            if (RecipeGenerator.generateRecipe(it) == null) return@forEach
+
             val recipe = RecipeGenerator.generateRecipe(it)
             val key = it.key
 

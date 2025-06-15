@@ -2,7 +2,6 @@ package com.lukecywon.progressionPlus.items
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.mechanics.CustomItemWithRecipe
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -13,7 +12,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object FlightBeacon : CustomItemWithRecipe("flight_beacon", Rarity.EPIC) {
+object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
     val beaconKey = NamespacedKey("survivaltestplugin", "flight_beacon")
 
     override fun createItemStack(): ItemStack {

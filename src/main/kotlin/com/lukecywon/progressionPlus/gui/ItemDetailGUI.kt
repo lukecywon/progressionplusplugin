@@ -3,7 +3,6 @@ package com.lukecywon.progressionPlus.ui
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.gui.GUI
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.mechanics.CustomItemWithRecipe
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -25,7 +24,7 @@ object ItemDetailGUI : GUI("Item Recipe", 9 * 5) {
         val gui: Inventory = Bukkit.createInventory(null, getSize(), getTitleComponent())
 
         // Recipe display
-        val recipe = (item as? CustomItemWithRecipe)?.getRecipe() ?: List(9) { null }
+        val recipe = (item as? CustomItem)?.getRecipe() ?: List(9) { null }
         val grid = listOf(10, 11, 12, 19, 20, 21, 28, 29, 30)
         val glassRows = listOf(
             0, 1, 2, 3, 4, 5, 6, 7, 8,

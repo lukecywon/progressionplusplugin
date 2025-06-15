@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 class RecipeUnlockListener : Listener {
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
-        for (item in AllItems.recipeItems) {
+        for (item in AllItems.allItems) {
             e.player.discoverRecipe(item.key)
         }
     }

@@ -1,18 +1,20 @@
 package com.lukecywon.progressionPlus.recipes
 
-import com.lukecywon.progressionPlus.mechanics.CustomItemWithRecipe
-import org.bukkit.Bukkit
+import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ShapedRecipe
 
 object RecipeGenerator {
-    fun generateRecipe(item: CustomItemWithRecipe): ShapedRecipe {
+    fun generateRecipe(item: CustomItem): ShapedRecipe? {
         val key = item.key
         val result = item.createItemStack()
         val recipe = ShapedRecipe(key, result)
 
-        val layout = item.getRecipe()
+        if (item.getRecipe().isNullOrEmpty()) {
+            return null
+        }
+        
+        val layout = item.getRecipe()!!
         require(layout.size == 9) { "Recipe list must have 9 elements (3x3 grid)" }
 
         // Map unique non-null materials to characters A–I

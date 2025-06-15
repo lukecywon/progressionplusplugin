@@ -1,15 +1,11 @@
 package com.lukecywon.progressionPlus.items
 
-import com.lukecywon.progressionPlus.mechanics.CustomItemWithRecipe
-
 object AllItems {
     val allItems = mutableListOf<CustomItem>()            // Optional: track all CustomItems
-    val recipeItems = mutableListOf<CustomItemWithRecipe>() // Track only recipe-enabled items
 
     fun registerAll() {
         fun reg(item: CustomItem) {
             allItems.add(item)
-            if (item is CustomItemWithRecipe) recipeItems.add(item)
         }
 
         reg(MaxHeartFruit)

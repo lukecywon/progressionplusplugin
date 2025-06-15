@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlotGroup
@@ -26,6 +27,10 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
     }
 
     abstract fun createItemStack(): ItemStack
+
+    open fun getRecipe(): List<Material?>? {
+        return null
+    }
 
     open fun applyMeta(item: ItemStack): ItemStack {
         val meta = item.itemMeta ?: return item
