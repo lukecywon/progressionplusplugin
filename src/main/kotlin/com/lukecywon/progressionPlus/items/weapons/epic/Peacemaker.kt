@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.weapons.rare
+package com.lukecywon.progressionPlus.items.weapons.epic
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -12,7 +12,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
+object Peacemaker : CustomItem("peacemaker", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_HOE)
         item = applyBaseDamage(item, 0.0)

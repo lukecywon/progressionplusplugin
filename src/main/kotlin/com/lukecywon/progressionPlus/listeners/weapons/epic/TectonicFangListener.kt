@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners.weapons.epic
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.weapons.epic.TectonicFang
+import com.lukecywon.progressionPlus.items.utility.rare.TectonicFang
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.Sound

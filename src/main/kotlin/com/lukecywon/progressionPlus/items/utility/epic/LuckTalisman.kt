@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.utility.legendary
+package com.lukecywon.progressionPlus.items.utility.epic
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -11,7 +11,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object LuckTalisman : CustomItem("luck_talisman", Rarity.LEGENDARY) {
+object LuckTalisman : CustomItem("luck_talisman", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.EMERALD)
         val meta = item.itemMeta

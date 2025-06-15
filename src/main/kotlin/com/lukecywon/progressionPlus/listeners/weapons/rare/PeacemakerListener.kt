@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners.weapons.rare
 
-import com.lukecywon.progressionPlus.items.weapons.rare.Peacemaker
+import com.lukecywon.progressionPlus.items.weapons.epic.Peacemaker
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
 import net.kyori.adventure.text.Component

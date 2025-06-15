@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners.armor.rare
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.armor.rare.NocturnHood
+import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

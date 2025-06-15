@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.weapons.epic
+package com.lukecywon.progressionPlus.items.weapons.rare
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -10,7 +10,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
+object FerociousBlade : CustomItem("ferocious_blade", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)

@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.weapons.epic
+package com.lukecywon.progressionPlus.items.utility.rare
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -12,7 +12,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object TectonicFang : CustomItem("tectonic_fang", Rarity.EPIC) {
+object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_PICKAXE)
         val meta = item.itemMeta ?: return item
