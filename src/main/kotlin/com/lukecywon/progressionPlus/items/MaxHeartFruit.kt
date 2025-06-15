@@ -31,10 +31,4 @@ object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
         item.itemMeta = meta
         return applyMeta(item)
     }
-
-    fun isHeartFruit(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.GOLDEN_APPLE) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

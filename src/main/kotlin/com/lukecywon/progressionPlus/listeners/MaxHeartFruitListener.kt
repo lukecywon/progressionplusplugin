@@ -20,7 +20,7 @@ class MaxHeartFruitListener : Listener {
         val player = e.player
         val item = e.item
 
-        if (!MaxHeartFruit.isHeartFruit(item)) return
+        if (!MaxHeartFruit.isThisItem(item)) return
 
         val attr = player.getAttribute(Attribute.MAX_HEALTH) ?: return
         val maxHealth = attr.baseValue
