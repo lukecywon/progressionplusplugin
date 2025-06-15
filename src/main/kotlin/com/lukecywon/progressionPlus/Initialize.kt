@@ -2,11 +2,8 @@ package com.lukecywon.progressionPlus
 
 import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
-import com.lukecywon.progressionPlus.mechanics.BerserkerSwordManager
-import com.lukecywon.progressionPlus.mechanics.FlightBeaconManager
-import com.lukecywon.progressionPlus.mechanics.Manager
 import com.lukecywon.progressionPlus.items.*
-import com.lukecywon.progressionPlus.mechanics.LegendaryManager
+import com.lukecywon.progressionPlus.mechanics.*
 import com.lukecywon.progressionPlus.recipes.*
 import com.yourplugin.listeners.NetherAccessListener
 
@@ -91,26 +88,23 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     private fun recipes() {
-        val recipes = listOf<Recipe>(
-            EchoGunRecipe(),
-            FlightBeaconRecipe(),
-            HasteBannerRecipe(),
-            JumpBannerRecipe(),
-            AbsorptionBannerRecipe(),
-            SpeedBannerRecipe(),
-            RegenBannerRecipe(),
-        )
+        val customItemsWithRecipes = AllItems::class
+            .members
+            .filter { it.returnType.classifier == CustomItemWithRecipe::class }
+            .mapNotNull { it.call(AllItems) as? CustomItemWithRecipe }
 
-        recipes.forEach {
-            if (Bukkit.getRecipe(it.nameSpacedKey) != null) {
-                Bukkit.removeRecipe(it.nameSpacedKey)
-                Bukkit.addRecipe(it.getRecipe())
-            } else {
-                Bukkit.addRecipe(it.getRecipe())
+        customItemsWithRecipes.forEach {
+            val recipe = RecipeGenerator.generateRecipe(it)
+            val key = it.key
+
+            if (Bukkit.getRecipe(key) != null) {
+                Bukkit.removeRecipe(key)
             }
-        }
 
+            Bukkit.addRecipe(recipe)
+        }
     }
+
 
     private fun mechanics() {
         val mechanics = listOf<Manager>(
