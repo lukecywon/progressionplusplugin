@@ -103,6 +103,7 @@ class Initialize(private val plugin: JavaPlugin) {
             BuilderWandListener(),
             PeacemakerListener(),
             RecipeUnlockListener(),
+            CraftRestrictListener(),
         )
 
         listeners.forEach {
