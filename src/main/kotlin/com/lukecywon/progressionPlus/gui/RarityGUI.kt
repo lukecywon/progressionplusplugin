@@ -40,13 +40,13 @@ object RarityGUI {
         gui.setItem(4, createTitleBook())
 
         // Rarity buttons
-        gui.setItem(20, createConcrete(Material.WHITE_CONCRETE, Rarity.COMMON))
-        gui.setItem(21, createConcrete(Material.LIME_CONCRETE, Rarity.UNCOMMON))
-        gui.setItem(22, createConcrete(Material.LIGHT_BLUE_CONCRETE, Rarity.RARE))
-        gui.setItem(23, createConcrete(Material.PURPLE_CONCRETE, Rarity.EPIC))
-        gui.setItem(24, createConcrete(Material.YELLOW_CONCRETE, Rarity.LEGENDARY))
-        gui.setItem(30, createConcrete(Material.GRAY_CONCRETE, Rarity.COMPONENT))
-        gui.setItem(32, createConcrete(Material.CYAN_CONCRETE, Rarity.PROGRESSION))
+        gui.setItem(19, createConcrete(Material.WHITE_CONCRETE, Rarity.COMMON))
+        gui.setItem(20, createConcrete(Material.LIME_CONCRETE, Rarity.UNCOMMON))
+        gui.setItem(21, createConcrete(Material.LIGHT_BLUE_CONCRETE, Rarity.RARE))
+        gui.setItem(22, createConcrete(Material.PURPLE_CONCRETE, Rarity.EPIC))
+        gui.setItem(23, createConcrete(Material.YELLOW_CONCRETE, Rarity.LEGENDARY))
+        gui.setItem(24, createConcrete(Material.GRAY_CONCRETE, Rarity.COMPONENT))
+        gui.setItem(25, createConcrete(Material.CYAN_CONCRETE, Rarity.PROGRESSION))
 
         gui.setItem(40, ItemStack(Material.BARRIER).apply {
             itemMeta = itemMeta?.apply {
