@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -29,6 +30,7 @@ object MerchantsContract : CustomItem("merchants_contract", Rarity.RARE) {
                 ItemLore.lore("Signed in ink, bound by trust.")
             )
         )
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "merchants_contract")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta

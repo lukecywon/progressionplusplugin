@@ -84,7 +84,7 @@ object AllItems {
         reg(BuilderWand)
         reg(Peacemaker)
         reg(RefinedEye)
-        reg(SunscorchedEmber)
+        reg(DesertAnkh)
         reg(EchoCore)
         reg(TwistedRoot)
         reg(TideCrystal)
