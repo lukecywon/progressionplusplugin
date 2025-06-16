@@ -48,5 +48,11 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }
+
+    override fun getExtraInfo(): List<String> {
+        return listOf(
+            "§7Found in End City Chests",
+        )
+    }
 }
 
