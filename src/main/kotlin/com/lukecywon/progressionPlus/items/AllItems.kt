@@ -9,7 +9,7 @@ import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood
 import com.lukecywon.progressionPlus.items.utility.common.*
 import com.lukecywon.progressionPlus.items.utility.epic.*
 import com.lukecywon.progressionPlus.items.utility.epic.LuckTalisman
-import com.lukecywon.progressionPlus.items.utility.legendary.NetherEye
+import com.lukecywon.progressionPlus.items.progression.NetherEye
 import com.lukecywon.progressionPlus.items.utility.legendary.SacrificialClock
 import com.lukecywon.progressionPlus.items.utility.legendary.SnowGlobe
 import com.lukecywon.progressionPlus.items.utility.rare.*
