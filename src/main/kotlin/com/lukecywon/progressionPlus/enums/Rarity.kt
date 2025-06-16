@@ -7,5 +7,7 @@ enum class Rarity(val displayName: String, val color: NamedTextColor) {
     UNCOMMON("UNCOMMON", NamedTextColor.GREEN),
     RARE("RARE", NamedTextColor.BLUE),
     EPIC("EPIC", NamedTextColor.DARK_PURPLE),
-    LEGENDARY("LEGENDARY", NamedTextColor.GOLD)
+    LEGENDARY("LEGENDARY", NamedTextColor.GOLD),
+    COMPONENT("COMPONENT", NamedTextColor.GRAY),
+    PROGRESSION("PROGRESSION", NamedTextColor.DARK_AQUA)
 }
