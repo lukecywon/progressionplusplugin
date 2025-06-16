@@ -10,7 +10,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object RefinedEye : CustomItem("custom_ender_eye", Rarity.COMPONENT) {
+object RefinedEye : CustomItem("custom_ender_eye", Rarity.PROGRESSION) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ENDER_EYE)
@@ -39,9 +39,9 @@ object RefinedEye : CustomItem("custom_ender_eye", Rarity.COMPONENT) {
 
     override fun getRecipe(): List<Material?> {
         return listOf(
-            Material.DIAMOND, Material.DIAMOND, Material.DIAMOND,
-            Material.DIAMOND, Material.BLAZE_POWDER, Material.DIAMOND,
-            Material.DIAMOND, Material.DIAMOND, Material.DIAMOND
+            Material.ENDER_PEARL, Material.NETHERITE_SCRAP, Material.ENDER_PEARL,
+            Material.BLAZE_POWDER, Material.NETHER_STAR, Material.BLAZE_POWDER,
+            Material.ENDER_PEARL, Material.NETHERITE_SCRAP, Material.ENDER_PEARL
         )
     }
 }
