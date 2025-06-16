@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.utility.legendary
+package com.lukecywon.progressionPlus.items.progression
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object NetherEye : CustomItem("nether_eye", Rarity.LEGENDARY) {
+object NetherEye : CustomItem("nether_eye", Rarity.PROGRESSION) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.NETHER_STAR)

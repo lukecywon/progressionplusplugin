@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.listeners.loot
 
-import com.lukecywon.progressionPlus.items.utility.legendary.NetherEye
+import com.lukecywon.progressionPlus.items.progression.NetherEye
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.world.LootGenerateEvent

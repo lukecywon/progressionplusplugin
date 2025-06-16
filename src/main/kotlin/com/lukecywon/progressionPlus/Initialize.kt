@@ -104,6 +104,8 @@ class Initialize(private val plugin: JavaPlugin) {
             PeacemakerListener(),
             RecipeUnlockListener(),
             CraftRestrictListener(),
+            AdvancementRecipeUnlockListener(),
+            RecipeBlockerListener(),
         )
 
         listeners.forEach {
@@ -125,7 +127,11 @@ class Initialize(private val plugin: JavaPlugin) {
 
             Bukkit.addRecipe(recipe)
         }
+
+        // Add custom recipe overrides
+        EyeOfEnderRecipe.register()
     }
+
 
     private fun mechanics() {
         val mechanics = listOf<Manager>(
