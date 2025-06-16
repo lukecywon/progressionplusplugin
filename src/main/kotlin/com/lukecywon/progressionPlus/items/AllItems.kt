@@ -6,7 +6,7 @@ import com.lukecywon.progressionPlus.items.armor.common.WoodenHelmet
 import com.lukecywon.progressionPlus.items.armor.common.WoodenLeggings
 import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
 import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood
-import com.lukecywon.progressionPlus.items.component.RefinedEye
+import com.lukecywon.progressionPlus.items.component.*
 import com.lukecywon.progressionPlus.items.utility.common.*
 import com.lukecywon.progressionPlus.items.utility.epic.*
 import com.lukecywon.progressionPlus.items.utility.epic.LuckTalisman
@@ -84,5 +84,9 @@ object AllItems {
         reg(BuilderWand)
         reg(Peacemaker)
         reg(RefinedEye)
+        reg(SunscorchedEmber)
+        reg(EchoCore)
+        reg(TwistedRoot)
+        reg(TideCrystal)
     }
 }
