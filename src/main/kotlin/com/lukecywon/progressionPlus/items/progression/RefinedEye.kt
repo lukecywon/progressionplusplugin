@@ -24,10 +24,9 @@ object RefinedEye : CustomItem("custom_ender_eye", Rarity.PROGRESSION) {
 
         meta.lore(
             listOf(
-                ItemLore.description("A crystallized version of the Ender Eye,"),
-                ItemLore.description("forged through immense magical compression."),
+                ItemLore.description("Used to find and open the end portal"),
                 ItemLore.separator(),
-                ItemLore.lore("“It never breaks.”")
+                ItemLore.lore("“Unshattered by fate, guided by purpose.”")
             )
         )
 
