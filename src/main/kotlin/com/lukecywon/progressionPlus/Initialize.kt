@@ -8,6 +8,7 @@ import com.lukecywon.progressionPlus.listeners.armor.uncommon.NocturnHoodListene
 import com.lukecywon.progressionPlus.listeners.loot.ElderGuardianDropListener
 import com.lukecywon.progressionPlus.listeners.loot.StructureLootListener
 import com.lukecywon.progressionPlus.listeners.mechanics.*
+import com.lukecywon.progressionPlus.listeners.utility.CustomItemVanillaBlocker
 import com.lukecywon.progressionPlus.listeners.utility.common.BannerListener
 import com.lukecywon.progressionPlus.listeners.utility.common.ItemEncyclopediaListener
 import com.lukecywon.progressionPlus.listeners.utility.epic.*
@@ -106,6 +107,7 @@ class Initialize(private val plugin: JavaPlugin) {
             CraftRestrictListener(),
             AdvancementRecipeUnlockListener(),
             RecipeBlockerListener(),
+            CustomItemVanillaBlocker(),
         )
 
         listeners.forEach {

@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus.listeners.utility.common
 import com.lukecywon.progressionPlus.items.utility.common.ItemEncyclopedia
 import com.lukecywon.progressionPlus.ui.ItemRecipeGUI
 import com.lukecywon.progressionPlus.ui.ItemListGUI
+import com.lukecywon.progressionPlus.ui.ItemObtainGUI
 import com.lukecywon.progressionPlus.ui.RarityGUI
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
@@ -32,5 +33,6 @@ class ItemEncyclopediaListener : Listener {
         RarityGUI.handleClick(e)
         ItemListGUI.handleClick(e)
         ItemRecipeGUI.handleClick(e)
+        ItemObtainGUI.handleClick(e)
     }
 }
