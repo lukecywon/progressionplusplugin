@@ -9,22 +9,22 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-object TwistedRoot : CustomItem("twisted_root", Rarity.COMPONENT) {
+object WardensHeart : CustomItem("wardens_heart", Rarity.COMPONENT) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.STICK)
+        val item = ItemStack(Material.NETHER_STAR)
         val meta = item.itemMeta
 
         meta.displayName(
-            Component.text("Twisted Root")
-                .color(NamedTextColor.DARK_GREEN)
+            Component.text("Warden's Heart")
+                .color(NamedTextColor.DARK_PURPLE)
                 .decoration(TextDecoration.BOLD, true)
         )
 
         meta.lore(
             listOf(
-                ItemLore.description("Saturated with ancient woodland magic."),
+                ItemLore.description("A pulsating remnant torn from the Warden’s chest."),
                 ItemLore.separator(),
-                ItemLore.lore("It still writhes when held too long."),
+                ItemLore.lore("It beats with the echoes of the Deep Dark.")
             )
         )
 
@@ -33,6 +33,6 @@ object TwistedRoot : CustomItem("twisted_root", Rarity.COMPONENT) {
     }
 
     override fun getExtraInfo(): List<String> {
-        return listOf("§7Looted from Woodland Mansions.")
+        return listOf("§7Dropped by the Warden.")
     }
 }

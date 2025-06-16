@@ -9,22 +9,22 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-object TwistedRoot : CustomItem("twisted_root", Rarity.COMPONENT) {
+object AetherCore : CustomItem("aether_core", Rarity.COMPONENT) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.STICK)
+        val item = ItemStack(Material.HEART_OF_THE_SEA)
         val meta = item.itemMeta
 
         meta.displayName(
-            Component.text("Twisted Root")
-                .color(NamedTextColor.DARK_GREEN)
+            Component.text("Aether Core")
+                .color(NamedTextColor.AQUA)
                 .decoration(TextDecoration.BOLD, true)
         )
 
         meta.lore(
             listOf(
-                ItemLore.description("Saturated with ancient woodland magic."),
+                ItemLore.description("An ancient core pulsating with skybound energy."),
                 ItemLore.separator(),
-                ItemLore.lore("It still writhes when held too long."),
+                ItemLore.lore("Its presence lifts the world ever so slightly.")
             )
         )
 
@@ -32,7 +32,11 @@ object TwistedRoot : CustomItem("twisted_root", Rarity.COMPONENT) {
         return applyMeta(item)
     }
 
-    override fun getExtraInfo(): List<String> {
-        return listOf("§7Looted from Woodland Mansions.")
+    override fun getRecipe(): List<Material?> {
+        return listOf(
+            Material.ELYTRA, Material.ELYTRA, Material.ELYTRA,
+            Material.ELYTRA, Material.NETHER_STAR, Material.ELYTRA,
+            Material.ELYTRA, Material.ELYTRA, Material.ELYTRA
+        )
     }
 }

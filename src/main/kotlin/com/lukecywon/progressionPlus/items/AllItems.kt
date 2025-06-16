@@ -88,5 +88,8 @@ object AllItems {
         reg(EchoCore)
         reg(TwistedRoot)
         reg(TideCrystal)
+        reg(WardensHeart)
+        reg(InfernalShard)
+        reg(AetherCore)
     }
 }
