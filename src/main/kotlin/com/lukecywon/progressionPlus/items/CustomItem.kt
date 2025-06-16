@@ -32,6 +32,10 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         return null
     }
 
+    fun hasRecipe(): Boolean {
+        return getRecipe()?.any { it != null } == true
+    }
+
     open fun applyMeta(item: ItemStack): ItemStack {
         val meta = item.itemMeta ?: return item
 

@@ -14,8 +14,8 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-object ItemDetailGUI : GUI("Item Recipe", 9 * 5) {
-    private var rarity: Rarity = Rarity.COMMON // Rarity for back button
+object ItemObtainGUI : GUI("Item Info", 9 * 5) {
+    private var rarity: Rarity = Rarity.COMMON // Used for back button navigation
 
     override fun open(player: Player) {}
 
@@ -23,19 +23,16 @@ object ItemDetailGUI : GUI("Item Recipe", 9 * 5) {
         rarity = item.getRarity()
         val gui: Inventory = Bukkit.createInventory(null, getSize(), getTitleComponent())
 
-        // Recipe display
-        val recipe = (item as? CustomItem)?.getRecipe() ?: List(9) { null }
-        val grid = listOf(10, 11, 12, 19, 20, 21, 28, 29, 30)
         val glassRows = listOf(
             0, 1, 2, 3, 4, 5, 6, 7, 8,
-            9, 13, 14, 15, 16, 17,
-            18, 24, 25, 26,
-            27, 31, 32, 33, 34, 35,
+            9, 10, 11, 12, 13, 14, 15, 16, 17,
+            18, 19, 24, 25, 26,
+            27, 28, 29, 30, 31, 32, 33, 34, 35,
             36, 37, 38, 39, 42, 43, 44
         )
 
         val greenGlassRows = listOf(
-            22, 23
+            21, 22, 23
         )
 
         // Green Glass
@@ -47,18 +44,27 @@ object ItemDetailGUI : GUI("Item Recipe", 9 * 5) {
             })
         }
 
-        // Blank Spots
-        glassRows.forEach { no ->
-            gui.setItem(no, ItemStack(Material.BLACK_STAINED_GLASS_PANE).apply {
+        glassRows.forEach {
+            gui.setItem(it, ItemStack(Material.BLACK_STAINED_GLASS_PANE).apply {
                 itemMeta = itemMeta.apply {
                     displayName(Component.text(""))
                 }
             })
         }
 
-        for (i in recipe.indices) {
-            recipe[i]?.let { mat -> gui.setItem(grid[i], ItemStack(mat)) }
+        // Center: Oak Sign showing how to obtain
+        val infoSign = ItemStack(Material.OAK_SIGN).apply {
+            itemMeta = itemMeta?.apply {
+                val lore = item.getExtraInfo()
+                displayName(Component.text("How to Obtain").color(NamedTextColor.GOLD).decoration(TextDecoration.BOLD, false))
+                if (lore.isNotEmpty()) {
+                    lore(lore.map { Component.text(it).color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false) })
+                } else {
+                    lore(listOf(Component.text("No info available").color(NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, true)))
+                }
+            }
         }
+        gui.setItem(20, infoSign)
 
         // Result item
         gui.setItem(24, item.createItemStack())

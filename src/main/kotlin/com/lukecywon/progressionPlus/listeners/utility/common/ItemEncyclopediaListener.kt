@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners.utility.common
 
 import com.lukecywon.progressionPlus.items.utility.common.ItemEncyclopedia
-import com.lukecywon.progressionPlus.ui.ItemDetailGUI
+import com.lukecywon.progressionPlus.ui.ItemRecipeGUI
 import com.lukecywon.progressionPlus.ui.ItemListGUI
 import com.lukecywon.progressionPlus.ui.RarityGUI
 import org.bukkit.Sound
@@ -31,6 +31,6 @@ class ItemEncyclopediaListener : Listener {
     fun onInventoryClick(e: InventoryClickEvent) {
         RarityGUI.handleClick(e)
         ItemListGUI.handleClick(e)
-        ItemDetailGUI.handleClick(e)
+        ItemRecipeGUI.handleClick(e)
     }
 }

@@ -1,7 +1,8 @@
 package com.lukecywon.progressionPlus.ui
 
 import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
+import com.lukecywon.progressionPlus.gui.GUI
+import com.lukecywon.progressionPlus.items.CustomItem
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -10,30 +11,44 @@ import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-object ItemListGUI {
-    private const val SIZE = 5 * 9
-    private const val titlePrefix = "Items: "
+object ItemRecipeGUI : GUI("Item Recipe", 9 * 5) {
+    private var rarity: Rarity = Rarity.COMMON // Rarity for back button
 
-    fun open(player: Player, rarity: Rarity) {
-        val title = Component.text("$titlePrefix${rarity.displayName}")
-        val gui = Bukkit.createInventory(null, SIZE, title)
+    override fun open(player: Player) {}
 
-        val items = CustomItemRegistry.getAll().filter { it.getRarity() == rarity }
+    fun open(player: Player, item: CustomItem) {
+        rarity = item.getRarity()
+        val gui: Inventory = Bukkit.createInventory(null, getSize(), getTitleComponent())
 
+        // Recipe display
+        val recipe = (item as? CustomItem)?.getRecipe() ?: List(9) { null }
+        val grid = listOf(10, 11, 12, 19, 20, 21, 28, 29, 30)
         val glassRows = listOf(
             0, 1, 2, 3, 4, 5, 6, 7, 8,
-            9, 17,
-            18, 26,
-            27, 35,
-            36, 37, 38, 39, 40, 41, 42, 43, 44
+            9, 13, 14, 15, 16, 17,
+            18, 24, 25, 26,
+            27, 31, 32, 33, 34, 35,
+            36, 37, 38, 39, 42, 43, 44
         )
-        val availableSlots = (0 until SIZE).filter { it !in glassRows }.toList()
+
+        val greenGlassRows = listOf(
+            22, 23
+        )
+
+        // Green Glass
+        greenGlassRows.forEach {
+            gui.setItem(it, ItemStack(Material.GREEN_STAINED_GLASS_PANE).apply {
+                itemMeta = itemMeta.apply {
+                    displayName(Component.text(""))
+                }
+            })
+        }
 
         // Blank Spots
         glassRows.forEach { no ->
-            if (no == 40 || no == 41) return@forEach
             gui.setItem(no, ItemStack(Material.BLACK_STAINED_GLASS_PANE).apply {
                 itemMeta = itemMeta.apply {
                     displayName(Component.text(""))
@@ -41,11 +56,12 @@ object ItemListGUI {
             })
         }
 
-        // Fill only allowed slots with items
-        for ((index, item) in items.withIndex()) {
-            if (index >= availableSlots.size) break
-            gui.setItem(availableSlots[index], item.createItemStack())
+        for (i in recipe.indices) {
+            recipe[i]?.let { mat -> gui.setItem(grid[i], ItemStack(mat)) }
         }
+
+        // Result item
+        gui.setItem(24, item.createItemStack())
 
         // Back button
         val back = ItemStack(Material.ARROW).apply {
@@ -66,32 +82,18 @@ object ItemListGUI {
         player.openInventory(gui)
     }
 
-    fun handleClick(e: InventoryClickEvent) {
+    override fun handleClick(e: InventoryClickEvent) {
         val player = e.whoClicked as? Player ?: return
-        val title = e.view.title // returns a String (yes, deprecated)
-        if (!title.startsWith(titlePrefix)) return
-
+        if (e.view.title != getTitle()) return
         e.isCancelled = true
-        val clicked = e.currentItem ?: return
 
-        if (clicked.type == Material.ARROW) {
-            RarityGUI.open(player)
-            player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
-            return
-        } else if (clicked.type == Material.BARRIER) {
+        val clicked = e.currentItem ?: return
+        if (clicked.type == Material.BARRIER) {
             player.closeInventory()
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
-        }
-
-        val match = CustomItemRegistry.getAll().find { it.isThisItem(clicked) }
-        if (match != null) {
-            if (match.hasRecipe()) {
-                ItemRecipeGUI.open(player, match)
-            } else {
-                ItemObtainGUI.open(player, match)
-            }
+        } else if (clicked.type == Material.ARROW) {
+            ItemListGUI.open(player, rarity)
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
         }
     }
 }
-
