@@ -54,11 +54,4 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
             Material.NETHERITE_BLOCK, Material.NETHERITE_BLOCK, Material.NETHERITE_BLOCK
         )
     }
-
-    override fun getExtraInfo(): List<String> {
-        return listOf(
-            "§7Only obtainable from the Ender Dragon.",
-            "§7Stores souls for devastating AoE slashes."
-        )
-    }
 }
