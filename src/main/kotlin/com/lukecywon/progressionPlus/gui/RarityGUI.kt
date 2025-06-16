@@ -29,24 +29,24 @@ object RarityGUI {
             36, 37, 38, 39, 41, 42, 43, 44
         )
 
-        // Blank Spots
-        glassRows.forEach { no ->
-            gui.setItem(no, ItemStack(Material.BLACK_STAINED_GLASS_PANE).apply {
-                itemMeta = itemMeta.apply {
+        glassRows.forEach { index ->
+            gui.setItem(index, ItemStack(Material.BLACK_STAINED_GLASS_PANE).apply {
+                itemMeta = itemMeta?.apply {
                     displayName(Component.text(""))
                 }
             })
         }
 
-        // Title Book
         gui.setItem(4, createTitleBook())
 
-        // Recipe Concretes
+        // Rarity buttons
         gui.setItem(20, createConcrete(Material.WHITE_CONCRETE, Rarity.COMMON))
         gui.setItem(21, createConcrete(Material.LIME_CONCRETE, Rarity.UNCOMMON))
         gui.setItem(22, createConcrete(Material.LIGHT_BLUE_CONCRETE, Rarity.RARE))
         gui.setItem(23, createConcrete(Material.PURPLE_CONCRETE, Rarity.EPIC))
         gui.setItem(24, createConcrete(Material.YELLOW_CONCRETE, Rarity.LEGENDARY))
+        gui.setItem(30, createConcrete(Material.GRAY_CONCRETE, Rarity.COMPONENT))
+        gui.setItem(32, createConcrete(Material.CYAN_CONCRETE, Rarity.PROGRESSION))
 
         gui.setItem(40, ItemStack(Material.BARRIER).apply {
             itemMeta = itemMeta?.apply {
@@ -86,27 +86,26 @@ object RarityGUI {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
 
         item.itemMeta = meta
-
         return item
     }
 
     fun handleClick(e: InventoryClickEvent) {
         val player = e.whoClicked as? Player ?: return
-        val title = e.view.title // returns a String (yes, deprecated)
-        if (title != RAW_TITLE) return
+        if (e.view.title != RAW_TITLE) return
 
         e.isCancelled = true
         val clicked = e.currentItem ?: return
 
-        println(clicked.type)
         when (clicked.type) {
-            Material.WHITE_CONCRETE     -> ItemListGUI.open(player, Rarity.COMMON)
-            Material.LIME_CONCRETE      -> ItemListGUI.open(player, Rarity.UNCOMMON)
-            Material.LIGHT_BLUE_CONCRETE -> ItemListGUI.open(player, Rarity.RARE)
-            Material.PURPLE_CONCRETE    -> ItemListGUI.open(player, Rarity.EPIC)
-            Material.YELLOW_CONCRETE    -> ItemListGUI.open(player, Rarity.LEGENDARY)
-            Material.BARRIER            -> player.closeInventory()
-            else -> return
+            Material.WHITE_CONCRETE       -> ItemListGUI.open(player, Rarity.COMMON)
+            Material.LIME_CONCRETE        -> ItemListGUI.open(player, Rarity.UNCOMMON)
+            Material.LIGHT_BLUE_CONCRETE  -> ItemListGUI.open(player, Rarity.RARE)
+            Material.PURPLE_CONCRETE      -> ItemListGUI.open(player, Rarity.EPIC)
+            Material.YELLOW_CONCRETE      -> ItemListGUI.open(player, Rarity.LEGENDARY)
+            Material.GRAY_CONCRETE        -> ItemListGUI.open(player, Rarity.COMPONENT)
+            Material.CYAN_CONCRETE        -> ItemListGUI.open(player, Rarity.PROGRESSION)
+            Material.BARRIER              -> player.closeInventory()
+            else                          -> return
         }
 
         player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
