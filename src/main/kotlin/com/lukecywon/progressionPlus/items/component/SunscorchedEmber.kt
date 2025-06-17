@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.NamespacedKey
 
 object SunscorchedEmber : CustomItem("sunscorched_ember", Rarity.COMPONENT) {
     override fun createItemStack(): ItemStack {
@@ -27,6 +28,7 @@ object SunscorchedEmber : CustomItem("sunscorched_ember", Rarity.COMPONENT) {
                 ItemLore.lore("Once buried beneath golden sands."),
             )
         )
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "sunscorched_ember")
         item.itemMeta = meta
         return applyMeta(item)
     }
