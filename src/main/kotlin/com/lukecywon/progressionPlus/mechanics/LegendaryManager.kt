@@ -11,18 +11,25 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
+import java.util.UUID
 
 object LegendaryManager : Manager {
     override fun start(plugin: JavaPlugin) {
         object : BukkitRunnable() {
-            var counter = 0
+            var counter = mutableMapOf<UUID, Int>()
             val killValue = 10
 
             override fun run() {
                 for (player in plugin.server.onlinePlayers) {
-                    if (counter >= killValue) {
+                    if (counter[player.uniqueId] == null) {
+                        counter[player.uniqueId] = 0
+                    }
+
+                    var playerCounter = counter[player.uniqueId]!!
+
+                    if (playerCounter >= killValue) {
                         punishPlayer(player)
-                        counter = 0
+                        playerCounter = 0
                     }
 
                     if (LegendaryItemListener.hasMoreThanOneLegendary(player)) {
@@ -31,13 +38,15 @@ object LegendaryManager : Manager {
                         player.showTitle(
                             Title.title(
                                 Component.text("WARNING!", NamedTextColor.RED),
-                                Component.text("You are overflowing with LEGENDARY power." + " (" + (killValue - counter) + "s)", NamedTextColor.GOLD)
+                                Component.text("You are overflowing with LEGENDARY power." + " (" + (killValue - playerCounter) + "s)", NamedTextColor.GOLD)
                             )
                         )
 
                         player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.8f)
-                        counter++
+                        playerCounter++
                     }
+
+                    counter[player.uniqueId] = playerCounter
                 }
             }
         }.runTaskTimer(plugin, 0L, 20L)

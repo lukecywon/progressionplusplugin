@@ -51,6 +51,7 @@ class Initialize(private val plugin: JavaPlugin) {
         plugin.getCommand("cooldown")?.tabCompleter = CooldownTabCompleter()
         plugin.getCommand("addsouls")?.setExecutor(AddSoulsCommand())
         plugin.getCommand("trade")?.setExecutor(MerchantsCommand())
+        plugin.getCommand("config")?.setExecutor(ConfigCommand())
 
     }
 
@@ -108,6 +109,7 @@ class Initialize(private val plugin: JavaPlugin) {
             AdvancementRecipeUnlockListener(),
             RecipeBlockerListener(),
             CustomItemVanillaBlocker(),
+            VillagerTradeListener()
         )
 
         listeners.forEach {
