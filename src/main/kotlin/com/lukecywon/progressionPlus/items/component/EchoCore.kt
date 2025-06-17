@@ -10,7 +10,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
-object EchoCore : CustomItem("echo_core", Rarity.COMPONENT) {
+object EchoCore : CustomItem("echo_core", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ECHO_SHARD)
         val meta = item.itemMeta

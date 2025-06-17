@@ -10,7 +10,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
-object WardensHeart : CustomItem("wardens_heart", Rarity.COMPONENT) {
+object WardensHeart : CustomItem("wardens_heart", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.NETHER_STAR)
         val meta = item.itemMeta

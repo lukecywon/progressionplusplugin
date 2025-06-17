@@ -4,7 +4,9 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.items.component.EnderiteIngot
+import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
@@ -76,8 +78,8 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.MaterialChoice(Material.ORANGE_WOOL), RecipeChoice.MaterialChoice(Material.ORANGE_WOOL), RecipeChoice.MaterialChoice(Material.ORANGE_WOOL),
-            RecipeChoice.MaterialChoice(Material.ORANGE_WOOL), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.ORANGE_WOOL),
+            RecipeChoice.MaterialChoice(Material.NETHERITE_INGOT), RecipeChoice.MaterialChoice(Material.NETHERITE_INGOT), RecipeChoice.MaterialChoice(Material.DIAMOND),
+            RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EchoCore.createItemStack()), RecipeChoice.ExactChoice(WardensHeart.createItemStack()),
             null, null, RecipeChoice.MaterialChoice(Material.STICK)
         )
     }
