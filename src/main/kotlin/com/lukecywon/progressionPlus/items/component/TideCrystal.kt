@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
 object TideCrystal : CustomItem("tide_crystal", Rarity.COMPONENT) {
@@ -27,6 +28,8 @@ object TideCrystal : CustomItem("tide_crystal", Rarity.COMPONENT) {
                 ItemLore.lore("It hums with deepwater pressure."),
             )
         )
+
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "tide_crystal")
 
         item.itemMeta = meta
         return applyMeta(item)
