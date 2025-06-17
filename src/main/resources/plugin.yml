@@ -28,3 +28,6 @@ commands:
   trade:
     description: Accept or reject a trade request
     usage: /trade <accept|reject>
+  config:
+    description: Used for debugging
+    usage: /config du <true|false>

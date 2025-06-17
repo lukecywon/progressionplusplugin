@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.MerchantRecipe
 
 class VillagerTradeListener : Listener {
+    private val plugin = ProgressionPlus.getPlugin()
     private val diamondItems = setOf(
         Material.DIAMOND_SWORD,
         Material.DIAMOND_AXE,
@@ -26,9 +27,11 @@ class VillagerTradeListener : Listener {
 
     @EventHandler
     fun onVillagerSpawn(event: CreatureSpawnEvent) {
+        if (plugin.config.getBoolean("diamond-unlocked")) return
+
         val villager = event.entity as? Villager ?: return
 
-        Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             val newTrades = mutableListOf<MerchantRecipe>()
 
             for (recipe in villager.recipes) {
@@ -50,6 +53,8 @@ class VillagerTradeListener : Listener {
 
     @EventHandler
     fun onAcquireTrade(event: VillagerAcquireTradeEvent) {
+        if (plugin.config.getBoolean("diamond-unlocked")) return
+
         val result = event.recipe.result.type
 
         if (result in diamondItems) {
