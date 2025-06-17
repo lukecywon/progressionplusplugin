@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
 object FerociousBlade : CustomItem("ferocious_blade", Rarity.RARE) {
@@ -36,6 +37,7 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.RARE) {
             )
         )
 
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "ferocious_blade")
         item.itemMeta = meta
         return applyMeta(item)
     }
