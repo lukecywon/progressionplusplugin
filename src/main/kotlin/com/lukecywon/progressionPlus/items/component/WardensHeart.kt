@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
 object WardensHeart : CustomItem("wardens_heart", Rarity.COMPONENT) {
@@ -28,6 +29,7 @@ object WardensHeart : CustomItem("wardens_heart", Rarity.COMPONENT) {
             )
         )
 
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "wardens_heart")
         item.itemMeta = meta
         return applyMeta(item)
     }
