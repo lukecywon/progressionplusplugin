@@ -4,7 +4,9 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -12,6 +14,7 @@ import org.bukkit.*
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 
 object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
 
@@ -71,11 +74,11 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
         }, chargeTicks)
     }
 
-    override fun getRecipe(): List<Material?> {
+    override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            Material.ORANGE_WOOL, Material.ORANGE_WOOL, Material.ORANGE_WOOL,
-            Material.ORANGE_WOOL, Material.GOLDEN_APPLE, Material.ORANGE_WOOL,
-            null, Material.STICK, null
+            RecipeChoice.MaterialChoice(Material.ORANGE_WOOL), RecipeChoice.MaterialChoice(Material.ORANGE_WOOL), RecipeChoice.MaterialChoice(Material.ORANGE_WOOL),
+            RecipeChoice.MaterialChoice(Material.ORANGE_WOOL), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.ORANGE_WOOL),
+            null, null, RecipeChoice.MaterialChoice(Material.STICK)
         )
     }
 }
