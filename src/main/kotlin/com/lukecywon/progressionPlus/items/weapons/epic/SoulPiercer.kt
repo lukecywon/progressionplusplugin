@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -34,7 +35,7 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
                 ItemLore.lore("Strike where it hurts most."),
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "soul_piercer")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta
