@@ -13,6 +13,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 
 object ItemRecipeGUI : GUI("Item Recipe", 9 * 5) {
     private var rarity: Rarity = Rarity.COMMON // Rarity for back button
@@ -57,7 +58,7 @@ object ItemRecipeGUI : GUI("Item Recipe", 9 * 5) {
         }
 
         for (i in recipe.indices) {
-            recipe[i]?.let { mat -> gui.setItem(grid[i], ItemStack(mat)) }
+            recipe[i]?.let { mat -> gui.setItem(grid[i], recipe[i]?.itemStack) }
         }
 
         // Result item

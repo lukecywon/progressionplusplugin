@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.recipes
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Material
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.inventory.ShapedRecipe
 
 object RecipeGenerator {
@@ -18,7 +19,7 @@ object RecipeGenerator {
         require(layout.size == 9) { "Recipe list must have 9 elements (3x3 grid)" }
 
         // Map unique non-null materials to characters A–I
-        val materialToChar = mutableMapOf<Material, Char>()
+        val materialToChar = mutableMapOf<RecipeChoice, Char>()
         var nextChar = 'A'
 
         val grid = Array(3) { row ->
@@ -47,5 +48,11 @@ object RecipeGenerator {
         }
 
         return recipe
+    }
+
+    fun convertToRecipeChoice(recipe: List<Material?>): List<RecipeChoice?> {
+        return recipe.map { mat ->
+            if (mat != null) RecipeChoice.MaterialChoice(mat) else null
+        }
     }
 }

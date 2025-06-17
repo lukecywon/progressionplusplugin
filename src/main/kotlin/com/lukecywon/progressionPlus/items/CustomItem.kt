@@ -14,9 +14,10 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.attribute.Attribute
+import org.bukkit.inventory.RecipeChoice
 import java.util.*
 
-abstract class CustomItem(private val name: String, private val rarity: Rarity) {
+abstract class CustomItem(private val name: String, private val rarity: Rarity, private val stackable: Boolean = false) {
     val key: NamespacedKey
     protected val plugin: JavaPlugin
 
@@ -28,7 +29,7 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
 
     abstract fun createItemStack(): ItemStack
 
-    open fun getRecipe(): List<Material?>? {
+    open fun getRecipe(): List<RecipeChoice?>? {
         return null
     }
 
@@ -57,11 +58,13 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity) 
         lore.add(Component.text(getRarity().displayName).color(getRarity().color).decorate(TextDecoration.BOLD))
         meta.lore(lore)
 
-        meta.persistentDataContainer.set(
-            NamespacedKey(plugin, "unique_id"),
-            PersistentDataType.STRING,
-            UUID.randomUUID().toString()
-        )
+        if (!stackable) {
+            meta.persistentDataContainer.set(
+                NamespacedKey(plugin, "unique_id"),
+                PersistentDataType.STRING,
+                UUID.randomUUID().toString()
+            )
+        }
 
         item.itemMeta = meta
         return item
