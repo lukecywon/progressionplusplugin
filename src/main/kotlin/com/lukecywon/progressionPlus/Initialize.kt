@@ -108,6 +108,7 @@ class Initialize(private val plugin: JavaPlugin) {
             AdvancementRecipeUnlockListener(),
             RecipeBlockerListener(),
             CustomItemVanillaBlocker(),
+            VillagerTradeListener()
         )
 
         listeners.forEach {
