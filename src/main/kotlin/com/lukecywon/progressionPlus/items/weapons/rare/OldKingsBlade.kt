@@ -13,7 +13,7 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.GOLDEN_SWORD)
-        item = applyBaseDamage(item, 10.0)
+        item = applyBaseDamage(item, 9.0)
         item = applyBaseAttackSpeed(item)
         val meta = item.itemMeta!!
 

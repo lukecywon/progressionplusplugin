@@ -16,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType
 object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_SWORD)
-        item = applyBaseDamage(item, 11.0)
+        item = applyBaseDamage(item, 9.0)
         item = applyBaseAttackSpeed(item, -0.8)
         val meta = item.itemMeta!!
 

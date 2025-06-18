@@ -16,7 +16,7 @@ object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)
-        item = applyBaseDamage(item, 17.0)
+        item = applyBaseDamage(item, 10.0)
         item = applyBaseAttackSpeed(item)
         val meta = item.itemMeta!!
 

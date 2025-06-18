@@ -34,7 +34,7 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
             listOf(
                 ItemLore.abilityuse("Sonic Boom", Activation.RIGHT_CLICK),
                 ItemLore.description("Charges for 1s then fires a deadly sonic wave in a straight line"),
-                ItemLore.cooldown(30),
+                ItemLore.cooldown(20),
                 ItemLore.separator(),
                 ItemLore.lore("A remnant of ancient wrath, still echoing with vengeance."),
             )
@@ -46,7 +46,7 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
     }
 
     fun shootSonicBoom(player: Player) {
-        val chargeTicks = 20L
+        val chargeTicks = 30L
         val world = player.world
         val location = player.location
 
@@ -60,7 +60,7 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
 
             for (i in 1..40) {
                 val point = start.clone().add(direction.clone().multiply(i))
-                world.spawnParticle(Particle.SONIC_BOOM, point, 1, 0.0, 0.0, 0.0, 0.0)
+                world.spawnParticle(Particle.SONIC_BOOM, point, 3, 0.0, 0.0, 0.0, 0.0)
 
                 val nearby = world.getNearbyEntities(point, 1.0, 1.0, 1.0)
                 for (entity in nearby) {

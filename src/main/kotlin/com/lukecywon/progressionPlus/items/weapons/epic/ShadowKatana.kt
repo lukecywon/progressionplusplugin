@@ -15,7 +15,7 @@ import org.bukkit.persistence.PersistentDataType
 object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_SWORD)
-        item = applyBaseDamage(item, 13.0)
+        item = applyBaseDamage(item, 11.0)
         item = applyBaseAttackSpeed(item)
         val meta = item.itemMeta!!
 

@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 class EchoGunListener : Listener {
     private val itemId = "echo_gun"
-    private val cooldownMillis = 30_000L
+    private val cooldownMillis = 20_000L
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
