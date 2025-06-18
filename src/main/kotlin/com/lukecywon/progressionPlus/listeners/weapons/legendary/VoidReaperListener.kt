@@ -21,7 +21,7 @@ class VoidReaperListener : Listener {
     private val notifiedReady = mutableSetOf<UUID>()
     private val burstCooldowns = mutableMapOf<UUID, Long>()
     private val SLASH_COOLDOWN_MS = 7_000L
-    private val BURST_COOLDOWN_MS = 2000L
+    private val BURST_COOLDOWN_MS = 7_000L
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
