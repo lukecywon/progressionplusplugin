@@ -11,7 +11,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE) {
+object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta
