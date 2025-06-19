@@ -19,17 +19,17 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
         item = applyBaseAttackSpeed(item)
         val meta = item.itemMeta!!
 
-//        meta.displayName(
-//            Component.text("Shadow Katana")
-//                .color(NamedTextColor.DARK_PURPLE)
-//                .decorate(TextDecoration.BOLD)
-//        )
-
         meta.displayName(
-            Component.text("影の刀")
+            Component.text("Shadow Katana")
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
+
+//        meta.displayName(
+//            Component.text("影の刀")
+//                .color(NamedTextColor.DARK_PURPLE)
+//                .decorate(TextDecoration.BOLD)
+//        )
 
 //        meta.lore(
 //            listOf(
@@ -49,6 +49,7 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
                 ItemLore.description("Dash forward and slash through enemies"),
                 ItemLore.description("Leaves a slash trail for 5s"),
                 ItemLore.cooldown(15),
+                ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Slashes faster than the eye can see."),
             )

@@ -18,6 +18,7 @@ import com.lukecywon.progressionPlus.items.utility.uncommon.EnchantmentExtractor
 import com.lukecywon.progressionPlus.items.utility.uncommon.MaxHeartFruit
 import com.lukecywon.progressionPlus.items.utility.uncommon.PhantomCharm
 import com.lukecywon.progressionPlus.items.weapons.epic.*
+import com.lukecywon.progressionPlus.items.weapons.legendary.BoomerangBlade
 import com.lukecywon.progressionPlus.items.weapons.legendary.EchoGun
 import com.lukecywon.progressionPlus.items.weapons.legendary.VoidReaper
 import com.lukecywon.progressionPlus.items.weapons.rare.*
@@ -91,5 +92,6 @@ object AllItems {
         reg(WardensHeart)
         reg(InfernalShard)
         reg(AetherCore)
+        reg(BoomerangBlade)
     }
 }

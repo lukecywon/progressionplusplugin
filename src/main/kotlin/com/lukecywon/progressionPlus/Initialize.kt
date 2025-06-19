@@ -13,6 +13,7 @@ import com.lukecywon.progressionPlus.listeners.utility.common.BannerListener
 import com.lukecywon.progressionPlus.listeners.utility.common.ItemEncyclopediaListener
 import com.lukecywon.progressionPlus.listeners.utility.epic.*
 import com.lukecywon.progressionPlus.listeners.utility.epic.LuckTalismanListener
+import com.lukecywon.progressionPlus.listeners.weapons.legendary.BoomerangBladeListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.NetherEyeListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.SacrificialClockListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.SnowGlobeListener
@@ -109,7 +110,8 @@ class Initialize(private val plugin: JavaPlugin) {
             AdvancementRecipeUnlockListener(),
             RecipeBlockerListener(),
             CustomItemVanillaBlocker(),
-            VillagerTradeListener()
+            VillagerTradeListener(),
+            BoomerangBladeListener(),
         )
 
         listeners.forEach {
