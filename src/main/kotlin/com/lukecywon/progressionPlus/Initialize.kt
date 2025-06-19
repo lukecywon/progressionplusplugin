@@ -15,13 +15,13 @@ import com.lukecywon.progressionPlus.listeners.utility.epic.*
 import com.lukecywon.progressionPlus.listeners.utility.epic.LuckTalismanListener
 import com.lukecywon.progressionPlus.listeners.weapons.legendary.BoomerangBladeListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.NetherEyeListener
-import com.lukecywon.progressionPlus.listeners.utility.legendary.SacrificialClockListener
 import com.lukecywon.progressionPlus.listeners.utility.legendary.SnowGlobeListener
 import com.lukecywon.progressionPlus.listeners.utility.rare.*
 import com.lukecywon.progressionPlus.listeners.utility.uncommon.EnchantmentExtractorListener
 import com.lukecywon.progressionPlus.listeners.utility.uncommon.PhantomCharmListener
 import com.lukecywon.progressionPlus.listeners.weapons.epic.*
 import com.lukecywon.progressionPlus.listeners.weapons.legendary.EchoGunListener
+import com.lukecywon.progressionPlus.listeners.weapons.legendary.FamesAuriListener
 import com.lukecywon.progressionPlus.listeners.weapons.legendary.VoidReaperListener
 import com.lukecywon.progressionPlus.listeners.weapons.rare.*
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.BerserkerSwordListener
@@ -79,7 +79,7 @@ class Initialize(private val plugin: JavaPlugin) {
             SoulPiercerListener(),
             LuckTalismanListener(),
             VoidReaperListener(),
-            SacrificialClockListener(),
+            FamesAuriListener(),
             SoulrendScytheListener(),
             NocturnHoodListener(),
             TwilightCrownListener(),

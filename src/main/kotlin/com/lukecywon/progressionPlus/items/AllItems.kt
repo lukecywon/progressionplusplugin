@@ -11,7 +11,6 @@ import com.lukecywon.progressionPlus.items.utility.common.*
 import com.lukecywon.progressionPlus.items.utility.epic.*
 import com.lukecywon.progressionPlus.items.utility.epic.LuckTalisman
 import com.lukecywon.progressionPlus.items.progression.NetherEye
-import com.lukecywon.progressionPlus.items.utility.legendary.SacrificialClock
 import com.lukecywon.progressionPlus.items.utility.legendary.SnowGlobe
 import com.lukecywon.progressionPlus.items.utility.rare.*
 import com.lukecywon.progressionPlus.items.utility.uncommon.EnchantmentExtractor
@@ -20,6 +19,7 @@ import com.lukecywon.progressionPlus.items.utility.uncommon.PhantomCharm
 import com.lukecywon.progressionPlus.items.weapons.epic.*
 import com.lukecywon.progressionPlus.items.weapons.legendary.BoomerangBlade
 import com.lukecywon.progressionPlus.items.weapons.legendary.EchoGun
+import com.lukecywon.progressionPlus.items.weapons.legendary.FamesAuri
 import com.lukecywon.progressionPlus.items.weapons.legendary.VoidReaper
 import com.lukecywon.progressionPlus.items.weapons.rare.*
 import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
@@ -62,7 +62,7 @@ object AllItems {
         reg(TwilightCrown)
         reg(TribalSpear)
         reg(OldKingsBlade)
-        reg(SacrificialClock)
+        reg(FamesAuri)
         reg(ShadowKatana)
         reg(WoodenHelmet)
         reg(WoodenChestplate)
