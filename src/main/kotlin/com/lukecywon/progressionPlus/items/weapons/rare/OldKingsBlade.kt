@@ -46,4 +46,8 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, org.bukkit.persistence.PersistentDataType.BYTE)
     }
+
+    override fun getExtraInfo(): List<String> {
+        return listOf("§7Looted from Desert Temples.")
+    }
 }

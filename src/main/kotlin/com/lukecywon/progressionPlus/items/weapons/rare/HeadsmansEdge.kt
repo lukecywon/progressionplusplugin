@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -11,12 +12,13 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 
 object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)
-        item = applyBaseDamage(item, 10.0)
+        item = applyBaseDamage(item, 8.0)
         item = applyBaseAttackSpeed(item)
         val meta = item.itemMeta!!
 
@@ -41,5 +43,13 @@ object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
         item.itemMeta = meta
 
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.WITHER_SKELETON_SKULL, Material.BONE_BLOCK,
+            null, Material.STICK, Material.BONE_BLOCK,
+            null, Material.STICK, null
+        ))
     }
 }

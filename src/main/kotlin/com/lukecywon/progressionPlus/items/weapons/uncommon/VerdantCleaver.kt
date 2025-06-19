@@ -4,12 +4,14 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
@@ -64,5 +66,13 @@ object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
         meta.persistentDataContainer.set(sizeKey, PersistentDataType.INTEGER, next)
         item.itemMeta = meta
         return next
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.MOSSY_COBBLESTONE, Material.VINE,
+            null, Material.IRON_AXE, Material.VINE,
+            null, Material.STICK, null
+        ))
     }
 }

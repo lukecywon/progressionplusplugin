@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus.listeners.loot
 
+import com.lukecywon.progressionPlus.items.component.TideCrystal
 import com.lukecywon.progressionPlus.items.progression.NetherEye
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
@@ -17,7 +18,7 @@ class ElderGuardianDropListener : Listener {
 
         // Optionally check if killed by a player
         if (entity.killer != null) {
-            val item = NetherEye.createItemStack()
+            val item = TideCrystal.createItemStack()
             event.drops.add(item)
         }
     }

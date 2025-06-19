@@ -36,16 +36,14 @@ class PeacemakerListener : Listener {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (e.action == Action.RIGHT_CLICK_BLOCK &&
-            item.type == Material.IRON_HOE &&
-            item.itemMeta.persistentDataContainer.has(Peacemaker.key, PersistentDataType.BYTE)) {
+        if (!Peacemaker.isThisItem(item)) return
+        val meta = item.itemMeta ?: return
+        val data = meta.persistentDataContainer
+
+        if (e.action == Action.RIGHT_CLICK_BLOCK && item.type == Material.IRON_HOE) {
             e.isCancelled = true
         }
 
-        if (!item.itemMeta.persistentDataContainer.has(Peacemaker.key, PersistentDataType.BYTE)) return
-
-        val meta = item.itemMeta
-        val data = meta.persistentDataContainer
         val currentBullets = data.getOrDefault(bulletKey, PersistentDataType.INTEGER, 0)
 
         if (e.action == Action.LEFT_CLICK_AIR || e.action == Action.LEFT_CLICK_BLOCK) {
@@ -60,9 +58,7 @@ class PeacemakerListener : Listener {
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         if (player.isSneaking) {
-            if (loadTimers.containsKey(player.uniqueId)) {
-                return
-            }
+            if (loadTimers.containsKey(player.uniqueId)) return
 
             if (currentBullets >= maxBullets) {
                 player.sendActionBar(buildBulletBar(currentBullets, null))
@@ -77,13 +73,13 @@ class PeacemakerListener : Listener {
             val reloadTask = object : BukkitRunnable() {
                 override fun run() {
                     val currentItem = player.inventory.itemInMainHand
-                    if (!currentItem.itemMeta.persistentDataContainer.has(Peacemaker.key, PersistentDataType.BYTE)) {
+                    if (!Peacemaker.isThisItem(currentItem)) {
                         loadTimers.remove(player.uniqueId)
                         activeReloadTasks.remove(player.uniqueId)
                         return
                     }
 
-                    val updatedMeta = currentItem.itemMeta
+                    val updatedMeta = currentItem.itemMeta ?: return
                     val updatedData = updatedMeta.persistentDataContainer
                     val newCount = updatedData.getOrDefault(bulletKey, PersistentDataType.INTEGER, 0) + 1
                     updatedData.set(bulletKey, PersistentDataType.INTEGER, newCount)
@@ -133,13 +129,13 @@ class PeacemakerListener : Listener {
             player.sendActionBar(Component.text("§7[§fPeacemaker§7] §cCooling down..."))
             return
         }
-        // ❗ Cancel reload if mid-reload
+
         cancelReloadIfActive(player)
 
         fireLaser(player, 0.0)
         CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
 
-        val updatedMeta = item.itemMeta
+        val updatedMeta = item.itemMeta ?: return
         val updatedData = updatedMeta.persistentDataContainer
         updatedData.set(bulletKey, PersistentDataType.INTEGER, currentBullets - 1)
         item.itemMeta = updatedMeta
@@ -259,8 +255,7 @@ class PeacemakerListener : Listener {
     fun onEntityHit(e: EntityDamageByEntityEvent) {
         val player = e.damager as? Player ?: return
         val item = player.inventory.itemInMainHand
-
-        if (!item.itemMeta.persistentDataContainer.has(Peacemaker.key, PersistentDataType.BYTE)) return
+        if (!Peacemaker.isThisItem(item)) return
         if (!pendingFanClicks.remove(player.uniqueId)) return
 
         e.isCancelled = true

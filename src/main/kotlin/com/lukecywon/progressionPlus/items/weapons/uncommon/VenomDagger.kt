@@ -4,11 +4,13 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
@@ -42,5 +44,13 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
         if (item == null || item.type != Material.WOODEN_SWORD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.POISONOUS_POTATO, null,
+            null, Material.PALE_OAK_LOG, null,
+            null, Material.STICK, null
+        ))
     }
 }
