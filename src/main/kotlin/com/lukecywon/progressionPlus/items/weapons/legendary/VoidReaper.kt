@@ -211,9 +211,9 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            null, null, RecipeChoice.ExactChoice(EchoCore.createItemStack()),
-            null, RecipeChoice.ExactChoice(WardensHeart.createItemStack()), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()),
-            RecipeChoice.MaterialChoice(Material.END_ROD), null, RecipeChoice.ExactChoice(EnderiteIngot.createItemStack())
+            RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EchoCore.createItemStack()),
+            null, RecipeChoice.ExactChoice(WardensHeart.createItemStack()), null,
+            RecipeChoice.MaterialChoice(Material.END_ROD), null, null
         )
     }
 }
