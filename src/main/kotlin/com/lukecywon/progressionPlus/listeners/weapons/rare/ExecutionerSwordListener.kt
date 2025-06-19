@@ -1,6 +1,6 @@
-package com.lukecywon.progressionPlus.listeners.weapons.epic
+package com.lukecywon.progressionPlus.listeners.weapons.rare
 
-import com.lukecywon.progressionPlus.items.weapons.epic.ExecutionerSword
+import com.lukecywon.progressionPlus.items.weapons.rare.ExecutionerSword
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Particle

@@ -10,7 +10,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 
-object SunscorchedEmber : CustomItem("sunscorched_ember", Rarity.COMPONENT) {
+object SunscorchedEmber : CustomItem("sunscorched_ember", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BLAZE_POWDER)
         val meta = item.itemMeta

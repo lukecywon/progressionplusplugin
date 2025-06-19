@@ -10,7 +10,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
-object TwistedRoot : CustomItem("twisted_root", Rarity.COMPONENT) {
+object TwistedRoot : CustomItem("twisted_root", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.STICK)
         val meta = item.itemMeta
