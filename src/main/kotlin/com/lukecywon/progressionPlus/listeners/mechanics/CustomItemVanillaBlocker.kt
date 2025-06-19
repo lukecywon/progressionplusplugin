@@ -74,22 +74,22 @@ class CustomItemVanillaBlocker : Listener {
         }
     }
 
-    // 🚫 Prevent anvil interactions
-    @EventHandler
-    fun onAnvil(e: PrepareAnvilEvent) {
-        val left = e.inventory.getItem(0)
-        val right = e.inventory.getItem(1)
-        if (isCustomItem(left) || isCustomItem(right)) {
-            e.result = null
-        }
-    }
-
-    @EventHandler
-    fun onEnchantAttempt(e: PrepareItemEnchantEvent) {
-        val item = e.item
-        if (isCustomItem(item)) {
-            e.setCancelled(true)
-        }
-    }
+//    // 🚫 Prevent anvil interactions
+//    @EventHandler
+//    fun onAnvil(e: PrepareAnvilEvent) {
+//        val left = e.inventory.getItem(0)
+//        val right = e.inventory.getItem(1)
+//        if (isCustomItem(left) || isCustomItem(right)) {
+//            e.result = null
+//        }
+//    }
+//
+//    @EventHandler
+//    fun onEnchantAttempt(e: PrepareItemEnchantEvent) {
+//        val item = e.item
+//        if (isCustomItem(item)) {
+//            e.setCancelled(true)
+//        }
+//    }
 
 }

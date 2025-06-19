@@ -4,12 +4,14 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
@@ -47,5 +49,13 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
         if (item == null || item.type != Material.GOLDEN_SWORD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.DIAMOND, null,
+            null, Material.GOLDEN_SWORD, null,
+            null, Material.STICK, null
+        ))
     }
 }
