@@ -4,9 +4,11 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
@@ -29,5 +31,13 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.IRON_BLOCK, null,
+            null, Material.IRON_BLOCK, null,
+            null, Material.STICK, null
+        ))
     }
 }
