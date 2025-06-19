@@ -10,7 +10,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
-object TideCrystal : CustomItem("tide_crystal", Rarity.COMPONENT) {
+object TideCrystal : CustomItem("tide_crystal", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.PRISMARINE_CRYSTALS)
         val meta = item.itemMeta
