@@ -28,7 +28,7 @@ class FamesAuriListener : Listener {
     private val scheduledTasks = ConcurrentHashMap<UUID, BukkitRunnable>()
     private val particleTasks = ConcurrentHashMap<UUID, BukkitRunnable>()
     private val pendingActivations = ConcurrentHashMap<UUID, BukkitRunnable>()
-    private val toggleCooldown = ConcurrentHashMap<UUID, Long>()
+    private val recentlyDeactivated = ConcurrentHashMap<UUID, Long>()
 
     @EventHandler
     fun onDrop(e: PlayerDropItemEvent) {
@@ -50,12 +50,10 @@ class FamesAuriListener : Listener {
         if (player.isSneaking) {
             cycleMode(player)
         } else {
-            val now = System.currentTimeMillis()
-            if (isPlayerActive(player)) {
-                if (now - toggleCooldown.getOrDefault(player.uniqueId, 0L) < 1000L) {
-                    player.sendMessage("§7You must wait before toggling again.")
-                    return
-                }
+            val lastDeactivated = recentlyDeactivated[player.uniqueId] ?: 0L
+            if (System.currentTimeMillis() - lastDeactivated < 2000L) {
+                player.sendMessage("§7You must wait before toggling again.")
+                return
             }
             toggle(player)
         }
@@ -186,8 +184,8 @@ class FamesAuriListener : Listener {
         }
 
         player.playSound(player.location, Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 0.8f)
-        toggleCooldown[player.uniqueId] = System.currentTimeMillis()
         player.sendMessage("§6Fames Auri has been deactivated.")
+        recentlyDeactivated[player.uniqueId] = System.currentTimeMillis()
     }
 
     private fun cycleMode(player: Player) {
@@ -205,10 +203,5 @@ class FamesAuriListener : Listener {
             if (player.inventory.contains(config.material)) return index
         }
         return null
-    }
-
-    private fun isPlayerActive(player: Player): Boolean {
-        val uuid = player.uniqueId
-        return scheduledTasks.containsKey(uuid) || pendingActivations.containsKey(uuid)
     }
 }
