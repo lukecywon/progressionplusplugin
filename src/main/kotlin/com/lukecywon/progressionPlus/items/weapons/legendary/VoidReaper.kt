@@ -4,6 +4,10 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EchoCore
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
+import com.lukecywon.progressionPlus.items.component.WardensHeart
+import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -12,6 +16,7 @@ import org.bukkit.*
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -202,5 +207,13 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
                 }
             }.runTaskTimer(plugin, 0L, 2L)
         }
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EchoCore.createItemStack()),
+            null, RecipeChoice.ExactChoice(WardensHeart.createItemStack()), null,
+            RecipeChoice.MaterialChoice(Material.END_ROD), null, null
+        )
     }
 }

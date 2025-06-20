@@ -12,7 +12,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
-object InfernalShard : CustomItem("infernal_shard", Rarity.COMPONENT) {
+object InfernalShard : CustomItem("infernal_shard", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BLAZE_ROD)
         val meta = item.itemMeta

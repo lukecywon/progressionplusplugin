@@ -1,25 +1,25 @@
-package com.lukecywon.progressionPlus.items.weapons.epic
+package com.lukecywon.progressionPlus.items.weapons.rare
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object ExecutionerSword : CustomItem("executioner_sword", Rarity.EPIC) {
+object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta!!
 
-        meta.displayName(Component.text("☠ Executioner Sword").color(Rarity.RARE.color))
+        meta.displayName(Component.text("Executioner Sword").color(Rarity.RARE.color))
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         meta.lore(listOf(
-//            Component.text("The final sight of many men.", NamedTextColor.GRAY),
-//            Component.text("Right-click to cleave in front of yourself!", NamedTextColor.YELLOW),
             ItemLore.abilityuse("Final Verdict", Activation.RIGHT_CLICK),
             ItemLore.description("Cleaves all enemies in front of you"),
             ItemLore.cooldown(0),
@@ -31,5 +31,13 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.EPIC) {
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.IRON_BLOCK, null,
+            null, Material.IRON_BLOCK, null,
+            null, Material.STICK, null
+        ))
     }
 }

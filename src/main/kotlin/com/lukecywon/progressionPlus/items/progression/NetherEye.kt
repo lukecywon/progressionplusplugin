@@ -3,6 +3,8 @@ package com.lukecywon.progressionPlus.items.progression
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.*
+import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -11,6 +13,8 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
+import org.bukkit.inventory.RecipeChoice.MaterialChoice
 import org.bukkit.persistence.PersistentDataType
 
 object NetherEye : CustomItem("nether_eye", Rarity.PROGRESSION) {
@@ -55,5 +59,13 @@ object NetherEye : CustomItem("nether_eye", Rarity.PROGRESSION) {
         } else {
             player.sendMessage("§e§lNether access has been §cDISABLED§e.")
         }
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            RecipeChoice.MaterialChoice(Material.ENDER_PEARL), RecipeChoice.ExactChoice(TideCrystal.createItemStack()), RecipeChoice.MaterialChoice(Material.ENDER_PEARL),
+            RecipeChoice.ExactChoice(EchoCore.createItemStack()), RecipeChoice.ExactChoice(WardensHeart.createItemStack()), RecipeChoice.ExactChoice(TwistedRoot.createItemStack()),
+            RecipeChoice.MaterialChoice(Material.ENDER_PEARL), RecipeChoice.ExactChoice(SunscorchedEmber.createItemStack()), RecipeChoice.MaterialChoice(Material.ENDER_PEARL)
+        )
     }
 }

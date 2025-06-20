@@ -11,7 +11,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
-object AetherCore : CustomItem("aether_core", Rarity.COMPONENT) {
+object AetherCore : CustomItem("aether_core", Rarity.COMPONENT, true) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.HEART_OF_THE_SEA)
         val meta = item.itemMeta

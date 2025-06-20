@@ -4,12 +4,14 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
@@ -48,5 +50,13 @@ object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
         item.itemMeta = meta
 
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.IRON_INGOT, Material.IRON_INGOT, Material.TRIPWIRE_HOOK,
+            Material.BLAZE_ROD, Material.GUNPOWDER, Material.CROSSBOW,
+            null, null, Material.STICK
+        ))
     }
 }
