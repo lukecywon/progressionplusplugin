@@ -51,11 +51,12 @@ class FamesAuriListener : Listener {
             cycleMode(player)
         } else {
             val now = System.currentTimeMillis()
-            if (now - toggleCooldown.getOrDefault(player.uniqueId, 0L) < 1000L) {
-                player.sendMessage("§7You must wait before toggling again.")
-                return
+            if (isPlayerActive(player)) {
+                if (now - toggleCooldown.getOrDefault(player.uniqueId, 0L) < 1000L) {
+                    player.sendMessage("§7You must wait before toggling again.")
+                    return
+                }
             }
-            toggleCooldown[player.uniqueId] = now
             toggle(player)
         }
     }
@@ -185,6 +186,7 @@ class FamesAuriListener : Listener {
         }
 
         player.playSound(player.location, Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 0.8f)
+        toggleCooldown[player.uniqueId] = System.currentTimeMillis()
         player.sendMessage("§6Fames Auri has been deactivated.")
     }
 
@@ -203,5 +205,10 @@ class FamesAuriListener : Listener {
             if (player.inventory.contains(config.material)) return index
         }
         return null
+    }
+
+    private fun isPlayerActive(player: Player): Boolean {
+        val uuid = player.uniqueId
+        return scheduledTasks.containsKey(uuid) || pendingActivations.containsKey(uuid)
     }
 }
