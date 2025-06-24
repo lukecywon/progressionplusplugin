@@ -14,6 +14,7 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
@@ -27,7 +28,15 @@ class FamesAuriListener : Listener {
     private val scheduledTasks = ConcurrentHashMap<UUID, BukkitRunnable>()
     private val particleTasks = ConcurrentHashMap<UUID, BukkitRunnable>()
     private val pendingActivations = ConcurrentHashMap<UUID, BukkitRunnable>()
-    private val INTERVAL_TICKS = 60L
+    private val toggleCooldown = ConcurrentHashMap<UUID, Long>()
+
+    @EventHandler
+    fun onDrop(e: PlayerDropItemEvent) {
+        val player = e.player
+        if (FamesAuri.isFamesAuri(e.itemDrop.itemStack)) {
+            deactivate(player)
+        }
+    }
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -41,16 +50,20 @@ class FamesAuriListener : Listener {
         if (player.isSneaking) {
             cycleMode(player)
         } else {
+            val now = System.currentTimeMillis()
+            if (isPlayerActive(player)) {
+                if (now - toggleCooldown.getOrDefault(player.uniqueId, 0L) < 1000L) {
+                    player.sendMessage("§7You must wait before toggling again.")
+                    return
+                }
+            }
             toggle(player)
         }
     }
 
     @EventHandler
     fun onSwapHotbarSlot(e: PlayerItemHeldEvent) {
-        val player = e.player
-        if (!FamesAuri.isFamesAuri(player.inventory.itemInMainHand)) {
-            deactivate(player)
-        }
+        deactivate(e.player)
     }
 
     @EventHandler
@@ -74,14 +87,15 @@ class FamesAuriListener : Listener {
             selectedMode
         } else {
             determineBuffMode(player) ?: run {
-                player.sendMessage("§cNo gold material to consume.")
+                player.sendMessage("§cNo gold treasure to consume.")
                 return
             }
         }
 
+        val config = FamesAuri.buffs[validMode]
         activePlayers[uuid] = validMode
         activeModes[uuid] = validMode
-        player.sendMessage("§eFames Auri activating in 3 seconds using ${FamesAuri.buffs[validMode].label}...")
+        player.sendMessage("§e${config.label} Fames Auri activating in ${config.activationDelayTicks / 20} seconds...")
         player.playSound(player.location, Sound.BLOCK_BEACON_POWER_SELECT, 1.0f, 1.2f)
 
         val pendingTask = object : BukkitRunnable() {
@@ -103,7 +117,6 @@ class FamesAuriListener : Listener {
                             return
                         }
 
-                        val config = FamesAuri.buffs[validMode]
                         if (!player.inventory.contains(config.material)) {
                             player.sendMessage("§cOut of ${config.material}.")
                             deactivate(player)
@@ -113,14 +126,15 @@ class FamesAuriListener : Listener {
                         player.inventory.removeItem(ItemStack(config.material, 1))
                         config.potionEffects.forEach { player.addPotionEffect(it) }
                         config.attributeModifiers.forEach { (attr, mod) ->
-                            val attribute = player.getAttribute(attr)
-                            if (attribute != null && !attribute.modifiers.contains(mod)) {
-                                attribute.addModifier(mod)
+                            val attrObj = player.getAttribute(attr)
+                            if (attrObj != null && attrObj.getModifier(mod.uniqueId) == null) {
+                                attrObj.addModifier(mod)
                             }
                         }
                     }
                 }
-                task.runTaskTimer(ProgressionPlus.getPlugin(), 0L, INTERVAL_TICKS)
+
+                task.runTaskTimer(ProgressionPlus.getPlugin(), 0L, config.intervalTicks)
                 scheduledTasks[uuid] = task
 
                 val particleTask = object : BukkitRunnable() {
@@ -134,8 +148,8 @@ class FamesAuriListener : Listener {
                             1 -> 10 to 1.5f
                             else -> 20 to 2.0f
                         }
-                        val brightGold = Color.fromRGB(255, 240, 160)
-                        val softGold = Color.fromRGB(255, 225, 100)
+                        val brightGold = Color.fromRGB(255, 200, 50)
+                        val softGold = Color.fromRGB(255, 190, 40)
                         val dust = Particle.DustOptions(brightGold, size)
                         val blendDust = Particle.DustOptions(softGold, size * 0.8f)
                         val loc = player.location.clone().add(0.0, 0.3, 0.0)
@@ -144,12 +158,13 @@ class FamesAuriListener : Listener {
                         player.world.spawnParticle(Particle.DUST, loc, count / 2, 0.2, 0.1, 0.2, 0.01, blendDust)
                     }
                 }
+
                 particleTask.runTaskTimer(ProgressionPlus.getPlugin(), 0L, 5L)
                 particleTasks[uuid] = particleTask
             }
         }
 
-        pendingTask.runTaskLater(ProgressionPlus.getPlugin(), INTERVAL_TICKS)
+        pendingTask.runTaskLater(ProgressionPlus.getPlugin(), config.activationDelayTicks)
         pendingActivations[uuid] = pendingTask
     }
 
@@ -171,6 +186,7 @@ class FamesAuriListener : Listener {
         }
 
         player.playSound(player.location, Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 0.8f)
+        toggleCooldown[player.uniqueId] = System.currentTimeMillis()
         player.sendMessage("§6Fames Auri has been deactivated.")
     }
 
@@ -179,7 +195,7 @@ class FamesAuriListener : Listener {
         val current = activeModes.getOrDefault(uuid, 0)
         val next = (current + 1) % FamesAuri.buffs.size
         activeModes[uuid] = next
-        player.sendMessage("§eFames Auri switched to ${FamesAuri.buffs[next].label}.")
+        player.sendMessage("§eFames Auri set to ${FamesAuri.buffs[next].label}.")
         player.playSound(player.location, Sound.UI_BUTTON_CLICK, 0.7f, 1.3f)
         player.world.spawnParticle(Particle.CRIT, player.location.add(0.0, 1.0, 0.0), 15, 0.4, 0.5, 0.4, 0.01)
     }
@@ -189,5 +205,10 @@ class FamesAuriListener : Listener {
             if (player.inventory.contains(config.material)) return index
         }
         return null
+    }
+
+    private fun isPlayerActive(player: Player): Boolean {
+        val uuid = player.uniqueId
+        return scheduledTasks.containsKey(uuid) || pendingActivations.containsKey(uuid)
     }
 }
