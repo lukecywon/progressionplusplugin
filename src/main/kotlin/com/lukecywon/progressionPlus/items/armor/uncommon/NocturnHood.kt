@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -15,6 +16,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.RecipeChoice
 
 object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
@@ -55,5 +57,12 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
         )
         item.itemMeta = meta
         return applyMeta(item)
+    }
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.TINTED_GLASS, Material.IRON_INGOT, Material.TINTED_GLASS,
+            Material.IRON_INGOT, null, Material.IRON_INGOT,
+            null,null,null
+        ))
     }
 }

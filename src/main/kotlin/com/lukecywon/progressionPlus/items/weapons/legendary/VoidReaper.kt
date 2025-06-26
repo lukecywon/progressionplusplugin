@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.items.component.WardensHeart
+import com.lukecywon.progressionPlus.items.weapons.epic.SoulrendScythe
 import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
@@ -213,7 +214,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         return listOf(
             RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EchoCore.createItemStack()),
             null, RecipeChoice.ExactChoice(WardensHeart.createItemStack()), null,
-            RecipeChoice.MaterialChoice(Material.END_ROD), null, null
+            RecipeChoice.ExactChoice(SoulrendScythe.createItemStack()), null, null
         )
     }
 }

@@ -4,11 +4,13 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
@@ -41,5 +43,13 @@ object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
         if (item == null || item.type != Material.AMETHYST_SHARD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.PHANTOM_MEMBRANE, Material.STRING, Material.PHANTOM_MEMBRANE,
+            Material.GLOW_INK_SAC, Material.PHANTOM_MEMBRANE, Material.GLOW_INK_SAC,
+            null, Material.GLOW_BERRIES, null
+        ))
     }
 }
