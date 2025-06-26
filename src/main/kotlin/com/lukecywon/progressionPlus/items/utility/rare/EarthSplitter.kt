@@ -36,7 +36,7 @@ object EarthSplitter : CustomItem("earth_splitter", Rarity.RARE) {
                 ItemLore.lore("Forged to reshape the land itself.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "earth_splitter")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

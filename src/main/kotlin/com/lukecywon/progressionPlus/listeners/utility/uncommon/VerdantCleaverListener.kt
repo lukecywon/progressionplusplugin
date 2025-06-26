@@ -1,7 +1,7 @@
-package com.lukecywon.progressionPlus.listeners.weapons.uncommon
+package com.lukecywon.progressionPlus.listeners.utility.uncommon
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.weapons.uncommon.VerdantCleaver
+import com.lukecywon.progressionPlus.items.utility.uncommon.VerdantCleaver
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -9,15 +9,16 @@ import org.bukkit.block.Block
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.Action
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
+import kotlin.math.abs
 
 class VerdantCleaverListener : Listener {
 
-    private val plugin = ProgressionPlus.getPlugin()
+    private val plugin = ProgressionPlus.Companion.getPlugin()
 
     private val logTypes = setOf(
         Material.OAK_LOG, Material.SPRUCE_LOG, Material.BIRCH_LOG,
@@ -111,7 +112,7 @@ class VerdantCleaverListener : Listener {
 
                         visited.add(next)
 
-                        if ((kotlin.math.abs(dx) + kotlin.math.abs(dy) + kotlin.math.abs(dz)) == 1) {
+                        if ((abs(dx) + abs(dy) + abs(dz)) == 1) {
                             faceQueue.add(next)
                         } else {
                             diagonalQueue.add(next)

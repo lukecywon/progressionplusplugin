@@ -27,7 +27,7 @@ import com.lukecywon.progressionPlus.listeners.weapons.rare.*
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.BerserkerSwordListener
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.RogueSwordListener
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.VenomDaggerListener
-import com.lukecywon.progressionPlus.listeners.weapons.uncommon.VerdantCleaverListener
+import com.lukecywon.progressionPlus.listeners.utility.uncommon.VerdantCleaverListener
 import com.lukecywon.progressionPlus.mechanics.*
 import com.lukecywon.progressionPlus.recipes.*
 

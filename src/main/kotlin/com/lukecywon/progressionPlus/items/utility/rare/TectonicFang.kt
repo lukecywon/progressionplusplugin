@@ -33,7 +33,7 @@ object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
                 ItemLore.lore("A primal fang from the heart of the world.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "tectonic_fang")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 

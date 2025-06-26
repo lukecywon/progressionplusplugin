@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -32,7 +33,7 @@ object HealthCrystal : CustomItem("health_crystal", Rarity.EPIC) {
                 ItemLore.lore("A shard of life itself, yearning to become one with its bearer."),
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "health_crystal")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)

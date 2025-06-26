@@ -37,7 +37,7 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
             )
         )
 
-        meta.itemModel = NamespacedKey(ProgressionPlus.getPlugin(), "nocturn_hood")
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "nocturn_hood")
 
         // Remove armor protection
         val noArmor = AttributeModifier(

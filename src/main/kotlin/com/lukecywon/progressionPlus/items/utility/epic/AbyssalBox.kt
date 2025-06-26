@@ -38,7 +38,7 @@ object AbyssalBox : CustomItem("abyssal_box", Rarity.EPIC) {
                 ItemLore.lore("A void-bound vault, unburdened by nesting laws.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "abyssal_box")
         // Assign unique ID for storage
         if (!meta.persistentDataContainer.has(boxIdKey, PersistentDataType.STRING)) {
             meta.persistentDataContainer.set(boxIdKey, PersistentDataType.STRING, UUID.randomUUID().toString())
