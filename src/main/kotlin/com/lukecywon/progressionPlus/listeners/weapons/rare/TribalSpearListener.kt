@@ -72,7 +72,7 @@ class TribalSpearListener : Listener {
                 // Optional: damage nearby entities
                 for (entity in world.getNearbyEntities(location, 1.0, 1.0, 1.0)) {
                     if (entity is LivingEntity && entity != player) {
-                        entity.damage(4.0, player)
+                        entity.damage(5.0, player)
                         world.spawnParticle(Particle.DAMAGE_INDICATOR, entity.location, 10)
                         cancel()
                         return
