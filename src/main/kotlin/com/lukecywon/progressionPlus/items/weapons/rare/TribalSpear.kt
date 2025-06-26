@@ -21,7 +21,7 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.TRIDENT)
         item = applyBaseDamage(item, 5.0)
-        item = applyBaseAttackSpeed(item)
+        item = applyBaseAttackSpeed(item, 0.3)
         val meta = item.itemMeta!!
 
         meta.displayName(
