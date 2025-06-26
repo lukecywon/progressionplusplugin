@@ -40,7 +40,6 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
             )
         )
 
-        meta.addEnchant(Enchantment.LOYALTY, 1, false)
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "tribal_spear")
 
