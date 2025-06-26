@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus
 import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.items.*
+import com.lukecywon.progressionPlus.listeners.armor.epic.RocketHarnessListener
 import com.lukecywon.progressionPlus.listeners.armor.legendary.TwilightCrownListener
 import com.lukecywon.progressionPlus.listeners.armor.uncommon.NocturnHoodListener
 import com.lukecywon.progressionPlus.listeners.loot.ElderGuardianDropListener
@@ -113,7 +114,8 @@ class Initialize(private val plugin: JavaPlugin) {
             VillagerTradeListener(),
             BoomerangBladeListener(),
             ExecutionerSwordListener(),
-            TribalSpearListener()
+            TribalSpearListener(),
+            RocketHarnessListener()
         )
 
         listeners.forEach {

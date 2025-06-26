@@ -21,7 +21,7 @@ import java.util.*
 
 class TribalSpearListener : Listener {
     private val itemId = "tribal_spear"
-    private val cooldownMillis = 5_000L
+    private val cooldownMillis = 3_000L
 
     @EventHandler
     fun onThrow(event: PlayerInteractEvent) {
