@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
@@ -31,7 +32,7 @@ object RecallPotion : CustomItem("recall_potion", Rarity.RARE) {
                 ItemLore.lore("No matter how far, its magic finds the way home."),
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "recall_potion")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
