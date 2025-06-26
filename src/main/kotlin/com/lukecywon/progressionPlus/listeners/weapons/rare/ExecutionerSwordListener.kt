@@ -1,10 +1,12 @@
 package com.lukecywon.progressionPlus.listeners.weapons.rare
 
+import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.weapons.rare.ExecutionerSword
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -64,7 +66,7 @@ class ExecutionerSwordListener : Listener {
             if (dot > Math.cos(angle / 2)) {
                 if (entity is LivingEntity) {
                     entity.noDamageTicks = 0 // Ignore damage cooldown
-                    entity.damage(5.0, player)
+                    entity.damage(6.0, player)
                 }
             }
         }
