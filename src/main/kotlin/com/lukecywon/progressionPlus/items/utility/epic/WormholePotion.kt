@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
@@ -36,7 +37,7 @@ object WormholePotion : CustomItem("wormhole_potion", Rarity.EPIC) {
             )
         )
 
-        meta.setCustomModelData(9025)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "wormhole_potion")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         // ✨ Add fake enchant for glint
