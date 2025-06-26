@@ -112,7 +112,8 @@ class Initialize(private val plugin: JavaPlugin) {
             CustomItemVanillaBlocker(),
             VillagerTradeListener(),
             BoomerangBladeListener(),
-            ExecutionerSwordListener()
+            ExecutionerSwordListener(),
+            //TribalSpearListener()
         )
 
         listeners.forEach {

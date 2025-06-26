@@ -16,7 +16,9 @@ import org.bukkit.inventory.ItemStack
 
 object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.TRIDENT)
+        var item = ItemStack(Material.TRIDENT)
+        item = applyBaseDamage(item, 5.0)
+        item = applyBaseAttackSpeed(item)
         val meta = item.itemMeta
 
         meta.displayName(
@@ -36,25 +38,6 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
         )
 
         meta.addEnchant(Enchantment.LOYALTY, 1, false)
-
-        meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
-        meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
-        meta.addAttributeModifier(
-            Attribute.ATTACK_DAMAGE,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-                5.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-            )
-        )
-        meta.addAttributeModifier(
-            Attribute.ATTACK_SPEED,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-                -3.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-            )
-        )
 
         item.itemMeta = meta
         return applyMeta(item)
