@@ -31,7 +31,6 @@ class TribalSpearListener : Listener {
         // Only continue if it's a RIGHT click
         if (event.action != Action.RIGHT_CLICK_BLOCK && event.action != Action.RIGHT_CLICK_AIR) return
         if (!TribalSpear.isThisItem(item)) return
-        player.sendMessage("Passed")
 
         event.isCancelled = true // Only cancel when all checks are passed
 
