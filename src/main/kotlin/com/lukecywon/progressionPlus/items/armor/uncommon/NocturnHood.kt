@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus.items.armor.uncommon
 
+import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
@@ -36,6 +37,8 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
             )
         )
 
+        meta.itemModel = NamespacedKey(ProgressionPlus.getPlugin(), "nocturn_hood")
+
         // Remove armor protection
         val noArmor = AttributeModifier(
             NamespacedKey.minecraft("no_armor"),
@@ -45,14 +48,12 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
         )
         meta.addAttributeModifier(Attribute.ARMOR, noArmor)
 
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.persistentDataContainer.set(
+            NamespacedKey(ProgressionPlus.getPlugin(), "id"),
+            PersistentDataType.STRING,
+            "nocturn_hood"
+        )
         item.itemMeta = meta
         return applyMeta(item)
-    }
-
-    fun isNocturnHood(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_HELMET) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }
 }
