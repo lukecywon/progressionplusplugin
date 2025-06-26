@@ -42,7 +42,7 @@ object RocketHarness : CustomItem("rocket_harness", Rarity.EPIC, false) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.MaterialChoice(Material.REDSTONE), RecipeChoice.MaterialChoice(Material.WHITE_HARNESS), RecipeChoice.MaterialChoice(Material.REDSTONE),
+            RecipeChoice.MaterialChoice(Material.REDSTONE), RecipeChoice.MaterialChoice(Material.RED_HARNESS), RecipeChoice.MaterialChoice(Material.REDSTONE),
             RecipeChoice.MaterialChoice(Material.REDSTONE), RecipeChoice.ExactChoice(InfernalShard.createItemStack()), RecipeChoice.MaterialChoice(Material.REDSTONE),
             RecipeChoice.MaterialChoice(Material.REDSTONE), RecipeChoice.MaterialChoice(Material.REDSTONE), RecipeChoice.MaterialChoice(Material.REDSTONE)
         )
