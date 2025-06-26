@@ -22,7 +22,7 @@ class NocturnHoodListener : Listener {
                 for (player in Bukkit.getOnlinePlayers()) {
                     val helmet = player.inventory.helmet
 
-                    if (helmet != null && NocturnHood.isNocturnHood(helmet)) {
+                    if (helmet != null && NocturnHood.isThisItem(helmet)) {
                         active.add(player.uniqueId)
 
                         val effect = player.getPotionEffect(PotionEffectType.NIGHT_VISION)
