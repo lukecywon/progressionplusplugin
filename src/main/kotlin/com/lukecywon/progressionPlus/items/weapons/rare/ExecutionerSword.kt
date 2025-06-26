@@ -20,8 +20,6 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
         val meta = item.itemMeta!!
 
         meta.displayName(Component.text("Executioner Sword").color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD))
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
-
         meta.lore(listOf(
             ItemLore.abilityuse("Final Verdict", Activation.RIGHT_CLICK),
             ItemLore.description("Cleaves all enemies in front of you"),
@@ -31,7 +29,6 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
             ItemLore.lore("The final sight of many men."),
         ))
 
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "executioner_sword")
 
         item.itemMeta = meta
