@@ -6,6 +6,8 @@ import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
@@ -17,7 +19,7 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
         val item = ItemStack(Material.IRON_SWORD)
         val meta = item.itemMeta!!
 
-        meta.displayName(Component.text("Executioner Sword").color(Rarity.RARE.color))
+        meta.displayName(Component.text("Executioner Sword").color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD))
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         meta.lore(listOf(
