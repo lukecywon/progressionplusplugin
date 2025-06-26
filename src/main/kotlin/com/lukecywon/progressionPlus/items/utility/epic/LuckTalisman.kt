@@ -4,11 +4,13 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object LuckTalisman : CustomItem("luck_talisman", Rarity.EPIC) {
@@ -36,6 +38,14 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.EPIC) {
 
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.CHAIN, null, Material.CHAIN,
+            Material.CHAIN, Material.RABBIT_FOOT, Material.CHAIN,
+            null, Material.EMERALD, null
+        ))
     }
 
     fun isLuckTalisman(item: ItemStack?): Boolean {
