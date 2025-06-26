@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -29,6 +30,8 @@ object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
         ))
 
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "executioner_sword")
+
         item.itemMeta = meta
         return applyMeta(item)
     }

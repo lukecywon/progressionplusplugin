@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.items.armor.common.WoodenBoots
 import com.lukecywon.progressionPlus.items.armor.common.WoodenChestplate
 import com.lukecywon.progressionPlus.items.armor.common.WoodenHelmet
 import com.lukecywon.progressionPlus.items.armor.common.WoodenLeggings
+import com.lukecywon.progressionPlus.items.armor.epic.RocketHarness
 import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
 import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood
 import com.lukecywon.progressionPlus.items.component.*
@@ -93,5 +94,6 @@ object AllItems {
         reg(InfernalShard)
         reg(AetherCore)
         reg(BoomerangBlade)
+        reg(RocketHarness)
     }
 }

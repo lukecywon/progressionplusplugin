@@ -3,7 +3,10 @@ package com.lukecywon.progressionPlus.items.utility.epic
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.Recipe
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -12,6 +15,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object WormholePotion : CustomItem("wormhole_potion", Rarity.EPIC) {
@@ -46,6 +50,14 @@ object WormholePotion : CustomItem("wormhole_potion", Rarity.EPIC) {
 
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            null, RecipeChoice.ExactChoice(EchoCore.createItemStack()), null,
+            RecipeChoice.MaterialChoice(Material.ENDER_PEARL), RecipeChoice.MaterialChoice(Material.GLASS_BOTTLE), RecipeChoice.MaterialChoice(Material.ENDER_PEARL),
+            null, RecipeChoice.MaterialChoice(Material.ENDER_PEARL), null
+        )
     }
 
     fun isWormholePotion(item: ItemStack?): Boolean {
