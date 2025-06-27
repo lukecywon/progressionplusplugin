@@ -21,7 +21,7 @@ object RocketHarness : CustomItem("rocket_harness", Rarity.EPIC, false) {
 
         meta.lore(
             listOf(
-                ItemLore.abilityuse("Sorrowful March", Activation.PASSIVE),
+                ItemLore.abilityuse("Rocket Fueled Speed", Activation.PASSIVE),
                 ItemLore.description("Doubles the fly speed of a Happy Ghast"),
                 ItemLore.separator(),
                 ItemLore.lore("A harness with a rocket strapped onto it's back."),
