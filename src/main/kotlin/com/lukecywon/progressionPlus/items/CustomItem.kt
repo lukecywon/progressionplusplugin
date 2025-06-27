@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus.items
 
+import com.destroystokyo.paper.profile.PlayerProfile
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.mechanics.ItemLore
@@ -15,6 +16,10 @@ import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.attribute.Attribute
 import org.bukkit.inventory.RecipeChoice
+import org.bukkit.inventory.meta.SkullMeta
+import org.bukkit.Bukkit
+import org.bukkit.profile.PlayerTextures
+import java.net.URL
 import java.util.*
 
 abstract class CustomItem(private val name: String, private val rarity: Rarity, private val stackable: Boolean = false) {
@@ -138,6 +143,26 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
 
         fun clearCooldowns(playerId: UUID) {
             cooldowns.keys.removeIf { it.second == playerId }
+        }
+
+        fun createCustomHead(url: String): ItemStack {
+            val head = ItemStack(Material.PLAYER_HEAD)
+            val meta = head.itemMeta as SkullMeta
+            val validUrl = URL(url)
+
+            // Create empty profile with random UUID
+            val profile: PlayerProfile = Bukkit.createPlayerProfile(UUID.randomUUID()) as PlayerProfile
+
+            // Set the base64 texture
+            val textures: PlayerTextures = profile.textures
+            textures.skin = validUrl
+            profile.setTextures(textures)
+
+            // Apply the profile to the item
+            meta.playerProfile = profile
+            head.itemMeta = meta
+
+            return head
         }
     }
 }
