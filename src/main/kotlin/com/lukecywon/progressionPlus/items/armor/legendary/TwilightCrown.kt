@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items.armor.legendary
 
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -21,10 +22,11 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
         meta.displayName(Component.text("Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
 
         meta.lore(listOf(
-            Component.text("§7The crown once worn by a forgotten monarch."),
-            Component.text("§8Its power resonates with ancient relics..."),
-            Component.text("§8Whispers stir when paired with the §dOld King's Blade§8."),
-            Component.text("§7Those who listen closely may command what lies beyond.")
+            ItemLore.description("Its power resonates with ancient relics..."),
+            ItemLore.description("Whispers stir when paired with the §dOld King's Blade§8."),
+            ItemLore.separator(),
+            ItemLore.lore("The crown once worn by a forgotten monarch."),
+            ItemLore.lore("Those who listen closely may command what lies beyond.")
         ))
 
         meta.removeAttributeModifier(Attribute.ARMOR)
@@ -42,12 +44,6 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
         item.itemMeta = meta
 
         return applyMeta(item)
-    }
-
-    fun isTwilightCrown(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.GOLDEN_HELMET) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }
 
     override fun getExtraInfo(): List<String> {

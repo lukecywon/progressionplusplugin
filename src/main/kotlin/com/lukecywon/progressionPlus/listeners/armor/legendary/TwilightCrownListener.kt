@@ -26,8 +26,8 @@ class TwilightCrownListener : Listener {
         object : BukkitRunnable() {
             override fun run() {
                 val newHelmet = player.inventory.helmet
-                val hasCrownNow = TwilightCrown.isTwilightCrown(newHelmet)
-                val hadCrownBefore = TwilightCrown.isTwilightCrown(previousItem)
+                val hasCrownNow = TwilightCrown.isThisItem(newHelmet)
+                val hadCrownBefore = TwilightCrown.isThisItem(previousItem)
 
                 if (hasCrownNow && !hadCrownBefore) {
                     player.sendTitle("§6The Crown Takes Hold...", "§7You feel a dark presence...", 10, 60, 20)
@@ -46,13 +46,13 @@ class TwilightCrownListener : Listener {
         val item = e.item ?: return
         val player = e.player
 
-        if (TwilightCrown.isTwilightCrown(item)) {
+        if (TwilightCrown.isThisItem(item)) {
             // Check if they're holding the crown and trying to equip it
             if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
                 object : BukkitRunnable() {
                     override fun run() {
                         val newHelmet = player.inventory.helmet
-                        if (TwilightCrown.isTwilightCrown(newHelmet)) {
+                        if (TwilightCrown.isThisItem(newHelmet)) {
                             player.sendTitle("§6The Crown Takes Hold...", "§7You feel a dark presence...", 10, 60, 20)
                             player.playSound(player.location, Sound.ENTITY_ELDER_GUARDIAN_CURSE, 1f, 0.5f)
                         }

@@ -48,7 +48,7 @@ class OldKingsBladeListener : Listener {
             return
         }
 
-        val hasCrown = TwilightCrown.isTwilightCrown(player.inventory.helmet)
+        val hasCrown = TwilightCrown.isThisItem(player.inventory.helmet)
         val cooldownMillis = if (hasCrown) 90_000L else 180_000L
 
         if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
