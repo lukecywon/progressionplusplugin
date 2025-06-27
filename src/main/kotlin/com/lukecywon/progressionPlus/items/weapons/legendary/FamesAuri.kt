@@ -57,38 +57,45 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             material = Material.GOLD_NUGGET,
             label = "Tier I",
             activationDelayTicks = 40L,
-            intervalTicks = 100L,
+            intervalTicks = 60L,
             potionEffects = listOf(
-                PotionEffect(PotionEffectType.SPEED, 100, 0)
+                PotionEffect(PotionEffectType.SPEED, 60, 0, true, false),
+                PotionEffect(PotionEffectType.FIRE_RESISTANCE, 60, 0, true, false),
+            ) ,
+            attributeModifiers = listOf(
+                Attribute.ATTACK_DAMAGE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_damage".toByteArray()), "fames_auri_damage", 2.0, AttributeModifier.Operation.ADD_NUMBER),
             )
         ),
         BuffConfig(
             material = Material.GOLD_INGOT,
             label = "Tier II",
             activationDelayTicks = 60L,
-            intervalTicks = 60L,
+            intervalTicks = 40L,
             potionEffects = listOf(
-                PotionEffect(PotionEffectType.SPEED, 60, 1, true, false),
-                PotionEffect(PotionEffectType.SATURATION, 60, 0, true, false),
-            ),
+                PotionEffect(PotionEffectType.SPEED, 40, 1, true, false),
+                PotionEffect(PotionEffectType.SATURATION, 40, 0, true, false),
+                PotionEffect(PotionEffectType.FIRE_RESISTANCE, 40, 0, true, false),
+                ),
             attributeModifiers = listOf(
                 Attribute.ATTACK_DAMAGE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_damage".toByteArray()), "fames_auri_damage", 4.0, AttributeModifier.Operation.ADD_NUMBER),
-            )
+                Attribute.KNOCKBACK_RESISTANCE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_knockback".toByteArray()), "fames_auri_knockback", 0.15, AttributeModifier.Operation.ADD_NUMBER),
+                )
         ),
         BuffConfig(
             material = Material.GOLD_BLOCK,
             label = "Tier III",
             activationDelayTicks = 100L,
-            intervalTicks = 20L,
+            intervalTicks = 10L,
             potionEffects = listOf(
-                PotionEffect(PotionEffectType.SPEED, 20, 2, true, false),
-                PotionEffect(PotionEffectType.SATURATION, 60, 0, true, false),
-                PotionEffect(PotionEffectType.ABSORPTION, 20, 0, true, false),
-                PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, true, false)
+                PotionEffect(PotionEffectType.SPEED, 10, 2, true, false),
+                PotionEffect(PotionEffectType.SATURATION, 10, 1, true, false),
+                PotionEffect(PotionEffectType.ABSORPTION, 10, 0, true, false),
+                PotionEffect(PotionEffectType.FIRE_RESISTANCE, 10, 0, true, false),
+                PotionEffect(PotionEffectType.WATER_BREATHING, 10, 0, true, false),
             ),
             attributeModifiers = listOf(
                 Attribute.ATTACK_DAMAGE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_damage".toByteArray()), "fames_auri_damage", 7.0, AttributeModifier.Operation.ADD_NUMBER),
-                Attribute.KNOCKBACK_RESISTANCE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_knockback".toByteArray()), "fames_auri_knockback", 0.5, AttributeModifier.Operation.ADD_NUMBER),
+                Attribute.KNOCKBACK_RESISTANCE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_knockback".toByteArray()), "fames_auri_knockback", 0.6, AttributeModifier.Operation.ADD_NUMBER),
                 Attribute.ATTACK_SPEED to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_speed".toByteArray()), "fames_auri_speed", 0.5, AttributeModifier.Operation.ADD_NUMBER),
                 Attribute.FALL_DAMAGE_MULTIPLIER to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_nofall".toByteArray()), "fames_auri_nofall", -1.0, AttributeModifier.Operation.ADD_NUMBER),
             )
