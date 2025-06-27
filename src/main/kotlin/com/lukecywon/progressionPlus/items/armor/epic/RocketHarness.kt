@@ -19,10 +19,6 @@ object RocketHarness : CustomItem("rocket_harness", Rarity.EPIC, false) {
 
         meta.displayName(Component.text("Rocket Harness").color(NamedTextColor.RED).decorate(TextDecoration.BOLD))
 
-        meta.lore(listOf(
-            ItemLore.lore("§7The harness once worn by a weeping warden of the skies.")
-        ))
-
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Sorrowful March", Activation.PASSIVE),
