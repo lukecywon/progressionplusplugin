@@ -15,20 +15,22 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.inventory.EquipmentSlot
-import java.util.*
 
 class RocketHarnessListener : Listener {
-    val movementTicks = mutableMapOf<UUID, Int>()
-
     @EventHandler
     fun onMobHarnessChange(event: EntityEquipmentChangedEvent) {
         val entity = event.entity
         if (entity.type != EntityType.HAPPY_GHAST) return
+        val attr = entity.getAttribute(Attribute.FLYING_SPEED) ?: return
 
         // Check if the SADDLE slot changed to HarnessOfTears
-        if(!RocketHarness.isThisItem(entity.equipment?.getItem(EquipmentSlot.BODY))) return
-
-        val attr = entity.getAttribute(Attribute.FLYING_SPEED) ?: return
+        if(!RocketHarness.isThisItem(entity.equipment?.getItem(EquipmentSlot.BODY))) {
+            // Remove speed on harness unequipped
+            attr.modifiers.find { it.name == "harness_speed" }?.let {
+                attr.removeModifier(it)
+            }
+            return
+        }
 
         // Remove old speed modifier if it exists
         attr.modifiers.find { it.name == "harness_speed" }?.let {
@@ -49,18 +51,18 @@ class RocketHarnessListener : Listener {
         val entity = event.entity
         if (entity.type != EntityType.HAPPY_GHAST) return
 
-        // Check if the SADDLE slot changed to HarnessOfTears
+        // Check if the BODY slot changed to HarnessOfTears
         if(!RocketHarness.isThisItem(entity.equipment?.getItem(EquipmentSlot.BODY))) return
 
         // Spawn particle at the entity's location
-        val location = entity.location.clone().add(0.0, 1.5, 0.0) // Offset for better visibility
+        val location = entity.location.clone().add(0.0, 1.5, 0.0)
 
         entity.world.spawnParticle(
-            Particle.FLAME, // Pick any particle you like
+            Particle.FLAME,
             location,
-            5, // Count
-            0.2, 0.2, 0.2, // X/Y/Z spread
-            0.01 // Speed
+            5,
+            0.2, 0.2, 0.2,
+            0.01
         )
     }
 
@@ -76,14 +78,14 @@ class RocketHarnessListener : Listener {
             if (event.from.distanceSquared(event.to) > 0.001) {
                 if(!RocketHarness.isThisItem(entity.equipment?.getItem(EquipmentSlot.BODY))) return
 
-                val location = entity.location.clone().add(0.0, 3.0, 0.0) // Offset for better visibility
+                val location = entity.location.clone().add(0.0, 3.0, 0.0)
 
                 entity.world.spawnParticle(
-                    Particle.FLAME, // Pick any particle you like
+                    Particle.FLAME,
                     location,
-                    5, // Count
-                    0.2, 0.2, 0.2, // X/Y/Z spread
-                    0.01 // Speed
+                    5,
+                    0.2, 0.2, 0.2,
+                    0.01
                 )
 
                 entity.world.playSound(
