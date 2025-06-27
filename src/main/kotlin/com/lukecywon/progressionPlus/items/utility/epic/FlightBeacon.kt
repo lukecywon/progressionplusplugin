@@ -3,6 +3,9 @@ package com.lukecywon.progressionPlus.items.utility.epic
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.AetherCore
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
+import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
@@ -50,10 +53,10 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
-        return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.DIAMOND_BLOCK, Material.DIAMOND_BLOCK, Material.DIAMOND_BLOCK,
-            Material.DIAMOND_BLOCK, Material.NETHER_STAR, Material.DIAMOND_BLOCK,
-            Material.NETHERITE_BLOCK, Material.NETHERITE_BLOCK, Material.NETHERITE_BLOCK
-        ))
+        return listOf(
+            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK),
+            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.ExactChoice(AetherCore.createItemStack()), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK),
+            RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK), RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK), RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK)
+        )
     }
 }

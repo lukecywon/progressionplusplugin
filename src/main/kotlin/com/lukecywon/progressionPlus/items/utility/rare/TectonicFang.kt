@@ -4,12 +4,14 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
@@ -33,7 +35,7 @@ object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
                 ItemLore.lore("A primal fang from the heart of the world.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "tectonic_fang")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 
@@ -64,5 +66,13 @@ object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
         meta.persistentDataContainer.set(sizeKey, PersistentDataType.INTEGER, next)
         item.itemMeta = meta
         return next
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.SKELETON_SKULL, Material.NETHERITE_INGOT, Material.SKELETON_SKULL,
+            Material.RAW_COPPER_BLOCK, Material.DIAMOND_PICKAXE, Material.RAW_GOLD_BLOCK,
+            Material.ECHO_SHARD, Material.RAW_IRON_BLOCK, Material.ECHO_SHARD
+        ))
     }
 }

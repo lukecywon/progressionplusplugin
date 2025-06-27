@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.items.armor.common.WoodenBoots
 import com.lukecywon.progressionPlus.items.armor.common.WoodenChestplate
 import com.lukecywon.progressionPlus.items.armor.common.WoodenHelmet
 import com.lukecywon.progressionPlus.items.armor.common.WoodenLeggings
+import com.lukecywon.progressionPlus.items.armor.epic.RocketHarness
 import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
 import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood
 import com.lukecywon.progressionPlus.items.component.*
@@ -25,7 +26,7 @@ import com.lukecywon.progressionPlus.items.weapons.rare.*
 import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
 import com.lukecywon.progressionPlus.items.weapons.uncommon.RogueSword
 import com.lukecywon.progressionPlus.items.weapons.uncommon.VenomDagger
-import com.lukecywon.progressionPlus.items.weapons.uncommon.VerdantCleaver
+import com.lukecywon.progressionPlus.items.utility.uncommon.VerdantCleaver
 
 object AllItems {
     val allItems = mutableListOf<CustomItem>()            // Optional: track all CustomItems
@@ -93,5 +94,6 @@ object AllItems {
         reg(InfernalShard)
         reg(AetherCore)
         reg(BoomerangBlade)
+        reg(RocketHarness)
     }
 }

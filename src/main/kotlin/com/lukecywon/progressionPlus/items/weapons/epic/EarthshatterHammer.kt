@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.NamespacedKey
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
@@ -31,10 +33,18 @@ object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
                 ItemLore.lore("A mighty blow that shakes the land.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "earthshatter_hammer")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            null, RecipeChoice.MaterialChoice(Material.ANVIL), RecipeChoice.MaterialChoice(Material.NETHER_STAR),
+            null, RecipeChoice.MaterialChoice(Material.STICK), null,
+            RecipeChoice.MaterialChoice(Material.STICK), null, null
+        )
     }
 
     fun isEarthshatterHammer(item: ItemStack?): Boolean {

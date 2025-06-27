@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -12,12 +13,16 @@ import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 
 object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.TRIDENT)
-        val meta = item.itemMeta
+        var item = ItemStack(Material.TRIDENT)
+        item = applyBaseDamage(item, 5.0)
+        item = applyBaseAttackSpeed(item, 0.3)
+        val meta = item.itemMeta!!
 
         meta.displayName(
             Component.text("Tribal Spear")
@@ -35,28 +40,18 @@ object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
             )
         )
 
-        meta.addEnchant(Enchantment.LOYALTY, 1, false)
-
-        meta.removeAttributeModifier(Attribute.ATTACK_DAMAGE)
-        meta.removeAttributeModifier(Attribute.ATTACK_SPEED)
-        meta.addAttributeModifier(
-            Attribute.ATTACK_DAMAGE,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-                5.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-            )
-        )
-        meta.addAttributeModifier(
-            Attribute.ATTACK_SPEED,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "damage"),
-                -3.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-            )
-        )
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "tribal_spear")
 
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            null, Material.FLINT, null,
+            null, Material.STICK, null,
+            null, Material.STICK, null
+        ))
     }
 }

@@ -3,6 +3,9 @@ package com.lukecywon.progressionPlus.items.weapons.epic
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EchoCore
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
+import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -11,9 +14,10 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
+object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC, true) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_SWORD)
         item = applyBaseDamage(item, 9.0)
@@ -47,9 +51,11 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC) {
         return applyMeta(item)
     }
 
-    fun isSoulrendScythe(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_SWORD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.OMINOUS_BOTTLE),
+            null, RecipeChoice.MaterialChoice(Material.DIAMOND_HOE), null,
+            RecipeChoice.MaterialChoice(Material.BLAZE_ROD), null, null
+        )
     }
 }

@@ -4,6 +4,9 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EchoCore
+import com.lukecywon.progressionPlus.items.component.InfernalShard
+import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -11,6 +14,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
@@ -46,6 +50,14 @@ object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
         if (item == null || item.type != Material.TOTEM_OF_UNDYING) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(phoenixKey, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            null, RecipeChoice.MaterialChoice(Material.TOTEM_OF_UNDYING), null,
+            RecipeChoice.MaterialChoice(Material.TOTEM_OF_UNDYING), RecipeChoice.ExactChoice(InfernalShard.createItemStack()), RecipeChoice.MaterialChoice(Material.TOTEM_OF_UNDYING),
+            null, RecipeChoice.MaterialChoice(Material.TOTEM_OF_UNDYING), null
+        )
     }
 }
 

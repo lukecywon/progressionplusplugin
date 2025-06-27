@@ -4,12 +4,14 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object MerchantsContract : CustomItem("merchants_contract", Rarity.RARE) {
@@ -41,5 +43,13 @@ object MerchantsContract : CustomItem("merchants_contract", Rarity.RARE) {
         if (item == null || item.type != Material.WRITTEN_BOOK) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.PAPER, Material.VILLAGER_SPAWN_EGG, Material.PAPER,
+            Material.INK_SAC, Material.WRITABLE_BOOK, Material.INK_SAC,
+            Material.PAPER, Material.EMERALD_BLOCK, Material.PAPER
+        ))
     }
 }

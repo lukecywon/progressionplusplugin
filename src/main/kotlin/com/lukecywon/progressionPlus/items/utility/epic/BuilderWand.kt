@@ -3,6 +3,9 @@ package com.lukecywon.progressionPlus.items.utility.epic
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
+import com.lukecywon.progressionPlus.items.component.TwistedRoot
+import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -10,6 +13,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object BuilderWand : CustomItem("builder_wand", Rarity.EPIC) {
@@ -46,5 +50,13 @@ object BuilderWand : CustomItem("builder_wand", Rarity.EPIC) {
         if (item == null || item.type != Material.BLAZE_ROD) return false
         val meta = item.itemMeta ?: return false
         return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            null, null, RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()),
+            null, RecipeChoice.MaterialChoice(Material.EMERALD_BLOCK), null,
+            RecipeChoice.ExactChoice(TwistedRoot.createItemStack()), null, null
+        )
     }
 }

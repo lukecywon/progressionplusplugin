@@ -1,13 +1,16 @@
 package com.lukecywon.progressionPlus.items.utility.uncommon
 
+import com.destroystokyo.paper.MaterialTags
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
@@ -30,5 +33,13 @@ object MaxHeartFruit : CustomItem("max_heart_fruit", Rarity.UNCOMMON) {
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.VINE, null, Material.VINE,
+            Material.VINE, Material.GOLDEN_APPLE, Material.VINE,
+            null, Material.EMERALD, null
+        ))
     }
 }

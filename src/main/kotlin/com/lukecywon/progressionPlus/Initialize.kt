@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus
 import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.items.*
+import com.lukecywon.progressionPlus.listeners.armor.epic.RocketHarnessListener
 import com.lukecywon.progressionPlus.listeners.armor.legendary.TwilightCrownListener
 import com.lukecywon.progressionPlus.listeners.armor.uncommon.NocturnHoodListener
 import com.lukecywon.progressionPlus.listeners.loot.ElderGuardianDropListener
@@ -27,7 +28,7 @@ import com.lukecywon.progressionPlus.listeners.weapons.rare.*
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.BerserkerSwordListener
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.RogueSwordListener
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.VenomDaggerListener
-import com.lukecywon.progressionPlus.listeners.weapons.uncommon.VerdantCleaverListener
+import com.lukecywon.progressionPlus.listeners.utility.uncommon.VerdantCleaverListener
 import com.lukecywon.progressionPlus.mechanics.*
 import com.lukecywon.progressionPlus.recipes.*
 
@@ -112,7 +113,9 @@ class Initialize(private val plugin: JavaPlugin) {
             CustomItemVanillaBlocker(),
             VillagerTradeListener(),
             BoomerangBladeListener(),
-            ExecutionerSwordListener()
+            ExecutionerSwordListener(),
+            TribalSpearListener(),
+            RocketHarnessListener()
         )
 
         listeners.forEach {

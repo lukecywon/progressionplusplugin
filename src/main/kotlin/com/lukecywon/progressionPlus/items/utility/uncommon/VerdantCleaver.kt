@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.weapons.uncommon
+package com.lukecywon.progressionPlus.items.utility.uncommon
 
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
@@ -35,7 +35,7 @@ object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
                 ItemLore.lore("The lumberjack’s best friend.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "verdant_cleaver")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 
