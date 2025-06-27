@@ -15,10 +15,10 @@ import org.bukkit.persistence.PersistentDataType
 
 object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.GOLDEN_HELMET)
+        val item = createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("👑 Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
+        meta.displayName(Component.text("Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
 
         meta.lore(listOf(
             Component.text("§7The crown once worn by a forgotten monarch."),
@@ -27,11 +27,12 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
             Component.text("§7Those who listen closely may command what lies beyond.")
         ))
 
+        meta.removeAttributeModifier(Attribute.ARMOR)
         meta.addAttributeModifier(
             Attribute.ARMOR,
             AttributeModifier(
                 NamespacedKey(NamespacedKey.MINECRAFT, "armor"),
-                0.0, // purely cosmetic, no protection
+                1.0,
                 AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlotGroup.HEAD
             )
