@@ -95,5 +95,6 @@ object AllItems {
         reg(AetherCore)
         reg(BoomerangBlade)
         reg(RocketHarness)
+        reg(ParagonShield)
     }
 }

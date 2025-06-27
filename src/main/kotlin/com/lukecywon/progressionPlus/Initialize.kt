@@ -115,7 +115,8 @@ class Initialize(private val plugin: JavaPlugin) {
             BoomerangBladeListener(),
             ExecutionerSwordListener(),
             TribalSpearListener(),
-            RocketHarnessListener()
+            RocketHarnessListener(),
+            ParagonShieldListener(),
         )
 
         listeners.forEach {
