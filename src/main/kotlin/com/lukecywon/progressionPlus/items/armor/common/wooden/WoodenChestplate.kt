@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.armor.common
+package com.lukecywon.progressionPlus.items.armor.common.wooden
 
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
@@ -21,16 +21,16 @@ import org.bukkit.inventory.meta.trim.ArmorTrim
 import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
 
-object WoodenLeggings : CustomItem("wooden_leggings", Rarity.COMMON) {
+object WoodenChestplate : CustomItem("wooden_chestplate", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.LEATHER_LEGGINGS)
+        val item = ItemStack(Material.LEATHER_CHESTPLATE)
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("Wooden Leggings", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
+        meta.displayName(Component.text("Wooden Chestplate", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
-                ItemLore.description("Basic leggings crafted straight from nature."),
+                ItemLore.description("A basic chestplate crafted straight from nature."),
                 ItemLore.separator()
             )
         )
@@ -39,8 +39,8 @@ object WoodenLeggings : CustomItem("wooden_leggings", Rarity.COMMON) {
         meta.addAttributeModifier(
             Attribute.ARMOR,
             AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "leggings_armor"),
-                3.0,
+                NamespacedKey(NamespacedKey.MINECRAFT, "chestplate_armor"),
+                4.0,
                 AttributeModifier.Operation.ADD_NUMBER,
             )
         )
@@ -65,9 +65,9 @@ object WoodenLeggings : CustomItem("wooden_leggings", Rarity.COMMON) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD,
             Material.OAK_WOOD, null, Material.OAK_WOOD,
-            Material.OAK_WOOD, null, Material.OAK_WOOD
+            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD,
+            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD
         ))
     }
 }
