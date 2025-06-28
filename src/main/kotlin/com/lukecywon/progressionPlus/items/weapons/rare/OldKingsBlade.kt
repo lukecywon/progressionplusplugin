@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 
 object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
@@ -36,6 +37,7 @@ object OldKingsBlade : CustomItem("old_kings_blade", Rarity.RARE) {
             )
         )
 
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "old_kings_blade")
         item.itemMeta = meta
 
         return applyMeta(item)
