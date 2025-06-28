@@ -15,7 +15,9 @@ import org.bukkit.persistence.PersistentDataType
 
 object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE, true) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_SWORD)
+        var item = ItemStack(Material.IRON_SWORD)
+        item = applyBaseDamage(item, 6.0)
+        item = applyBaseAttackSpeed(item, 1.6)
         val meta = item.itemMeta
 
         meta.displayName(

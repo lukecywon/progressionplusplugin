@@ -21,7 +21,7 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)
         item = applyBaseDamage(item, 10.0)
-        item = applyBaseAttackSpeed(item, -0.6)
+        item = applyBaseAttackSpeed(item, 1.6)
         val meta = item.itemMeta!!
 
         // Set display name and lore

@@ -20,7 +20,7 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.MACE)
         item = applyBaseDamage(item, 15.0)
-        item = applyBaseAttackSpeed(item, 1.6)
+        item = applyBaseAttackSpeed(item, 1.2)
         val meta = item.itemMeta!!
 
         meta.displayName(

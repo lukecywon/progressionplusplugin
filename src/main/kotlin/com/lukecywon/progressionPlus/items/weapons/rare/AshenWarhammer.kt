@@ -19,8 +19,8 @@ import org.bukkit.persistence.PersistentDataType
 object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.GOLDEN_AXE)
-        item = applyBaseDamage(item)
-        item = applyBaseAttackSpeed(item)
+        item = applyBaseDamage(item, 9.0)
+        item = applyBaseAttackSpeed(item, 0.9)
         val meta = item.itemMeta!!
 
         meta.displayName(

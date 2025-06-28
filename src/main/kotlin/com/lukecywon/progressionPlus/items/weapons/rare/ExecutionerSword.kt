@@ -16,7 +16,9 @@ import org.bukkit.persistence.PersistentDataType
 
 object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_SWORD)
+        var item = ItemStack(Material.IRON_SWORD)
+        item = applyBaseDamage(item, 6.0)
+        item = applyBaseAttackSpeed(item, 1.6)
         val meta = item.itemMeta!!
 
         meta.displayName(Component.text("Executioner Sword").color(NamedTextColor.DARK_RED).decorate(TextDecoration.BOLD))
