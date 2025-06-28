@@ -69,7 +69,7 @@ class AbyssalBoxListener : Listener {
         val item = event.item ?: return
 
         if (event.action != Action.RIGHT_CLICK_AIR && event.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!AbyssalBox.isThisAbyssalBox(item)) return
+        if (!AbyssalBox.isThisItem(item)) return
 
         val boxId = AbyssalBox.getBoxId(item) ?: return
 
