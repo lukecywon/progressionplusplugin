@@ -17,7 +17,7 @@ import org.bukkit.persistence.PersistentDataType
 object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.GOLDEN_SWORD)
-        item = applyBaseDamage(item, 8.0)
+        item = applyBaseDamage(item, 4.0)
         item = applyBaseAttackSpeed(item, 2.2)
         val meta = item.itemMeta!!
 

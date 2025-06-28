@@ -16,7 +16,9 @@ import org.bukkit.persistence.PersistentDataType
 
 object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.WOODEN_SWORD)
+        var item = ItemStack(Material.WOODEN_SWORD)
+        item = applyBaseDamage(item, 4.0)
+        item = applyBaseAttackSpeed(item, 1.6)
         val meta = item.itemMeta
 
         meta.displayName(

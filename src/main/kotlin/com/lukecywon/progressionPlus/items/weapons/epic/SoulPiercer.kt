@@ -23,7 +23,7 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.DIAMOND_SWORD)
         item = applyBaseDamage(item, 13.0)
-        item = applyBaseAttackSpeed(item, -1.0)
+        item = applyBaseAttackSpeed(item, 1.4)
         val meta = item.itemMeta!!
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)

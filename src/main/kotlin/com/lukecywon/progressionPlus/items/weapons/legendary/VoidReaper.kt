@@ -30,7 +30,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         var item = ItemStack(Material.NETHERITE_HOE)
 
         item = applyBaseDamage(item, 11.0)
-        item = applyBaseAttackSpeed(item, 4.0)
+        item = applyBaseAttackSpeed(item, 1.8)
         val meta = item.itemMeta!!
 
         meta.displayName(

@@ -21,7 +21,7 @@ object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC, true) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_SWORD)
         item = applyBaseDamage(item, 9.0)
-        item = applyBaseAttackSpeed(item, -0.8)
+        item = applyBaseAttackSpeed(item, 1.8)
         val meta = item.itemMeta!!
 
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)

@@ -21,7 +21,7 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_SWORD)
         item = applyBaseDamage(item, 11.0)
-        item = applyBaseAttackSpeed(item)
+        item = applyBaseAttackSpeed(item, 1.6)
         val meta = item.itemMeta!!
 
         meta.displayName(

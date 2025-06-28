@@ -15,7 +15,9 @@ import org.bukkit.persistence.PersistentDataType
 
 object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.NETHERITE_AXE)
+        var item = ItemStack(Material.NETHERITE_AXE)
+        item = applyBaseDamage(item, 10.0)
+        item = applyBaseAttackSpeed(item, 0.9)
         val meta = item.itemMeta!!
 
         meta.displayName(
