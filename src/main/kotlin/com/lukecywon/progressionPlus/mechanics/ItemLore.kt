@@ -41,8 +41,8 @@ object ItemLore {
         val damageMod = meta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)?.sumOf { it.amount } ?: 0.0
         val speedMod = meta.getAttributeModifiers(Attribute.ATTACK_SPEED)?.sumOf { it.amount } ?: 0.0
 
-        val displayDamage = if (damageMod != 0.0) baseDamage + damageMod else baseDamage
-        val displaySpeed = if (speedMod != 0.0) baseSpeed + speedMod else baseSpeed
+        val displayDamage = if (damageMod != 0.0) damageMod else baseDamage
+        val displaySpeed = if (speedMod != 0.0) 4 + speedMod else baseSpeed
 
         return Component.text(
             "Stats: %.1f Damage, %.2f Attack Speed".format(displayDamage, displaySpeed),

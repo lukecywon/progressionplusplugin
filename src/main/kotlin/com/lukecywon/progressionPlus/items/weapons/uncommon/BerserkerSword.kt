@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -18,7 +19,7 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)
         item = applyBaseDamage(item, 7.0)
-        item = applyBaseAttackSpeed(item)
+        item = applyBaseAttackSpeed(item, 1.6)
         val meta = item.itemMeta!!
 
         meta.displayName(
@@ -39,7 +40,8 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
             )
         )
 
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "berserker_sword")
+
         item.itemMeta = meta
         return applyMeta(item)
     }

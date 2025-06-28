@@ -12,8 +12,15 @@ object EnderChestRecipe : Recipe {
         val key = Material.ENDER_CHEST.key
         Bukkit.removeRecipe(key)
 
+
+        val newKey = NamespacedKey(ProgressionPlus.getPlugin(), "ender_chest")
         val result = ItemStack(Material.ENDER_CHEST)
-        val recipe = ShapedRecipe(NamespacedKey(ProgressionPlus.getPlugin(), "ender_chest"), result)
+
+        if (Bukkit.getRecipe(key) != null) {
+            Bukkit.removeRecipe(key)
+        }
+
+        val recipe = ShapedRecipe(key, result)
 
         recipe.shape(
             "OOO",

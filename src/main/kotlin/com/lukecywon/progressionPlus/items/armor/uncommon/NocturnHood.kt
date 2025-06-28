@@ -20,7 +20,7 @@ import org.bukkit.inventory.RecipeChoice
 
 object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_HELMET)
+        val item = createCustomHead("http://textures.minecraft.net/texture/2955fcb16f15a460c0109afb975c79d939a687aae3f8c37b4388e4a5bf8022fd")
         val meta = item.itemMeta
 
         meta.displayName(
@@ -39,7 +39,7 @@ object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
             )
         )
 
-        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "nocturn_hood")
+        // meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "nocturn_hood")
 
         // Remove armor protection
         val noArmor = AttributeModifier(
