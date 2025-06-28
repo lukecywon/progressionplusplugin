@@ -39,6 +39,7 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
                 ItemLore.lore("A cosmic weapon imbued with crushing force.")
             )
         )
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "gravity_maul")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta
