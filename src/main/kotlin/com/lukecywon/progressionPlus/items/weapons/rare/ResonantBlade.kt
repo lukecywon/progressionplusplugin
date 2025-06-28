@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -39,7 +40,8 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE, true) {
             )
         )
 
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "resonant_blade")
+
         item.itemMeta = meta
         return applyMeta(item)
     }
