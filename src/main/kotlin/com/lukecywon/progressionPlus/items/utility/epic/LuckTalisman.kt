@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -33,7 +34,7 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.EPIC) {
                 ItemLore.lore("A charm whispered with fate, tilting odds in your favor."),
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "luck_talisman")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta

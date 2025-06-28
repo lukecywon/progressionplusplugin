@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
@@ -29,7 +30,7 @@ object AetherCore : CustomItem("aether_core", Rarity.COMPONENT, true) {
                 ItemLore.lore("Its presence lifts the world ever so slightly.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "aether_core")
         item.itemMeta = meta
         return applyMeta(item)
     }

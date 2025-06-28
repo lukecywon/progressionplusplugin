@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -32,7 +33,7 @@ object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
                 ItemLore.lore("It hums softly in the night air.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "phantom_charm")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
 

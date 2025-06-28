@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
@@ -31,7 +32,7 @@ object EnchantmentExtractor : CustomItem("enchantment_extractor", Rarity.UNCOMMO
                 ItemLore.lore("Preserve knowledge at the cost of material.")
             )
         )
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "enchantment_extractor")
         item.itemMeta = meta
         return applyMeta(item)
     }
