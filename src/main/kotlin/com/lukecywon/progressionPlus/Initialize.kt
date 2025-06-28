@@ -3,7 +3,6 @@ package com.lukecywon.progressionPlus
 import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.items.*
-import com.lukecywon.progressionPlus.items.armor.common.WoodenBoots.key
 import com.lukecywon.progressionPlus.listeners.armor.epic.RocketHarnessListener
 import com.lukecywon.progressionPlus.listeners.armor.legendary.TwilightCrownListener
 import com.lukecywon.progressionPlus.listeners.armor.uncommon.NocturnHoodListener
@@ -35,7 +34,6 @@ import com.lukecywon.progressionPlus.mechanics.*
 import com.lukecywon.progressionPlus.recipes.*
 
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -122,6 +120,7 @@ class Initialize(private val plugin: JavaPlugin) {
             RocketHarnessListener(),
             ParagonShieldListener(),
             GravityMaulListener(),
+            WearableHeadListener()
         )
 
         listeners.forEach {

@@ -160,9 +160,26 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
 
             // Apply the profile to the item
             meta.playerProfile = profile
+
+            // Make head unplaceable
+            meta.persistentDataContainer.set(
+                NamespacedKey(ProgressionPlus.getPlugin(), "wearable_head"),
+                PersistentDataType.BYTE,
+                1
+            )
+
             head.itemMeta = meta
 
             return head
+        }
+
+        fun isCustomHead(item: ItemStack): Boolean {
+            val meta = item.itemMeta ?: return false
+
+            return meta.persistentDataContainer.has(
+                NamespacedKey(ProgressionPlus.getPlugin(), "wearable_head"),
+                PersistentDataType.BYTE
+            )
         }
     }
 }
