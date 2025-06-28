@@ -85,26 +85,6 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
         return emptyList() // By default, no extra info
     }
 
-    /*
-    open fun applyBaseDamage(item: ItemStack, newBaseDamage: Double? = null): ItemStack {
-        val meta = item.itemMeta ?: return item.clone()
-        val baseDamage = ItemLore.getBaseStats(item.type).first
-        val finalBase = newBaseDamage ?: baseDamage
-        val difference = finalBase - baseDamage
-
-        val modifier = AttributeModifier(
-            NamespacedKey(ProgressionPlus.getPlugin(), "damage"),
-            difference,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, modifier)
-        item.itemMeta = meta
-
-        return item
-    }*/
-
-
     open fun applyBaseDamage(item: ItemStack, newBaseDamage: Double? = null): ItemStack {
         val meta = item.itemMeta
 
@@ -125,26 +105,6 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
 
         return item
     }
-
-    /*
-    open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double? = null): ItemStack {
-        val meta = item.itemMeta ?: return item.clone()
-        val baseSpeed = ItemLore.getBaseStats(item.type).second
-        val finalSpeed = newBaseSpeed ?: baseSpeed
-        val difference = finalSpeed - baseSpeed
-
-        val modifier = AttributeModifier(
-            NamespacedKey(ProgressionPlus.getPlugin(), "attack_speed"),
-            difference,
-            AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.HAND
-        )
-        meta.addAttributeModifier(Attribute.ATTACK_SPEED, modifier)
-        item.itemMeta = meta
-
-        return item
-    }
-    */
 
     open fun applyBaseAttackSpeed(item: ItemStack, newBaseSpeed: Double? = null): ItemStack {
         val meta = item.itemMeta ?: return item.clone()
