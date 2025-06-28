@@ -1,11 +1,15 @@
 package com.lukecywon.progressionPlus.items
 
-import com.lukecywon.progressionPlus.items.armor.common.WoodenBoots
-import com.lukecywon.progressionPlus.items.armor.common.WoodenChestplate
-import com.lukecywon.progressionPlus.items.armor.common.WoodenHelmet
-import com.lukecywon.progressionPlus.items.armor.common.WoodenLeggings
+import com.lukecywon.progressionPlus.items.armor.common.wooden.WoodenBoots
+import com.lukecywon.progressionPlus.items.armor.common.wooden.WoodenChestplate
+import com.lukecywon.progressionPlus.items.armor.common.wooden.WoodenHelmet
+import com.lukecywon.progressionPlus.items.armor.common.wooden.WoodenLeggings
 import com.lukecywon.progressionPlus.items.armor.epic.RocketHarness
 import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
+import com.lukecywon.progressionPlus.items.armor.rare.paladin.PaladinBoots
+import com.lukecywon.progressionPlus.items.armor.rare.paladin.PaladinChestplate
+import com.lukecywon.progressionPlus.items.armor.rare.paladin.PaladinHelmet
+import com.lukecywon.progressionPlus.items.armor.rare.paladin.PaladinLeggings
 import com.lukecywon.progressionPlus.items.armor.uncommon.NocturnHood
 import com.lukecywon.progressionPlus.items.component.*
 import com.lukecywon.progressionPlus.items.utility.common.*
@@ -98,5 +102,9 @@ object AllItems {
         reg(RocketHarness)
         reg(ParagonShield)
         reg(GravityMaul)
+        reg(PaladinHelmet)
+        reg(PaladinChestplate)
+        reg(PaladinLeggings)
+        reg(PaladinBoots)
     }
 }
