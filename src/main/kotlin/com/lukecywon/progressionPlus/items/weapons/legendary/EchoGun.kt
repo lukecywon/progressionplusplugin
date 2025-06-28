@@ -35,6 +35,10 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
                 ItemLore.abilityuse("Sonic Boom", Activation.RIGHT_CLICK),
                 ItemLore.description("Charges for 1s then fires a deadly sonic wave in a straight line"),
                 ItemLore.cooldown(20),
+                Component.text(
+                    "Stats: 30.0 Damage",
+                    NamedTextColor.AQUA
+                ),
                 ItemLore.separator(),
                 ItemLore.lore("A remnant of ancient wrath, still echoing with vengeance."),
             )
