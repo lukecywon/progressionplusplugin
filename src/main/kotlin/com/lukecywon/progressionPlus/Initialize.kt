@@ -38,6 +38,10 @@ import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
 
 class Initialize(private val plugin: JavaPlugin) {
+    companion object {
+        public val savedRecipies = mutableListOf<org.bukkit.inventory.Recipe?>()
+    }
+
     init {
         AllItems.registerAll()
         commands()
@@ -168,10 +172,10 @@ class Initialize(private val plugin: JavaPlugin) {
         if (!plugin.config.getBoolean("diamond-unlocked")) {
             // Remove diamond crafts
             diamondRecipes.forEach { item ->
+                savedRecipies.add(Bukkit.getRecipe(item))
                 Bukkit.removeRecipe(item)
             }
         }
-
     }
 
 
@@ -179,7 +183,8 @@ class Initialize(private val plugin: JavaPlugin) {
         val mechanics = listOf<Manager>(
             BerserkerSwordManager,
             FlightBeaconManager,
-            LegendaryManager
+            LegendaryManager,
+            DiamondRecipeManager
         )
 
         mechanics.forEach {
