@@ -118,7 +118,7 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
                     entity.world.spawnParticle(Particle.CRIT, entity.location.clone().add(0.0, 1.0, 0.0), 3, 0.1, 0.2, 0.1, 0.02)
                 }
             }
-        }, 5L, 5L) // delay, interval
+        }, 3L, 5L) // delay, interval
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
