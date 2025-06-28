@@ -144,8 +144,14 @@ class Initialize(private val plugin: JavaPlugin) {
         }
 
         // Add custom recipe overrides
-        EyeOfEnderRecipe.register()
+        val customRecipes: List<Recipe> = listOf(
+            EyeOfEnderRecipe,
+            EnderChestRecipe
+        )
 
+        customRecipes.forEach { recipe ->
+            recipe.register()
+        }
 
         val diamondRecipes = listOf(
             NamespacedKey.minecraft("diamond_sword"),
