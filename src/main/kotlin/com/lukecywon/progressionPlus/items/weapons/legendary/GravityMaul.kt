@@ -99,7 +99,7 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
                 }
             }
 
-            player.velocity = player.velocity.setY(-2.5)
+            player.velocity = player.velocity.setY(-1.8)
         }, 50L)
 
         // Sustained gravity pull (for 2.5 seconds, every 5 ticks)
