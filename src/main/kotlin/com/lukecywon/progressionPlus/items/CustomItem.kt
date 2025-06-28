@@ -74,7 +74,7 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
             PersistentDataType.BOOLEAN,
             enchantable
         )
-        
+
         item.itemMeta = meta
         return item
     }

@@ -106,8 +106,8 @@ class CustomItemVanillaBlocker : Listener {
             "enchantable"
         ), PersistentDataType.BOOLEAN)
 
-        if (itemIsEnchantable == true) {
-            e.setCancelled(true)
+        if (itemIsEnchantable != true) {
+            e.isCancelled = true
         }
     }
 
