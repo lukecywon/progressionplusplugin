@@ -41,7 +41,7 @@ class ResonantBladeListener : Listener {
             startTimer(attacker)
         }
 
-        if (tracker.hits >= 5) {
+        if (tracker.hits >= 3) {
             e.damage += 5.0
             attacker.sendActionBar("§b✦ Resonant Strike! Bonus damage dealt!")
             attacker.world.playSound(attacker.location, Sound.BLOCK_ANVIL_PLACE, 1f, 1.2f)
