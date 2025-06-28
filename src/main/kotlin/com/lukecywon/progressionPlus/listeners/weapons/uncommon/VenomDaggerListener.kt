@@ -20,7 +20,7 @@ class VenomDaggerListener : Listener {
         val target = e.entity as? LivingEntity ?: return
 
         val item = attacker.inventory.itemInMainHand
-        if (!VenomDagger.isVenomDagger(item)) return
+        if (!VenomDagger.isThisItem(item)) return
 
         if (!CustomItem.isOnCooldown(itemId, attacker.uniqueId)) {
             CustomItem.setCooldown(itemId, attacker.uniqueId, cooldownMillis)

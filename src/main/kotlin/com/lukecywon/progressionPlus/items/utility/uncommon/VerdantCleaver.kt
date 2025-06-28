@@ -42,12 +42,6 @@ object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
         return applyMeta(item)
     }
 
-    fun isVerdantCleaver(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_AXE) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     val sizeKey = NamespacedKey(plugin, "verdant_cleaver_size")
 
     fun getVeinSize(item: ItemStack?): Int {

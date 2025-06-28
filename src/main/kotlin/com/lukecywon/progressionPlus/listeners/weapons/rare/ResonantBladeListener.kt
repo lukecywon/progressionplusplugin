@@ -23,7 +23,7 @@ class ResonantBladeListener : Listener {
         val attacker = e.damager as? Player ?: return
         val target = e.entity as? LivingEntity ?: return
         val item = attacker.inventory.itemInMainHand
-        if (!ResonantBlade.isResonantBlade(item)) return
+        if (!ResonantBlade.isThisItem(item)) return
 
         val uuid = attacker.uniqueId
         val now = System.currentTimeMillis()

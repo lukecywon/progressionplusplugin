@@ -40,10 +40,4 @@ object SnowGlobe : CustomItem("snowglobe", Rarity.LEGENDARY) {
         item.itemMeta = meta
         return applyMeta(item)
     }
-
-    fun isSnowGlobe(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.SNOWBALL) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

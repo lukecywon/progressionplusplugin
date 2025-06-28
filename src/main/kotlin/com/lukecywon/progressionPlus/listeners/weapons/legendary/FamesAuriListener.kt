@@ -33,7 +33,7 @@ class FamesAuriListener : Listener {
     @EventHandler
     fun onDrop(e: PlayerDropItemEvent) {
         val player = e.player
-        if (FamesAuri.isFamesAuri(e.itemDrop.itemStack)) {
+        if (FamesAuri.isThisItem(e.itemDrop.itemStack)) {
             deactivate(player)
         }
     }
@@ -45,7 +45,7 @@ class FamesAuriListener : Listener {
 
         val player = e.player
         val item = player.inventory.itemInMainHand
-        if (!FamesAuri.isFamesAuri(item)) return
+        if (!FamesAuri.isThisItem(item)) return
 
         if (player.isSneaking) {
             cycleMode(player)
@@ -100,7 +100,7 @@ class FamesAuriListener : Listener {
             override fun run() {
                 pendingActivations.remove(uuid)
 
-                if (!player.isOnline || !FamesAuri.isFamesAuri(player.inventory.itemInMainHand)) {
+                if (!player.isOnline || !FamesAuri.isThisItem(player.inventory.itemInMainHand)) {
                     deactivate(player)
                     return
                 }
@@ -110,7 +110,7 @@ class FamesAuriListener : Listener {
 
                 val task = object : BukkitRunnable() {
                     override fun run() {
-                        if (!player.isOnline || !FamesAuri.isFamesAuri(player.inventory.itemInMainHand)) {
+                        if (!player.isOnline || !FamesAuri.isThisItem(player.inventory.itemInMainHand)) {
                             deactivate(player)
                             return
                         }
@@ -137,7 +137,7 @@ class FamesAuriListener : Listener {
 
                 val particleTask = object : BukkitRunnable() {
                     override fun run() {
-                        if (!player.isOnline || !FamesAuri.isFamesAuri(player.inventory.itemInMainHand)) {
+                        if (!player.isOnline || !FamesAuri.isThisItem(player.inventory.itemInMainHand)) {
                             cancel()
                             return
                         }

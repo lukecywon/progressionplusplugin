@@ -16,7 +16,7 @@ class WormholePotionListener : Listener {
     fun onDrinkWormholePotion(e: PlayerItemConsumeEvent) {
         val player = e.player
 
-        if (!WormholePotion.isWormholePotion(e.item)) return
+        if (!WormholePotion.isThisItem(e.item)) return
 
         if (TeleportRequestManager.isOnCooldown(player.uniqueId)) {
             val totalSeconds = TeleportRequestManager.secondsLeft(player.uniqueId)

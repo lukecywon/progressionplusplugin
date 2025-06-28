@@ -46,12 +46,6 @@ object BuilderWand : CustomItem("builder_wand", Rarity.EPIC) {
         return applyMeta(item)
     }
 
-    fun isBuilderWand(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.BLAZE_ROD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
             null, null, RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()),

@@ -28,7 +28,7 @@ class EarthshatterHammerListener : Listener {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!EarthshatterHammer.isEarthshatterHammer(item)) return
+        if (!EarthshatterHammer.isThisItem(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {

@@ -47,10 +47,4 @@ object LuckTalisman : CustomItem("luck_talisman", Rarity.EPIC) {
             null, Material.EMERALD, null
         ))
     }
-
-    fun isLuckTalisman(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.EMERALD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

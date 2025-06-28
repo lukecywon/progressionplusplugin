@@ -33,7 +33,7 @@ class VerdantCleaverListener : Listener {
         val block = e.block
         val item = player.inventory.itemInMainHand
 
-        if (!VerdantCleaver.isVerdantCleaver(item)) return
+        if (!VerdantCleaver.isThisItem(item)) return
         if (block.type !in logTypes) return
 
         e.isCancelled = true
@@ -52,7 +52,7 @@ class VerdantCleaverListener : Listener {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!VerdantCleaver.isVerdantCleaver(item)) return
+        if (!VerdantCleaver.isThisItem(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true  // 💥 Prevent block interaction (e.g., making dirt paths)

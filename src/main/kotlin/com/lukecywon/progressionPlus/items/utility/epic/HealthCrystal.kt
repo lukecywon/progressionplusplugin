@@ -41,12 +41,6 @@ object HealthCrystal : CustomItem("health_crystal", Rarity.EPIC) {
         return applyMeta(item)
     }
 
-    fun isHealthCrystal(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.ENCHANTED_GOLDEN_APPLE) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             Material.DIAMOND_BLOCK, null, Material.DIAMOND_BLOCK,

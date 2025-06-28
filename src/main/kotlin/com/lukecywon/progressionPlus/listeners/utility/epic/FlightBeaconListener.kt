@@ -17,7 +17,7 @@ class FlightBeaconListener : Listener {
         val block = e.block
         val item = e.itemInHand
 
-        if (FlightBeacon.isBeacon(item)) {
+        if (FlightBeacon.isThisItem(item)) {
             FlightBeaconManager.registerBeacon(block.location)
             e.player.sendMessage("§bFlight Beacon placed!")
         }

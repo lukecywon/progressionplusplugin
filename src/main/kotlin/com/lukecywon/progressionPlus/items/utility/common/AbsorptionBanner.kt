@@ -46,9 +46,4 @@ object AbsorptionBanner : CustomItem("absorption_banner", Rarity.COMMON) {
             null, Material.STICK, null
         ))
     }
-
-    fun isAbsorptionBanner(item: ItemStack?): Boolean {
-        return item?.type == Material.ORANGE_BANNER &&
-                item.itemMeta?.persistentDataContainer?.has(key, PersistentDataType.BYTE) == true
-    }
 }

@@ -47,10 +47,4 @@ object RecallPotion : CustomItem("recall_potion", Rarity.RARE) {
             null, Material.ENDER_PEARL, null
         ))
     }
-
-    fun isRecallPotion(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.POTION) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

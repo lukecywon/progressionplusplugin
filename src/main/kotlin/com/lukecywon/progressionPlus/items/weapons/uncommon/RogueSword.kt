@@ -45,12 +45,6 @@ object RogueSword : CustomItem("rogue_sword", Rarity.UNCOMMON) {
         return applyMeta(item)
     }
 
-    fun isRogueSword(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.GOLDEN_SWORD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             null, Material.DIAMOND, null,

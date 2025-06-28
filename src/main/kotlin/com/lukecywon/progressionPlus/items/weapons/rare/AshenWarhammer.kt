@@ -44,11 +44,6 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
         return applyMeta(item)
     }
 
-    fun isAshenWarhammer(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.GOLDEN_AXE) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
             null, RecipeChoice.MaterialChoice(Material.ANVIL), RecipeChoice.MaterialChoice(Material.BLAZE_POWDER),

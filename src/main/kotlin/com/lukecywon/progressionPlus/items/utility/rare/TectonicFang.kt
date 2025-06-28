@@ -42,12 +42,6 @@ object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
         return applyMeta(item)
     }
 
-    fun isTectonicFang(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_PICKAXE) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     val sizeKey = NamespacedKey(plugin, "tectonic_fang_size")
 
     fun getVeinSize(item: ItemStack?): Int {

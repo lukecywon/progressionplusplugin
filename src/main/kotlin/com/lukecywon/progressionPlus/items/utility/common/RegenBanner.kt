@@ -45,10 +45,4 @@ object RegenBanner : CustomItem("regen_banner", Rarity.COMMON) {
             null, Material.STICK, null
         ))
     }
-
-
-    fun isRegenBanner(item: ItemStack?): Boolean {
-        return item?.type == Material.PINK_BANNER &&
-                item.itemMeta?.persistentDataContainer?.has(key, PersistentDataType.BYTE) == true
-    }
 }

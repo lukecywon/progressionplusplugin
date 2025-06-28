@@ -20,7 +20,7 @@ class ItemEncyclopediaListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!ItemEncyclopedia.isItemEncyclopedia(item)) return
+        if (!ItemEncyclopedia.isThisItem(item)) return
 
         RarityGUI.open(player)
         player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)

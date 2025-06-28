@@ -33,7 +33,7 @@ class SnowGlobeListener : Listener {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!SnowGlobe.isSnowGlobe(item)) return
+        if (!SnowGlobe.isThisItem(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true

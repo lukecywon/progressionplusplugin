@@ -46,9 +46,4 @@ object HasteBanner : CustomItem("haste_banner", Rarity.COMMON) {
             null, Material.STICK, null
         ))
     }
-
-    fun isHasteBanner(item: ItemStack?): Boolean {
-        return item?.type == Material.YELLOW_BANNER &&
-                item.itemMeta?.persistentDataContainer?.has(key, PersistentDataType.BYTE) == true
-    }
 }

@@ -15,7 +15,7 @@ class PhantomCharmListener : Listener {
         val player = e.target as? Player ?: return
 
         val offhand = player.inventory.itemInOffHand
-        if (PhantomCharm.isPhantomCharm(offhand)) {
+        if (PhantomCharm.isThisItem(offhand)) {
             e.isCancelled = true
         }
     }

@@ -46,12 +46,6 @@ object BerserkerSword : CustomItem("berserker_sword", Rarity.UNCOMMON) {
         return applyMeta(item)
     }
 
-    fun isBerserkerSword(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.STONE_SWORD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             null, Material.REDSTONE, null,

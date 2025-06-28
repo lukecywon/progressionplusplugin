@@ -36,7 +36,7 @@ class OldKingsBladeListener : Listener {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!OldKingsBlade.isOldKingsBlade(item)) return
+        if (!OldKingsBlade.isThisItem(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true

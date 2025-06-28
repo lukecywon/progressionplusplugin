@@ -19,7 +19,7 @@ class AshbornePendantListener : Listener {
     fun onRightClick(event: PlayerInteractEvent) {
         val player = event.player
         if (event.hand != EquipmentSlot.HAND) return
-        if (!AshbornePendant.isAshbornePendant(player.inventory.itemInMainHand)) return
+        if (!AshbornePendant.isThisItem(player.inventory.itemInMainHand)) return
 
         if (CustomItem.isOnCooldown(CONE_ID, player.uniqueId)) {
             val ms = CustomItem.getCooldownRemaining(CONE_ID, player.uniqueId)

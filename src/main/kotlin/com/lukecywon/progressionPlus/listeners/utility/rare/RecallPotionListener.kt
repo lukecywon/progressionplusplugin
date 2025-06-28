@@ -29,7 +29,7 @@ class RecallPotionListener : Listener {
         val player = e.player
         val uuid = player.uniqueId
 
-        if (!RecallPotion.isRecallPotion(e.item)) return
+        if (!RecallPotion.isThisItem(e.item)) return
 
         // Cooldown check
         if (CustomItem.isOnCooldown(itemId, uuid)) {

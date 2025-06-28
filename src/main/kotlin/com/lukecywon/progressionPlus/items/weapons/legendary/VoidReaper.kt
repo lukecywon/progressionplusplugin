@@ -24,7 +24,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
-    private val soulKey = NamespacedKey("survivaltestplugin", "souls")
+    private val soulKey = NamespacedKey(ProgressionPlus.getPlugin(), "souls")
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_HOE)

@@ -25,7 +25,7 @@ class ShadowKatanaListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!ShadowKatana.isShadowKatana(item)) return
+        if (!ShadowKatana.isThisItem(item)) return
 
         if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
             val millisLeft = CustomItem.getCooldownRemaining(itemId, player.uniqueId)

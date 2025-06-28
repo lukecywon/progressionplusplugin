@@ -20,7 +20,7 @@ class RogueSwordListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!RogueSword.isRogueSword(item)) return
+        if (!RogueSword.isThisItem(item)) return
 
         if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
             val millisLeft = CustomItem.getCooldownRemaining(itemId, player.uniqueId)

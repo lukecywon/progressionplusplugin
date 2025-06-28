@@ -56,7 +56,7 @@ class MaxHeartFruitListener : Listener {
                 }
             }
 
-            if (e.hand == EquipmentSlot.OFF_HAND && BerserkerSword.isBerserkerSword(player.inventory.itemInMainHand)) {
+            if (e.hand == EquipmentSlot.OFF_HAND && BerserkerSword.isThisItem(player.inventory.itemInMainHand)) {
                 player.showTitle(
                     Title.title(
                         Component.text("Surging Power!").color(NamedTextColor.GOLD),

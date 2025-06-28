@@ -21,7 +21,7 @@ class LuckTalismanListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!LuckTalisman.isLuckTalisman(item)) return
+        if (!LuckTalisman.isThisItem(item)) return
 
         if (CustomItem.isOnCooldown(itemId, player.uniqueId)) {
             val remaining = CustomItem.getCooldownRemaining(itemId, player.uniqueId) / 1000

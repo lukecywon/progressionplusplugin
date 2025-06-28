@@ -22,7 +22,7 @@ object BerserkerSwordManager : Manager {
                 for (player in Bukkit.getOnlinePlayers()) {
                     val uuid = player.uniqueId
                     val attr = player.getAttribute(Attribute.MAX_HEALTH) ?: continue
-                    val isHolding = BerserkerSword.isBerserkerSword(player.inventory.itemInMainHand)
+                    val isHolding = BerserkerSword.isThisItem(player.inventory.itemInMainHand)
                     val wasHolding = originalHealth.containsKey(uuid)
 
                     if (isHolding && !wasHolding) {
@@ -37,7 +37,7 @@ object BerserkerSwordManager : Manager {
     }
 
     fun handleRightClick(player: Player) {
-        if (!BerserkerSword.isBerserkerSword(player.inventory.itemInMainHand)) return
+        if (!BerserkerSword.isThisItem(player.inventory.itemInMainHand)) return
 
         val uuid = player.uniqueId
         if (CustomItem.isOnCooldown(itemId, uuid)) {

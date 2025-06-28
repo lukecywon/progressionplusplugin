@@ -38,7 +38,7 @@ class TectonicFangListener : Listener {
         val player = e.player
         val item = player.inventory.itemInMainHand
 
-        if (!TectonicFang.isTectonicFang(item)) return
+        if (!TectonicFang.isThisItem(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true
@@ -57,7 +57,7 @@ class TectonicFangListener : Listener {
         val block = e.block
         val item = player.inventory.itemInMainHand
 
-        if (!TectonicFang.isTectonicFang(item)) return
+        if (!TectonicFang.isThisItem(item)) return
         if (block.type !in veinMineable) return
 
         val targetType = block.type

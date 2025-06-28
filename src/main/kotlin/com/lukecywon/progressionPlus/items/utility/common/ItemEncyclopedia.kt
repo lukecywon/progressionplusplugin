@@ -40,10 +40,4 @@ object ItemEncyclopedia : CustomItem("item_encyclopedia", Rarity.COMMON) {
 
         return applyMeta(item)
     }
-
-    fun isItemEncyclopedia(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.WRITTEN_BOOK) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

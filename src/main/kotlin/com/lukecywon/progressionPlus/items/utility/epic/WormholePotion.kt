@@ -59,10 +59,4 @@ object WormholePotion : CustomItem("wormhole_potion", Rarity.EPIC) {
             null, RecipeChoice.MaterialChoice(Material.ENDER_PEARL), null
         )
     }
-
-    fun isWormholePotion(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.POTION) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

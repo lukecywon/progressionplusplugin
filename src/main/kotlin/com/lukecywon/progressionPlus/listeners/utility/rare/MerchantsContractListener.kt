@@ -19,7 +19,7 @@ class MerchantsContractListener : Listener {
         val item = player.inventory.itemInMainHand
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!MerchantsContract.isMerchantsContract(item)) return
+        if (!MerchantsContract.isThisItem(item)) return
 
         e.isCancelled = true
         MerchantsGUI.openPlayerSelectGUI(player)

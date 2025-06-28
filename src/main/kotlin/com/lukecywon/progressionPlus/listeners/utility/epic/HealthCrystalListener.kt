@@ -20,7 +20,7 @@ class HealthCrystalListener : Listener {
         val player = e.player
         val item = e.item
 
-        if (!HealthCrystal.isHealthCrystal(item)) return
+        if (!HealthCrystal.isThisItem(item)) return
 
         val attr = player.getAttribute(Attribute.MAX_HEALTH) ?: return
         val maxHealth = attr.baseValue
@@ -64,7 +64,7 @@ class HealthCrystalListener : Listener {
                 }
             }
 
-            if (e.hand == EquipmentSlot.OFF_HAND && BerserkerSword.isBerserkerSword(player.inventory.itemInMainHand)) {
+            if (e.hand == EquipmentSlot.OFF_HAND && BerserkerSword.isThisItem(player.inventory.itemInMainHand)) {
                 player.showTitle(
                     Title.title(
                         Component.text("Surging Power!").color(NamedTextColor.GOLD),

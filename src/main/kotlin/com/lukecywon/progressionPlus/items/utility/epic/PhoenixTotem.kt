@@ -46,12 +46,6 @@ object PhoenixTotem : CustomItem("phoenix_totem", Rarity.EPIC) {
         return applyMeta(item)
     }
 
-    fun isPhoenixTotem(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.TOTEM_OF_UNDYING) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(phoenixKey, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
             null, RecipeChoice.MaterialChoice(Material.TOTEM_OF_UNDYING), null,

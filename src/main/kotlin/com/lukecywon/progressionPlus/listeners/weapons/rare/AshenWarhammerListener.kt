@@ -22,7 +22,7 @@ class AshenWarhammerListener : Listener {
     fun onKill(e: EntityDeathEvent) {
         val killer = e.entity.killer ?: return
         val weapon = killer.inventory.itemInMainHand
-        if (!AshenWarhammer.isAshenWarhammer(weapon)) return
+        if (!AshenWarhammer.isThisItem(weapon)) return
 
         if (CustomItem.isOnCooldown(itemId, killer.uniqueId)) return
         CustomItem.setCooldown(itemId, killer.uniqueId, cooldownMillis)

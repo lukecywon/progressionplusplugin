@@ -51,13 +51,6 @@ object AbyssalBox : CustomItem("abyssal_box", Rarity.EPIC) {
         item.itemMeta = meta
         return applyMeta(item)
     }
-
-    fun isThisAbyssalBox(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.BLACK_SHULKER_BOX) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     fun getBoxId(item: ItemStack?): String? {
         return item?.itemMeta?.persistentDataContainer?.get(boxIdKey, PersistentDataType.STRING)
     }

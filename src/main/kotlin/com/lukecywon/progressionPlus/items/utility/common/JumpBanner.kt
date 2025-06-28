@@ -46,9 +46,4 @@ object JumpBanner : CustomItem("jump_banner", Rarity.COMMON) {
             null, Material.STICK, null
         ))
     }
-
-    fun isJumpBanner(item: ItemStack?): Boolean {
-        return item?.type == Material.LIME_BANNER &&
-                item.itemMeta?.persistentDataContainer?.has(key, PersistentDataType.BYTE) == true
-    }
 }

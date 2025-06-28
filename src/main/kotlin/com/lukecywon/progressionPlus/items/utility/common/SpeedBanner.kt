@@ -47,10 +47,4 @@ object SpeedBanner : CustomItem("speed_banner", Rarity.COMMON) {
             null, Material.STICK, null
         ))
     }
-
-    fun isSpeedBanner(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.LIGHT_BLUE_BANNER) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

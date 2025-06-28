@@ -1,5 +1,6 @@
 package com.lukecywon.progressionPlus.items.utility.epic
 
+import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
@@ -18,7 +19,7 @@ import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
-    val beaconKey = NamespacedKey("survivaltestplugin", "flight_beacon")
+    val beaconKey = NamespacedKey(ProgressionPlus.getPlugin(), "flight_beacon")
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BEACON)
@@ -44,12 +45,6 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
         meta.persistentDataContainer.set(beaconKey, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
         return applyMeta(item)
-    }
-
-    fun isBeacon(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.BEACON) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(beaconKey, PersistentDataType.BYTE)
     }
 
     override fun getRecipe(): List<RecipeChoice?> {

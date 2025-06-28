@@ -27,11 +27,11 @@ class BannerListener : Listener {
 
         if (e.hand != EquipmentSlot.HAND) return
         if (
-            !SpeedBanner.isSpeedBanner(item) &&
-            !HasteBanner.isHasteBanner(item) &&
-            !RegenBanner.isRegenBanner(item) &&
-            !JumpBanner.isJumpBanner(item) &&
-            !AbsorptionBanner.isAbsorptionBanner(item)
+            !SpeedBanner.isThisItem(item) &&
+            !HasteBanner.isThisItem(item) &&
+            !RegenBanner.isThisItem(item) &&
+            !JumpBanner.isThisItem(item) &&
+            !AbsorptionBanner.isThisItem(item)
         ) return
 
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
@@ -46,11 +46,11 @@ class BannerListener : Listener {
         }
 
         val (type, effect) = when {
-            SpeedBanner.isSpeedBanner(item) -> "§Speed Banner" to PotionEffect(PotionEffectType.SPEED, 20 * 30, 0)
-            HasteBanner.isHasteBanner(item) -> "§eHaste Banner" to PotionEffect(PotionEffectType.HASTE, 20 * 30, 0)
-            RegenBanner.isRegenBanner(item) -> "§dRegen Banner" to PotionEffect(PotionEffectType.REGENERATION, 20 * 30, 0)
-            JumpBanner.isJumpBanner(item) -> "§aJump Banner" to PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 30, 1)
-            AbsorptionBanner.isAbsorptionBanner(item) -> "§6Absorption Banner" to PotionEffect(PotionEffectType.ABSORPTION, 20 * 30, 0)
+            SpeedBanner.isThisItem(item) -> "§Speed Banner" to PotionEffect(PotionEffectType.SPEED, 20 * 30, 0)
+            HasteBanner.isThisItem(item) -> "§eHaste Banner" to PotionEffect(PotionEffectType.HASTE, 20 * 30, 0)
+            RegenBanner.isThisItem(item) -> "§dRegen Banner" to PotionEffect(PotionEffectType.REGENERATION, 20 * 30, 0)
+            JumpBanner.isThisItem(item) -> "§aJump Banner" to PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 30, 1)
+            AbsorptionBanner.isThisItem(item) -> "§6Absorption Banner" to PotionEffect(PotionEffectType.ABSORPTION, 20 * 30, 0)
             else -> return
         }
 
@@ -98,10 +98,11 @@ class BannerListener : Listener {
     fun onBannerPlace(e: BlockPlaceEvent) {
         val item = e.itemInHand ?: return
         if (
-            HasteBanner.isHasteBanner(item) ||
-            RegenBanner.isRegenBanner(item) ||
-            JumpBanner.isJumpBanner(item) ||
-            AbsorptionBanner.isAbsorptionBanner(item)
+            HasteBanner.isThisItem(item) ||
+            SpeedBanner.isThisItem(item) ||
+            RegenBanner.isThisItem(item) ||
+            JumpBanner.isThisItem(item) ||
+            AbsorptionBanner.isThisItem(item)
         ) {
             e.isCancelled = true
             e.player.sendMessage("§cYou can't place that banner!")

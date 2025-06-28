@@ -39,12 +39,6 @@ object PhantomCharm : CustomItem("phantom_charm", Rarity.UNCOMMON) {
         return applyMeta(item)
     }
 
-    fun isPhantomCharm(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.AMETHYST_SHARD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             Material.PHANTOM_MEMBRANE, Material.STRING, Material.PHANTOM_MEMBRANE,

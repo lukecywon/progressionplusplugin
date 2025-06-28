@@ -52,8 +52,4 @@ object ParagonShield : CustomItem("paragon_shield", Rarity.EPIC) {
         item.itemMeta = meta
         return applyMeta(item)
     }
-
-    fun isParagonShield(item: ItemStack?): Boolean {
-        return item?.let { isThisItem(it) && it.type == Material.SHIELD } ?: false
-    }
 }

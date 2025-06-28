@@ -44,12 +44,6 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE, true) {
         return applyMeta(item)
     }
 
-    fun isResonantBlade(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_SWORD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             null, Material.IRON_INGOT, null,

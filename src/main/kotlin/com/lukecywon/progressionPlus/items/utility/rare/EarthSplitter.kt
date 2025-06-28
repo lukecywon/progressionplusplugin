@@ -44,12 +44,6 @@ object EarthSplitter : CustomItem("earth_splitter", Rarity.RARE) {
         return applyMeta(item)
     }
 
-    fun isEarthSplitter(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.IRON_SHOVEL) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     val sizeKey = NamespacedKey(plugin, "earth_splitter_size")
 
     fun getVeinSize(item: ItemStack?): Int {

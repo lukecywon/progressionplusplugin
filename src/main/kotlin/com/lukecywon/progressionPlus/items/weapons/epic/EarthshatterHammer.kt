@@ -48,10 +48,4 @@ object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
             RecipeChoice.MaterialChoice(Material.STICK), null, null
         )
     }
-
-    fun isEarthshatterHammer(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.NETHERITE_AXE) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
 }

@@ -39,12 +39,6 @@ object MerchantsContract : CustomItem("merchants_contract", Rarity.RARE) {
         return applyMeta(item)
     }
 
-    fun isMerchantsContract(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.WRITTEN_BOOK) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
-    }
-
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             Material.PAPER, Material.VILLAGER_SPAWN_EGG, Material.PAPER,

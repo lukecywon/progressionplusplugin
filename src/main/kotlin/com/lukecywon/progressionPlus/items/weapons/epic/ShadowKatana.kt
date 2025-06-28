@@ -25,7 +25,7 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
         val meta = item.itemMeta!!
 
         meta.displayName(
-            Component.text("Shadow Katana")
+            Component.text("Kage no Katana")
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
@@ -56,7 +56,7 @@ object ShadowKatana : CustomItem("shadow_katana", Rarity.EPIC) {
                 ItemLore.cooldown(15),
                 ItemLore.stats(item),
                 ItemLore.separator(),
-                ItemLore.lore("Slashes faster than the eye can see."),
+                ItemLore.lore("目にも留まらぬ速さで斬り裂く。"),
             )
         )
 
