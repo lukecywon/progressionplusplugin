@@ -28,7 +28,7 @@ class PeacemakerListener : Listener {
     private val loadTimers = mutableMapOf<UUID, Long>()
     private val activeReloadTasks = mutableMapOf<UUID, BukkitRunnable>()
     private val itemId = "peacemaker_shoot"
-    private val cooldownMillis = 1000L
+    private val cooldownMillis = 600L
     private val pendingFanClicks = mutableSetOf<UUID>()
 
     @EventHandler
@@ -208,12 +208,12 @@ class PeacemakerListener : Listener {
             player.world.spawnParticle(Particle.DUST, current, 1, 0.0, 0.0, 0.0, 0.0, DustOptions(Color.WHITE, 1.0f))
             if (current.block.type.isSolid) break
 
-            val target = player.world.getNearbyEntities(current, 0.3, 0.3, 0.3)
+            val target = player.world.getNearbyEntities(current, 0.5, 0.5, 0.5)
                 .firstOrNull { it is LivingEntity && it != player } as? LivingEntity
 
             if (target != null) {
                 target.noDamageTicks = 0
-                target.damage(6.0, player)
+                target.damage(7.0, player)
                 player.world.spawnParticle(Particle.DAMAGE_INDICATOR, target.location.add(0.0, 1.0, 0.0), 5)
                 break
             }

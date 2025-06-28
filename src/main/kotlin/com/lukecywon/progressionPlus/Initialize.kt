@@ -30,6 +30,7 @@ import com.lukecywon.progressionPlus.listeners.weapons.uncommon.BerserkerSwordLi
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.RogueSwordListener
 import com.lukecywon.progressionPlus.listeners.weapons.uncommon.VenomDaggerListener
 import com.lukecywon.progressionPlus.listeners.utility.uncommon.VerdantCleaverListener
+import com.lukecywon.progressionPlus.listeners.weapons.legendary.GravityMaulListener
 import com.lukecywon.progressionPlus.mechanics.*
 import com.lukecywon.progressionPlus.recipes.*
 
@@ -120,6 +121,7 @@ class Initialize(private val plugin: JavaPlugin) {
             TribalSpearListener(),
             RocketHarnessListener(),
             ParagonShieldListener(),
+            GravityMaulListener(),
         )
 
         listeners.forEach {

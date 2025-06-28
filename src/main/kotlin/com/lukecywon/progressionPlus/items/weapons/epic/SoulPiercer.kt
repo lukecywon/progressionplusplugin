@@ -8,11 +8,13 @@ import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
 import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -23,6 +25,8 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
         item = applyBaseDamage(item, 13.0)
         item = applyBaseAttackSpeed(item, -1.0)
         val meta = item.itemMeta!!
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
 
         meta.displayName(
             Component.text("Soul Piercer")
@@ -42,15 +46,8 @@ object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
         )
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "soul_piercer")
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
-
         item.itemMeta = meta
         return applyMeta(item)
-    }
-
-    fun isSoulPiercer(item: ItemStack?): Boolean {
-        if (item == null || item.type != Material.DIAMOND_SWORD) return false
-        val meta = item.itemMeta ?: return false
-        return meta.persistentDataContainer.has(key, PersistentDataType.BYTE)
     }
 
     override fun getRecipe(): List<RecipeChoice?> {

@@ -27,6 +27,7 @@ import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
 import com.lukecywon.progressionPlus.items.weapons.uncommon.RogueSword
 import com.lukecywon.progressionPlus.items.weapons.uncommon.VenomDagger
 import com.lukecywon.progressionPlus.items.utility.uncommon.VerdantCleaver
+import com.lukecywon.progressionPlus.items.weapons.legendary.GravityMaul
 
 object AllItems {
     val allItems = mutableListOf<CustomItem>()            // Optional: track all CustomItems
@@ -96,5 +97,6 @@ object AllItems {
         reg(BoomerangBlade)
         reg(RocketHarness)
         reg(ParagonShield)
+        reg(GravityMaul)
     }
 }

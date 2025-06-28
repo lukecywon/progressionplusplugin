@@ -37,7 +37,7 @@ object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
                 ItemLore.description("Unload all bullets rapidly in a wide arc"),
                 ItemLore.cooldown(2),
                 Component.text(
-                    "Stats: 6.0 Damage",
+                    "Stats: 7.0 Damage",
                     NamedTextColor.AQUA
                 ),
                 ItemLore.separator(),
