@@ -5,6 +5,9 @@ import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.EchoCore
+import com.lukecywon.progressionPlus.items.component.WardensHeart
+import com.lukecywon.progressionPlus.items.weapons.epic.EarthshatterHammer
+import com.lukecywon.progressionPlus.items.weapons.rare.AshenWarhammer
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
@@ -13,6 +16,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.*
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
@@ -98,5 +102,13 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
 
             player.velocity = player.velocity.setY(-2.5)
         }, 50L)
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            RecipeChoice.ExactChoice(WardensHeart.createItemStack()), RecipeChoice.MaterialChoice(Material.MACE), RecipeChoice.ExactChoice(WardensHeart.createItemStack()),
+            null, RecipeChoice.ExactChoice(EarthshatterHammer.createItemStack()), null,
+            null, RecipeChoice.MaterialChoice(Material.END_ROD), null
+        )
     }
 }

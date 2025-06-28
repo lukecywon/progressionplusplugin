@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
+object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE, true) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.GOLDEN_AXE)
         item = applyBaseDamage(item, 9.0)
@@ -48,8 +48,8 @@ object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            null, RecipeChoice.MaterialChoice(Material.ANVIL), RecipeChoice.MaterialChoice(Material.BLAZE_POWDER),
-            null, RecipeChoice.ExactChoice(SunscorchedEmber.createItemStack()), RecipeChoice.MaterialChoice(Material.BLAZE_POWDER),
+            RecipeChoice.MaterialChoice(Material.BLAZE_POWDER), RecipeChoice.MaterialChoice(Material.ANVIL), RecipeChoice.MaterialChoice(Material.BLAZE_POWDER),
+            null, RecipeChoice.ExactChoice(SunscorchedEmber.createItemStack()), null,
             null, RecipeChoice.MaterialChoice(Material.STICK), null
         )
     }

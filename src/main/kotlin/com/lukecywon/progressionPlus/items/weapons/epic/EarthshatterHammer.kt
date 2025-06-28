@@ -3,6 +3,8 @@ package com.lukecywon.progressionPlus.items.weapons.epic
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.SunscorchedEmber
+import com.lukecywon.progressionPlus.items.weapons.rare.AshenWarhammer
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -13,7 +15,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
+object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC, true) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_AXE)
         item = applyBaseDamage(item, 10.0)
@@ -43,9 +45,9 @@ object EarthshatterHammer : CustomItem("earthshatter_hammer", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            null, RecipeChoice.MaterialChoice(Material.ANVIL), RecipeChoice.MaterialChoice(Material.NETHER_STAR),
-            null, RecipeChoice.MaterialChoice(Material.STICK), null,
-            RecipeChoice.MaterialChoice(Material.STICK), null, null
+            RecipeChoice.MaterialChoice(Material.NETHER_STAR), RecipeChoice.MaterialChoice(Material.ANVIL), RecipeChoice.MaterialChoice(Material.PIGLIN_HEAD),
+            null, RecipeChoice.ExactChoice(AshenWarhammer.createItemStack()), null,
+            null, RecipeChoice.MaterialChoice(Material.STICK), null
         )
     }
 }
