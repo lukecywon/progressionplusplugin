@@ -1,7 +1,9 @@
 package com.lukecywon.progressionPlus.listeners
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.PrepareItemCraftEvent
