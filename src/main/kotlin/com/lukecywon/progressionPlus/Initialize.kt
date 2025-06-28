@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus
 import com.lukecywon.progressionPlus.commands.*
 import com.lukecywon.progressionPlus.listeners.*
 import com.lukecywon.progressionPlus.items.*
+import com.lukecywon.progressionPlus.items.armor.common.WoodenBoots.key
 import com.lukecywon.progressionPlus.listeners.armor.epic.RocketHarnessListener
 import com.lukecywon.progressionPlus.listeners.armor.legendary.TwilightCrownListener
 import com.lukecywon.progressionPlus.listeners.armor.uncommon.NocturnHoodListener
@@ -34,6 +35,8 @@ import com.lukecywon.progressionPlus.mechanics.*
 import com.lukecywon.progressionPlus.recipes.*
 
 import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
 
 class Initialize(private val plugin: JavaPlugin) {
@@ -143,6 +146,27 @@ class Initialize(private val plugin: JavaPlugin) {
 
         // Add custom recipe overrides
         EyeOfEnderRecipe.register()
+
+
+        val diamondRecipes = listOf(
+            NamespacedKey.minecraft("diamond_sword"),
+            NamespacedKey.minecraft("diamond_pickaxe"),
+            NamespacedKey.minecraft("diamond_axe"),
+            NamespacedKey.minecraft("diamond_shovel"),
+            NamespacedKey.minecraft("diamond_hoe"),
+            NamespacedKey.minecraft("diamond_helmet"),
+            NamespacedKey.minecraft("diamond_chestplate"),
+            NamespacedKey.minecraft("diamond_leggings"),
+            NamespacedKey.minecraft("diamond_boots")
+        )
+
+        if (!plugin.config.getBoolean("diamond-unlocked")) {
+            // Remove diamond crafts
+            diamondRecipes.forEach { item ->
+                Bukkit.removeRecipe(item)
+            }
+        }
+
     }
 
 
