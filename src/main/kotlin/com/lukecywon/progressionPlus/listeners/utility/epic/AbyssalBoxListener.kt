@@ -89,7 +89,7 @@ class AbyssalBoxListener : Listener {
         var removedCount = 0
 
         val filteredContents = inv.contents.mapIndexed { index, item ->
-            if (AbyssalBox.isThisAbyssalBox(item)) {
+            if (AbyssalBox.isThisItem(item)) {
                 inv.setItem(index, null) // Remove from GUI as well
                 removedCount++
                 null
@@ -117,7 +117,7 @@ class AbyssalBoxListener : Listener {
         val shiftItem = event.currentItem
 
         // Case 1: Placing with cursor
-        if (AbyssalBox.isThisAbyssalBox(item)) {
+        if (AbyssalBox.isThisItem(item)) {
             event.isCancelled = true
             player.setItemOnCursor(item) // return item to cursor
             player.sendMessage("§cYou cannot store Abyssal Boxes inside other Abyssal Boxes.")
@@ -127,7 +127,7 @@ class AbyssalBoxListener : Listener {
 
         // Case 2: Shift-clicking an Abyssal Box in
         if (event.click == ClickType.SHIFT_LEFT || event.click == ClickType.SHIFT_RIGHT) {
-            if (AbyssalBox.isThisAbyssalBox(shiftItem)) {
+            if (AbyssalBox.isThisItem(shiftItem)) {
                 event.isCancelled = true
                 player.sendMessage("§cYou cannot store Abyssal Boxes inside other Abyssal Boxes.")
                 player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 0.9f)

@@ -70,12 +70,10 @@ class PhoenixTotemListener : Listener {
         // Minecraft always prioritizes main hand totem
         val willUse = if (main.type == Material.TOTEM_OF_UNDYING) main else if (off.type == Material.TOTEM_OF_UNDYING) off else return
 
-        if (PhoenixTotem.isPhoenixTotem(willUse)) {
+        if (PhoenixTotem.isThisItem(willUse)) {
             phoenixTotemUsers.add(player.uniqueId)
         }
     }
-
-
 
     private fun spawnMassiveFireBurst(center: Location, radius: Double = 2.5, density: Int = 200) {
         val world = center.world

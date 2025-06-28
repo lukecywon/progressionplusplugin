@@ -31,7 +31,7 @@ class BuilderWandListener : Listener {
 
         if (e.hand != EquipmentSlot.HAND) return
         if (e.action != Action.RIGHT_CLICK_BLOCK) return
-        if (!BuilderWand.isBuilderWand(item)) return
+        if (!BuilderWand.isThisItem(item)) return
 
         val playerId = player.uniqueId
 
