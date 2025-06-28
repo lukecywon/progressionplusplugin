@@ -19,7 +19,7 @@ class SoulPiercerListener : Listener {
         val attacker = e.damager as? Player ?: return
         val target = e.entity as? LivingEntity ?: return
         val item = attacker.inventory.itemInMainHand
-        if (!SoulPiercer.isSoulPiercer(item)) return
+        if (!SoulPiercer.isThisItem(item)) return
 
         val uuid = attacker.uniqueId
         val hits = hitCounts.getOrDefault(uuid, 0) + 1
