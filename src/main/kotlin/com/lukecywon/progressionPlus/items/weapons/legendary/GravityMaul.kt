@@ -4,10 +4,8 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.enums.Activation
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.items.weapons.epic.EarthshatterHammer
-import com.lukecywon.progressionPlus.items.weapons.rare.AshenWarhammer
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
@@ -61,7 +59,6 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
         val affected = world.getNearbyLivingEntities(origin, radius).filter { it != player }
 
         affected.forEach { entity ->
-            // Pull effect particles
             world.spawnParticle(
                 Particle.SMOKE,
                 entity.location.clone().add(0.0, 1.0, 0.0),
@@ -78,6 +75,7 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
             entity.velocity = vector
         }
 
+        // Launch up (after 1 second)
         Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
             affected.forEach { entity ->
                 if (!entity.isDead && entity.location.distance(origin) <= radius) {
@@ -91,6 +89,7 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
             player.world.playSound(player.location, Sound.ITEM_TRIDENT_RIPTIDE_3, 1f, 1.5f)
         }, 20L)
 
+        // Slam down (after 2.5 seconds)
         Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
             affected.forEach { entity ->
                 if (!entity.isDead && entity.location.distance(origin) <= radius) {
@@ -100,8 +99,26 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
                 }
             }
 
-            player.velocity = player.velocity.setY(-2.5)
+            player.velocity = player.velocity.setY(-1.8)
         }, 50L)
+
+        // Sustained gravity pull (for 2.5 seconds, every 5 ticks)
+        var counter = 0
+        Bukkit.getScheduler().runTaskTimer(ProgressionPlus.getPlugin(), Runnable {
+            counter++
+            if (counter > 10) return@Runnable
+
+            affected.forEach { entity ->
+                if (!entity.isDead && entity.location.distance(origin) <= radius + 2) {
+                    val pull = origin.toVector().subtract(entity.location.toVector()).normalize().multiply(0.3)
+                    pull.y = 0.05
+                    entity.velocity = entity.velocity.add(pull)
+
+                    // Optional: add subtle particles
+                    entity.world.spawnParticle(Particle.CRIT, entity.location.clone().add(0.0, 1.0, 0.0), 3, 0.1, 0.2, 0.1, 0.02)
+                }
+            }
+        }, 5L, 5L) // delay, interval
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
