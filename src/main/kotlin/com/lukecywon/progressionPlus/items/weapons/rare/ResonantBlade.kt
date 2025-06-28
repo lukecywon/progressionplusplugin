@@ -27,7 +27,7 @@ object ResonantBlade : CustomItem("resonant_blade", Rarity.RARE, true) {
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Resonance", Activation.HIT),
-                ItemLore.description("Land 5 consecutive hits,"),
+                ItemLore.description("Land 3 consecutive hits,"),
                 ItemLore.description("each within 3s of the last,"),
                 ItemLore.description("to deal +5 bonus damage on the final strike."),
                 ItemLore.cooldown(0),
