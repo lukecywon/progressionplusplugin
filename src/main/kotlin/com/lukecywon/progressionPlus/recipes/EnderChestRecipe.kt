@@ -12,7 +12,6 @@ object EnderChestRecipe : Recipe {
         val key = Material.ENDER_CHEST.key
         Bukkit.removeRecipe(key)
 
-
         val newKey = NamespacedKey(ProgressionPlus.getPlugin(), "ender_chest")
         val result = ItemStack(Material.ENDER_CHEST)
 
