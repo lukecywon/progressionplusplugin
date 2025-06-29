@@ -81,7 +81,7 @@ class ResonantBladeListener : Listener {
                     return
                 }
 
-                player.sendActionBar("§7Echo Combo: §b${tracker.hits}§7/5  (§eTime left: ${timeLeft}s§7)")
+                player.sendActionBar("§7Echo Combo: §b${tracker.hits}§7/3  (§eTime left: ${timeLeft}s§7)")
             }
         }
 
