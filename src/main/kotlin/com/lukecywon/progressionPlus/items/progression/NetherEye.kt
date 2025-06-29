@@ -1,11 +1,10 @@
 package com.lukecywon.progressionPlus.items.progression
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.*
-import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -14,7 +13,6 @@ import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
-import org.bukkit.inventory.RecipeChoice.MaterialChoice
 import org.bukkit.persistence.PersistentDataType
 
 object NetherEye : CustomItem("nether_eye", Rarity.PROGRESSION) {

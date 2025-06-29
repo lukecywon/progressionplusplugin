@@ -1,11 +1,12 @@
 package com.lukecywon.progressionPlus.items.armor.uncommon
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
+import com.lukecywon.progressionPlus.utils.HeadMaker
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -20,7 +21,7 @@ import org.bukkit.inventory.RecipeChoice
 
 object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        val item = createCustomHead("http://textures.minecraft.net/texture/2955fcb16f15a460c0109afb975c79d939a687aae3f8c37b4388e4a5bf8022fd")
+        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/2955fcb16f15a460c0109afb975c79d939a687aae3f8c37b4388e4a5bf8022fd")
         val meta = item.itemMeta
 
         meta.displayName(

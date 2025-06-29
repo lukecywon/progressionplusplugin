@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners.utility
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
+import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
@@ -18,7 +18,7 @@ class CustomItemVanillaBlocker : Listener {
 
     private fun isCustomItem(item: ItemStack?): Boolean {
         if (item == null || item.type == Material.AIR) return false
-        return CustomItemRegistry.getAll().any { it.isThisItem(item) }
+        return CustomItem.getAll().any { it.isThisItem(item) }
     }
 
     // 🚫 Prevent using custom items to craft vanilla results

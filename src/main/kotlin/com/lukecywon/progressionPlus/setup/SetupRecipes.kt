@@ -1,0 +1,18 @@
+package com.lukecywon.progressionPlus.setup
+
+import com.lukecywon.progressionPlus.utils.annotations.RunOnEnable
+import com.lukecywon.progressionPlus.recipes.Recipe
+import org.reflections.Reflections
+
+class SetupRecipes {
+    @RunOnEnable
+    fun recipes() {
+        // Override vanilla recipes
+        val recipes = Reflections("com.lukecywon.progressionPlus.recipes")
+        val classes = recipes.getSubTypesOf(Recipe::class.java)
+
+        classes.forEach { recipe ->
+            recipe.kotlin.objectInstance?.register()
+        }
+    }
+}

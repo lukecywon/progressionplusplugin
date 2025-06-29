@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.ui
 
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.gui.GUI
 import com.lukecywon.progressionPlus.items.CustomItem
 import net.kyori.adventure.text.Component

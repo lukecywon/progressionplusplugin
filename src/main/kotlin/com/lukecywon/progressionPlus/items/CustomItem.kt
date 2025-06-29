@@ -1,33 +1,22 @@
 package com.lukecywon.progressionPlus.items
 
-import com.destroystokyo.paper.profile.PlayerProfile
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.attribute.Attribute
-import org.bukkit.inventory.meta.SkullMeta
-import org.bukkit.Bukkit
 import org.bukkit.inventory.*
-import org.bukkit.profile.PlayerTextures
-import java.net.URL
+import org.reflections.Reflections
+
 import java.util.*
 
-abstract class CustomItem(private val name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
-    val key: NamespacedKey
-    protected val plugin: JavaPlugin
-
-    init {
-        plugin = ProgressionPlus.getPlugin()
-        key = NamespacedKey(plugin, name)
-        CustomItemRegistry.register(name, this)
-    }
+abstract class CustomItem(val name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
+    protected var plugin: JavaPlugin = ProgressionPlus.getPlugin()
+    val key: NamespacedKey = NamespacedKey(plugin, name)
 
     abstract fun createItemStack(): ItemStack
 
@@ -138,6 +127,7 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
 
 
     companion object {
+        // Cooldown Management
         private val cooldowns: MutableMap<Pair<String, UUID>, Long> = mutableMapOf()
 
         fun setCooldown(itemId: String, playerId: UUID, durationMillis: Long) {
@@ -158,41 +148,22 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
             cooldowns.keys.removeIf { it.second == playerId }
         }
 
-        fun createCustomHead(url: String): ItemStack {
-            val head = ItemStack(Material.PLAYER_HEAD)
-            val meta = head.itemMeta as SkullMeta
-            val validUrl = URL(url)
+        // Retrieval system for all CustomItems
+        // using Reflection and classpath scanning
+        private val allCustomItems = Reflections("com.lukecywon.progressionPlus.items")
+        private val classes = allCustomItems.getSubTypesOf(CustomItem::class.java).sortedWith(compareBy({ it.name.substringBeforeLast('.') }, { it.simpleName }))
 
-            // Create empty profile with random UUID
-            val profile: PlayerProfile = Bukkit.createPlayerProfile(UUID.randomUUID()) as PlayerProfile
+        fun getAll(): List<CustomItem> =
+            classes.mapNotNull { it.kotlin.objectInstance }
 
-            // Set the base64 texture
-            val textures: PlayerTextures = profile.textures
-            textures.skin = validUrl
-            profile.setTextures(textures)
+        fun getAllNames(): List<String> =
+            classes
+                .mapNotNull { it.kotlin.objectInstance }
+                .map { it.name }
 
-            // Apply the profile to the item
-            meta.playerProfile = profile
-
-            // Make head unplaceable
-            meta.persistentDataContainer.set(
-                NamespacedKey(ProgressionPlus.getPlugin(), "wearable_head"),
-                PersistentDataType.BYTE,
-                1
-            )
-
-            head.itemMeta = meta
-
-            return head
-        }
-
-        fun isCustomHead(item: ItemStack): Boolean {
-            val meta = item.itemMeta ?: return false
-
-            return meta.persistentDataContainer.has(
-                NamespacedKey(ProgressionPlus.getPlugin(), "wearable_head"),
-                PersistentDataType.BYTE
-            )
-        }
+        fun getItem(name: String): CustomItem? =
+            classes
+                .mapNotNull { it.kotlin.objectInstance }
+                .firstOrNull { it.name.equals(name, ignoreCase = true) }
     }
 }

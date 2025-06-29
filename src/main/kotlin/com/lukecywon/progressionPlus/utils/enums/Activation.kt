@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.enums
+package com.lukecywon.progressionPlus.utils.enums
 
 enum class Activation(val label: String) {
     RIGHT_CLICK("RIGHT CLICK"),

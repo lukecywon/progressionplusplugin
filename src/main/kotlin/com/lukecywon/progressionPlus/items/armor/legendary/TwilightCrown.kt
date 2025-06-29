@@ -1,12 +1,12 @@
 package com.lukecywon.progressionPlus.items.armor.legendary
 
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.HeadMaker
+import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -16,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
-        val item = createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
+        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))

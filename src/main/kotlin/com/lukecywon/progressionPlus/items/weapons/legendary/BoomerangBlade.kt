@@ -1,11 +1,10 @@
 package com.lukecywon.progressionPlus.items.weapons.legendary
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.listeners.weapons.legendary.BoomerangBladeKeys
 import org.bukkit.Material
-import org.bukkit.entity.Snowball
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType

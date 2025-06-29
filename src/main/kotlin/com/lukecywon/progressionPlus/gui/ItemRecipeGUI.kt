@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.ui
 
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.gui.GUI
 import com.lukecywon.progressionPlus.items.CustomItem
 import net.kyori.adventure.text.Component
@@ -13,7 +13,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.RecipeChoice
 
 object ItemRecipeGUI : GUI("Item Recipe", 9 * 5) {
     private var rarity: Rarity = Rarity.COMMON // Rarity for back button

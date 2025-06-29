@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.ui
 
-import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
+import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -20,7 +20,7 @@ object ItemListGUI {
         val title = Component.text("$titlePrefix${rarity.displayName}")
         val gui = Bukkit.createInventory(null, SIZE, title)
 
-        val items = CustomItemRegistry.getAll().filter { it.getRarity() == rarity }
+        val items = CustomItem.getAll().filter { it.getRarity() == rarity }
 
         val glassRows = listOf(
             0, 1, 2, 3, 4, 5, 6, 7, 8,
@@ -83,7 +83,7 @@ object ItemListGUI {
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
         }
 
-        val match = CustomItemRegistry.getAll().find { it.isThisItem(clicked) }
+        val match = CustomItem.getAll().find { it.isThisItem(clicked) }
         if (match != null) {
             if (match.hasRecipe()) {
                 ItemRecipeGUI.open(player, match)

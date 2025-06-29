@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.commands
 
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
+import com.lukecywon.progressionPlus.items.CustomItem
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -22,7 +22,7 @@ class ArtifactCommand : CommandExecutor {
                     return true
                 }
 
-                val item = CustomItemRegistry.getItem(args[1])
+                val item = CustomItem.getItem(args[1])
                 if (item != null) {
                     sender.inventory.addItem(item.createItemStack())
                     sender.sendMessage("§aGave you: ${args[1]}")

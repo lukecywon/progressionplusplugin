@@ -1,9 +1,10 @@
 package com.lukecywon.progressionPlus.items.armor.common.wooden
 
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
+import com.lukecywon.progressionPlus.utils.HeadMaker
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -17,7 +18,7 @@ import org.bukkit.inventory.meta.SkullMeta
 
 object WoodenHelmet : CustomItem("wooden_helmet", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
+        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
         val meta = item.itemMeta as SkullMeta
 
         meta.displayName(Component.text("Wooden Helmet", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))

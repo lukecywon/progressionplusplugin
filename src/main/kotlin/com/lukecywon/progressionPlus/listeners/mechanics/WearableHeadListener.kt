@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners.mechanics
 
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.weapons.legendary.FamesAuri
+import com.lukecywon.progressionPlus.utils.HeadMaker
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -16,7 +16,7 @@ class WearableHeadListener : Listener {
 
         val player = event.player
         val item = player.inventory.itemInMainHand
-        if (!CustomItem.isCustomHead(item)) return
+        if (!HeadMaker.isCustomHead(item)) return
         event.isCancelled = true
     }
 
@@ -27,7 +27,7 @@ class WearableHeadListener : Listener {
 
         val player = event.player
         val item = player.inventory.itemInMainHand
-        if (!CustomItem.isCustomHead(item)) return
+        if (!HeadMaker.isCustomHead(item)) return
 
         val helmet = player.inventory.helmet
         val headItem = item.clone().also { it.amount = 1 }
