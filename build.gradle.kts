@@ -22,6 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.reflections:reflections:0.10.2")
     implementation(kotlin("reflect"))
+    implementation("dev.triumphteam:triumph-gui:3.1.11")
 }
 
 tasks {
@@ -56,6 +57,7 @@ tasks.shadowJar {
     minimize {
         exclude(dependency("org.jetbrains.kotlin:.*")) // 👈 Ensure Kotlin is kept
     }
+    relocate("dev.triumphteam.gui", "com.lukecywon.progressionPlus.gui")
 }
 
 tasks.withType<Jar> {
