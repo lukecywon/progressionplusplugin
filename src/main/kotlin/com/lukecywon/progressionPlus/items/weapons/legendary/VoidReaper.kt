@@ -23,7 +23,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
-object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
+object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = false) {
     private val soulKey = NamespacedKey(ProgressionPlus.getPlugin(), "souls")
 
     override fun createItemStack(): ItemStack {
@@ -44,10 +44,12 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
                 ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
                 ItemLore.description("Teleport behind and slash the enemy you're looking at"),
                 ItemLore.cooldown(7),
+                ItemLore.separator(),
                 ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
                 ItemLore.description("Unleash stored souls in an AOE blast"),
                 Component.text("Souls Stored: 0").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
                 ItemLore.cooldown(7),
+                ItemLore.separator(),
                 ItemLore.stats(item),
                 ItemLore.separator(),
                 ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
@@ -55,7 +57,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY) {
         )
 
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "void_reaper")
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+
         meta.persistentDataContainer.set(soulKey, PersistentDataType.INTEGER, 0)
 
         item.itemMeta = meta

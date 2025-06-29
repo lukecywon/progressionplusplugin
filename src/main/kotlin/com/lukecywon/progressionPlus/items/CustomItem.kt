@@ -19,7 +19,7 @@ import org.bukkit.profile.PlayerTextures
 import java.net.URL
 import java.util.*
 
-abstract class CustomItem(private val name: String, private val rarity: Rarity, private val stackable: Boolean = false) {
+abstract class CustomItem(private val name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
     val key: NamespacedKey
     protected val plugin: JavaPlugin
 
@@ -67,6 +67,13 @@ abstract class CustomItem(private val name: String, private val rarity: Rarity, 
                 UUID.randomUUID().toString()
             )
         }
+
+        // Set if an item will be enchantable
+        meta.persistentDataContainer.set(
+            NamespacedKey(plugin, "enchantable"),
+            PersistentDataType.BOOLEAN,
+            enchantable
+        )
 
         item.itemMeta = meta
         return item

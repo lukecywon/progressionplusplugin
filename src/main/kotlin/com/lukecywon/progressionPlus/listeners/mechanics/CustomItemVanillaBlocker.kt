@@ -1,7 +1,9 @@
 package com.lukecywon.progressionPlus.listeners.utility
 
+import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItemRegistry
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
@@ -10,6 +12,7 @@ import org.bukkit.event.inventory.*
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.CraftingInventory
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 
 class CustomItemVanillaBlocker : Listener {
 
@@ -74,22 +77,38 @@ class CustomItemVanillaBlocker : Listener {
         }
     }
 
-//    // 🚫 Prevent anvil interactions
-//    @EventHandler
-//    fun onAnvil(e: PrepareAnvilEvent) {
-//        val left = e.inventory.getItem(0)
-//        val right = e.inventory.getItem(1)
-//        if (isCustomItem(left) || isCustomItem(right)) {
-//            e.result = null
-//        }
-//    }
-//
-//    @EventHandler
-//    fun onEnchantAttempt(e: PrepareItemEnchantEvent) {
-//        val item = e.item
-//        if (isCustomItem(item)) {
-//            e.setCancelled(true)
-//        }
-//    }
+    // 🚫 Prevent anvil interactions
+    @EventHandler
+    fun onAnvil(e: PrepareAnvilEvent) {
+        val left = e.inventory.getItem(0)
+        val right = e.inventory.getItem(1)
+
+        val leftIsEnchantable = left?.persistentDataContainer?.get(NamespacedKey(
+            ProgressionPlus.getPlugin(),
+            "enchantable"
+        ), PersistentDataType.BOOLEAN)
+
+        val rightIsEnchantable = right?.persistentDataContainer?.get(NamespacedKey(
+            ProgressionPlus.getPlugin(),
+            "enchantable"
+        ), PersistentDataType.BOOLEAN)
+
+        if (leftIsEnchantable == false || rightIsEnchantable == false) {
+            e.result = null
+        }
+    }
+
+    @EventHandler
+    fun onEnchantAttempt(e: PrepareItemEnchantEvent) {
+        val item = e.item
+        val itemIsEnchantable = item.persistentDataContainer.get(NamespacedKey(
+            ProgressionPlus.getPlugin(),
+            "enchantable"
+        ), PersistentDataType.BOOLEAN)
+
+        if (itemIsEnchantable != true) {
+            e.isCancelled = true
+        }
+    }
 
 }
