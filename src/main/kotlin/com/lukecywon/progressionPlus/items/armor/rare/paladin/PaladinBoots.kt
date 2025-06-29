@@ -24,7 +24,7 @@ object PaladinBoots : CustomItem("paladin_boots", Rarity.RARE) {
         val item = ItemStack(Material.IRON_BOOTS)
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("Paladin Boots", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
+        meta.displayName(Component.text("Paladin Boots", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(

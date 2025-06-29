@@ -24,7 +24,7 @@ object PaladinChestplate : CustomItem("paladin_chestplate", Rarity.RARE) {
         val item = ItemStack(Material.IRON_CHESTPLATE)
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("Paladin Chestplate", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
+        meta.displayName(Component.text("Paladin Chestplate", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
