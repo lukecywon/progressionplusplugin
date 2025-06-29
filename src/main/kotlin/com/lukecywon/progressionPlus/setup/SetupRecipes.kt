@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.setup
 
-import com.lukecywon.progressionPlus.annotations.RunOnEnable
+import com.lukecywon.progressionPlus.utils.annotations.RunOnEnable
 import com.lukecywon.progressionPlus.recipes.Recipe
 import org.reflections.Reflections
 

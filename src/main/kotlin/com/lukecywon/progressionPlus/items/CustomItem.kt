@@ -2,9 +2,7 @@ package com.lukecywon.progressionPlus.items
 
 import com.destroystokyo.paper.profile.PlayerProfile
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.annotations.InjectPlugin
-import com.lukecywon.progressionPlus.enums.Rarity
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material

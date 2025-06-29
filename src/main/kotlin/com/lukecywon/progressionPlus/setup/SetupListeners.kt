@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.setup
 
-import com.lukecywon.progressionPlus.annotations.RunOnEnable
+import com.lukecywon.progressionPlus.utils.annotations.RunOnEnable
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.reflections.Reflections

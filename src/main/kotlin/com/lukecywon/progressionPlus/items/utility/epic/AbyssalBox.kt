@@ -1,10 +1,9 @@
 package com.lukecywon.progressionPlus.items.utility.epic
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.mechanics.ItemLore

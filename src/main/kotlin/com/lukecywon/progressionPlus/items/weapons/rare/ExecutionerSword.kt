@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.items.weapons.rare
 
-import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
@@ -12,7 +12,6 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
-import org.bukkit.persistence.PersistentDataType
 
 object ExecutionerSword : CustomItem("executioner_sword", Rarity.RARE) {
     override fun createItemStack(): ItemStack {

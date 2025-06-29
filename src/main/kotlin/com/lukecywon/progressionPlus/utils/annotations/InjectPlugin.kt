@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.annotations
+package com.lukecywon.progressionPlus.utils.annotations
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

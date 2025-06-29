@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.annotations
+package com.lukecywon.progressionPlus.utils.annotations
 
 /**
  * Annotation representing methods to be run on plugin start

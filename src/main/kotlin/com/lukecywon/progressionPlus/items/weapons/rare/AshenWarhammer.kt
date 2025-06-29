@@ -1,12 +1,10 @@
 package com.lukecywon.progressionPlus.items.weapons.rare
 
-import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.items.component.SunscorchedEmber
 import com.lukecywon.progressionPlus.mechanics.ItemLore
-import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -14,7 +12,6 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
-import org.bukkit.persistence.PersistentDataType
 
 object AshenWarhammer : CustomItem("ashen_warhammer", Rarity.RARE, true) {
     override fun createItemStack(): ItemStack {

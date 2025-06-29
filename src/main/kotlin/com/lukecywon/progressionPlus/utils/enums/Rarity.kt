@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.enums
+package com.lukecywon.progressionPlus.utils.enums
 
 import net.kyori.adventure.text.format.NamedTextColor
 

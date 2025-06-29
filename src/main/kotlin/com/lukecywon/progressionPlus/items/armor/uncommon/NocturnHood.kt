@@ -1,8 +1,8 @@
 package com.lukecywon.progressionPlus.items.armor.uncommon
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator

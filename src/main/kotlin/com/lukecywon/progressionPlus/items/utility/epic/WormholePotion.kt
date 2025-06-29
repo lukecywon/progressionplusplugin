@@ -1,12 +1,10 @@
 package com.lukecywon.progressionPlus.items.utility.epic
 
-import com.lukecywon.progressionPlus.enums.Activation
-import com.lukecywon.progressionPlus.enums.Rarity
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.mechanics.ItemLore
-import com.lukecywon.progressionPlus.recipes.Recipe
-import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
