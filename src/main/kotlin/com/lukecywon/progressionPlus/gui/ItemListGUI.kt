@@ -2,7 +2,6 @@ package com.lukecywon.progressionPlus.ui
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.utils.enums.Rarity
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration

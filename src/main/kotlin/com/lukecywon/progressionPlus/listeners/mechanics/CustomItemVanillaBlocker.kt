@@ -2,7 +2,6 @@ package com.lukecywon.progressionPlus.listeners.utility
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler

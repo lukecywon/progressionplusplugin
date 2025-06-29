@@ -1,7 +1,6 @@
 package com.lukecywon.progressionPlus.commands
 
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.CustomItemRegistry
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
