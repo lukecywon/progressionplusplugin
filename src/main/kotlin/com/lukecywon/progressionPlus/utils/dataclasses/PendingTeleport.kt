@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.utils
+package com.lukecywon.progressionPlus.utils.dataclasses
 
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

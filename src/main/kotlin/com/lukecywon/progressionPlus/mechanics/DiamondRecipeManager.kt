@@ -1,6 +1,6 @@
 package com.lukecywon.progressionPlus.mechanics
 
-import com.lukecywon.progressionPlus.utils.StoredRecipe
+import com.lukecywon.progressionPlus.utils.dataclasses.StoredRecipe
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
