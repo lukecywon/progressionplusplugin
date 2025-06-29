@@ -1,6 +1,5 @@
 package com.lukecywon.progressionPlus.items
 
-import com.destroystokyo.paper.profile.PlayerProfile
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
@@ -18,10 +17,6 @@ import java.util.*
 abstract class CustomItem(val name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
     protected var plugin: JavaPlugin = ProgressionPlus.getPlugin()
     val key: NamespacedKey = NamespacedKey(plugin, name)
-
-    init {
-        CustomItemRegistry.register(name, this)
-    }
 
     abstract fun createItemStack(): ItemStack
 
