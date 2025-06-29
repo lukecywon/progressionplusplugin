@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items
 
 import com.destroystokyo.paper.profile.PlayerProfile
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.annotations.InjectPlugin
 import com.lukecywon.progressionPlus.enums.Rarity
 import com.lukecywon.progressionPlus.mechanics.ItemLore
 import net.kyori.adventure.text.Component
@@ -19,13 +20,13 @@ import org.bukkit.profile.PlayerTextures
 import java.net.URL
 import java.util.*
 
-abstract class CustomItem(private val name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
-    val key: NamespacedKey
-    protected val plugin: JavaPlugin
+abstract class CustomItem(name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
+    @InjectPlugin
+    private lateinit var plugin: JavaPlugin
+
+    val key: NamespacedKey = NamespacedKey(plugin, name)
 
     init {
-        plugin = ProgressionPlus.getPlugin()
-        key = NamespacedKey(plugin, name)
         CustomItemRegistry.register(name, this)
     }
 
