@@ -43,7 +43,6 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     init {
-        AllItems.registerAll()
         commands()
         listeners()
         recipes()
@@ -133,12 +132,13 @@ class Initialize(private val plugin: JavaPlugin) {
     }
 
     private fun recipes() {
-        AllItems.allItems.forEach {
-            // Only add items with non-empty recipes
-            if (RecipeGenerator.generateRecipe(it) == null) return@forEach
+        // Get all CustomItems from CustomItemRegistry
+        // and put them into the available recipes
+        CustomItemRegistry.getAll().forEach { item ->
+            if (RecipeGenerator.generateRecipe(item) == null) return@forEach
 
-            val recipe = RecipeGenerator.generateRecipe(it)
-            val key = it.key
+            val recipe = RecipeGenerator.generateRecipe(item)
+            val key = item.key
 
             if (Bukkit.getRecipe(key) != null) {
                 Bukkit.removeRecipe(key)
@@ -147,7 +147,7 @@ class Initialize(private val plugin: JavaPlugin) {
             Bukkit.addRecipe(recipe)
         }
 
-        // Add custom recipe overrides
+        // Override vanilla recipes
         val customRecipes: List<Recipe> = listOf(
             EyeOfEnderRecipe,
             EnderChestRecipe
