@@ -22,7 +22,7 @@ import java.util.*
 
 abstract class CustomItem(name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
     @InjectPlugin
-    private lateinit var plugin: JavaPlugin
+    protected lateinit var plugin: JavaPlugin
 
     val key: NamespacedKey = NamespacedKey(plugin, name)
 
