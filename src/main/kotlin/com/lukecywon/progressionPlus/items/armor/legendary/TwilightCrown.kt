@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items.armor.legendary
 
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.utils.HeadMaker
 import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
