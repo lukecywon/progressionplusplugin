@@ -3,6 +3,9 @@ package com.lukecywon.progressionPlus.setup
 import com.lukecywon.progressionPlus.annotations.RunOnEnable
 import org.bukkit.plugin.java.JavaPlugin
 import org.reflections.Reflections
+import org.reflections.scanners.MethodAnnotationsScanner
+import org.reflections.scanners.Scanners
+import org.reflections.util.ConfigurationBuilder
 import java.lang.reflect.Modifier
 
 /**
@@ -21,9 +24,14 @@ class RunSetup(private val plugin: JavaPlugin) {
      * Uses classpath scanning to run all methods annotated with [RunOnEnable]
      */
     private fun runSetupMethods() {
-        val methods = Reflections("com.lukecywon.progressionPlus").getMethodsAnnotatedWith(RunOnEnable::class.java)
+        val methods = Reflections("com.lukecywon.progressionPlus", Scanners.MethodsAnnotated)
+            .getMethodsAnnotatedWith(RunOnEnable::class.java)
+            .sortedByDescending { it.getAnnotation(RunOnEnable::class.java).priority }
+
+        println(methods)
 
         methods.forEach { method ->
+            println(method.name)
             if (Modifier.isStatic(method.modifiers)) return@forEach
             val parentClass = method.declaringClass
 

@@ -5,4 +5,4 @@ package com.lukecywon.progressionPlus.annotations
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class RunOnEnable()
+annotation class RunOnEnable(val priority: Int = 0)

@@ -10,7 +10,7 @@ import org.reflections.Reflections
  * of the plugin instance for any fields with the [InjectPlugin] annotation.
  */
 class PluginInjector {
-    @RunOnEnable
+    @RunOnEnable(999)
     fun injectPlugin(plugin: JavaPlugin) {
         val reflections = Reflections("com.lukecywon.progressionPlus")
         val classes = reflections.getSubTypesOf(Any::class.java)
