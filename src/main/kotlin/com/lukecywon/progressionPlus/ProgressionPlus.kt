@@ -1,12 +1,13 @@
 package com.lukecywon.progressionPlus
 
+import com.lukecywon.progressionPlus.setup.RunSetup
 import org.bukkit.plugin.java.JavaPlugin
 
 class ProgressionPlus : JavaPlugin() {
     override fun onEnable() {
         instance = this
         saveDefaultConfig()
-        Initialize(this)
+        RunSetup(this)
         println("ProgressionPlus has been enabled.")
     }
 
