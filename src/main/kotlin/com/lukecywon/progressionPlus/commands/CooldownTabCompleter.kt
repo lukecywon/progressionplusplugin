@@ -5,7 +5,9 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class CooldownTabCompleter : TabCompleter {
+class CooldownTabCompleter : CustomTabCompleter {
+    override val name = "cooldown"
+
     override fun onTabComplete(
         sender: CommandSender,
         command: Command,

@@ -5,7 +5,9 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class ArtifactTabCompleter : TabCompleter {
+class ArtifactTabCompleter : CustomTabCompleter {
+    override val name = "artifact"
+
     override fun onTabComplete(
         sender: CommandSender,
         command: Command,

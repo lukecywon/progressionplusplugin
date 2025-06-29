@@ -7,7 +7,9 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 
-class CooldownCommand : CommandExecutor {
+class CooldownCommand : CustomCommand {
+    override val name = "cooldown"
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (args == null || args.isEmpty()) {
             sender.sendMessage("${ChatColor.RED}Usage: /cooldown clear <player>")

@@ -6,7 +6,9 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class AddSoulsCommand : CommandExecutor {
+class AddSoulsCommand : CustomCommand {
+    override val name: String = "addsouls"
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
             sender.sendMessage("This command can only be run by players.")
