@@ -2,7 +2,7 @@ package com.lukecywon.progressionPlus.items.component
 
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.ItemLore
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import net.kyori.adventure.text.Component

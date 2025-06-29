@@ -8,7 +8,7 @@ import com.lukecywon.progressionPlus.items.component.EchoCore
 import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.items.weapons.epic.SoulrendScythe
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration

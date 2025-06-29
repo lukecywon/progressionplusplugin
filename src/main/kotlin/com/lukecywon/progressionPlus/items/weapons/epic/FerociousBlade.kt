@@ -6,7 +6,7 @@ import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.InfernalShard
 import com.lukecywon.progressionPlus.items.component.TwistedRoot
 import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
-import com.lukecywon.progressionPlus.mechanics.ItemLore
+import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration

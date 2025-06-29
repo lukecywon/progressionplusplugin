@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.mechanics
+package com.lukecywon.progressionPlus.utils
 
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import net.kyori.adventure.text.Component
