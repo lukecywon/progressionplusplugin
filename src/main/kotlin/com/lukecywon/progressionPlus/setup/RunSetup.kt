@@ -10,6 +10,9 @@ import java.lang.reflect.Modifier
  * Any class annotated with [RunOnEnable]
  */
 class RunSetup(private val plugin: JavaPlugin) {
+    /**
+     * Call runSetupMethods on initialization
+     */
     init {
         runSetupMethods()
     }
