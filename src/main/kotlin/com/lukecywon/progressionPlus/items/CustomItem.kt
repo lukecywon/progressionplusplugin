@@ -154,42 +154,5 @@ abstract class CustomItem(name: String, private val rarity: Rarity, private val 
         fun clearCooldowns(playerId: UUID) {
             cooldowns.keys.removeIf { it.second == playerId }
         }
-
-        fun createCustomHead(url: String): ItemStack {
-            val head = ItemStack(Material.PLAYER_HEAD)
-            val meta = head.itemMeta as SkullMeta
-            val validUrl = URL(url)
-
-            // Create empty profile with random UUID
-            val profile: PlayerProfile = Bukkit.createPlayerProfile(UUID.randomUUID()) as PlayerProfile
-
-            // Set the base64 texture
-            val textures: PlayerTextures = profile.textures
-            textures.skin = validUrl
-            profile.setTextures(textures)
-
-            // Apply the profile to the item
-            meta.playerProfile = profile
-
-            // Make head unplaceable
-            meta.persistentDataContainer.set(
-                NamespacedKey(ProgressionPlus.getPlugin(), "wearable_head"),
-                PersistentDataType.BYTE,
-                1
-            )
-
-            head.itemMeta = meta
-
-            return head
-        }
-
-        fun isCustomHead(item: ItemStack): Boolean {
-            val meta = item.itemMeta ?: return false
-
-            return meta.persistentDataContainer.has(
-                NamespacedKey(ProgressionPlus.getPlugin(), "wearable_head"),
-                PersistentDataType.BYTE
-            )
-        }
     }
 }

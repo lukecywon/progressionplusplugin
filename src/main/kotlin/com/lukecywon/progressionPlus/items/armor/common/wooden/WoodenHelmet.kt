@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.SkullMeta
 
 object WoodenHelmet : CustomItem("wooden_helmet", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
+        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
         val meta = item.itemMeta as SkullMeta
 
         meta.displayName(Component.text("Wooden Helmet", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))

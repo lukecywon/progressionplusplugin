@@ -15,7 +15,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
-        val item = createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
+        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
