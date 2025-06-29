@@ -7,17 +7,22 @@ import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.WardensHeart
 import com.lukecywon.progressionPlus.items.weapons.epic.EarthshatterHammer
 import com.lukecywon.progressionPlus.mechanics.ItemLore
-import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.*
+import org.bukkit.attribute.Attribute
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
+
+    private val jumpLockKey = NamespacedKey(ProgressionPlus.getPlugin(), "gravitymaul_jumplock")
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.MACE)
@@ -59,6 +64,25 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
         val affected = world.getNearbyLivingEntities(origin, radius).filter { it != player }
 
         affected.forEach { entity ->
+            // Apply Slowness and disable jump after delay
+            Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
+                affected.forEach { entity ->
+                    if (entity is LivingEntity && !entity.isDead && entity.location.distance(origin) <= radius + 2) {
+                        entity.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 70, 4, false, false, true))
+                        entity.addPotionEffect(PotionEffect(PotionEffectType.DARKNESS, 70, 4, false, false, true))
+
+                        val jumpAttr = entity.getAttribute(Attribute.JUMP_STRENGTH)
+                        if (jumpAttr != null) {
+                            val data = entity.persistentDataContainer
+                            if (!data.has(jumpLockKey, PersistentDataType.DOUBLE)) {
+                                data.set(jumpLockKey, PersistentDataType.DOUBLE, jumpAttr.baseValue)
+                                jumpAttr.baseValue = 0.0
+                            }
+                        }
+                    }
+                }
+            }, 5L)
+
             world.spawnParticle(
                 Particle.SMOKE,
                 entity.location.clone().add(0.0, 1.0, 0.0),
@@ -70,9 +94,16 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
                 10, 0.2, 0.4, 0.2, 0.02
             )
 
-            val vector = origin.toVector().subtract(entity.location.toVector()).normalize().multiply(1.5)
-            vector.y = 0.4
-            entity.velocity = vector
+            val vector = origin.toVector().subtract(entity.location.toVector())
+            val horizontal = vector.clone()
+            horizontal.y = 0.0
+
+            val distance = horizontal.length()
+            if (distance > 0.5) {
+                val scaledPull = horizontal.normalize().multiply(0.15 * distance.coerceAtMost(8.0))
+                scaledPull.y = 0.35
+                entity.velocity = scaledPull
+            }
         }
 
         // Launch up (after 1 second)
@@ -93,32 +124,48 @@ object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
         Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
             affected.forEach { entity ->
                 if (!entity.isDead && entity.location.distance(origin) <= radius) {
-                    entity.velocity = entity.velocity.setY(-1.8)
+                    entity.velocity = entity.velocity.setY(-2)
                     entity.world.playSound(entity.location, Sound.ENTITY_IRON_GOLEM_ATTACK, 1f, 0.7f)
                     entity.world.spawnParticle(Particle.EXPLOSION, entity.location, 10, 0.2, 0.2, 0.2, 0.1)
                 }
+
+                if (entity is LivingEntity) {
+                    val data = entity.persistentDataContainer
+                    if (data.has(jumpLockKey, PersistentDataType.DOUBLE)) {
+                        val originalJump = data.get(jumpLockKey, PersistentDataType.DOUBLE) ?: return@forEach
+                        val jumpAttr = entity.getAttribute(Attribute.JUMP_STRENGTH)
+                        if (jumpAttr != null) {
+                            jumpAttr.baseValue = originalJump
+                        }
+                        data.remove(jumpLockKey)
+                    }
+                }
             }
 
-            player.velocity = player.velocity.setY(-1.8)
+            player.velocity = player.velocity.setY(-0.5)
         }, 50L)
 
-        // Sustained gravity pull (for 2.5 seconds, every 5 ticks)
+        // Sustained gravity pull (2.5 seconds, every 1 tick)
         var counter = 0
         Bukkit.getScheduler().runTaskTimer(ProgressionPlus.getPlugin(), Runnable {
             counter++
-            if (counter > 10) return@Runnable
+            if (counter > 50) return@Runnable
 
             affected.forEach { entity ->
                 if (!entity.isDead && entity.location.distance(origin) <= radius + 2) {
-                    val pull = origin.toVector().subtract(entity.location.toVector()).normalize().multiply(0.3)
-                    pull.y = 0.05
-                    entity.velocity = entity.velocity.add(pull)
+                    val direction = origin.clone().subtract(entity.location).toVector()
+                    direction.y = 0.0
 
-                    // Optional: add subtle particles
-                    entity.world.spawnParticle(Particle.CRIT, entity.location.clone().add(0.0, 1.0, 0.0), 3, 0.1, 0.2, 0.1, 0.02)
+                    val distance = direction.length()
+                    if (distance > 0.5) {
+                        val scaledPull = direction.normalize().multiply(0.015 * distance.coerceAtMost(6.0))
+                        entity.velocity = entity.velocity.add(scaledPull)
+                    }
+
+                    entity.world.spawnParticle(Particle.CRIT, entity.location.clone().add(0.0, 1.0, 0.0), 2, 0.1, 0.2, 0.1, 0.01)
                 }
             }
-        }, 5L, 5L) // delay, interval
+        }, 2L, 1L)
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
