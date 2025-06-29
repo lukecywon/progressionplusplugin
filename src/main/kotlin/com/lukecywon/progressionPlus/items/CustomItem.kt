@@ -21,9 +21,7 @@ import java.net.URL
 import java.util.*
 
 abstract class CustomItem(name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
-    @InjectPlugin
-    protected lateinit var plugin: JavaPlugin
-
+    protected var plugin: JavaPlugin = ProgressionPlus.getPlugin()
     val key: NamespacedKey = NamespacedKey(plugin, name)
 
     init {
