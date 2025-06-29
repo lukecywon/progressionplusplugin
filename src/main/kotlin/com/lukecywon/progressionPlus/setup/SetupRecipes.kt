@@ -6,13 +6,13 @@ import org.reflections.Reflections
 
 class SetupRecipes {
     @RunOnEnable
-    private fun recipes() {
+    fun recipes() {
         // Override vanilla recipes
         val recipes = Reflections("com.lukecywon.progressionPlus.recipes")
         val classes = recipes.getSubTypesOf(Recipe::class.java)
 
         classes.forEach { recipe ->
-            recipe.getDeclaredConstructor().newInstance().register()
+            recipe.kotlin.objectInstance?.register()
         }
     }
 }

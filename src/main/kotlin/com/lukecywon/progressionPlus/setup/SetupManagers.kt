@@ -7,7 +7,7 @@ import org.reflections.Reflections
 
 class SetupManagers {
     @RunOnEnable
-    private fun managers(plugin: JavaPlugin) {
+    fun managers(plugin: JavaPlugin) {
         val managers = Reflections("com.lukecywon.progressionPlus.manager")
         val classes = managers.getSubTypesOf(Manager::class.java)
 

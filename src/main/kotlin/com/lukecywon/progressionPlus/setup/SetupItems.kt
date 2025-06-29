@@ -9,7 +9,7 @@ import org.reflections.Reflections
 
 class SetupItems {
     @RunOnEnable
-    private fun items(plugin: JavaPlugin) {
+    fun items(plugin: JavaPlugin) {
         val items = Reflections("com.lukecywon.progressionPlus.items")
         val classes = items.getSubTypesOf(CustomItem::class.java).sortedWith(compareBy({ it.name.substringBeforeLast('.') }, { it.simpleName }))
 
