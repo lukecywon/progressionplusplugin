@@ -5,20 +5,17 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.attribute.Attribute
-import org.bukkit.inventory.meta.SkullMeta
-import org.bukkit.Bukkit
 import org.bukkit.inventory.*
-import org.bukkit.profile.PlayerTextures
-import java.net.URL
+import org.reflections.Reflections
+
 import java.util.*
 
-abstract class CustomItem(name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
+abstract class CustomItem(val name: String, private val rarity: Rarity, private val stackable: Boolean = false, private val enchantable: Boolean = true) {
     protected var plugin: JavaPlugin = ProgressionPlus.getPlugin()
     val key: NamespacedKey = NamespacedKey(plugin, name)
 
@@ -135,6 +132,7 @@ abstract class CustomItem(name: String, private val rarity: Rarity, private val 
 
 
     companion object {
+        // Cooldown Management
         private val cooldowns: MutableMap<Pair<String, UUID>, Long> = mutableMapOf()
 
         fun setCooldown(itemId: String, playerId: UUID, durationMillis: Long) {
@@ -154,5 +152,23 @@ abstract class CustomItem(name: String, private val rarity: Rarity, private val 
         fun clearCooldowns(playerId: UUID) {
             cooldowns.keys.removeIf { it.second == playerId }
         }
+
+        // Retrieval system for all CustomItems
+        // using Reflection and classpath scanning
+        private val allCustomItems = Reflections("com.lukecywon.progressionPlus.items")
+        private val classes = allCustomItems.getSubTypesOf(CustomItem::class.java).sortedWith(compareBy({ it.name.substringBeforeLast('.') }, { it.simpleName }))
+
+        fun getAll(): List<CustomItem> =
+            classes.mapNotNull { it.kotlin.objectInstance }
+
+        fun getAllNames(): List<String> =
+            classes
+                .mapNotNull { it.kotlin.objectInstance }
+                .map { it.name }
+
+        fun getItem(name: String): CustomItem? =
+            classes
+                .mapNotNull { it.kotlin.objectInstance }
+                .firstOrNull { it.name.equals(name, ignoreCase = true) }
     }
 }
