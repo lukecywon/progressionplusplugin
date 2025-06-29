@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners
+package com.lukecywon.progressionPlus.listeners.utility.epic
 
 import com.lukecywon.progressionPlus.gui.WormholeGUI
 import org.bukkit.event.EventHandler
