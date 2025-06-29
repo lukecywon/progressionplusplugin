@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.mechanics
+package com.lukecywon.progressionPlus.utils
 
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

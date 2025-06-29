@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.recipes
+package com.lukecywon.progressionPlus.utils
 
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.Recipe

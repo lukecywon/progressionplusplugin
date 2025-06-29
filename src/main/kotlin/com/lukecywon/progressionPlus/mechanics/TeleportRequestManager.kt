@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.mechanics
 
 import com.lukecywon.progressionPlus.commands.WormholeCommand
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.utils.PendingTeleport
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
