@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus.items.armor.uncommon.verdantoperative
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import com.lukecywon.progressionPlus.utils.ItemLore
+import com.lukecywon.progressionPlus.utils.enums.Activation
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -28,10 +29,11 @@ object OperativeHeadgear : CustomItem("operative_headgear", Rarity.UNCOMMON) {
 
         meta.lore(
             listOf(
+                ItemLore.abilityuse("Lightweight", Activation.SET_BONUS),
+                ItemLore.description("Gain Speed II when wearing the verdant operative gear."),
                 ItemLore.stats(item),
                 ItemLore.separator(),
-                ItemLore.lore("Worn by pioneers and forest dwellers,"),
-                ItemLore.lore("it creaks with every movement, yet holds with quiet resilience.")
+                ItemLore.lore("Standard issue for the forest-bound elite.")
             )
         )
 
