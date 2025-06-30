@@ -9,21 +9,22 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Color
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.inventory.meta.ArmorMeta
 import org.bukkit.inventory.meta.LeatherArmorMeta
-import org.bukkit.inventory.meta.SkullMeta
 import org.bukkit.inventory.meta.trim.ArmorTrim
 import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
+import org.bukkit.persistence.PersistentDataType
 
-object OperativeChestplate : CustomItem("operative_chestplate", Rarity.RARE) {
+object OperativeChestplate : CustomItem("operative_chestplate", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.LEATHER_CHESTPLATE)
-        item = applyArmor(item, 1.5)
-        val meta = item.itemMeta as SkullMeta
+        item = applyArmor(item, 6.0)
+        val meta = item.itemMeta
 
         meta.displayName(Component.text("Operative Chestplate", NamedTextColor.GREEN).decorate(TextDecoration.BOLD))
 
@@ -49,6 +50,13 @@ object OperativeChestplate : CustomItem("operative_chestplate", Rarity.RARE) {
 
         meta.addItemFlags(ItemFlag.HIDE_DYE)
         meta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM)
+
+        // Mark as part of verdant operative set
+        meta.persistentDataContainer.set(
+            NamespacedKey(plugin, "verdant_operative_set"),
+            PersistentDataType.BYTE,
+            1
+        )
 
         item.itemMeta = meta
         return applyMeta(item)
