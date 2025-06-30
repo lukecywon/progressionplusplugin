@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack
 
 object ItemLore {
     fun abilityuse(text: String, activation: Activation): Component =
-        Component.text("Ability: $text", NamedTextColor.GOLD)
-            .append(Component.text(" $activation", NamedTextColor.YELLOW))
+        Component.text("Ability: $text", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false)
+            .append(Component.text(" $activation", NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false))
 
     fun description(text: String): Component =
         Component.text(text, NamedTextColor.GRAY)
@@ -26,7 +26,7 @@ object ItemLore {
             minutes > 0 -> "$minutes min"
             else -> "$secs sec"
         }
-        return Component.text("Cooldown: $timeString", NamedTextColor.GREEN)
+        return Component.text("Cooldown: $timeString", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
     }
 
     fun lore(text: String): Component =
