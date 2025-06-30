@@ -238,7 +238,8 @@ class OldKingsBladeListener : Listener {
                     .filter {
                         it != summoner && it !is ArmorStand && it !is Item && it !is Bat &&
                                 it.persistentDataContainer.get(SUMMON_KEY, PersistentDataType.STRING) != summoner.uniqueId.toString() &&
-                                !(it is Tameable && it.isTamed && it.owner?.uniqueId == summoner.uniqueId)
+                                !(it is Tameable && it.isTamed && it.owner?.uniqueId == summoner.uniqueId) &&
+                                !(it is Player && it.gameMode == GameMode.CREATIVE)
                     }
                 mob.target = targets.randomOrNull()
             }
