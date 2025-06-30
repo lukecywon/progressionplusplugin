@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.weapons.epic
+package com.lukecywon.progressionPlus.listeners.weapons.legendary
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.weapons.epic.FerociousBlade
