@@ -33,8 +33,8 @@ object OperativeChestplate : CustomItem("operative_chestplate", Rarity.UNCOMMON)
             listOf(
                 ItemLore.abilityuse("Lightweight", Activation.SET_BONUS),
                 ItemLore.description("Gain Speed II when wearing the verdant operative gear."),
-                ItemLore.stats(item),
                 ItemLore.separator(),
+                ItemLore.stats(item),
                 ItemLore.lore("Standard issue for the forest-bound elite.")
             )
         )
