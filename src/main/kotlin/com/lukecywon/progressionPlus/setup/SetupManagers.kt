@@ -8,12 +8,12 @@ import org.reflections.Reflections
 class SetupManagers {
     @RunOnEnable
     fun managers(plugin: JavaPlugin) {
-        val managers = Reflections("com.lukecywon.progressionPlus.manager")
+        val managers = Reflections("com.lukecywon.progressionPlus.mechanics")
         val classes = managers.getSubTypesOf(Manager::class.java)
 
         classes.forEach {
-            val classInstance = it.getDeclaredConstructor().newInstance()
-            classInstance.start(plugin)
+            val classObject = it.kotlin.objectInstance!!
+            classObject.start(plugin)
         }
     }
 }

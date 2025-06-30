@@ -93,19 +93,4 @@ class BannerListener : Listener {
             }
         }.runTaskTimer(ProgressionPlus.getPlugin(), 0L, 1L)
     }
-
-    @EventHandler
-    fun onBannerPlace(e: BlockPlaceEvent) {
-        val item = e.itemInHand ?: return
-        if (
-            HasteBanner.isThisItem(item) ||
-            SpeedBanner.isThisItem(item) ||
-            RegenBanner.isThisItem(item) ||
-            JumpBanner.isThisItem(item) ||
-            AbsorptionBanner.isThisItem(item)
-        ) {
-            e.isCancelled = true
-            e.player.sendMessage("§cYou can't place that banner!")
-        }
-    }
 }

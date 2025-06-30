@@ -1,12 +1,12 @@
-@file:Suppress("DEPRECATION")
-
 package com.lukecywon.progressionPlus.mechanics
 
+import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.gui.MerchantsTradeGUI
-import net.md_5.bungee.api.chat.ClickEvent
-import net.md_5.bungee.api.chat.HoverEvent
-import net.md_5.bungee.api.chat.TextComponent
-import net.md_5.bungee.api.chat.hover.content.Text
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.event.ClickEvent
+import net.kyori.adventure.text.event.HoverEvent
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.Sound
@@ -40,7 +40,6 @@ object MerchantsRequestManager {
         target.playSound(target.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
         requester.sendMessage("§7Trade request sent to §b${target.name}§7.")
 
-        // Set a timeout for 30 seconds
         object : BukkitRunnable() {
             override fun run() {
                 if (pendingRequests.remove(target.uniqueId) != null) {
@@ -51,7 +50,7 @@ object MerchantsRequestManager {
                     }
                 }
             }
-        }.runTaskLater(com.lukecywon.progressionPlus.ProgressionPlus.getPlugin(), 20L * 30)
+        }.runTaskLater(ProgressionPlus.getPlugin(), 20L * 30)
     }
 
     fun hasRequestFor(target: UUID): Boolean = pendingRequests.containsKey(target)
@@ -83,19 +82,23 @@ object MerchantsRequestManager {
     }
 
     private fun sendTradeRequestMessage(to: Player, from: Player) {
-        val message = TextComponent("§6${from.name} wants to trade with you. §7(Expires in 30s)\n")
+        val header = Component.text("${from.name} wants to trade with you. ")
+            .color(NamedTextColor.GOLD)
+            .append(Component.text("(Expires in 30s)").color(NamedTextColor.GRAY))
 
-        val accept = TextComponent("§a[Accept]")
-        accept.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/trade accept")
-        accept.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text("§7Click to accept the trade"))
+        val accept = Component.text("[ACCEPT]")
+            .color(NamedTextColor.GREEN)
+            .decorate(TextDecoration.BOLD)
+            .clickEvent(ClickEvent.runCommand("/trade accept"))
+            .hoverEvent(HoverEvent.showText(Component.text("Click to accept the trade")))
 
-        val reject = TextComponent(" §c[Reject]")
-        reject.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/trade reject")
-        reject.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, Text("§7Click to reject the trade"))
+        val reject = Component.text(" [REJECT]")
+            .color(NamedTextColor.RED)
+            .decorate(TextDecoration.BOLD)
+            .clickEvent(ClickEvent.runCommand("/trade reject"))
+            .hoverEvent(HoverEvent.showText(Component.text("Click to reject the trade")))
 
-        message.addExtra(accept)
-        message.addExtra(reject)
-
-        to.spigot().sendMessage(message)
+        to.sendMessage(header)
+        to.sendMessage(accept.append(reject))
     }
 }

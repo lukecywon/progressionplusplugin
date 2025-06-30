@@ -3,6 +3,11 @@ package com.lukecywon.progressionPlus.mechanics
 import com.lukecywon.progressionPlus.commands.WormholeCommand
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.utils.dataclasses.PendingTeleport
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.event.ClickEvent
+import net.kyori.adventure.text.event.HoverEvent
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -32,15 +37,15 @@ object TeleportRequestManager : Manager {
         CustomItem.setCooldown(itemId, requester.uniqueId, cooldownMillis)
 
         target.sendMessage("§d✧ §b${requester.name} §7wants to teleport to you.")
-        target.sendMessage("§7Type §a/wormhole accept §7or §c/wormhole reject §7within §e30s§7.")
+        sendTeleportButtons(target)
 
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             val expired = requests.remove(target.uniqueId)
             if (expired != null) {
                 refundPotion(expired.requester, expired.potionItem)
                 expired.requester.sendMessage("§c✗ Teleport request expired. Your Wormhole Potion has been returned.")
-                target.sendMessage("§7⌛ Teleport request from §b${expired.requester.name} §7has §cexpired§7.")
-                target.playSound(target.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.7f, 0.5f)
+                expired.target.sendMessage("§7⌛ Teleport request from §b${expired.requester.name} §7has §cexpired§7.")
+                expired.target.playSound(expired.target.location, Sound.BLOCK_NOTE_BLOCK_PLING, 0.7f, 0.5f)
             }
         }, 30 * 20L)
     }
@@ -99,5 +104,28 @@ object TeleportRequestManager : Manager {
             it.amount -= 1
             if (it.amount <= 0) player.inventory.remove(it)
         }
+    }
+
+    private fun sendTeleportButtons(target: Player) {
+        val accept = Component.text("[ACCEPT]")
+            .color(NamedTextColor.GREEN)
+            .decorate(TextDecoration.BOLD)
+            .clickEvent(ClickEvent.runCommand("/wormhole accept"))
+            .hoverEvent(HoverEvent.showText(Component.text("Click to accept teleport")))
+
+        val reject = Component.text("[REJECT]")
+            .color(NamedTextColor.RED)
+            .decorate(TextDecoration.BOLD)
+            .clickEvent(ClickEvent.runCommand("/wormhole reject"))
+            .hoverEvent(HoverEvent.showText(Component.text("Click to reject teleport")))
+
+        val spacer = Component.text(" ").color(NamedTextColor.GRAY)
+
+        val message = Component.text("").color(NamedTextColor.GRAY)
+            .append(accept)
+            .append(spacer)
+            .append(reject)
+
+        target.sendMessage(message)
     }
 }
