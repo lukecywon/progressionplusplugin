@@ -23,25 +23,18 @@ import org.bukkit.inventory.meta.trim.TrimPattern
 
 object WoodenLeggings : CustomItem("wooden_leggings", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.LEATHER_LEGGINGS)
+        var item = ItemStack(Material.LEATHER_LEGGINGS)
+        item = applyArmor(item, 3.0)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Wooden Leggings", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
-                ItemLore.description("Basic leggings crafted straight from nature."),
-                ItemLore.separator()
-            )
-        )
-
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.addAttributeModifier(
-            Attribute.ARMOR,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "leggings_armor"),
-                3.0,
-                AttributeModifier.Operation.ADD_NUMBER,
+                ItemLore.stats(item),
+                ItemLore.separator(),
+                ItemLore.lore("Worn by pioneers and forest dwellers,"),
+                ItemLore.lore("it creaks with every movement, yet holds with quiet resilience.")
             )
         )
 

@@ -18,25 +18,18 @@ import org.bukkit.inventory.meta.SkullMeta
 
 object WoodenHelmet : CustomItem("wooden_helmet", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
+        var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
+        item = applyArmor(item, 1.5)
         val meta = item.itemMeta as SkullMeta
 
         meta.displayName(Component.text("Wooden Helmet", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
-                ItemLore.description("A basic helmet crafted straight from nature."),
-                ItemLore.separator()
-            )
-        )
-
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.addAttributeModifier(
-            Attribute.ARMOR,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "helmet_armor"),
-                1.5,
-                AttributeModifier.Operation.ADD_NUMBER,
+                ItemLore.stats(item),
+                ItemLore.separator(),
+                ItemLore.lore("Worn by pioneers and forest dwellers,"),
+                ItemLore.lore("it creaks with every movement, yet holds with quiet resilience.")
             )
         )
 
