@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.utils
 
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
@@ -50,21 +51,23 @@ object ItemLore {
             isArmor -> {
                 val displayArmor = armorMod
                 val displayToughness = armorToughnessMod
+
                 Component.text(
-                    "Stats: %.1f Armor, %.1f Toughness".format(displayArmor, displayToughness),
-                    NamedTextColor.AQUA
-                )
+                    "+${formatStat(displayArmor)} Armor | +${formatStat(displayToughness)} Armor Toughness",
+                    NamedTextColor.BLUE
+                ).decoration(TextDecoration.ITALIC, false)
             }
             isWeapon -> {
                 val displayDamage = if (damageMod != 0.0) damageMod else baseDamage
                 val displaySpeed = if (speedMod != 0.0) 4 + speedMod else baseSpeed
+
                 Component.text(
-                    "Stats: %.1f Damage, %.2f Attack Speed".format(displayDamage, displaySpeed),
-                    NamedTextColor.AQUA
-                )
+                    "+${formatStat(displayDamage)} Damage | +${formatStat(displaySpeed)} Attack Speed",
+                    NamedTextColor.BLUE
+                ).decoration(TextDecoration.ITALIC, false)
             }
             else -> {
-                Component.text("Stats: None", NamedTextColor.GRAY)
+                Component.text("Stats: None", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
             }
         }
     }
@@ -117,6 +120,14 @@ object ItemLore {
             Material.TRIDENT -> 8.0 to 1.1
 
             else -> 0.0 to 0.0
+        }
+    }
+
+    private fun formatStat(value: Double): String {
+        return if (value % 1.0 == 0.0) {
+            value.toInt().toString()
+        } else {
+            "%.2f".format(value)
         }
     }
 }
