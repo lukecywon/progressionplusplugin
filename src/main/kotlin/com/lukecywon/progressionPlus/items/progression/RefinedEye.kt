@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object RefinedEye : CustomItem("custom_ender_eye", Rarity.PROGRESSION) {
+object RefinedEye : CustomItem("custom_ender_eye", Rarity.PROGRESSION, true) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ENDER_EYE)
