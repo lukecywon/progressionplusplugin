@@ -21,25 +21,18 @@ import org.bukkit.inventory.meta.trim.TrimPattern
 
 object PaladinChestplate : CustomItem("paladin_chestplate", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_CHESTPLATE)
+        var item = ItemStack(Material.IRON_CHESTPLATE)
+        item = applyArmor(item, 5.0)
+
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("Paladin Chestplate", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
+        meta.displayName(Component.text("Paladin Chestplate", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
                 ItemLore.description("A basic chestplate crafted straight from nature."),
-                ItemLore.separator()
-            )
-        )
-
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.addAttributeModifier(
-            Attribute.ARMOR,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "armor"),
-                4.0,
-                AttributeModifier.Operation.ADD_NUMBER,
+                ItemLore.separator(),
+                ItemLore.stats(item)
             )
         )
 

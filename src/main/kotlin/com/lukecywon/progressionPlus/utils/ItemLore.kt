@@ -37,16 +37,36 @@ object ItemLore {
 
         val (baseDamage, baseSpeed) = getBaseStats(type)
 
+        // Check for attribute modifiers
+        val armorMod = meta.getAttributeModifiers(Attribute.ARMOR)?.sumOf { it.amount } ?: 0.0
+        val armorToughnessMod = meta.getAttributeModifiers(Attribute.ARMOR_TOUGHNESS)?.sumOf { it.amount } ?: 0.0
         val damageMod = meta.getAttributeModifiers(Attribute.ATTACK_DAMAGE)?.sumOf { it.amount } ?: 0.0
         val speedMod = meta.getAttributeModifiers(Attribute.ATTACK_SPEED)?.sumOf { it.amount } ?: 0.0
 
-        val displayDamage = if (damageMod != 0.0) damageMod else baseDamage
-        val displaySpeed = if (speedMod != 0.0) 4 + speedMod else baseSpeed
+        val isArmor = armorMod != 0.0 || armorToughnessMod != 0.0
+        val isWeapon = damageMod != 0.0 || speedMod != 0.0
 
-        return Component.text(
-            "Stats: %.1f Damage, %.2f Attack Speed".format(displayDamage, displaySpeed),
-            NamedTextColor.AQUA
-        )
+        return when {
+            isArmor -> {
+                val displayArmor = armorMod
+                val displayToughness = armorToughnessMod
+                Component.text(
+                    "Stats: %.1f Armor, %.1f Toughness".format(displayArmor, displayToughness),
+                    NamedTextColor.AQUA
+                )
+            }
+            isWeapon -> {
+                val displayDamage = if (damageMod != 0.0) damageMod else baseDamage
+                val displaySpeed = if (speedMod != 0.0) 4 + speedMod else baseSpeed
+                Component.text(
+                    "Stats: %.1f Damage, %.2f Attack Speed".format(displayDamage, displaySpeed),
+                    NamedTextColor.AQUA
+                )
+            }
+            else -> {
+                Component.text("Stats: None", NamedTextColor.GRAY)
+            }
+        }
     }
 
     fun separator(): Component =

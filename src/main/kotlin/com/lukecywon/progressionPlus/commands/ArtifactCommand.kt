@@ -6,7 +6,9 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class ArtifactCommand : CommandExecutor {
+class ArtifactCommand : CustomCommand {
+    override val name: String = "artifact"
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) return true
 

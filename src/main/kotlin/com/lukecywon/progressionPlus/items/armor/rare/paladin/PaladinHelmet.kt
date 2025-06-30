@@ -20,7 +20,7 @@ object PaladinHelmet : CustomItem("paladin_helmet", Rarity.RARE) {
         val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/60fd2cc9116c0f724bdcdbf2e9633cb0a7d453f8b3a1ad9d1493e5e6f1281555")
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("Paladin Helmet", NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
+        meta.displayName(Component.text("Paladin Helmet", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(

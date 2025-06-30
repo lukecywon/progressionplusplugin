@@ -6,7 +6,9 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class MerchantsCommand : CommandExecutor {
+class MerchantsCommand : CustomCommand {
+    override val name = "trade"
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) return false
         if (args.isEmpty()) {
