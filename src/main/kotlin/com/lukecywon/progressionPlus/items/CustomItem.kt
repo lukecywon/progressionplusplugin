@@ -125,6 +125,47 @@ abstract class CustomItem(val name: String, private val rarity: Rarity, private 
         return item
     }
 
+    open fun applyArmor(item: ItemStack, newArmor: Double? = null): ItemStack {
+        val meta = item.itemMeta
+
+        // Remove old modifiers
+        meta.removeAttributeModifier(Attribute.ARMOR)
+
+        if (newArmor == null) return item
+
+        val modifier = AttributeModifier(
+            NamespacedKey(ProgressionPlus.getPlugin(), "armor"),
+            newArmor,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.ARMOR
+        )
+
+        meta.addAttributeModifier(Attribute.ARMOR, modifier)
+        item.itemMeta = meta
+
+        return item
+    }
+
+    open fun applyArmorToughness(item: ItemStack, newArmorToughness: Double? = null): ItemStack {
+        val meta = item.itemMeta
+
+        // Remove old modifiers
+        meta.removeAttributeModifier(Attribute.ARMOR_TOUGHNESS)
+
+        if (newArmorToughness == null) return item
+
+        val modifier = AttributeModifier(
+            NamespacedKey(ProgressionPlus.getPlugin(), "armor_toughness"),
+            newArmorToughness!!,
+            AttributeModifier.Operation.ADD_NUMBER,
+            EquipmentSlotGroup.ARMOR
+        )
+
+        meta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, modifier)
+        item.itemMeta = meta
+
+        return item
+    }
 
     companion object {
         // Cooldown Management
