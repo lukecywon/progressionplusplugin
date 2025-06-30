@@ -11,6 +11,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -23,7 +24,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object OperativeLeggings : CustomItem("operative_leggings", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        var item = ItemStack(Material.LEATHER_LEGGINGS)
+        var item = ItemStack(Material.LEATHER_LEGGINGS, EquipmentSlotGroup.LEGS)
         item = applyArmor(item, 5.0)
         val meta = item.itemMeta
 

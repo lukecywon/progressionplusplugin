@@ -11,6 +11,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -24,7 +25,7 @@ import org.bukkit.persistence.PersistentDataType
 object OperativeChestplate : CustomItem("operative_chestplate", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.LEATHER_CHESTPLATE)
-        item = applyArmor(item, 6.0)
+        item = applyArmor(item, 6.0, EquipmentSlotGroup.CHEST)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Operative Chestplate", NamedTextColor.GREEN).decorate(TextDecoration.BOLD))

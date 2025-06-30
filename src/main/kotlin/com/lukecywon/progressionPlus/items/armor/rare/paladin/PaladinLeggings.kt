@@ -13,6 +13,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -25,7 +26,7 @@ import org.bukkit.persistence.PersistentDataType
 object PaladinLeggings : CustomItem("paladin_leggings", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_LEGGINGS)
-        item = applyArmor(item, 6.0)
+        item = applyArmor(item, 6.0, EquipmentSlotGroup.LEGS)
         item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 

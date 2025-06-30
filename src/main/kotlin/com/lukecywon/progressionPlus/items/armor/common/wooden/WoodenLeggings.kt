@@ -12,6 +12,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -24,7 +25,7 @@ import org.bukkit.inventory.meta.trim.TrimPattern
 object WoodenLeggings : CustomItem("wooden_leggings", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.LEATHER_LEGGINGS)
-        item = applyArmor(item, 3.0)
+        item = applyArmor(item, 3.0, EquipmentSlotGroup.LEGS)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Wooden Leggings", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))

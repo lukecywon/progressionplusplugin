@@ -10,6 +10,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -22,7 +23,7 @@ import org.bukkit.persistence.PersistentDataType
 object PaladinChestplate : CustomItem("paladin_chestplate", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_CHESTPLATE)
-        item = applyArmor(item, 6.0)
+        item = applyArmor(item, 6.0, EquipmentSlotGroup.CHEST)
         item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 

@@ -11,6 +11,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -23,7 +24,7 @@ import org.bukkit.persistence.PersistentDataType
 object PaladinBoots : CustomItem("paladin_boots", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_BOOTS)
-        item = applyArmor(item, 2.0)
+        item = applyArmor(item, 2.0, EquipmentSlotGroup.FEET)
         item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 

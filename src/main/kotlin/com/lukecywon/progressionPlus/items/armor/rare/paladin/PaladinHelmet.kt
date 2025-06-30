@@ -14,6 +14,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -21,7 +22,7 @@ import org.bukkit.persistence.PersistentDataType
 object PaladinHelmet : CustomItem("paladin_helmet", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/60fd2cc9116c0f724bdcdbf2e9633cb0a7d453f8b3a1ad9d1493e5e6f1281555")
-        item = applyArmor(item, 2.0)
+        item = applyArmor(item, 2.0, EquipmentSlotGroup.HEAD)
         item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 
