@@ -4,14 +4,10 @@ import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
-import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
