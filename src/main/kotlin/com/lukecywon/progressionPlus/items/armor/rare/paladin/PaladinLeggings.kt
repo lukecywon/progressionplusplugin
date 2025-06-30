@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
+import com.lukecywon.progressionPlus.utils.enums.Activation
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -19,6 +20,7 @@ import org.bukkit.inventory.meta.ArmorMeta
 import org.bukkit.inventory.meta.trim.ArmorTrim
 import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
+import org.bukkit.persistence.PersistentDataType
 
 object PaladinLeggings : CustomItem("paladin_leggings", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
@@ -31,8 +33,13 @@ object PaladinLeggings : CustomItem("paladin_leggings", Rarity.RARE) {
 
         meta.lore(
             listOf(
-                ItemLore.stats(item),
+                ItemLore.abilityuse("Light-forged Blessing", Activation.SET_BONUS),
+                ItemLore.description("Get 2 extra hearts during the day."),
                 ItemLore.separator(),
+                ItemLore.abilityuse("A light in the dark", Activation.SET_BONUS),
+                ItemLore.description("Push back the darkness and shine like a beacon at night."),
+                ItemLore.separator(),
+                ItemLore.stats(item),
                 ItemLore.lore("Forged in the hallowed halls of heaven.")
             )
         )
@@ -47,6 +54,13 @@ object PaladinLeggings : CustomItem("paladin_leggings", Rarity.RARE) {
         }
 
         meta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM)
+
+        // Mark as part of paladin set
+        meta.persistentDataContainer.set(
+            NamespacedKey(plugin, "paladin_set"),
+            PersistentDataType.BYTE,
+            1
+        )
 
         item.itemMeta = meta
         return applyMeta(item)
