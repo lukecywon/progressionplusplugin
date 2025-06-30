@@ -16,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object JumpBanner : CustomItem("jump_banner", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.LIME_BANNER)
+        val item = ItemStack(Material.PAPER)
         val meta = item.itemMeta
 
         meta.displayName(

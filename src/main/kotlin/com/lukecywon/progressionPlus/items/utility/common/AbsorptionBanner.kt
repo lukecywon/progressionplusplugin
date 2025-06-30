@@ -16,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object AbsorptionBanner : CustomItem("absorption_banner", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.ORANGE_BANNER)
+        val item = ItemStack(Material.PAPER)
         val meta = item.itemMeta!!
 
         meta.displayName(

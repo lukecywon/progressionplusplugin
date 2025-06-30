@@ -16,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object RegenBanner : CustomItem("regen_banner", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.PINK_BANNER)
+        val item = ItemStack(Material.PAPER)
         val meta = item.itemMeta
 
         meta.displayName(
