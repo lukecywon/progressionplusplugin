@@ -53,7 +53,7 @@ object ItemLore {
                 val displayToughness = armorToughnessMod
 
                 Component.text(
-                    "+${formatStat(displayArmor)} Armor | +${formatStat(displayToughness)} Armor Toughness",
+                    "+${formatStat(displayArmor)} Armor" + (if (displayToughness != 0.0) " | +${formatStat(displayToughness)} Armor Toughness" else ""),
                     NamedTextColor.BLUE
                 ).decoration(TextDecoration.ITALIC, false)
             }
@@ -127,7 +127,7 @@ object ItemLore {
         return if (value % 1.0 == 0.0) {
             value.toInt().toString()
         } else {
-            "%.2f".format(value)
+            "%.1f".format(value)
         }
     }
 }
