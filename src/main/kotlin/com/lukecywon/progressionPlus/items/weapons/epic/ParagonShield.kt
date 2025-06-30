@@ -10,6 +10,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 
 object ParagonShield : CustomItem("paragon_shield", Rarity.EPIC) {
 
@@ -48,8 +49,9 @@ object ParagonShield : CustomItem("paragon_shield", Rarity.EPIC) {
             )
         )
 
-        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
+        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
+        meta.setCustomModelData(69420)
         return applyMeta(item)
     }
 }

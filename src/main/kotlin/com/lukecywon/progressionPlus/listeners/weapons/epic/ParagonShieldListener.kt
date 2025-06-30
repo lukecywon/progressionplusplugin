@@ -63,26 +63,25 @@ class ParagonShieldListener : Listener {
     }
 
     private fun performParry(player: Player) {
-        val loc = player.location.clone().add(0.0, 1.0, 0.0)
-        val dir = loc.direction.normalize()
-        val yawRad = Math.toRadians(loc.yaw.toDouble())
-        val sinYaw = sin(yawRad)
-        val cosYaw = -cos(yawRad)
-        val center = loc.toVector()
         val world = player.world
+        val origin = player.location.clone().add(0.0, 1.0, 0.0)
+        val forward = origin.direction.normalize()
+        val right = forward.clone().crossProduct(Vector(0, 1, 0)).normalize()
+        val up = Vector(0, 1, 0)
+
+        val center = origin.toVector()
         val hitEntities = mutableSetOf<LivingEntity>()
 
-        for (x in -config.aoeWidth..config.aoeWidth) {
-            for (y in 0..<config.aoeHeight) {
+        for (x in -config.aoeWidth / 2..config.aoeWidth / 2) {
+            for (y in 0 until config.aoeHeight) {
                 for (z in 1..config.aoeLength) {
-                    val offset = Vector(x.toDouble(), y.toDouble(), z.toDouble())
-                    val rotated = Vector(
-                        offset.x * cosYaw - offset.z * sinYaw,
-                        offset.y,
-                        offset.x * sinYaw + offset.z * cosYaw
-                    )
-                    val pos = center.clone().add(rotated)
+                    val offset = right.clone().multiply(x.toDouble())
+                        .add(up.clone().multiply(y.toDouble()))
+                        .add(forward.clone().multiply(z.toDouble()))
+
+                    val pos = center.clone().add(offset)
                     world.spawnParticle(Particle.CRIT, pos.toLocation(world), 1, 0.0, 0.0, 0.0, 0.0)
+
                     world.getNearbyEntities(pos.toLocation(world), 0.5, 0.5, 0.5).forEach { entity ->
                         if (entity is LivingEntity && entity != player) {
                             hitEntities.add(entity)
@@ -94,8 +93,9 @@ class ParagonShieldListener : Listener {
 
         for (target in hitEntities) {
             target.damage(config.damage, player)
-            val knockVec = target.location.toVector().subtract(player.location.toVector()).normalize().multiply(config.knockbackStrength)
-            target.velocity = target.velocity.add(knockVec).setY(0.25)
+
+            val knockVec = target.location.toVector().subtract(player.location.toVector()).normalize()
+            target.velocity = target.velocity.add(knockVec.multiply(config.knockbackStrength)).setY(0.25)
 
             val attr = target.getAttribute(Attribute.ARMOR) ?: continue
             if (attr.value <= 0.0) continue
@@ -118,6 +118,7 @@ class ParagonShieldListener : Listener {
 
         world.playSound(player.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1f, 1f)
     }
+
 
     init {
         // Clean up stale block holds
