@@ -33,7 +33,8 @@ object MerchantsTradeGUI {
     }
 
     fun open(player1: Player, player2: Player) {
-        val gui = Bukkit.createInventory(null, INVENTORY_SIZE, GUI_TITLE)
+        val guiTitle = "🛒 ${player1.name} ⇄ ${player2.name}"
+        val gui = Bukkit.createInventory(null, INVENTORY_SIZE, guiTitle)
         val session = TradeSession(player1, player2, gui)
 
         tradeSessions[player1.uniqueId] = session
