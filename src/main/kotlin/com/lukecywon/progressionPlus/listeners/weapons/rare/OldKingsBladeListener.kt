@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.weapons.rare.OldKingsBlade
 import com.lukecywon.progressionPlus.items.armor.legendary.TwilightCrown
 import org.bukkit.*
+import org.bukkit.attribute.Attribute
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
@@ -23,11 +24,23 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import java.util.*
 
+private const val bool = false
+
 class OldKingsBladeListener : Listener {
     val itemId = "old_kings_blade"
     private val plugin = ProgressionPlus.getPlugin()
     private val SUMMON_KEY = NamespacedKey(plugin, "summoner_uuid")
     private val activeSummons = mutableMapOf<UUID, List<LivingEntity>>()
+
+    private fun getSummonName(player: Player, fallback: String, isGeneral: Boolean = false, isKnight: Boolean = false): String {
+        return if (player.name.equals("stockcarrot", ignoreCase = true)) {
+            when {
+                isGeneral || isKnight -> "§c${player.name}'s Level 100 Mafia Boss"
+                else -> "§f${player.name}'s Level 1 Goon"
+            }
+        } else fallback
+    }
+
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -71,12 +84,12 @@ class OldKingsBladeListener : Listener {
             val loc = origin.clone().add((Math.random() - 0.5) * 4, 0.0, (Math.random() - 0.5) * 4)
             val zombie = world.spawn(loc, Zombie::class.java)
             val isGeneral = hasCrown && i == 0
-            val name = when {
+            val baseName = when {
                 isGeneral -> "§9${player.name}'s Undead General"
                 hasCrown -> "§5${player.name}'s Undead Guard"
                 else -> "§7${player.name}'s Wandering Thrall"
             }
-            zombie.customName = name
+            zombie.customName = getSummonName(player, baseName, isGeneral = isGeneral)
             zombie.isCustomNameVisible = true
             zombie.setAdult()
             zombie.isPersistent = false
@@ -110,12 +123,12 @@ class OldKingsBladeListener : Listener {
             val skeleton = world.spawn(loc, Skeleton::class.java)
             val isKnight = hasCrown && i == 0
 
-            val name = when {
+            val baseName = when {
                 isKnight -> "§9${player.name}'s Twilight Knight"
                 hasCrown -> "§5${player.name}'s Twilight Archer"
                 else -> "§7${player.name}'s Restless Bowman"
             }
-            skeleton.customName = name
+            skeleton.customName = getSummonName(player, baseName, isKnight = isKnight)
             skeleton.isCustomNameVisible = true
             skeleton.isPersistent = false
             skeleton.setRemoveWhenFarAway(false)
@@ -142,6 +155,14 @@ class OldKingsBladeListener : Listener {
                 horse.isPersistent = false
                 horse.setRemoveWhenFarAway(false)
                 horse.addPotionEffect(PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 0, false, false))
+
+// Increase health
+                val maxHealth = horse.getAttribute(Attribute.MAX_HEALTH)
+                if (maxHealth != null) {
+                    maxHealth.baseValue = 40.0
+                    horse.health = 40.0
+                }
+
                 horse.addPassenger(skeleton)
                 tagSummon(horse, player)
                 summoned.add(horse)
@@ -156,7 +177,7 @@ class OldKingsBladeListener : Listener {
             repeat(3) {
                 val loc = origin.clone().add((Math.random() - 0.5) * 6, 8.0, (Math.random() - 0.5) * 6)
                 val phantom = world.spawn(loc, Phantom::class.java)
-                phantom.customName = "§5${player.name}'s Void Wraith"
+                phantom.customName = getSummonName(player, "§5${player.name}'s Void Wraith")
                 phantom.isCustomNameVisible = true
                 phantom.isPersistent = false
                 phantom.setRemoveWhenFarAway(false)
@@ -169,7 +190,7 @@ class OldKingsBladeListener : Listener {
         }
 
         activeSummons[player.uniqueId] = summoned
-        CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis.toLong())
+        CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
 
         world.playSound(origin, Sound.ENTITY_WITHER_SPAWN, 1f, 0.6f)
         world.spawnParticle(Particle.SOUL_FIRE_FLAME, origin, 30, 1.5, 1.0, 1.5, 0.1)
@@ -232,7 +253,7 @@ class OldKingsBladeListener : Listener {
         useLeather: Boolean = false,
         useChainmail: Boolean = false,
         protectionLevel: Int = 2
-    ){
+    ) {
         val armorMaterial = when {
             useDiamondArmor -> "DIAMOND"
             useLeather -> "LEATHER"
@@ -279,7 +300,6 @@ class OldKingsBladeListener : Listener {
         val damager = e.damager
         val target = e.entity as? LivingEntity ?: return
 
-        // Only check for projectile damage from skeletons
         if (damager is Projectile) {
             val shooter = damager.shooter as? LivingEntity ?: return
 
@@ -287,25 +307,13 @@ class OldKingsBladeListener : Listener {
             if (shooterSummonerId != null) {
                 val summonerUUID = UUID.fromString(shooterSummonerId)
 
-                // Cancel if the projectile hits the summoner
-                if (target.uniqueId == summonerUUID) {
+                if (target.uniqueId == summonerUUID ||
+                    target.persistentDataContainer.get(SUMMON_KEY, PersistentDataType.STRING) == shooterSummonerId ||
+                    (target is Tameable && target.isTamed && target.owner?.uniqueId == summonerUUID)
+                ) {
                     e.isCancelled = true
-                    return
-                }
-
-                // Cancel if the projectile hits other summons or tamed mobs
-                if (target.persistentDataContainer.get(SUMMON_KEY, PersistentDataType.STRING) == shooterSummonerId) {
-                    e.isCancelled = true
-                    return
-                }
-
-                if (target is Tameable && target.isTamed && target.owner?.uniqueId == summonerUUID) {
-                    e.isCancelled = true
-                    return
                 }
             }
         }
     }
-
-
 }
