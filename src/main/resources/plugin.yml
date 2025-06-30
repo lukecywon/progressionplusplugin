@@ -41,3 +41,9 @@ commands:
   encyclopedia:
     description: Gives the player the Item Encyclopedia
     usage: /encyclopedia
+
+  endtime:
+    description: Shows the current time and End unlock time
+    usage: /endtime
+    permission: progressionplus.artifact
+    permission-message: You do not have permission to use this command.

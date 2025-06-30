@@ -12,23 +12,23 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object RefinedEye : CustomItem("custom_ender_eye", Rarity.PROGRESSION, true) {
+object CustomEnderChest : CustomItem("custom_ender_chest", Rarity.PROGRESSION, true) {
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.ENDER_EYE)
+        val item = ItemStack(Material.ENDER_CHEST)
         val meta = item.itemMeta
 
         meta.displayName(
-            Component.text("Refined Eye")
+            Component.text("Ender Chest")
                 .color(NamedTextColor.DARK_PURPLE)
                 .decorate(TextDecoration.BOLD)
         )
 
         meta.lore(
             listOf(
-                ItemLore.description("Used to find and open the end portal"),
+                ItemLore.description("Crafted to resist corruption."),
                 ItemLore.separator(),
-                ItemLore.lore("“Unshattered by fate, guided by purpose.”")
+                ItemLore.lore("“Its contents rest between realms.“"),
             )
         )
 
@@ -40,9 +40,9 @@ object RefinedEye : CustomItem("custom_ender_eye", Rarity.PROGRESSION, true) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.ENDER_PEARL, Material.NETHERITE_SCRAP, Material.ENDER_PEARL,
-            Material.BLAZE_POWDER, Material.NETHER_STAR, Material.BLAZE_POWDER,
-            Material.ENDER_PEARL, Material.NETHERITE_SCRAP, Material.ENDER_PEARL
+            Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN,
+            Material.OBSIDIAN, Material.ENDER_PEARL, Material.OBSIDIAN,
+            Material.OBSIDIAN, Material.OBSIDIAN, Material.OBSIDIAN
         ))
     }
 }
