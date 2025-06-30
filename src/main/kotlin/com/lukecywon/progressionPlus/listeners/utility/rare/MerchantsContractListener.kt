@@ -34,24 +34,22 @@ class MerchantsContractListener : Listener {
     @EventHandler
     fun onInventoryClose(event: InventoryCloseEvent) {
         val player = event.player as? Player ?: return
-        if (event.view.title != "🛒 Trading Session") return
-
-        MerchantsTradeGUI.handleClose(player)
+        if (MerchantsTradeGUI.getSession(player) != null) {
+            MerchantsTradeGUI.handleClose(player)
+        }
     }
 
     @EventHandler
     fun onInventoryDrag(event: InventoryDragEvent) {
         val player = event.whoClicked as? Player ?: return
-        if (event.view.title != "🛒 Trading Session") return
-
         val session = MerchantsTradeGUI.getSession(player) ?: return
+
         val isPlayer1 = player.uniqueId == session.player1.uniqueId
         val ownSlots = if (isPlayer1) MerchantsTradeGUI.player1Slots else MerchantsTradeGUI.player2Slots
         val validSlots = ownSlots.toSet()
 
         for (slot in event.rawSlots) {
             if (slot < event.view.topInventory.size && slot !in validSlots) {
-                // Dragged into a slot that's not yours
                 event.isCancelled = true
                 return
             }

@@ -16,7 +16,6 @@ object MerchantsTradeGUI {
     private val tradeSessions = mutableMapOf<UUID, TradeSession>()
     private var completed = false
 
-    private const val GUI_TITLE = "🛒 Trading Session"
     private const val INVENTORY_SIZE = 54
     private val separatorSlots = listOf(4, 13, 22, 31, 40)
     internal val player1Slots = listOf(0, 1, 2, 3, 9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39)
@@ -28,9 +27,7 @@ object MerchantsTradeGUI {
     private const val CANCEL_P2_SLOT = 52
     private const val ACCEPT_P2_SLOT = 53
 
-    fun getSession(player: Player): TradeSession? {
-        return tradeSessions[player.uniqueId]
-    }
+    fun getSession(player: Player): TradeSession? = tradeSessions[player.uniqueId]
 
     fun open(player1: Player, player2: Player) {
         val guiTitle = "🛒 ${player1.name} ⇄ ${player2.name}"
@@ -53,8 +50,6 @@ object MerchantsTradeGUI {
 
     fun handleClick(e: InventoryClickEvent) {
         val player = e.whoClicked as? Player ?: return
-        if (e.view.title != GUI_TITLE) return
-
         val session = tradeSessions[player.uniqueId] ?: return
         val isPlayer1 = player.uniqueId == session.player1.uniqueId
         val rawSlot = e.rawSlot
@@ -66,11 +61,11 @@ object MerchantsTradeGUI {
         if (e.click.isShiftClick) {
             val clickedInv = e.clickedInventory ?: return
             val item = e.currentItem?.clone() ?: return
-            val destSlots = if (isPlayer1) player1Slots else player2Slots
             val isInPlayerInventory = clickedInv == e.view.bottomInventory
-            val isInTradeArea = rawSlot in destSlots
+            val destSlots = if (isPlayer1) player1Slots else player2Slots
 
             if (isInPlayerInventory) {
+                // Try inserting into own side of the trade GUI
                 for (slot in destSlots) {
                     val existing = e.view.getItem(slot)
                     if (existing == null || existing.type == Material.AIR) {
@@ -81,20 +76,16 @@ object MerchantsTradeGUI {
                         return
                     }
                 }
+                // No room to insert
                 e.isCancelled = true
-            } else if (isInTradeArea) {
-                val result = player.inventory.addItem(item)
-                if (result.isEmpty()) {
-                    e.view.setItem(rawSlot, null)
-                    session.cancelCountdown()
-                }
-                e.isCancelled = true
+                return
             } else {
+                // Disallow shift-clicking inside the trade GUI
                 e.isCancelled = true
+                return
             }
-
-            return
         }
+
 
         if (rawSlot >= guiSize) return
         if (rawSlot !in allowedSlots && rawSlot !in allowedButtons) {
@@ -121,6 +112,20 @@ object MerchantsTradeGUI {
         }
 
         player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
+    }
+
+    fun handleClose(closingPlayer: Player) {
+        val session = tradeSessions[closingPlayer.uniqueId] ?: return
+        session.cancelTrade(skipClose = false)
+
+        val other = if (closingPlayer.uniqueId == session.player1.uniqueId) session.player2 else session.player1
+        if (other.openInventory.topInventory == session.gui) {
+            other.closeInventory()
+        }
+    }
+
+    fun forceCancel(uuid: UUID) {
+        tradeSessions[uuid]?.cancelTrade(skipClose = true)
     }
 
     private fun greenConcrete(name: String) = ItemStack(Material.GREEN_CONCRETE).apply {
@@ -150,7 +155,7 @@ object MerchantsTradeGUI {
     class TradeSession(
         val player1: Player,
         val player2: Player,
-        internal val gui: Inventory // <- made accessible
+        internal val gui: Inventory
     ) {
         private var accepted1 = false
         private var accepted2 = false
@@ -160,41 +165,13 @@ object MerchantsTradeGUI {
             if (player.uniqueId == player1.uniqueId) {
                 accepted1 = true
                 gui.setItem(ACCEPT_P1_SLOT, greenGlassPane("Waiting"))
+                player1.playSound(player1.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1.5f)
             } else {
                 accepted2 = true
                 gui.setItem(ACCEPT_P2_SLOT, greenGlassPane("Waiting"))
+                player2.playSound(player2.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1.5f)
             }
             if (accepted1 && accepted2) startCountdown()
-        }
-
-        fun cancelTrade(skipClose: Boolean = false) {
-            if (completed) return // ✅ Don't cancel a completed trade
-
-            player1.sendMessage("§cTrade cancelled.")
-            player2.sendMessage("§cTrade cancelled.")
-
-            player1Slots.forEach { slot ->
-                gui.getItem(slot)?.takeIf { it.type != Material.AIR }?.let {
-                    player1.inventory.addItem(it)
-                    gui.setItem(slot, null)
-                }
-            }
-            player2Slots.forEach { slot ->
-                gui.getItem(slot)?.takeIf { it.type != Material.AIR }?.let {
-                    player2.inventory.addItem(it)
-                    gui.setItem(slot, null)
-                }
-            }
-
-            if (!skipClose) {
-                Bukkit.getScheduler().runTask(ProgressionPlus.getPlugin(), Runnable {
-                    player1.closeInventory()
-                    player2.closeInventory()
-                })
-            }
-
-            tradeSessions.remove(player1.uniqueId)
-            tradeSessions.remove(player2.uniqueId)
         }
 
         fun cancelCountdown() {
@@ -207,6 +184,47 @@ object MerchantsTradeGUI {
                 countdownTask?.cancel()
                 countdownTask = null
             }
+        }
+
+        fun cancelTrade(skipClose: Boolean = false) {
+            if (completed) return
+
+            // Prevent ghost items
+            player1.setItemOnCursor(null)
+            player2.setItemOnCursor(null)
+
+            player1.sendMessage("§cTrade cancelled.")
+            player2.sendMessage("§cTrade cancelled.")
+
+            player1Slots.forEach { slot ->
+                gui.getItem(slot)?.takeIf { it.type != Material.AIR }?.let {
+                    player1.inventory.addItem(it)
+                    gui.setItem(slot, null)
+                }
+            }
+
+            player2Slots.forEach { slot ->
+                gui.getItem(slot)?.takeIf { it.type != Material.AIR }?.let {
+                    player2.inventory.addItem(it)
+                    gui.setItem(slot, null)
+                }
+            }
+
+            if (!skipClose) {
+                Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
+                    player1.setItemOnCursor(null)
+                    player2.setItemOnCursor(null)
+
+                    player1.closeInventory()
+                    player2.closeInventory()
+
+                    player1.updateInventory()
+                    player2.updateInventory()
+                }, 2L)
+            }
+
+            tradeSessions.remove(player1.uniqueId)
+            tradeSessions.remove(player2.uniqueId)
         }
 
         private fun startCountdown() {
@@ -233,19 +251,28 @@ object MerchantsTradeGUI {
             player1Slots.forEach { gui.setItem(it, null) }
             player2Slots.forEach { gui.setItem(it, null) }
 
-            // Give player2's items to player1
             val overflow1 = player1.inventory.addItem(*items2.toTypedArray())
-            // Give player1's items to player2
             val overflow2 = player2.inventory.addItem(*items1.toTypedArray())
 
-            // Drop overflow items
             overflow1.values.forEach { player1.world.dropItemNaturally(player1.location, it) }
             overflow2.values.forEach { player2.world.dropItemNaturally(player2.location, it) }
 
+            player1.playSound(player1.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
+            player2.playSound(player2.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
+
             player1.sendMessage("§aTrade completed!")
             player2.sendMessage("§aTrade completed!")
-            player1.closeInventory()
-            player2.closeInventory()
+
+            Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
+                player1.setItemOnCursor(null)
+                player2.setItemOnCursor(null)
+
+                player1.closeInventory()
+                player2.closeInventory()
+
+                player1.updateInventory()
+                player2.updateInventory()
+            }, 2L)
 
             countdownTask?.cancel()
             countdownTask = null
@@ -253,25 +280,5 @@ object MerchantsTradeGUI {
             tradeSessions.remove(player1.uniqueId)
             tradeSessions.remove(player2.uniqueId)
         }
-
     }
-
-    fun forceCancel(uuid: UUID) {
-        tradeSessions[uuid]?.cancelTrade(skipClose = true)
-    }
-
-    fun handleClose(closingPlayer: Player) {
-        val session = tradeSessions[closingPlayer.uniqueId] ?: return
-        val other = if (closingPlayer.uniqueId == session.player1.uniqueId) session.player2 else session.player1
-
-        session.cancelTrade(skipClose = false)
-
-        Bukkit.getScheduler().runTask(ProgressionPlus.getPlugin(), Runnable {
-            if (other.openInventory.topInventory == session.gui) {
-                other.closeInventory()
-            }
-        })
-    }
-
-
 }
