@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items.armor.rare.paladin
 
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
@@ -21,25 +22,18 @@ import org.bukkit.inventory.meta.trim.TrimPattern
 
 object PaladinLeggings : CustomItem("paladin_leggings", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_LEGGINGS)
+        var item = ItemStack(Material.IRON_LEGGINGS)
+        item = applyArmor(item, 6.0)
+        item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Paladin Leggings", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
-                ItemLore.description("A basic Leggings crafted straight from nature."),
-                ItemLore.separator()
-            )
-        )
-
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.addAttributeModifier(
-            Attribute.ARMOR,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "armor"),
-                4.0,
-                AttributeModifier.Operation.ADD_NUMBER,
+                ItemLore.stats(item),
+                ItemLore.separator(),
+                ItemLore.lore("Forged in the hallowed halls of heaven.")
             )
         )
 
@@ -59,10 +53,10 @@ object PaladinLeggings : CustomItem("paladin_leggings", Rarity.RARE) {
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
-        return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.OAK_WOOD, null, Material.OAK_WOOD,
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD,
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD
-        ))
+        return listOf(
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            RecipeChoice.MaterialChoice(Material.GOLD_INGOT), null, RecipeChoice.MaterialChoice(Material.GOLD_INGOT),
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack())
+        )
     }
 }

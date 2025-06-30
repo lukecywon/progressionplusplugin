@@ -15,8 +15,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
-object FerociousBlade : CustomItem("ferocious_blade", Rarity.EPIC) {
-
+object FerociousBlade : CustomItem("ferocious_blade", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)
         item = applyBaseDamage(item, 7.0)

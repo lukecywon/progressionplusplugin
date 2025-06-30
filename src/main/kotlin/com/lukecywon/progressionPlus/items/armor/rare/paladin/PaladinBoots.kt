@@ -2,15 +2,13 @@ package com.lukecywon.progressionPlus.items.armor.rare.paladin
 
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -21,25 +19,18 @@ import org.bukkit.inventory.meta.trim.TrimPattern
 
 object PaladinBoots : CustomItem("paladin_boots", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.IRON_BOOTS)
+        var item = ItemStack(Material.IRON_BOOTS)
+        item = applyArmor(item, 2.0)
+        item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Paladin Boots", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
-                ItemLore.description("A basic Boots crafted straight from nature."),
-                ItemLore.separator()
-            )
-        )
-
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.addAttributeModifier(
-            Attribute.ARMOR,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "armor"),
-                4.0,
-                AttributeModifier.Operation.ADD_NUMBER,
+                ItemLore.stats(item),
+                ItemLore.separator(),
+                ItemLore.lore("Forged in the hallowed halls of heaven.")
             )
         )
 
@@ -59,10 +50,10 @@ object PaladinBoots : CustomItem("paladin_boots", Rarity.RARE) {
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
-        return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.OAK_WOOD, null, Material.OAK_WOOD,
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD,
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD
-        ))
+        return listOf(
+            null, null, null,
+            RecipeChoice.MaterialChoice(Material.GOLD_INGOT), null, RecipeChoice.MaterialChoice(Material.GOLD_INGOT),
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack())
+        )
     }
 }

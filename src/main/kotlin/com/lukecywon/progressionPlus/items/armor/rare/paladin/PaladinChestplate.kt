@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items.armor.rare.paladin
 
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import net.kyori.adventure.text.Component
@@ -22,17 +23,17 @@ import org.bukkit.inventory.meta.trim.TrimPattern
 object PaladinChestplate : CustomItem("paladin_chestplate", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_CHESTPLATE)
-        item = applyArmor(item, 5.0)
-
+        item = applyArmor(item, 6.0)
+        item = applyArmorToughness(item, 1.0)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Paladin Chestplate", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
 
         meta.lore(
             listOf(
-                ItemLore.description("A basic chestplate crafted straight from nature."),
+                ItemLore.stats(item),
                 ItemLore.separator(),
-                ItemLore.stats(item)
+                ItemLore.lore("Forged in the hallowed halls of heaven.")
             )
         )
 
@@ -52,10 +53,10 @@ object PaladinChestplate : CustomItem("paladin_chestplate", Rarity.RARE) {
     }
 
     override fun getRecipe(): List<RecipeChoice?> {
-        return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.OAK_WOOD, null, Material.OAK_WOOD,
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD,
-            Material.OAK_WOOD, Material.OAK_WOOD, Material.OAK_WOOD
-        ))
+        return listOf(
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.ExactChoice(SteelIngot.createItemStack())
+        )
     }
 }
