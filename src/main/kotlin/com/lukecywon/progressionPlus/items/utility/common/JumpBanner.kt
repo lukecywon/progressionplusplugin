@@ -9,13 +9,14 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object JumpBanner : CustomItem("jump_banner", Rarity.COMMON) {
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.LIME_BANNER)
+        val item = ItemStack(Material.PAPER)
         val meta = item.itemMeta
 
         meta.displayName(
@@ -35,6 +36,7 @@ object JumpBanner : CustomItem("jump_banner", Rarity.COMMON) {
         )
 
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "jump_banner")
         item.itemMeta = meta
         return applyMeta(item)
     }
