@@ -33,6 +33,7 @@ object DiamondRecipeManager : Manager {
                 val diamondUnlocked = plugin.config.getBoolean("diamond-unlocked")
 
                 if (diamondUnlocked) {
+                    if (diamondRecipesPresent()) return
                     addAllToBukkit()
                 } else {
                     if (!diamondRecipesPresent()) return
