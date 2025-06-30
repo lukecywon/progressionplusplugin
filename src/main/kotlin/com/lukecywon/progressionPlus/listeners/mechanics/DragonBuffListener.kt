@@ -18,6 +18,23 @@ class DragonBuffListener : Listener {
     fun onDragonSpawn(event: CreatureSpawnEvent) {
         val dragon = event.entity as? EnderDragon ?: return
 
+        // Spawn it far away first
+        val world = dragon.world
+        val spawnLoc = dragon.location.clone()
+        val farLoc = spawnLoc.clone().add(0.0, 500.0, 0.0) // Spawn way up in the air
+
+        dragon.teleport(farLoc)
+
+        // Delay a few ticks and then teleport to actual location
+        object : BukkitRunnable() {
+            override fun run() {
+                if (!dragon.isDead && dragon.isValid) {
+                    dragon.teleport(spawnLoc) // Teleport back to desired fight location
+                }
+            }
+        }.runTaskLater(ProgressionPlus.getPlugin(), 5L) // ~0.25 sec delay
+
+        // Now continue your health and boss bar logic as usual
         val baseHealth = 500.0
         val bonusPerPlayer = 50.0
         val playerCount = Bukkit.getOnlinePlayers().size
@@ -45,7 +62,6 @@ class DragonBuffListener : Listener {
                     return
                 }
 
-                // Sync players (optional, in case players join)
                 bossBar.players.forEach {
                     if (!it.isOnline || it.world != dragon.world) bossBar.removePlayer(it)
                 }
@@ -58,6 +74,7 @@ class DragonBuffListener : Listener {
                 bossBar.setTitle("Ender Dragon: $current / $max HP")
                 bossBar.progress = (current / max.toDouble()).coerceIn(0.0, 1.0)
             }
-        }.runTaskTimer(ProgressionPlus.getPlugin(), 0L, 10L) // ✅ Starts the loop
+        }.runTaskTimer(ProgressionPlus.getPlugin(), 0L, 5L)
     }
+
 }
