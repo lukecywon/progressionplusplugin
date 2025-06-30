@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
@@ -35,6 +36,7 @@ object HasteBanner : CustomItem("haste_banner", Rarity.COMMON) {
         )
 
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "haste_banner")
         item.itemMeta = meta
         return applyMeta(item)
     }
