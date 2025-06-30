@@ -16,7 +16,8 @@ import org.bukkit.persistence.PersistentDataType
 
 object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
     override fun createItemStack(): ItemStack {
-        val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
+        var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
+        item = applyArmor(item, 2.0)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Twilight Crown").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
@@ -24,21 +25,11 @@ object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
         meta.lore(listOf(
             ItemLore.description("Its power resonates with ancient relics..."),
             ItemLore.description("Whispers stir when paired with the §dOld King's Blade§8."),
+            ItemLore.stats(item),
             ItemLore.separator(),
             ItemLore.lore("The crown once worn by a forgotten monarch."),
             ItemLore.lore("Those who listen closely may command what lies beyond.")
         ))
-
-        meta.removeAttributeModifier(Attribute.ARMOR)
-        meta.addAttributeModifier(
-            Attribute.ARMOR,
-            AttributeModifier(
-                NamespacedKey(NamespacedKey.MINECRAFT, "armor"),
-                1.0,
-                AttributeModifier.Operation.ADD_NUMBER,
-                EquipmentSlotGroup.HEAD
-            )
-        )
 
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         item.itemMeta = meta
