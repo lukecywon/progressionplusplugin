@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object CustomEnderChest : CustomItem("custom_ender_chest", Rarity.PROGRESSION) {
+object CustomEnderChest : CustomItem("custom_ender_chest", Rarity.PROGRESSION, true) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.ENDER_CHEST)
@@ -26,9 +26,9 @@ object CustomEnderChest : CustomItem("custom_ender_chest", Rarity.PROGRESSION) {
 
         meta.lore(
             listOf(
-                ItemLore.description("crafted to resist corruption."),
+                ItemLore.description("Crafted to resist corruption."),
                 ItemLore.separator(),
-                ItemLore.lore("“Its contents rest between realms,"),
+                ItemLore.lore("“Its contents rest between realms.“"),
             )
         )
 

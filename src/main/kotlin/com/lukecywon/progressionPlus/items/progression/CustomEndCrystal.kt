@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object CustomEndCrystal : CustomItem("custom_end_crystal", Rarity.PROGRESSION) {
+object CustomEndCrystal : CustomItem("custom_end_crystal", Rarity.PROGRESSION, true) {
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.END_CRYSTAL)
