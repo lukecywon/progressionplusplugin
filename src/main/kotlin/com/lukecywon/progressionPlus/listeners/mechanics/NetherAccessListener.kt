@@ -16,7 +16,7 @@ class NetherAccessListener : Listener {
     private fun isNetherAccessible(): Pair<Boolean, LocalDateTime> {
         val config = plugin.config
         val unlocked = config.getBoolean("nether_unlocked", false)
-        val unlockTimeStr = config.getString("nether_unlock_time", "2099-01-01T00:00")
+        val unlockTimeStr = config.getString("nether_unlock_time", "2025-07-01T00:22")
         val unlockTime = try {
             LocalDateTime.parse(unlockTimeStr)
         } catch (e: Exception) {
@@ -34,7 +34,7 @@ class NetherAccessListener : Listener {
             event.isCancelled = true
             val loc = event.entity?.location ?: return
             val nearby = loc.world?.getNearbyPlayers(loc, 5.0)
-            nearby?.firstOrNull()?.sendMessage("§cThe Nether is sealed. Use the §4Nether Eye§c after §e${unlockTime.toLocalDate()} ${unlockTime.toLocalTime()}.")
+            nearby?.firstOrNull()?.sendMessage("§cThe Nether is sealed. Use the §4Nether Eye§c and wait until §e${unlockTime.toLocalDate()} ${unlockTime.toLocalTime()}.")
         }
     }
 
@@ -45,7 +45,7 @@ class NetherAccessListener : Listener {
         val (accessible, unlockTime) = isNetherAccessible()
         if (!accessible) {
             event.isCancelled = true
-            event.player.sendMessage("§cThe Nether is sealed. Find the §4Nether Eye§c and wait until §e${unlockTime.toLocalDate()} ${unlockTime.toLocalTime()}.")
+            event.player.sendMessage("§cThe Nether is sealed. Use the §4Nether Eye§c and wait until §e${unlockTime.toLocalDate()} ${unlockTime.toLocalTime()}.")
         }
     }
 }
