@@ -55,7 +55,7 @@ object DiamondRecipeManager : Manager {
         }
     }
 
-    private fun diamondRecipesPresent() : Boolean {
-        return Bukkit.getRecipe(recipes.first().nameSpacedKey) != null
+    private fun diamondRecipesPresent(): Boolean {
+        return recipes.firstOrNull()?.let { Bukkit.getRecipe(it.nameSpacedKey) != null } ?: false
     }
 }

@@ -27,9 +27,9 @@ class AdvancementRecipeUnlockListener : Listener {
     @EventHandler
     fun onAdvancementDone(e: PlayerAdvancementDoneEvent) {
         if (e.advancement.key != killDragon) return
-        if (plugin.config.getBoolean("diamond-unlocked")) return
+        if (plugin.config.getBoolean("diamond_unlocked")) return
 
-        plugin.config.set("diamond-unlocked", true)
+        plugin.config.set("diamond_unlocked", true)
         plugin.saveConfig()
 
         for (player in Bukkit.getOnlinePlayers()) {
@@ -40,7 +40,7 @@ class AdvancementRecipeUnlockListener : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
-        if (plugin.config.getBoolean("diamond-unlocked")) {
+        if (plugin.config.getBoolean("diamond_unlocked")) {
             e.player.discoverRecipes(diamondRecipes)
         }
     }
