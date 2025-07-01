@@ -49,9 +49,19 @@ object ParagonShield : CustomItem("paragon_shield", Rarity.EPIC) {
             )
         )
 
-        meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
         item.itemMeta = meta
-        meta.setCustomModelData(69420)
         return applyMeta(item)
+    }
+
+    private fun resetModel(item: ItemStack) {
+        if (!ParagonShield.isParagonShield(item)) return
+        val meta = item.itemMeta ?: return
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
+        item.itemMeta = meta
+    }
+
+    fun isParagonShield(item: ItemStack?): Boolean {
+        return item?.let { isThisItem(it) && it.type == Material.SHIELD } ?: false
     }
 }

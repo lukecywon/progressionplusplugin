@@ -10,11 +10,14 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerItemHeldEvent
+import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import java.util.*
-import kotlin.math.cos
-import kotlin.math.sin
 
 class ParagonShieldListener : Listener {
 
@@ -37,14 +40,23 @@ class ParagonShieldListener : Listener {
             return
         }
 
+        // 🔁 Switch to blocking texture model
+        val meta = shield.itemMeta
+        meta?.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield_1")
+        shield.itemMeta = meta
+        player.inventory.setItem(EquipmentSlot.OFF_HAND, shield)
+
         val blockStart = blockTimestamps.getOrPut(uuid) { now }
         val timeHeld = now - blockStart
 
         if (timeHeld > config.parryWindowTicks * 50) {
-            // ❌ Held too long
             cooldowns[uuid] = now + config.cooldownTicks * 50
             blockTimestamps.remove(uuid)
             player.playSound(player.location, Sound.ITEM_SHIELD_BREAK, 1f, 0.8f)
+
+            // 🔁 Reset model if parry failed
+            resetModel(shield)
+            player.inventory.setItem(EquipmentSlot.OFF_HAND, shield)
             return
         }
 
@@ -117,11 +129,49 @@ class ParagonShieldListener : Listener {
         }
 
         world.playSound(player.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1f, 1f)
+
+        // 🔁 Reset model back after parry finishes
+        val offhand = player.inventory.itemInOffHand
+        if (ParagonShield.isParagonShield(offhand)) {
+            resetModel(offhand)
+            player.inventory.setItem(EquipmentSlot.OFF_HAND, offhand)
+        }
     }
 
+    @EventHandler
+    fun onDrop(e: PlayerDropItemEvent) {
+        val item = e.itemDrop.itemStack
+        if (ParagonShield.isThisItem(item)) {
+            resetModel(item)
+        }
+    }
+
+    @EventHandler
+    fun onItemHeldChange(e: PlayerItemHeldEvent) {
+        val player = e.player
+        val oldItem = player.inventory.getItem(e.previousSlot) ?: return
+        if (ParagonShield.isThisItem(oldItem)) {
+            resetModel(oldItem)
+            player.inventory.setItem(e.previousSlot, oldItem)
+        }
+    }
+
+    @EventHandler
+    fun onQuit(e: PlayerQuitEvent) {
+        val item = e.player.inventory.itemInOffHand
+        if (ParagonShield.isThisItem(item)) {
+            resetModel(item)
+        }
+    }
+
+    private fun resetModel(item: ItemStack) {
+        if (!ParagonShield.isParagonShield(item)) return
+        val meta = item.itemMeta ?: return
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
+        item.itemMeta = meta
+    }
 
     init {
-        // Clean up stale block holds
         Bukkit.getScheduler().runTaskTimer(ProgressionPlus.getPlugin(), Runnable {
             val now = System.currentTimeMillis()
             blockTimestamps.entries.removeIf { now - it.value > config.parryWindowTicks * 50 }
