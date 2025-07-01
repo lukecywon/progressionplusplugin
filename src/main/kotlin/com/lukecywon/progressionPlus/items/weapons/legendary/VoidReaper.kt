@@ -55,8 +55,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
             )
         )
 
-        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "void_reaper")
-
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "void_reaper_variant_0")
         meta.persistentDataContainer.set(soulKey, PersistentDataType.INTEGER, 0)
 
         item.itemMeta = meta
@@ -68,6 +67,19 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
         return meta.persistentDataContainer.getOrDefault(soulKey, PersistentDataType.INTEGER, 0)
     }
 
+    fun updateItemModel(item: ItemStack) {
+        val meta = item.itemMeta ?: return
+        val count = getSoulCount(item)
+        val frame = when (count) {
+            in 0..0 -> 0
+            in 1..10 -> 1
+            in 11..20 -> 2
+            else -> 3
+        }
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "void_reaper_variant_$frame")
+        item.itemMeta = meta
+    }
+
     fun addSoul(item: ItemStack) {
         val meta = item.itemMeta ?: return
         val current = getSoulCount(item)
@@ -75,6 +87,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
         meta.persistentDataContainer.set(soulKey, PersistentDataType.INTEGER, (current + 1).coerceAtMost(30))
         item.itemMeta = meta
         updateLore(item)
+        updateItemModel(item)
     }
 
     fun consumeSouls(item: ItemStack): Int {
@@ -83,7 +96,28 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
         meta.persistentDataContainer.set(soulKey, PersistentDataType.INTEGER, 0)
         item.itemMeta = meta
         updateLore(item)
+        updateItemModel(item)
         return souls
+    }
+
+    fun updateLore(item: ItemStack) {
+        val meta = item.itemMeta ?: return
+        val count = getSoulCount(item)
+        meta.lore(
+            listOf(
+                ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
+                ItemLore.description("Teleport behind and slash the enemy you're looking at"),
+                ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
+                ItemLore.description("Unleash stored souls in an AOE blast"),
+                Component.text("Souls Stored: $count").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
+                ItemLore.cooldown(2),
+                ItemLore.stats(item),
+                ItemLore.separator(),
+                ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
+            )
+        )
+        item.itemMeta = meta
+        updateItemModel(item)
     }
 
     fun unleashSouls(player: Player, item: ItemStack) {
@@ -147,25 +181,6 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
         player.setCooldown(Material.NETHERITE_HOE, 60)
         player.sendMessage("§5Void Ritual unleashed! §d$souls §5souls consumed.")
         player.sendActionBar("§b☠ Soulburst Casted!")
-    }
-
-    fun updateLore(item: ItemStack) {
-        val meta = item.itemMeta ?: return
-        val count = getSoulCount(item)
-        meta.lore(
-            listOf(
-                ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
-                ItemLore.description("Teleport behind and slash the enemy you're looking at"),
-                ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
-                ItemLore.description("Unleash stored souls in an AOE blast"),
-                Component.text("Souls Stored: $count").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
-                ItemLore.cooldown(2),
-                ItemLore.stats(item),
-                ItemLore.separator(),
-                ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
-            )
-        )
-        item.itemMeta = meta
     }
 
     fun summonFlatMagicRings(player: Player, rings: Int) {

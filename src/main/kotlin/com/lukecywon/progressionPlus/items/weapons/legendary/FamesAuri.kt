@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.ItemStack
@@ -39,9 +40,12 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             )
         )
 
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
         item.itemMeta = meta
         return applyMeta(item)
     }
+
+
 
     data class BuffConfig(
         val material: Material,
@@ -101,6 +105,18 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             )
         )
     )
+
+    fun applyTierModel(item: ItemStack, tier: Int) {
+        val meta = item.itemMeta ?: return
+        val modelKey = NamespacedKey(NamespacedKey.MINECRAFT, when (tier) {
+            0 -> "fames_auri_1"
+            1 -> "fames_auri_2"
+            2 -> "fames_auri_3"
+            else -> "fames_auri"
+        })
+        meta.itemModel = modelKey
+        item.itemMeta = meta
+    }
 
     fun isFamesAuri(item: ItemStack?): Boolean {
         return item?.let { isThisItem(it) && it.type == Material.GOLDEN_SWORD } ?: false

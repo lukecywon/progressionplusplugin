@@ -29,10 +29,10 @@ class ConfigCommand : CustomCommand {
 
                 when (args[1].lowercase()) {
                     "true" -> {
-                        ProgressionPlus.getPlugin().config.set("diamond-unlocked", true)
+                        ProgressionPlus.getPlugin().config.set("diamond_unlocked", true)
                     }
                     "false" -> {
-                        ProgressionPlus.getPlugin().config.set("diamond-unlocked", false)
+                        ProgressionPlus.getPlugin().config.set("diamond_unlocked", false)
                     }
                 }
             }

@@ -3,18 +3,15 @@ package com.lukecywon.progressionPlus.listeners.weapons.legendary
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.weapons.legendary.FamesAuri
 import org.bukkit.Color
+import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
-import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
-import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerItemHeldEvent
-import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.*
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
@@ -32,9 +29,59 @@ class FamesAuriListener : Listener {
 
     @EventHandler
     fun onDrop(e: PlayerDropItemEvent) {
+        val item = e.itemDrop.itemStack
+        if (FamesAuri.isThisItem(item)) {
+            val meta = item.itemMeta
+            meta?.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
+            item.itemMeta = meta
+
+            e.itemDrop.itemStack = item
+            deactivate(e.player)
+        }
+    }
+
+    @EventHandler
+    fun onInventoryClick(e: InventoryClickEvent) {
+        val item = e.currentItem ?: return
+        if (FamesAuri.isThisItem(item)) {
+            val meta = item.itemMeta ?: return
+            meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
+            item.itemMeta = meta
+            e.currentItem = item
+        }
+    }
+
+    @EventHandler
+    fun onSwapHandItems(e: PlayerSwapHandItemsEvent) {
         val player = e.player
-        if (FamesAuri.isThisItem(e.itemDrop.itemStack)) {
+        val item = e.mainHandItem
+        if (FamesAuri.isThisItem(item)) {
+            e.isCancelled = true
+
+            val meta = item.itemMeta ?: return
+            meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
+            item.itemMeta = meta
+
+            val offHand = e.offHandItem
+            player.inventory.setItemInMainHand(offHand)
+            player.inventory.setItemInOffHand(item)
+
             deactivate(player)
+        }
+    }
+
+    @EventHandler
+    fun onItemHeldChange(e: PlayerItemHeldEvent) {
+        val player = e.player
+        val oldItem = player.inventory.getItem(e.previousSlot)
+        if (FamesAuri.isThisItem(oldItem)) {
+            deactivate(player)
+            oldItem?.let {
+                val meta = it.itemMeta
+                meta?.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
+                it.itemMeta = meta
+                player.inventory.setItem(e.previousSlot, it)
+            }
         }
     }
 
@@ -93,6 +140,9 @@ class FamesAuriListener : Listener {
         val config = FamesAuri.buffs[validMode]
         activePlayers[uuid] = validMode
         activeModes[uuid] = validMode
+        val item = player.inventory.itemInMainHand
+        FamesAuri.applyTierModel(item, validMode)
+        player.inventory.setItemInMainHand(item)
         player.sendMessage("§e${config.label} Fames Auri activating in ${config.activationDelayTicks / 20} seconds...")
         player.playSound(player.location, Sound.BLOCK_BEACON_POWER_SELECT, 1.0f, 1.2f)
 
@@ -186,6 +236,13 @@ class FamesAuriListener : Listener {
         player.playSound(player.location, Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 0.8f)
         player.sendMessage("§6Fames Auri has been deactivated.")
         recentlyDeactivated[player.uniqueId] = System.currentTimeMillis()
+
+        val item = player.inventory.itemInMainHand
+        val meta = item.itemMeta ?: return
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
+
+        item.itemMeta = meta
+        player.inventory.setItemInMainHand(item)
     }
 
     private fun cycleMode(player: Player) {
