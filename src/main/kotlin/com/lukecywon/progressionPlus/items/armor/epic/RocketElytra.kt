@@ -51,8 +51,9 @@ object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC, enchantable = fal
         meta.persistentDataContainer.set(key, PersistentDataType.BYTE, 1)
         meta.persistentDataContainer.set(rocketKey, PersistentDataType.BYTE, 1)
 
-        item.itemMeta = meta
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
+        item.itemMeta = meta
+
         item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1) // Fake enchantment to show glint
         return applyMeta(item)
     }
