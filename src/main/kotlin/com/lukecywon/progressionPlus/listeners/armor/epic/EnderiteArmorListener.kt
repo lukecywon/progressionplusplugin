@@ -61,8 +61,11 @@ class EnderiteArmorListener : Listener {
             hitCount[uuid] = 0
 
             player.world.playSound(player.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f)
-            player.spawnParticle(Particle.PORTAL, player.location, 30, 0.5, 1.0, 0.5, 0.1)
+            player.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.location, 30, 0.5, 1.0, 0.5, 0.1)
             player.sendActionBar(Component.text("⛨ Dodged!", NamedTextColor.LIGHT_PURPLE))
+        } else if (count == maxHits - 1) {
+            hitCount[uuid] = count
+            player.spawnParticle(Particle.ANGRY_VILLAGER, player.location, 30, 0.5, 1.0, 0.5, 0.1)
         } else {
             hitCount[uuid] = count
         }
