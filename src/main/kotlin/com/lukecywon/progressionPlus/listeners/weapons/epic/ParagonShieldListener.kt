@@ -10,6 +10,11 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerItemHeldEvent
+import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import java.util.*
@@ -41,7 +46,6 @@ class ParagonShieldListener : Listener {
         val timeHeld = now - blockStart
 
         if (timeHeld > config.parryWindowTicks * 50) {
-            // ❌ Held too long
             cooldowns[uuid] = now + config.cooldownTicks * 50
             blockTimestamps.remove(uuid)
             player.playSound(player.location, Sound.ITEM_SHIELD_BREAK, 1f, 0.8f)
@@ -119,6 +123,41 @@ class ParagonShieldListener : Listener {
         world.playSound(player.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1f, 1f)
     }
 
+    // ✅ Reset item model when shield is dropped
+    @EventHandler
+    fun onDrop(e: PlayerDropItemEvent) {
+        val item = e.itemDrop.itemStack
+        if (ParagonShield.isThisItem(item)) {
+            resetModel(item)
+        }
+    }
+
+    // ✅ Reset model if swapped out of hotbar
+    @EventHandler
+    fun onItemHeldChange(e: PlayerItemHeldEvent) {
+        val player = e.player
+        val oldItem = player.inventory.getItem(e.previousSlot) ?: return
+        if (ParagonShield.isThisItem(oldItem)) {
+            resetModel(oldItem)
+            player.inventory.setItem(e.previousSlot, oldItem)
+        }
+    }
+
+    // ✅ Reset on player quit (clean up edge cases)
+    @EventHandler
+    fun onQuit(e: PlayerQuitEvent) {
+        val item = e.player.inventory.itemInOffHand
+        if (ParagonShield.isThisItem(item)) {
+            resetModel(item)
+        }
+    }
+
+    private fun resetModel(item: ItemStack) {
+        val meta = item.itemMeta ?: return
+        meta.setCustomModelData(69420) // fallback for backwards compatibility if modelData used
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
+        item.itemMeta = meta
+    }
 
     init {
         // Clean up stale block holds
