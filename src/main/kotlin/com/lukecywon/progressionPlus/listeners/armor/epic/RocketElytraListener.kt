@@ -67,7 +67,7 @@ class RocketElytraListener : Listener {
                         return
                     }
                     player.world.spawnParticle(
-                        Particle.FLAME,
+                        Particle.SOUL_FIRE_FLAME,
                         player.location.clone().subtract(0.0, 0.5, 0.0),
                         12, 0.2, 0.1, 0.2, 0.01
                     )
@@ -112,7 +112,7 @@ class RocketElytraListener : Listener {
                     return
                 }
                 player.world.spawnParticle(
-                    Particle.FLAME,
+                    Particle.SOUL_FIRE_FLAME,
                     player.location.clone().subtract(0.0, 0.5, 0.0),
                     12, 0.2, 0.1, 0.2, 0.01
                 )
