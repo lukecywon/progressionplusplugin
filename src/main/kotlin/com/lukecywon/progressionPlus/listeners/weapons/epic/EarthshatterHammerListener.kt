@@ -4,6 +4,7 @@ import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.weapons.epic.EarthshatterHammer
 import org.bukkit.*
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.FallingBlock
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -24,6 +25,7 @@ class EarthshatterHammerListener : Listener {
     private val itemId = "earthshatter_hammer"
     private val cooldownMillis = 30_000L
     private val blockTag = NamespacedKey(plugin, "earthshatter")
+    private val jumpLockKey = NamespacedKey(plugin, "gravitymaul_jumplock")
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -43,7 +45,36 @@ class EarthshatterHammerListener : Listener {
 
         e.isCancelled = true
         player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 20, 5, false, false, false))
-        player.world.playSound(player.location, Sound.BLOCK_BEACON_AMBIENT, 1f, 0.5f)
+        player.world.playSound(player.location, Sound.BLOCK_END_GATEWAY_SPAWN, 1f, 0.5f)
+        player.world.playSound(player.location, Sound.BLOCK_CONDUIT_ACTIVATE, 1f, 0.5f)
+        player.world.playSound(player.location, Sound.ENTITY_WARDEN_SONIC_CHARGE, 3f, 0.4f)
+
+        object : BukkitRunnable() {
+            var count = 0
+            override fun run() {
+                if (count++ >= 10) {
+                    cancel()
+                    return
+                }
+
+                val loc = player.location.clone().add(0.0, -0.5, 0.0)
+                val material = loc.block.type.takeIf { it.isSolid } ?: Material.STONE
+                val data = Bukkit.createBlockData(material)
+
+                for (i in 0..6) {
+                    val offsetX = (Math.random() - 0.5) * 1.5
+                    val offsetZ = (Math.random() - 0.5) * 1.5
+                    player.world.spawnParticle(
+                        Particle.BLOCK_CRUMBLE,
+                        loc.clone().add(offsetX, 1.1, offsetZ), // Moved Y +1
+                        8,
+                        0.1, 0.0, 0.1,
+                        0.05,
+                        data
+                    )
+                }
+            }
+        }.runTaskTimer(plugin, 0L, 2L)
 
         object : BukkitRunnable() {
             override fun run() {
@@ -58,7 +89,6 @@ class EarthshatterHammerListener : Listener {
         val dir = player.location.direction.setY(0).normalize()
         val maxDistance = 12
         val arcHalfWidth = 12.0
-        val affectedEntities = mutableSetOf<LivingEntity>()
 
         for (d in 1..maxDistance) {
             val forward = dir.clone().multiply(d.toDouble())
@@ -88,13 +118,11 @@ class EarthshatterHammerListener : Listener {
                             fake.velocity = Vector(0.0, 0.7, 0.0)
                             fake.dropItem = false
                             fake.setHurtEntities(false)
-
-                            // Set custom tag so we know this is an Earthshatter block
                             fake.persistentDataContainer.set(blockTag, PersistentDataType.BYTE, 1)
 
                             block.world.spawnParticle(
                                 Particle.BLOCK_CRUMBLE,
-                                block.location,
+                                block.location.clone().add(0.0, 1.0, 0.0), // Y +1 for effect
                                 15,
                                 0.3, 0.3, 0.3,
                                 0.1,
@@ -109,18 +137,21 @@ class EarthshatterHammerListener : Listener {
                                 entity.damage(12.5, player)
                                 entity.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 100, 5, false, false, true))
 
-                                val knockVec = entity.location.toVector().subtract(player.location.toVector()).normalize().multiply(0.4).setY(1.2)
+                                val jumpAttr = entity.getAttribute(Attribute.JUMP_STRENGTH)
+                                if (jumpAttr != null) {
+                                    val data = entity.persistentDataContainer
+                                    if (!data.has(jumpLockKey, PersistentDataType.DOUBLE)) {
+                                        data.set(jumpLockKey, PersistentDataType.DOUBLE, jumpAttr.baseValue)
+                                        jumpAttr.baseValue = 0.0
+                                    }
+                                }
+
+                                val knockVec = entity.location.toVector().subtract(player.location.toVector())
+                                    .normalize().multiply(0.4).setY(1.2)
                                 entity.velocity = knockVec
                             }
                         }
                     }.runTaskLater(plugin, delay)
-
-                    val nearby = loc.world.getNearbyEntities(loc, 1.5, 1.0, 1.5)
-                    for (entity in nearby) {
-                        if (entity is LivingEntity && entity != player) {
-                            affectedEntities.add(entity)
-                        }
-                    }
                 }
             }
         }
