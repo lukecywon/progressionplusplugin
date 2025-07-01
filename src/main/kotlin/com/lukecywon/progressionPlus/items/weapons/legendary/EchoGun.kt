@@ -16,6 +16,8 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
 
@@ -33,11 +35,8 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
             listOf(
                 ItemLore.abilityuse("Sonic Boom", Activation.RIGHT_CLICK),
                 ItemLore.description("Charges for 1s then fires a deadly sonic wave in a straight line"),
+                ItemLore.description("doing 30 damage."),
                 ItemLore.cooldown(20),
-                Component.text(
-                    "Stats: 30.0 Damage",
-                    NamedTextColor.AQUA
-                ),
                 ItemLore.separator(),
                 ItemLore.lore("A remnant of ancient wrath, still echoing with vengeance."),
             )
@@ -69,6 +68,23 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
                 for (entity in nearby) {
                     if (entity != player && entity is LivingEntity) {
                         entity.damage(30.0, player)
+
+                        if (entity is Player) {
+                            // Check if player is holding a shield and blocking
+                            if ((entity.isBlocking && entity.inventory.itemInOffHand.type == Material.SHIELD) || (entity.isBlocking && entity.inventory.itemInMainHand.type == Material.SHIELD)) {
+                                entity.setCooldown(Material.SHIELD, 100) // 100 ticks = 5 seconds
+                                entity.world.playSound(player.location, Sound.ITEM_SHIELD_BREAK, 1f, 1f)
+                            }
+
+                            // Remove random potion effect
+                            removeRandomPotionEffect(entity)
+
+                            // Add nausea
+                            entity.addPotionEffect(PotionEffect(
+                                PotionEffectType.NAUSEA, 2, 2, false, false
+                            ))
+                        }
+
                         world.playSound(player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
                         world.playSound(point, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
                     }
@@ -77,6 +93,16 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
 
             world.playSound(player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
         }, chargeTicks)
+    }
+
+    private fun removeRandomPotionEffect(player: Player) {
+        val activeEffects = player.activePotionEffects.toList()
+
+        if (activeEffects.isNotEmpty()) {
+            val randomEffect = activeEffects.random()
+            player.removePotionEffect(randomEffect.type)
+            player.sendMessage("§cA mysterious force has removed your ${randomEffect.type.name.lowercase().replace('_', ' ')} effect.")
+        }
     }
 
     override fun getRecipe(): List<RecipeChoice?> {

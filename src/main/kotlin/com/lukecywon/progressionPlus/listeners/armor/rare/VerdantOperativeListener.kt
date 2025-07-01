@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.armor.uncommon
+package com.lukecywon.progressionPlus.listeners.armor.rare
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import com.lukecywon.progressionPlus.ProgressionPlus
@@ -23,7 +23,7 @@ class VerdantOperativeListener : Listener {
             if (isWearingFullVerdantOperativeSet(player)) {
                 if (!player.hasPotionEffect(PotionEffectType.SPEED)) {
                     player.addPotionEffect(
-                        PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 1, true, false)
+                        PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 0, true, false)
                     )
                     player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
                 }
