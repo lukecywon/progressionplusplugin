@@ -11,12 +11,14 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.EquipmentSlotGroup
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC) {
+object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC, enchantable = false) {
     val rocketKey = NamespacedKey(ProgressionPlus.getPlugin(), "rocket_elytra")
 
     override fun createItemStack(): ItemStack {
@@ -50,6 +52,8 @@ object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC) {
         meta.persistentDataContainer.set(rocketKey, PersistentDataType.BYTE, 1)
 
         item.itemMeta = meta
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
+        item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1) // Fake enchantment to show glint
         return applyMeta(item)
     }
 
