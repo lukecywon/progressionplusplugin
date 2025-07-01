@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus.listeners.armor
 import com.lukecywon.progressionPlus.ProgressionPlus
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.Particle
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -35,17 +36,22 @@ class GlassArmorListener : Listener {
         val data = player.persistentDataContainer
         val hits = data.getOrDefault(hitKey, PersistentDataType.INTEGER, 0)
 
-        if (hits < 3) {
+        if (hits < 4) {
             event.isCancelled = true
             data.set(hitKey, PersistentDataType.INTEGER, hits + 1)
-            player.sendMessage("§bYour Glass Armor absorbed the blow! (${hits + 1}/4)")
-        } else {
-            // Shatter all armor
-            player.inventory.armorContents = arrayOf(null, null, null, null)
-            data.remove(hitKey)
-            player.sendMessage("§cYour Glass Armor shattered!")
-            player.world.playSound(player.location, org.bukkit.Sound.BLOCK_GLASS_BREAK, 1f, 1f)
-            player.world.spawnParticle(org.bukkit.Particle.BLOCK_CRUMBLE, player.location.add(0.0, 1.0, 0.0), 30, 0.4, 0.8, 0.4, 0.02)
+
+            if (hits + 1 == 4) {
+                // 4th hit absorbed, then shatter
+                player.inventory.armorContents = arrayOf(null, null, null, null)
+                data.remove(hitKey)
+                player.sendMessage("§cYour Glass Armor shattered!")
+                player.world.playSound(player.location, org.bukkit.Sound.BLOCK_GLASS_BREAK, 1f, 1f)
+                val blockData = Material.GLASS.createBlockData()
+                player.world.spawnParticle(Particle.BLOCK, player.location.add(0.0, 1.0, 0.0), 30, 0.4, 0.8, 0.4, 0.02, blockData)
+            } else {
+                player.sendMessage("§bYour Glass Armor absorbed the blow! (${hits + 1}/4)")
+            }
         }
+
     }
 }

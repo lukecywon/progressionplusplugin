@@ -20,7 +20,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object GlassHelmet : CustomItem("glass_helmet", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        var item = HeadMaker.createCustomHead("https://static.planetminecraft.com/files/resource_media/skin/1232/sketch15_3165585.png")
+        var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/817c1f220b4465be794c228a1860f48ca7c481b92c2d268117950a4d989e35a9")
         item = applyArmor(item, 2.0)
         item = applyArmorToughness(item, 0.0)
         val meta = item.itemMeta
