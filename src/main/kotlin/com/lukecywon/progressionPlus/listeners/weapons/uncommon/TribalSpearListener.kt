@@ -1,23 +1,15 @@
-package com.lukecywon.progressionPlus.listeners.weapons.rare
+package com.lukecywon.progressionPlus.listeners.weapons.uncommon
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.items.weapons.rare.Peacemaker
-import com.lukecywon.progressionPlus.items.weapons.rare.TribalSpear
-import org.bukkit.Location
-import org.bukkit.Material
+import com.lukecywon.progressionPlus.items.weapons.uncommon.TribalSpear
 import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Trident
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityInteractEvent
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
-import java.util.*
 
 class TribalSpearListener : Listener {
     private val itemId = "tribal_spear"

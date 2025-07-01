@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.weapons.rare
+package com.lukecywon.progressionPlus.items.weapons.uncommon
 
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import com.lukecywon.progressionPlus.utils.enums.Rarity
@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
-object TribalSpear : CustomItem("tribal_spear", Rarity.RARE) {
+object TribalSpear : CustomItem("tribal_spear", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.TRIDENT)
         item = applyBaseDamage(item, 5.0)
