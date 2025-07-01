@@ -3,6 +3,7 @@ package com.lukecywon.progressionPlus.listeners.weapons.legendary
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.weapons.legendary.FamesAuri
 import org.bukkit.Color
+import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
@@ -192,7 +193,8 @@ class FamesAuriListener : Listener {
 
         val item = player.inventory.itemInMainHand
         val meta = item.itemMeta ?: return
-        meta.setCustomModelData(100)
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "fames_auri")
+
         item.itemMeta = meta
         player.inventory.setItemInMainHand(item)
     }
