@@ -35,7 +35,7 @@ object EnderiteBoots : CustomItem("enderite_boots", Rarity.EPIC) {
                 ItemLore.description("Gain Speed II and an extra 2 ❤ while wearing the full set."),
                 ItemLore.separator(),
                 ItemLore.abilityuse("Voidwalker's Dodge", Activation.SET_BONUS),
-                ItemLore.description("Have a 20% chance to dodge attacks when taking damage."),
+                ItemLore.description("Dodge every 5h hit taken."),
                 ItemLore.separator(),
                 ItemLore.stats(item),
                 ItemLore.lore("Movement feels weightless, as if space bends to your will.")
