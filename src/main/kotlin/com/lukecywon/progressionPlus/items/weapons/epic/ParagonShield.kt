@@ -54,7 +54,8 @@ object ParagonShield : CustomItem("paragon_shield", Rarity.EPIC) {
         return applyMeta(item)
     }
 
-    fun resetModel(item: ItemStack) {
+    private fun resetModel(item: ItemStack) {
+        if (!ParagonShield.isParagonShield(item)) return
         val meta = item.itemMeta ?: return
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
         item.itemMeta = meta
