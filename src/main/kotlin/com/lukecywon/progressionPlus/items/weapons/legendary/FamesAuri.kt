@@ -39,6 +39,7 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             )
         )
 
+        meta.setCustomModelData(100)
         item.itemMeta = meta
         return applyMeta(item)
     }
@@ -101,6 +102,19 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             )
         )
     )
+
+    fun applyTierModel(item: ItemStack, tier: Int) {
+        val meta = item.itemMeta ?: return
+        meta.setCustomModelData(
+            when (tier) {
+                0 -> 101
+                1 -> 102
+                2 -> 103
+                else -> 100
+            }
+        )
+        item.itemMeta = meta
+    }
 
     fun isFamesAuri(item: ItemStack?): Boolean {
         return item?.let { isThisItem(it) && it.type == Material.GOLDEN_SWORD } ?: false
