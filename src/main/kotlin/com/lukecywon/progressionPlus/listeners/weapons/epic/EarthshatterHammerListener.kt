@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
+import org.bukkit.persistence.PersistentDataType
 import java.util.*
 import kotlin.math.*
 
@@ -22,6 +23,7 @@ class EarthshatterHammerListener : Listener {
     private val plugin = ProgressionPlus.getPlugin()
     private val itemId = "earthshatter_hammer"
     private val cooldownMillis = 30_000L
+    private val blockTag = NamespacedKey(plugin, "earthshatter")
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -40,33 +42,29 @@ class EarthshatterHammerListener : Listener {
         }
 
         e.isCancelled = true
-
-        // Wind-up: apply slowness for 1.5 seconds (30 ticks)
         player.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 20, 5, false, false, false))
         player.world.playSound(player.location, Sound.BLOCK_BEACON_AMBIENT, 1f, 0.5f)
 
         object : BukkitRunnable() {
             override fun run() {
-                // Execute earthshatter visual + enemy slowness
                 launchEarthshatter(player)
-                CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis) // apply cooldown after activation
+                CustomItem.setCooldown(itemId, player.uniqueId, cooldownMillis)
             }
-        }.runTaskLater(plugin, 20L) // 1.5 seconds later
+        }.runTaskLater(plugin, 20L)
     }
 
     private fun launchEarthshatter(player: LivingEntity) {
         val origin = player.location.clone().add(0.0, -1.0, 0.0)
         val dir = player.location.direction.setY(0).normalize()
         val maxDistance = 12
-        val arcHalfWidth = 12.0  // VERY wide cone now
-
+        val arcHalfWidth = 12.0
         val affectedEntities = mutableSetOf<LivingEntity>()
 
         for (d in 1..maxDistance) {
             val forward = dir.clone().multiply(d.toDouble())
             val center = origin.clone().add(forward)
 
-            val perp = Vector(-dir.z, 0.0, dir.x)  // perpendicular to forward
+            val perp = Vector(-dir.z, 0.0, dir.x)
             val arcWidth = arcHalfWidth * (d.toDouble() / maxDistance)
             val steps = (arcWidth * 2).roundToInt()
 
@@ -77,13 +75,11 @@ class EarthshatterHammerListener : Listener {
                 for (dy in -2..2) {
                     val loc = baseLoc.clone().add(0.0, dy.toDouble(), 0.0)
                     val block = loc.block
-
                     if (block.type == Material.AIR || !block.type.isSolid) continue
 
                     val blockData = block.blockData
                     val delay = d * 2L
-
-                    val hasAffected = mutableSetOf<UUID>()  // prevent duplicate hits per entity
+                    val hasAffected = mutableSetOf<UUID>()
 
                     object : BukkitRunnable() {
                         override fun run() {
@@ -92,6 +88,9 @@ class EarthshatterHammerListener : Listener {
                             fake.velocity = Vector(0.0, 0.7, 0.0)
                             fake.dropItem = false
                             fake.setHurtEntities(false)
+
+                            // Set custom tag so we know this is an Earthshatter block
+                            fake.persistentDataContainer.set(blockTag, PersistentDataType.BYTE, 1)
 
                             block.world.spawnParticle(
                                 Particle.BLOCK_CRUMBLE,
@@ -102,7 +101,6 @@ class EarthshatterHammerListener : Listener {
                                 blockData
                             )
 
-                            // Damage & Slowness to nearby entities
                             val nearby = block.location.getNearbyLivingEntities(1.5)
                             for (entity in nearby) {
                                 if (entity.uniqueId == player.uniqueId || hasAffected.contains(entity.uniqueId)) continue
@@ -117,7 +115,6 @@ class EarthshatterHammerListener : Listener {
                         }
                     }.runTaskLater(plugin, delay)
 
-                    // Affect nearby entities
                     val nearby = loc.world.getNearbyEntities(loc, 1.5, 1.0, 1.5)
                     for (entity in nearby) {
                         if (entity is LivingEntity && entity != player) {
@@ -135,7 +132,10 @@ class EarthshatterHammerListener : Listener {
     @EventHandler
     fun onBlockLand(event: EntityChangeBlockEvent) {
         val falling = event.entity as? FallingBlock ?: return
-        event.isCancelled = true // Phantom blocks vanish on landing
+        val data = falling.persistentDataContainer
+        if (data.has(blockTag, PersistentDataType.BYTE)) {
+            event.isCancelled = true
+        }
     }
 
     private fun Location.getNearbyLivingEntities(radius: Double): List<LivingEntity> {
