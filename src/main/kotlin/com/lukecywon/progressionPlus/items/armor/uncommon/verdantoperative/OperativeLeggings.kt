@@ -24,8 +24,8 @@ import org.bukkit.persistence.PersistentDataType
 
 object OperativeLeggings : CustomItem("operative_leggings", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        var item = ItemStack(Material.LEATHER_LEGGINGS, EquipmentSlotGroup.LEGS)
-        item = applyArmor(item, 5.0)
+        var item = ItemStack(Material.LEATHER_LEGGINGS)
+        item = applyArmor(item, 5.0, EquipmentSlotGroup.LEGS)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Operative Leggings", NamedTextColor.GREEN).decorate(TextDecoration.BOLD))
