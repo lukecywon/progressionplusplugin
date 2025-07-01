@@ -123,7 +123,6 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
 
         item.itemMeta = meta
         applyMeta(item)
-        updateItemModel(item)
     }
 
     fun unleashSouls(player: Player, item: ItemStack) {
