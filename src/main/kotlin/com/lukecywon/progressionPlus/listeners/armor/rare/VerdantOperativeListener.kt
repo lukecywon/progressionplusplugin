@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.listeners.armor.uncommon
+package com.lukecywon.progressionPlus.listeners.armor.rare
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import com.lukecywon.progressionPlus.ProgressionPlus
