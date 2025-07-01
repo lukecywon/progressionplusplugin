@@ -23,7 +23,7 @@ class VerdantOperativeListener : Listener {
             if (isWearingFullVerdantOperativeSet(player)) {
                 if (!player.hasPotionEffect(PotionEffectType.SPEED)) {
                     player.addPotionEffect(
-                        PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 1, true, false)
+                        PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 0, true, false)
                     )
                     player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
                 }
