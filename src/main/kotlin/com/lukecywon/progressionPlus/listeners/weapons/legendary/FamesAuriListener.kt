@@ -93,6 +93,9 @@ class FamesAuriListener : Listener {
         val config = FamesAuri.buffs[validMode]
         activePlayers[uuid] = validMode
         activeModes[uuid] = validMode
+        val item = player.inventory.itemInMainHand
+        FamesAuri.applyTierModel(item, validMode)
+        player.inventory.setItemInMainHand(item)
         player.sendMessage("§e${config.label} Fames Auri activating in ${config.activationDelayTicks / 20} seconds...")
         player.playSound(player.location, Sound.BLOCK_BEACON_POWER_SELECT, 1.0f, 1.2f)
 
@@ -186,6 +189,12 @@ class FamesAuriListener : Listener {
         player.playSound(player.location, Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 0.8f)
         player.sendMessage("§6Fames Auri has been deactivated.")
         recentlyDeactivated[player.uniqueId] = System.currentTimeMillis()
+
+        val item = player.inventory.itemInMainHand
+        val meta = item.itemMeta ?: return
+        meta.setCustomModelData(100)
+        item.itemMeta = meta
+        player.inventory.setItemInMainHand(item)
     }
 
     private fun cycleMode(player: Player) {
