@@ -125,7 +125,7 @@ abstract class CustomItem(val name: String, private val rarity: Rarity, private 
         return item
     }
 
-    open fun applyArmor(item: ItemStack, newArmor: Double? = null): ItemStack {
+    open fun applyArmor(item: ItemStack, newArmor: Double? = null, slot: EquipmentSlotGroup = EquipmentSlotGroup.ARMOR): ItemStack {
         val meta = item.itemMeta
 
         // Remove old modifiers
@@ -134,10 +134,10 @@ abstract class CustomItem(val name: String, private val rarity: Rarity, private 
         if (newArmor == null) return item
 
         val modifier = AttributeModifier(
-            NamespacedKey(ProgressionPlus.getPlugin(), "armor"),
+            NamespacedKey(ProgressionPlus.getPlugin(), slot.toString() + "armor"),
             newArmor,
             AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.ARMOR
+            slot
         )
 
         meta.addAttributeModifier(Attribute.ARMOR, modifier)
@@ -146,7 +146,7 @@ abstract class CustomItem(val name: String, private val rarity: Rarity, private 
         return item
     }
 
-    open fun applyArmorToughness(item: ItemStack, newArmorToughness: Double? = null): ItemStack {
+    open fun applyArmorToughness(item: ItemStack, newArmorToughness: Double? = null, slot: EquipmentSlotGroup = EquipmentSlotGroup.ARMOR): ItemStack {
         val meta = item.itemMeta
 
         // Remove old modifiers
@@ -158,7 +158,7 @@ abstract class CustomItem(val name: String, private val rarity: Rarity, private 
             NamespacedKey(ProgressionPlus.getPlugin(), "armor_toughness"),
             newArmorToughness!!,
             AttributeModifier.Operation.ADD_NUMBER,
-            EquipmentSlotGroup.ARMOR
+            slot
         )
 
         meta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, modifier)
