@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.armor.uncommon.verdantoperative
+package com.lukecywon.progressionPlus.items.armor.rare.verdantoperative
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
@@ -20,7 +20,7 @@ import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
 import org.bukkit.persistence.PersistentDataType
 
-object OperativeHeadgear : CustomItem("operative_headgear", Rarity.UNCOMMON) {
+object OperativeHeadgear : CustomItem("operative_headgear", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.TURTLE_HELMET)
         item = applyArmor(item, 2.0, EquipmentSlotGroup.HEAD)

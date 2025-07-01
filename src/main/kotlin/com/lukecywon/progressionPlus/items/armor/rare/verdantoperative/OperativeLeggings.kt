@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.armor.uncommon.verdantoperative
+package com.lukecywon.progressionPlus.items.armor.rare.verdantoperative
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
@@ -22,7 +22,7 @@ import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
 import org.bukkit.persistence.PersistentDataType
 
-object OperativeLeggings : CustomItem("operative_leggings", Rarity.UNCOMMON) {
+object OperativeLeggings : CustomItem("operative_leggings", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.LEATHER_LEGGINGS)
         item = applyArmor(item, 5.0, EquipmentSlotGroup.LEGS)

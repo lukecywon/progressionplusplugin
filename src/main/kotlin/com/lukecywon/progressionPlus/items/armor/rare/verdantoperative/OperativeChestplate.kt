@@ -1,4 +1,4 @@
-package com.lukecywon.progressionPlus.items.armor.uncommon.verdantoperative
+package com.lukecywon.progressionPlus.items.armor.rare.verdantoperative
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
@@ -22,7 +22,7 @@ import org.bukkit.inventory.meta.trim.TrimMaterial
 import org.bukkit.inventory.meta.trim.TrimPattern
 import org.bukkit.persistence.PersistentDataType
 
-object OperativeChestplate : CustomItem("operative_chestplate", Rarity.UNCOMMON) {
+object OperativeChestplate : CustomItem("operative_chestplate", Rarity.RARE) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.LEATHER_CHESTPLATE)
         item = applyArmor(item, 6.0, EquipmentSlotGroup.CHEST)
