@@ -103,6 +103,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
     fun updateLore(item: ItemStack) {
         val meta = item.itemMeta ?: return
         val count = getSoulCount(item)
+
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Void Slash", Activation.LEFT_CLICK),
@@ -116,10 +117,12 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
                 ItemLore.separator(),
                 ItemLore.stats(item),
                 ItemLore.separator(),
-                ItemLore.lore("Forged in the void, it whispers with the cries of the condemned."),
+                ItemLore.lore("Forged in the void, it whispers with the cries of the condemned.")
             )
         )
+
         item.itemMeta = meta
+        applyMeta(item)
         updateItemModel(item)
     }
 
