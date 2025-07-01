@@ -23,7 +23,7 @@ import org.bukkit.persistence.PersistentDataType
 object EnderiteChestplate : CustomItem("enderite_chestplate", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_CHESTPLATE)
-        item = applyArmor(item, 4.0, EquipmentSlotGroup.CHEST)
+        item = applyArmor(item, 8.0, EquipmentSlotGroup.CHEST)
         item = applyArmorToughness(item, 3.0)
         val meta = item.itemMeta
 
