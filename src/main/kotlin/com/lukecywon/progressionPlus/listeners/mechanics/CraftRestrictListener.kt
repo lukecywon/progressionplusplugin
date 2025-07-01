@@ -32,7 +32,7 @@ class CraftRestrictListener : Listener {
         val result = e.inventory.result ?: return
         if (result.type !in restrictedItems) return
 
-        if (!plugin.config.getBoolean("diamond-unlocked")) {
+        if (!plugin.config.getBoolean("diamond_unlocked")) {
             e.inventory.result = ItemStack(Material.AIR)
         }
     }

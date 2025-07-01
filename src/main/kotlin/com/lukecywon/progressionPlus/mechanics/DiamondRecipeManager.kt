@@ -30,7 +30,7 @@ object DiamondRecipeManager : Manager {
     override fun start(plugin: JavaPlugin) {
         object : BukkitRunnable() {
             override fun run() {
-                val diamondUnlocked = plugin.config.getBoolean("diamond-unlocked")
+                val diamondUnlocked = plugin.config.getBoolean("diamond_unlocked")
 
                 if (diamondUnlocked) {
                     if (diamondRecipesPresent()) return
