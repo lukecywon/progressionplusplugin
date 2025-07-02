@@ -1,4 +1,5 @@
 nether_unlocked: false
 diamond_unlocked: false
-nether_unlock_time: "2025-07-01T00:20"
-end_unlock_time: "2025-07-01T00:00"
+nether_opened: false
+nether_unlock_time: "2025-07-06T20:00"
+end_unlock_time: "2025-07-10T20:00"
