@@ -1,11 +1,11 @@
-package com.lukecywon.progressionPlus.items.utility.epic
+package com.lukecywon.progressionPlus.items.utility.legendary
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.utils.enums.Activation
-import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.AetherCore
 import com.lukecywon.progressionPlus.utils.ItemLore
+import com.lukecywon.progressionPlus.utils.enums.Activation
+import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -15,8 +15,8 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
-    val beaconKey = NamespacedKey(ProgressionPlus.getPlugin(), "flight_beacon")
+object FlightBeacon : CustomItem("flight_beacon", Rarity.LEGENDARY) {
+    val beaconKey = NamespacedKey(ProgressionPlus.Companion.getPlugin(), "flight_beacon")
 
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.BEACON)
@@ -46,9 +46,12 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK),
-            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.ExactChoice(AetherCore.createItemStack()), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK),
-            RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK), RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK), RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK)
+            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(
+                Material.DIAMOND_BLOCK),
+            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.ExactChoice(AetherCore.createItemStack()), RecipeChoice.MaterialChoice(
+                Material.DIAMOND_BLOCK),
+            RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK), RecipeChoice.MaterialChoice(Material.NETHERITE_BLOCK), RecipeChoice.MaterialChoice(
+                Material.NETHERITE_BLOCK)
         )
     }
 }
