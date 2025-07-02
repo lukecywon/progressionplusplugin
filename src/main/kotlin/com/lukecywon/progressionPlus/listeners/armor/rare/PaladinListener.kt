@@ -4,6 +4,7 @@ import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.events.DayStartEvent
 import com.lukecywon.progressionPlus.events.NightStartEvent
+import com.lukecywon.progressionPlus.utils.SetBonusHelper
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.Sound
@@ -20,24 +21,32 @@ class PaladinListener : Listener {
     @EventHandler
     fun onArmorChange(event: PlayerArmorChangeEvent) {
         val player = event.player
+        val uuid = player.uniqueId
 
         Bukkit.getScheduler().runTaskLater(ProgressionPlus.instance, Runnable {
-            if (isWearingFullPaladinSet(player)) {
-                if (player.world.isDayTime) {
-                    if (!player.hasPotionEffect(PotionEffectType.HEALTH_BOOST)) {
+            val isWearing = isWearingFullPaladinSet(player)
+            val currentSet = SetBonusHelper.activeSet[uuid]
+
+            if (isWearing) {
+                if (currentSet != key) {
+                    if (player.world.isDayTime) {
+                        if (!player.hasPotionEffect(PotionEffectType.HEALTH_BOOST)) {
+                            player.addPotionEffect(
+                                PotionEffect(PotionEffectType.HEALTH_BOOST, Int.MAX_VALUE, 0, true, false)
+                            )
+                        }
+                    } else {
                         player.addPotionEffect(
-                            PotionEffect(PotionEffectType.HEALTH_BOOST, Int.MAX_VALUE, 0, true, false)
+                            PotionEffect(PotionEffectType.GLOWING, Int.MAX_VALUE, 1, true, false)
                         )
                     }
-                } else {
-                    player.addPotionEffect(
-                        PotionEffect(PotionEffectType.GLOWING, Int.MAX_VALUE, 1, true, false)
-                    )
+                    player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
+                    SetBonusHelper.activeSet[uuid] = key
                 }
-                player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
-            } else {
+            } else if (currentSet == key) {
                 player.removePotionEffect(PotionEffectType.HEALTH_BOOST)
                 player.removePotionEffect(PotionEffectType.GLOWING)
+                SetBonusHelper.activeSet.remove(uuid)
             }
         }, 1L)
     }
@@ -50,8 +59,9 @@ class PaladinListener : Listener {
                     player.addPotionEffect(
                         PotionEffect(PotionEffectType.HEALTH_BOOST, Int.MAX_VALUE, 0, true, false)
                     )
+                    player.playSound(player.location, Sound.BLOCK_BEACON_ACTIVATE, 1f, 1f)
                 }
-                player.playSound(player.location, Sound.BLOCK_BEACON_ACTIVATE, 1f, 1f)
+
             }
         }
     }
@@ -60,7 +70,7 @@ class PaladinListener : Listener {
     fun onDayTime(event: NightStartEvent) {
         event.world.players.forEach { player ->
             if (isWearingFullPaladinSet(player)) {
-                if (!player.hasPotionEffect(PotionEffectType.HEALTH_BOOST)) {
+                if (!player.hasPotionEffect(PotionEffectType.GLOWING)) {
                     player.addPotionEffect(
                         PotionEffect(PotionEffectType.GLOWING, Int.MAX_VALUE, 1, true, false)
                     )

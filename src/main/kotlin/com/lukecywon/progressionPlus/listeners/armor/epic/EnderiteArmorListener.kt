@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.listeners.armor.epic
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.utils.SetBonusHelper
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
@@ -22,25 +23,28 @@ class EnderiteArmorListener : Listener {
     private val key = NamespacedKey(ProgressionPlus.getPlugin(), "enderite_set")
     private val hitCount: MutableMap<UUID, Int> = mutableMapOf()
     private val maxHits = 5
+    private val plugin = ProgressionPlus.getPlugin()
 
     @EventHandler
     fun onArmorChange(event: PlayerArmorChangeEvent) {
         val player = event.player
+        val uuid = player.uniqueId
 
-        Bukkit.getScheduler().runTaskLater(ProgressionPlus.instance, Runnable {
-            if (isWearingFullEnderiteSet(player)) {
-                if (!player.hasPotionEffect(PotionEffectType.SPEED)) {
-                    player.addPotionEffect(
-                        PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 1, true, false)
-                    )
-                    player.addPotionEffect(
-                        PotionEffect(PotionEffectType.HEALTH_BOOST, Int.MAX_VALUE, 1, true, false)
-                    )
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+            val isWearing = isWearingFullEnderiteSet(player)
+            val currentSet = SetBonusHelper.activeSet[uuid]
+
+            if (isWearing) {
+                if (currentSet != key) {
+                    player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 1, true, false))
+                    player.addPotionEffect(PotionEffect(PotionEffectType.HEALTH_BOOST, Int.MAX_VALUE, 1, true, false))
                     player.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
+                    SetBonusHelper.activeSet[uuid] = key
                 }
-            } else {
+            } else if (currentSet == key) {
                 player.removePotionEffect(PotionEffectType.SPEED)
                 player.removePotionEffect(PotionEffectType.HEALTH_BOOST)
+                SetBonusHelper.activeSet.remove(uuid)
             }
         }, 1L)
     }
