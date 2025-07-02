@@ -92,7 +92,7 @@ class SnowGlobeListener : Listener {
                         if (!affectedEntities.containsKey(uuid)) {
                             val originalSpeed = speedAttr.baseValue
                             val originalJump = jumpAttr?.baseValue
-                            val speedModifier = AttributeModifier(UUID.randomUUID(), "snowglobe_slow", -0.5 * originalSpeed, AttributeModifier.Operation.ADD_NUMBER)
+                            val speedModifier = AttributeModifier(UUID.randomUUID(), "snowglobe_slow", -0.6 * originalSpeed, AttributeModifier.Operation.ADD_NUMBER)
                             speedAttr.addModifier(speedModifier)
                             if (jumpAttr != null) {
                                 jumpAttr.baseValue = 0.0
