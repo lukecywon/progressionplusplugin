@@ -9,69 +9,78 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.player.PlayerDropItemEvent
-import org.bukkit.event.player.PlayerItemHeldEvent
-import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import java.util.*
 
 class ParagonShieldListener : Listener {
 
-    private val blockTimestamps = mutableMapOf<UUID, Long>()
     private val cooldowns = mutableMapOf<UUID, Long>()
     private val config = ParagonShield.CONFIG
 
     @EventHandler
-    fun onBlock(event: EntityDamageByEntityEvent) {
-        val player = event.entity as? Player ?: return
-        val shield = player.inventory.itemInOffHand
-        if (!ParagonShield.isThisItem(shield)) return
-        if (!player.isBlocking) return
+    fun onRightClick(event: PlayerInteractEvent) {
+        val player = event.player
+        val hand = event.hand ?: return
+        val item = if (hand == EquipmentSlot.HAND) {
+            player.inventory.itemInMainHand
+        } else {
+            player.inventory.itemInOffHand
+        }
+
+        if (!ParagonShield.isParagonShield(item)) return
+        if (!event.action.name.contains("RIGHT_CLICK")) return
 
         val uuid = player.uniqueId
         val now = System.currentTimeMillis()
+        if (cooldowns[uuid]?.let { it > now } == true) return
 
-        if (cooldowns[uuid]?.let { it > now } == true) {
-            player.playSound(player.location, Sound.ITEM_SHIELD_BREAK, 1f, 0.6f)
-            return
-        }
-
-        // 🔁 Switch to blocking texture model
-        val meta = shield.itemMeta
-        meta?.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield_1")
-        shield.itemMeta = meta
-        player.inventory.setItem(EquipmentSlot.OFF_HAND, shield)
-
-        val blockStart = blockTimestamps.getOrPut(uuid) { now }
-        val timeHeld = now - blockStart
-
-        if (timeHeld > config.parryWindowTicks * 50) {
-            cooldowns[uuid] = now + config.cooldownTicks * 50
-            blockTimestamps.remove(uuid)
-            player.playSound(player.location, Sound.ITEM_SHIELD_BREAK, 1f, 0.8f)
-
-            // 🔁 Reset model if parry failed
-            resetModel(shield)
-            player.inventory.setItem(EquipmentSlot.OFF_HAND, shield)
-            return
-        }
-
-        // ✅ Successful parry
-        event.damage = 0.0
-        event.isCancelled = true
+        // Apply cooldown
         cooldowns[uuid] = now + config.cooldownTicks * 50
-        blockTimestamps.remove(uuid)
-        player.playSound(player.location, Sound.ITEM_SHIELD_BLOCK, 1f, 1.2f)
 
+        // Switch model temporarily
+        val meta = item.itemMeta ?: return
+        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield_1")
+        item.itemMeta = meta
+        updateHeldItem(player, hand, item)
+
+        // Give Resistance
+        player.addPotionEffect(
+            PotionEffect(
+                PotionEffectType.RESISTANCE,
+                config.resistanceDurationTicks.toInt(),
+                config.resistanceAmplifier,
+                false, false, true
+            )
+        )
+
+        // Reset model after resistance duration
+        object : BukkitRunnable() {
+            override fun run() {
+                ParagonShield.resetModel(item)
+                updateHeldItem(player, hand, item)
+            }
+        }.runTaskLater(ProgressionPlus.getPlugin(), config.resistanceDurationTicks)
+
+        // Trigger parry effect after windup
         object : BukkitRunnable() {
             override fun run() {
                 performParry(player)
             }
         }.runTaskLater(ProgressionPlus.getPlugin(), config.windupTicks)
+    }
+
+    private fun updateHeldItem(player: Player, hand: EquipmentSlot, item: ItemStack) {
+        when (hand) {
+            EquipmentSlot.HAND -> player.inventory.setItemInMainHand(item)
+            EquipmentSlot.OFF_HAND -> player.inventory.setItem(EquipmentSlot.OFF_HAND, item)
+            else -> {}
+        }
     }
 
     private fun performParry(player: Player) {
@@ -80,17 +89,15 @@ class ParagonShieldListener : Listener {
         val forward = origin.direction.normalize()
         val right = forward.clone().crossProduct(Vector(0, 1, 0)).normalize()
         val up = Vector(0, 1, 0)
-
         val center = origin.toVector()
-        val hitEntities = mutableSetOf<LivingEntity>()
 
+        val hitEntities = mutableSetOf<LivingEntity>()
         for (x in -config.aoeWidth / 2..config.aoeWidth / 2) {
             for (y in 0 until config.aoeHeight) {
                 for (z in 1..config.aoeLength) {
                     val offset = right.clone().multiply(x.toDouble())
                         .add(up.clone().multiply(y.toDouble()))
                         .add(forward.clone().multiply(z.toDouble()))
-
                     val pos = center.clone().add(offset)
                     world.spawnParticle(Particle.CRIT, pos.toLocation(world), 1, 0.0, 0.0, 0.0, 0.0)
 
@@ -105,7 +112,6 @@ class ParagonShieldListener : Listener {
 
         for (target in hitEntities) {
             target.damage(config.damage, player)
-
             val knockVec = target.location.toVector().subtract(player.location.toVector()).normalize()
             target.velocity = target.velocity.add(knockVec.multiply(config.knockbackStrength)).setY(0.25)
 
@@ -129,52 +135,5 @@ class ParagonShieldListener : Listener {
         }
 
         world.playSound(player.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1f, 1f)
-
-        // 🔁 Reset model back after parry finishes
-        val offhand = player.inventory.itemInOffHand
-        if (ParagonShield.isParagonShield(offhand)) {
-            resetModel(offhand)
-            player.inventory.setItem(EquipmentSlot.OFF_HAND, offhand)
-        }
-    }
-
-    @EventHandler
-    fun onDrop(e: PlayerDropItemEvent) {
-        val item = e.itemDrop.itemStack
-        if (ParagonShield.isThisItem(item)) {
-            resetModel(item)
-        }
-    }
-
-    @EventHandler
-    fun onItemHeldChange(e: PlayerItemHeldEvent) {
-        val player = e.player
-        val oldItem = player.inventory.getItem(e.previousSlot) ?: return
-        if (ParagonShield.isThisItem(oldItem)) {
-            resetModel(oldItem)
-            player.inventory.setItem(e.previousSlot, oldItem)
-        }
-    }
-
-    @EventHandler
-    fun onQuit(e: PlayerQuitEvent) {
-        val item = e.player.inventory.itemInOffHand
-        if (ParagonShield.isThisItem(item)) {
-            resetModel(item)
-        }
-    }
-
-    private fun resetModel(item: ItemStack) {
-        if (!ParagonShield.isParagonShield(item)) return
-        val meta = item.itemMeta ?: return
-        meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "paragon_shield")
-        item.itemMeta = meta
-    }
-
-    init {
-        Bukkit.getScheduler().runTaskTimer(ProgressionPlus.getPlugin(), Runnable {
-            val now = System.currentTimeMillis()
-            blockTimestamps.entries.removeIf { now - it.value > config.parryWindowTicks * 50 }
-        }, 20L, 20L)
     }
 }
