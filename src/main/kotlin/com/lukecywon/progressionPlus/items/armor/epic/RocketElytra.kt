@@ -41,8 +41,8 @@ object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC, enchantable = fal
                 ItemLore.cooldown(0),
                 ItemLore.abilityuse("Rocket Boost", Activation.SNEAK),
                 ItemLore.description("Consumes 1 charge to dash midair."),
-                ItemLore.description("Regenerates a charge every 10 seconds."),
-                ItemLore.cooldown(0),
+                ItemLore.description("Stores up to 3 charges"),
+                ItemLore.cooldown(10),
                 ItemLore.separator(),
                 ItemLore.stats(item),
                 ItemLore.lore("The skies call, and rockets answer.")
