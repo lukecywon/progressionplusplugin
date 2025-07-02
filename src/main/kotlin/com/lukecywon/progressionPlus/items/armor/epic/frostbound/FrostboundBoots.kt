@@ -33,6 +33,7 @@ object FrostboundBoots : CustomItem("frostbound_boots", Rarity.EPIC) {
             listOf(
                 ItemLore.abilityuse("Frostbite Retaliation", Activation.SET_BONUS),
                 ItemLore.description("Attackers are afflicted with Frostbite on impact."),
+                ItemLore.cooldown(7),
                 ItemLore.separator(),
                 ItemLore.stats(item),
                 ItemLore.lore("The cold bites back harder than the blade.")
