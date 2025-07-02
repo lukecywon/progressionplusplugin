@@ -23,7 +23,7 @@ import org.bukkit.persistence.PersistentDataType
 object EnderiteBoots : CustomItem("enderite_boots", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_BOOTS)
-        item = applyArmor(item, 3.0, EquipmentSlotGroup.FEET)
+        item = applyArmor(item, 3.5, EquipmentSlotGroup.FEET)
         item = applyArmorToughness(item, 3.0)
         val meta = item.itemMeta
 
@@ -66,8 +66,7 @@ object EnderiteBoots : CustomItem("enderite_boots", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(
-                SteelIngot.createItemStack()),
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
             RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
             null,null,null
         )

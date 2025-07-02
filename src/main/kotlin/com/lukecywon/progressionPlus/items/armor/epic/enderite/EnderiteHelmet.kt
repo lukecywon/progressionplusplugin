@@ -20,7 +20,7 @@ import org.bukkit.persistence.PersistentDataType
 object EnderiteHelmet : CustomItem("enderite_helmet", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/c40e8962143ef41defb0b6489d736b4fa88a9387f8cde0c5f366928687912144")
-        item = applyArmor(item, 4.0, EquipmentSlotGroup.HEAD)
+        item = applyArmor(item, 4.5, EquipmentSlotGroup.HEAD)
         item = applyArmorToughness(item, 3.0)
         val meta = item.itemMeta
 
