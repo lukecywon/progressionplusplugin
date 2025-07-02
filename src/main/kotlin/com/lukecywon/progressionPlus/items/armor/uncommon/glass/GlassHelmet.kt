@@ -7,6 +7,7 @@ import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import com.lukecywon.progressionPlus.utils.HeadMaker
+import com.lukecywon.progressionPlus.utils.enums.Activation
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -29,10 +30,12 @@ object GlassHelmet : CustomItem("glass_helmet", Rarity.UNCOMMON) {
 
         meta.lore(
             listOf(
-                ItemLore.stats(item),
+                ItemLore.abilityuse("Shatterguard", Activation.SET_BONUS),
+                ItemLore.description("Negates 4 heavy hits while wearing the full set."),
+                ItemLore.description("Glass armor shatters completely after absorbing damage."),
                 ItemLore.separator(),
-                ItemLore.lore("Fragile but blocks devastating blows."),
-                ItemLore.lore("Shatters after 4 heavy hits.")
+                ItemLore.stats(item),
+                ItemLore.lore("Fragile but blocks devastating blows.")
             )
         )
 

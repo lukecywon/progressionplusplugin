@@ -43,6 +43,7 @@ object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC, enchantable = fal
                 ItemLore.description("Regenerates a charge every 10 seconds."),
                 ItemLore.cooldown(0),
                 ItemLore.separator(),
+                ItemLore.stats(item),
                 ItemLore.lore("The skies call, and rockets answer.")
             )
         )
