@@ -37,9 +37,9 @@ object AetherCore : CustomItem("aether_core", Rarity.COMPONENT, true) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
-            Material.ELYTRA, Material.ELYTRA, Material.ELYTRA,
+            Material.DIAMOND_BLOCK, Material.ELYTRA, Material.DIAMOND_BLOCK,
             Material.ELYTRA, Material.NETHER_STAR, Material.ELYTRA,
-            Material.ELYTRA, Material.ELYTRA, Material.ELYTRA
+            Material.DIAMOND_BLOCK, Material.ELYTRA, Material.DIAMOND_BLOCK
         ))
     }
 }

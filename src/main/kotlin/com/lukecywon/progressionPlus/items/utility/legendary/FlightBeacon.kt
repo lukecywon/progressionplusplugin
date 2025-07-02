@@ -46,7 +46,7 @@ object FlightBeacon : CustomItem("flight_beacon", Rarity.LEGENDARY) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.MaterialChoice(
+            RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.ExactChoice(AetherCore.createItemStack()), RecipeChoice.MaterialChoice(
                 Material.DIAMOND_BLOCK),
             RecipeChoice.MaterialChoice(Material.DIAMOND_BLOCK), RecipeChoice.ExactChoice(AetherCore.createItemStack()), RecipeChoice.MaterialChoice(
                 Material.DIAMOND_BLOCK),
