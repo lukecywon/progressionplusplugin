@@ -24,7 +24,7 @@ import org.bukkit.persistence.PersistentDataType
 object FrostboundLeggings : CustomItem("frostbound_leggings", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.DIAMOND_LEGGINGS)
-        item = applyArmor(item, 5.5, EquipmentSlotGroup.LEGS)
+        item = applyArmor(item, 5.0, EquipmentSlotGroup.LEGS)
         item = applyArmorToughness(item, 1.5)
         val meta = item.itemMeta
 
