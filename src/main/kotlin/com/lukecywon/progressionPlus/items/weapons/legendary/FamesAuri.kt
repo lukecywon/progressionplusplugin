@@ -19,7 +19,10 @@ import java.util.*
 object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.GOLDEN_SWORD)
+        var item = ItemStack(Material.GOLDEN_SWORD)
+
+        item = applyBaseDamage(item, 4.0)
+        item = applyBaseAttackSpeed(item, 1.8)
         val meta = item.itemMeta!!
 
         meta.displayName(
@@ -77,7 +80,6 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             intervalTicks = 40L,
             potionEffects = listOf(
                 PotionEffect(PotionEffectType.SPEED, 40, 1, true, false),
-                PotionEffect(PotionEffectType.SATURATION, 40, 0, true, false),
                 PotionEffect(PotionEffectType.FIRE_RESISTANCE, 40, 0, true, false),
                 ),
             attributeModifiers = listOf(
@@ -89,13 +91,12 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
             material = Material.GOLD_BLOCK,
             label = "Tier III",
             activationDelayTicks = 100L,
-            intervalTicks = 10L,
+            intervalTicks = 8L,
             potionEffects = listOf(
-                PotionEffect(PotionEffectType.SPEED, 10, 2, true, false),
-                PotionEffect(PotionEffectType.SATURATION, 10, 1, true, false),
-                PotionEffect(PotionEffectType.ABSORPTION, 10, 0, true, false),
-                PotionEffect(PotionEffectType.FIRE_RESISTANCE, 10, 0, true, false),
-                PotionEffect(PotionEffectType.WATER_BREATHING, 10, 0, true, false),
+                PotionEffect(PotionEffectType.SPEED, 8, 2, true, false),
+                PotionEffect(PotionEffectType.ABSORPTION, 8, 0, true, false),
+                PotionEffect(PotionEffectType.FIRE_RESISTANCE, 8, 0, true, false),
+                PotionEffect(PotionEffectType.WATER_BREATHING, 8, 0, true, false),
             ),
             attributeModifiers = listOf(
                 Attribute.ATTACK_DAMAGE to AttributeModifier(UUID.nameUUIDFromBytes("fames_auri_damage".toByteArray()), "fames_auri_damage", 7.0, AttributeModifier.Operation.ADD_NUMBER),

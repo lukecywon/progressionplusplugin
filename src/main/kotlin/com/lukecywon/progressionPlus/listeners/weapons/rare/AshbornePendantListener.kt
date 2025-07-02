@@ -32,7 +32,7 @@ class AshbornePendantListener : Listener {
 
         val origin = player.location.add(0.0, 1.0, 0.0)
         val direction = player.location.direction.normalize()
-        val range = 7.0
+        val range = 7.5
         val coneAngle = Math.toRadians(80.0)
 
         val world = player.world
