@@ -62,7 +62,7 @@ class FrostboundArmorListener : Listener {
         // Apply effects to attacker
         attacker.world.playSound(attacker.location, Sound.ENTITY_PLAYER_HURT_FREEZE, 1f, 0.6f)
         attacker.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, effectDuration.toInt(), 0))
-        attacker.freezeTicks = 160
+        attacker.freezeTicks = 450
 
         attacker.world.spawnParticle(Particle.SNOWFLAKE, attacker.location.add(0.0, 1.0, 0.0), 15, 0.3, 0.6, 0.3, 0.01)
         attacker.world.playSound(attacker.location, Sound.BLOCK_SNOW_BREAK, 1f, 0.9f)
