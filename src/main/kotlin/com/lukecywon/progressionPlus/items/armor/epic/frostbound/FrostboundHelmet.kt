@@ -53,9 +53,9 @@ object FrostboundHelmet : CustomItem("frostbound_helmet", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            null, null, null,
             RecipeChoice.MaterialChoice(Material.PACKED_ICE), RecipeChoice.MaterialChoice(Material.DIAMOND_HELMET), RecipeChoice.MaterialChoice(Material.PACKED_ICE),
-            RecipeChoice.MaterialChoice(Material.BLUE_ICE), null, RecipeChoice.MaterialChoice(Material.BLUE_ICE)
+            RecipeChoice.MaterialChoice(Material.BLUE_ICE), null, RecipeChoice.MaterialChoice(Material.BLUE_ICE),
+            null, null, null
         )
     }
 }

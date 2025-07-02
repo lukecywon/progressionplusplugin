@@ -67,9 +67,9 @@ object PaladinBoots : CustomItem("paladin_boots", Rarity.RARE) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            null, null, null,
             RecipeChoice.MaterialChoice(Material.GOLD_INGOT), null, RecipeChoice.MaterialChoice(Material.GOLD_INGOT),
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack())
+            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            null, null, null
         )
     }
 }

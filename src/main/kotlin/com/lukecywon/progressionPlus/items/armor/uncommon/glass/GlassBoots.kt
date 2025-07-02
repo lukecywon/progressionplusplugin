@@ -60,9 +60,9 @@ object GlassBoots : CustomItem("glass_boots", Rarity.UNCOMMON) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            null, null, null,
             RecipeChoice.MaterialChoice(Material.GLASS), null, RecipeChoice.MaterialChoice(Material.GLASS),
-            RecipeChoice.MaterialChoice(Material.GLASS), null, RecipeChoice.MaterialChoice(Material.GLASS)
+            RecipeChoice.MaterialChoice(Material.GLASS), null, RecipeChoice.MaterialChoice(Material.GLASS),
+            null, null, null
         )
     }
 }
