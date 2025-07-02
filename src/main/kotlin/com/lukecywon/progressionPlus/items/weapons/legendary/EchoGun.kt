@@ -12,6 +12,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.*
+import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -59,10 +60,12 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
         Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
             val direction = player.eyeLocation.direction.normalize()
             val start = player.eyeLocation
+            val hitTargets = mutableSetOf<Player>()
 
             for (i in 1..40) {
                 val point = start.clone().add(direction.clone().multiply(i))
                 world.spawnParticle(Particle.SONIC_BOOM, point, 3, 0.0, 0.0, 0.0, 0.0)
+
 
                 val nearby = world.getNearbyEntities(point, 1.0, 1.0, 1.0)
                 for (entity in nearby) {
@@ -76,19 +79,23 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
                                 entity.world.playSound(player.location, Sound.ITEM_SHIELD_BREAK, 1f, 1f)
                             }
 
-                            // Remove random potion effect
-                            removeRandomPotionEffect(entity)
-
-                            // Add nausea
-                            entity.addPotionEffect(PotionEffect(
-                                PotionEffectType.NAUSEA, 2, 2, false, false
-                            ))
+                            hitTargets.add(entity)
                         }
 
                         world.playSound(player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
                         world.playSound(point, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
                     }
                 }
+            }
+
+            hitTargets.forEach { target ->
+                // Remove random potion effect
+                removeRandomPotionEffect(target)
+
+                // Add nausea
+                target.addPotionEffect(PotionEffect(
+                    PotionEffectType.NAUSEA, 2, 2, false, false
+                ))
             }
 
             world.playSound(player.location, Sound.ENTITY_WARDEN_SONIC_BOOM, 1f, 1f)
