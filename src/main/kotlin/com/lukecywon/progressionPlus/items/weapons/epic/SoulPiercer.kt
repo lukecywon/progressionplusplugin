@@ -18,7 +18,7 @@ import org.bukkit.persistence.PersistentDataType
 
 object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        var item = ItemStack(Material.DIAMOND_SWORD)
+        var item = ItemStack(Material.NETHERITE_SWORD)
         item = applyBaseDamage(item, 12.0)
         item = applyBaseAttackSpeed(item, 1.4)
         val meta = item.itemMeta!!
