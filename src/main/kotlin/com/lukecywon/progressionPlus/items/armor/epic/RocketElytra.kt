@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items.armor.epic
 
 import com.lukecywon.progressionPlus.ProgressionPlus
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.AetherCore
 import com.lukecywon.progressionPlus.items.component.InfernalShard
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.utils.enums.Activation
@@ -63,7 +64,8 @@ object RocketElytra : CustomItem("rocket_elytra", Rarity.EPIC, enchantable = fal
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
             null, RecipeChoice.MaterialChoice(Material.FIREWORK_ROCKET), null,
-            RecipeChoice.ExactChoice(InfernalShard.createItemStack()), RecipeChoice.MaterialChoice(Material.ELYTRA), RecipeChoice.ExactChoice(
+            RecipeChoice.ExactChoice(InfernalShard.createItemStack()), RecipeChoice.ExactChoice(
+                AetherCore.createItemStack()), RecipeChoice.ExactChoice(
                 InfernalShard.createItemStack()),
             null, RecipeChoice.MaterialChoice(Material.FIREWORK_ROCKET), null
         )
