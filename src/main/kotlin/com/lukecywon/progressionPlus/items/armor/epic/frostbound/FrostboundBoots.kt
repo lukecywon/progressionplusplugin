@@ -63,9 +63,8 @@ object FrostboundBoots : CustomItem("frostbound_boots", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(
-                SteelIngot.createItemStack()),
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            RecipeChoice.MaterialChoice(Material.PACKED_ICE), null, RecipeChoice.MaterialChoice(Material.PACKED_ICE),
+            RecipeChoice.MaterialChoice(Material.BLUE_ICE), RecipeChoice.MaterialChoice(Material.DIAMOND_BOOTS), RecipeChoice.MaterialChoice(Material.BLUE_ICE),
             null,null,null
         )
     }

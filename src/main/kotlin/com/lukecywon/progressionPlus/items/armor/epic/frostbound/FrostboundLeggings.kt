@@ -2,6 +2,7 @@ package com.lukecywon.progressionPlus.items.armor.epic.frostbound
 
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.SteelIngot
+import com.lukecywon.progressionPlus.items.component.TideCrystal
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import com.lukecywon.progressionPlus.utils.enums.Rarity
@@ -64,10 +65,9 @@ object FrostboundLeggings : CustomItem("frostbound_leggings", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(
-                SteelIngot.createItemStack()),
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
-            null,null,null
+            RecipeChoice.MaterialChoice(Material.PACKED_ICE), RecipeChoice.MaterialChoice(Material.DIAMOND_LEGGINGS), RecipeChoice.MaterialChoice(Material.PACKED_ICE),
+            RecipeChoice.MaterialChoice(Material.BLUE_ICE), null, RecipeChoice.MaterialChoice(Material.BLUE_ICE),
+            RecipeChoice.MaterialChoice(Material.BLUE_ICE), null, RecipeChoice.MaterialChoice(Material.BLUE_ICE)
         )
     }
 }
