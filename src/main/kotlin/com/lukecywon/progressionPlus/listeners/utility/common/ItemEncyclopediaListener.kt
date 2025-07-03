@@ -5,13 +5,11 @@ import com.lukecywon.progressionPlus.ui.ItemRecipeGUI
 import com.lukecywon.progressionPlus.ui.ItemListGUI
 import com.lukecywon.progressionPlus.ui.ItemObtainGUI
 import com.lukecywon.progressionPlus.ui.RarityGUI
-import com.lukecywon.progressionPlus.utils.GUIHistory
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 class ItemEncyclopediaListener : Listener {
@@ -36,10 +34,5 @@ class ItemEncyclopediaListener : Listener {
         ItemListGUI.handleClick(e)
         ItemRecipeGUI.handleClick(e)
         ItemObtainGUI.handleClick(e)
-    }
-
-    @EventHandler
-    fun onInventoryClose(e: InventoryCloseEvent) {
-        GUIHistory.clearStack(e.player.uniqueId)
     }
 }

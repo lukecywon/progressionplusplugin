@@ -3,7 +3,6 @@ package com.lukecywon.progressionPlus.ui
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.gui.GUI
 import com.lukecywon.progressionPlus.items.CustomItem
-import com.lukecywon.progressionPlus.utils.GUIHistory
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -95,42 +94,11 @@ object ItemObtainGUI : GUI("Item Info", 9 * 5) {
         e.isCancelled = true
 
         val clicked = e.currentItem ?: return
-
-        val match = CustomItem.getAll().find { it.isThisItem(clicked) }
-        if (match != null && match != GUIHistory.peek(player.uniqueId)) {
-            GUIHistory.push(player.uniqueId, match)
-            if (match.hasRecipe()) {
-                ItemRecipeGUI.open(player, match)
-            } else {
-                ItemObtainGUI.open(player, match)
-            }
-            player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
-            return
-        }
-
         if (clicked.type == Material.BARRIER) {
-            GUIHistory.clearAll(player.uniqueId) // Clear history on close
             player.closeInventory()
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
         } else if (clicked.type == Material.ARROW) {
-
-            val previous = GUIHistory.pop(player.uniqueId)
-            if (previous != null) {
-                if (previous.hasRecipe()) {
-                    ItemRecipeGUI.open(player, previous)
-                } else {
-                    ItemObtainGUI.open(player, previous)
-                }
-            } else {
-                // If there's no more item history, go back to ItemList using remembered rarity
-                val rarity = GUIHistory.getItemListOrigin(player.uniqueId)
-                if (rarity != null) {
-                    ItemListGUI.open(player, rarity)
-                } else {
-                    RarityGUI.open(player)
-                }
-            }
-
+            ItemListGUI.open(player, rarity)
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
         }
     }
