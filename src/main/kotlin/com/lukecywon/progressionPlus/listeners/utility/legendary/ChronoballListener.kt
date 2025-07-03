@@ -39,7 +39,7 @@ class ChronoballListener : Listener {
     @EventHandler
     fun onDrop(e: PlayerDropItemEvent) {
         val item = e.itemDrop.itemStack
-        if (Chronoball.isChronoball(item)) {
+        if (Chronoball.isThisItem(item)) {
             Chronoball.resetModel(item)
         }
     }
@@ -47,7 +47,7 @@ class ChronoballListener : Listener {
     @EventHandler
     fun onQuit(e: PlayerQuitEvent) {
         val item = e.player.inventory.itemInMainHand
-        if (Chronoball.isChronoball(item)) {
+        if (Chronoball.isThisItem(item)) {
             Chronoball.resetModel(item)
         }
     }
@@ -56,7 +56,7 @@ class ChronoballListener : Listener {
     fun onRightClick(e: PlayerInteractEvent) {
         val player = e.player
         val item = e.item ?: return
-        if (!Chronoball.isChronoball(item)) return
+        if (!Chronoball.isThisItem(item)) return
         if (e.action != Action.RIGHT_CLICK_AIR && e.action != Action.RIGHT_CLICK_BLOCK) return
 
         e.isCancelled = true

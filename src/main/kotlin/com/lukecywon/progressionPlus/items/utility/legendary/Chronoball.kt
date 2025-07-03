@@ -56,19 +56,15 @@ object Chronoball : CustomItem("chronoball", Rarity.LEGENDARY) {
         return applyMeta(item)
     }
 
-    fun isChronoball(item: ItemStack?): Boolean {
-        return item?.let { isThisItem(it) && it.type == Material.SNOWBALL } ?: false
-    }
-
     fun resetModel(item: ItemStack) {
-        if (!Chronoball .isChronoball(item)) return
+        if (!Chronoball.isThisItem(item)) return
         val meta = item.itemMeta ?: return
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "chronoball")
         item.itemMeta = meta
     }
 
     fun setActiveModel(item: ItemStack) {
-        if (!Chronoball.isChronoball(item)) return
+        if (!Chronoball.isThisItem(item)) return
         val meta = item.itemMeta ?: return
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "chronoball_1")
         item.itemMeta = meta
