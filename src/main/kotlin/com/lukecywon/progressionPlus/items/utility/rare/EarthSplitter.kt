@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object EarthSplitter : CustomItem("earth_splitter", Rarity.RARE) {
+object EarthSplitter : CustomItem("earth_splitter", Rarity.RARE, enchantable = false) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_SHOVEL)
         val meta = item.itemMeta ?: return item

@@ -13,17 +13,22 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
+import org.bukkit.inventory.meta.ArmorMeta
+import org.bukkit.inventory.meta.trim.ArmorTrim
+import org.bukkit.inventory.meta.trim.TrimMaterial
+import org.bukkit.inventory.meta.trim.TrimPattern
 import org.bukkit.persistence.PersistentDataType
 
 
 object GlassHelmet : CustomItem("glass_helmet", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
-        var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/817c1f220b4465be794c228a1860f48ca7c481b92c2d268117950a4d989e35a9")
-        item = applyArmor(item, 2.0)
-        item = applyArmorToughness(item, 0.0)
+        var item = ItemStack(Material.CHAINMAIL_HELMET)
+        //var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/817c1f220b4465be794c228a1860f48ca7c481b92c2d268117950a4d989e35a9")
+        item = applyArmor(item, 2.0, EquipmentSlotGroup.HEAD)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Glass Helmet", NamedTextColor.AQUA).decorate(TextDecoration.BOLD))
@@ -38,6 +43,15 @@ object GlassHelmet : CustomItem("glass_helmet", Rarity.UNCOMMON) {
                 ItemLore.lore("Fragile but blocks devastating blows.")
             )
         )
+
+        if (meta is ArmorMeta) {
+            val material = TrimMaterial.DIAMOND
+            val pattern = TrimPattern.SILENCE
+            val trim = ArmorTrim(material, pattern)
+
+            meta.trim = trim
+        }
+        meta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM)
 
         meta.persistentDataContainer.set(NamespacedKey(ProgressionPlus.getPlugin(), "glass_armor"), PersistentDataType.BYTE, 1)
 

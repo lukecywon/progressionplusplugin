@@ -21,7 +21,7 @@ class VoidReaperListener : Listener {
     private val notifiedReady = mutableSetOf<UUID>()
     private val burstCooldowns = mutableMapOf<UUID, Long>()
     private val SLASH_COOLDOWN_MS = 7_000L
-    private val BURST_COOLDOWN_MS = 7_000L
+    private val BURST_COOLDOWN_MS = 5_000L
 
     @EventHandler
     fun onRightClick(e: PlayerInteractEvent) {
@@ -39,7 +39,7 @@ class VoidReaperListener : Listener {
 
         if (now - lastBurst < BURST_COOLDOWN_MS) {
             val remaining = ((BURST_COOLDOWN_MS - (now - lastBurst)) / 1000.0).toInt()
-            player.sendActionBar("§cVoid Reaper is recharging... §7(${remaining}s)")
+            player.sendActionBar("§cSoulburst is recharging... §7(${remaining}s)")
             return
         }
 
@@ -89,7 +89,7 @@ class VoidReaperListener : Listener {
         }
 
         val soulCount = VoidReaper.getSoulCount(item)
-        val damage = 4.0 + soulCount * 0.3
+        val damage = 4.0 + soulCount * 0.4
 
         val behind = target.location.clone().add(target.location.direction.multiply(-1)).apply {
             y = target.location.y
@@ -100,8 +100,11 @@ class VoidReaperListener : Listener {
         player.playSound(player.location, Sound.ENTITY_WARDEN_HEARTBEAT, 1f, 1f)
 
         target.damage(damage, player)
-        target.addPotionEffect(PotionEffect(PotionEffectType.WITHER, 60, 1))
+        target.addPotionEffect(PotionEffect(PotionEffectType.WITHER, 60, 2))
+        target.addPotionEffect(PotionEffect(PotionEffectType.DARKNESS, 60, 2))
         target.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 60, 1))
+
+        burstCooldowns[uuid] = System.currentTimeMillis() // Right-click enters cooldown after successful teleport
 
         player.spawnParticle(Particle.PORTAL, player.eyeLocation, 30, 0.5, 0.5, 0.5, 0.1)
         player.spawnParticle(Particle.SWEEP_ATTACK, target.location.add(0.0, 1.0, 0.0), 5)

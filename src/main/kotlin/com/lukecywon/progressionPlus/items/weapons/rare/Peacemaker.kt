@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object Peacemaker : CustomItem("peacemaker", Rarity.RARE) {
+object Peacemaker : CustomItem("peacemaker", Rarity.RARE, enchantable = false) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_HOE)
         item = applyBaseDamage(item, 0.0)

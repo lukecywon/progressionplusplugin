@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.ui
 
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.utils.GUIHistory
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -85,11 +86,26 @@ object ItemListGUI {
 
         val match = CustomItem.getAll().find { it.isThisItem(clicked) }
         if (match != null) {
+            val rarityString = e.view.title.removePrefix(titlePrefix)
+            val rarity = Rarity.entries.find { it.displayName == rarityString } ?: return
+
+            // Only clear and set origin if this is the first time opening from item list
+            if (GUIHistory.getItemListOrigin(player.uniqueId) == null) {
+                GUIHistory.clearAll(player.uniqueId)
+                GUIHistory.setItemListOrigin(player.uniqueId, rarity)
+            }
+
+            // Push to history *only if* the item isn't already top of stack
+            if (GUIHistory.peek(player.uniqueId) != match) {
+                GUIHistory.push(player.uniqueId, match)
+            }
+
             if (match.hasRecipe()) {
                 ItemRecipeGUI.open(player, match)
             } else {
                 ItemObtainGUI.open(player, match)
             }
+
             player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
         }
     }

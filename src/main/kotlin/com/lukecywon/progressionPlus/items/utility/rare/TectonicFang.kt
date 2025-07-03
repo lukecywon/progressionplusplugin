@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE) {
+object TectonicFang : CustomItem("tectonic_fang", Rarity.RARE, enchantable = false) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_PICKAXE)
         val meta = item.itemMeta ?: return item

@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC, true) {
+object SoulrendScythe : CustomItem("soulrend_scythe", Rarity.EPIC, true, enchantable = false) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.IRON_SWORD)
         item = applyBaseDamage(item, 9.0)

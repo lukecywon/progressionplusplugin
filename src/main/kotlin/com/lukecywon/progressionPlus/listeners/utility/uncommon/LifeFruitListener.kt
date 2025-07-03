@@ -1,8 +1,8 @@
-package com.lukecywon.progressionPlus.listeners.utility.rare
+package com.lukecywon.progressionPlus.listeners.utility.uncommon
 
 import com.lukecywon.progressionPlus.ProgressionPlus
+import com.lukecywon.progressionPlus.items.utility.uncommon.LifeFruit
 import com.lukecywon.progressionPlus.items.weapons.uncommon.BerserkerSword
-import com.lukecywon.progressionPlus.items.utility.uncommon.MaxHeartFruit
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
@@ -14,13 +14,13 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.EquipmentSlot
 
-class MaxHeartFruitListener : Listener {
+class LifeFruitListener : Listener {
     @EventHandler
     fun onHeartFruitConsume(e: PlayerItemConsumeEvent) {
         val player = e.player
         val item = e.item
 
-        if (!MaxHeartFruit.isThisItem(item)) return
+        if (!LifeFruit.isThisItem(item)) return
 
         val attr = player.getAttribute(Attribute.MAX_HEALTH) ?: return
         val maxHealth = attr.baseValue
@@ -37,7 +37,7 @@ class MaxHeartFruitListener : Listener {
         attr.baseValue = (maxHealth + 2.0).coerceAtMost(20.0)
         player.sendMessage("§dYou feel your heart grow stronger!")
 
-        Bukkit.getScheduler().runTaskLater(ProgressionPlus.getPlugin(), Runnable {
+        Bukkit.getScheduler().runTaskLater(ProgressionPlus.Companion.getPlugin(), Runnable {
             val slotItem = when (e.hand) {
                 EquipmentSlot.HAND -> player.inventory.itemInMainHand
                 EquipmentSlot.OFF_HAND -> player.inventory.itemInOffHand
