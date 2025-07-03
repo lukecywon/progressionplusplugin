@@ -83,17 +83,17 @@ class CustomItemVanillaBlocker : Listener {
         val left = e.inventory.getItem(0)
         val right = e.inventory.getItem(1)
 
-        val leftIsEnchantable = left?.persistentDataContainer?.get(NamespacedKey(
-            ProgressionPlus.getPlugin(),
-            "enchantable"
-        ), PersistentDataType.BOOLEAN)
+        val leftBlocked = isCustomItem(left) && left?.persistentDataContainer?.get(
+            NamespacedKey(ProgressionPlus.getPlugin(), "enchantable"),
+            PersistentDataType.BOOLEAN
+        ) == false
 
-        val rightIsEnchantable = right?.persistentDataContainer?.get(NamespacedKey(
-            ProgressionPlus.getPlugin(),
-            "enchantable"
-        ), PersistentDataType.BOOLEAN)
+        val rightBlocked = isCustomItem(right) && right?.persistentDataContainer?.get(
+            NamespacedKey(ProgressionPlus.getPlugin(), "enchantable"),
+            PersistentDataType.BOOLEAN
+        ) == false
 
-        if (leftIsEnchantable == false || rightIsEnchantable == false) {
+        if (leftBlocked || rightBlocked) {
             e.result = null
         }
     }
@@ -101,13 +101,16 @@ class CustomItemVanillaBlocker : Listener {
     @EventHandler
     fun onEnchantAttempt(e: PrepareItemEnchantEvent) {
         val item = e.item
-        val itemIsEnchantable = item.persistentDataContainer.get(NamespacedKey(
-            ProgressionPlus.getPlugin(),
-            "enchantable"
-        ), PersistentDataType.BOOLEAN)
 
-        if (itemIsEnchantable != true) {
-            e.isCancelled = true
+        if (isCustomItem(item)) {
+            val enchantable = item.persistentDataContainer.get(
+                NamespacedKey(ProgressionPlus.getPlugin(), "enchantable"),
+                PersistentDataType.BOOLEAN
+            )
+
+            if (enchantable != true) {
+                e.isCancelled = true
+            }
         }
     }
 
