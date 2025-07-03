@@ -3,6 +3,10 @@ package com.lukecywon.progressionPlus.items.utility.legendary
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.SteelIngot
+import com.lukecywon.progressionPlus.items.component.TideCrystal
+import com.lukecywon.progressionPlus.items.component.WardensHeart
+import com.lukecywon.progressionPlus.recipes.RecipeGenerator
 import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -11,6 +15,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
 object Chronoball : CustomItem("chronoball", Rarity.LEGENDARY) {
@@ -68,5 +73,13 @@ object Chronoball : CustomItem("chronoball", Rarity.LEGENDARY) {
         val meta = item.itemMeta ?: return
         meta.itemModel = NamespacedKey(NamespacedKey.MINECRAFT, "chronoball_1")
         item.itemMeta = meta
+    }
+
+    override fun getRecipe(): List<RecipeChoice?> {
+        return RecipeGenerator.convertToRecipeChoice(listOf(
+            Material.PURPLE_STAINED_GLASS, Material.END_STONE_BRICKS, Material.RED_STAINED_GLASS,
+            Material.END_STONE_BRICKS, Material.WARDEN_SPAWN_EGG, Material.END_STONE_BRICKS,
+            Material.PURPLE_STAINED_GLASS, Material.END_STONE_BRICKS, Material.RED_STAINED_GLASS
+        ))
     }
 }
