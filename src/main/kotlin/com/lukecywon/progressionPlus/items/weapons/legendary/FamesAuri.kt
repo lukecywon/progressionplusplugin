@@ -3,6 +3,8 @@ package com.lukecywon.progressionPlus.items.weapons.legendary
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.WardensHeart
+import com.lukecywon.progressionPlus.items.weapons.epic.EarthshatterHammer
 import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -12,6 +14,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.RecipeChoice
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import java.util.*
@@ -119,7 +122,11 @@ object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
         item.itemMeta = meta
     }
 
-    fun isFamesAuri(item: ItemStack?): Boolean {
-        return item?.let { isThisItem(it) && it.type == Material.GOLDEN_SWORD } ?: false
+    override fun getRecipe(): List<RecipeChoice?> {
+        return listOf(
+            RecipeChoice.MaterialChoice(Material.GOLD_BLOCK), RecipeChoice.ExactChoice(WardensHeart.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_BLOCK),
+            RecipeChoice.MaterialChoice(Material.ENCHANTED_GOLDEN_APPLE), RecipeChoice.MaterialChoice(Material.NETHERITE_SWORD), RecipeChoice.MaterialChoice(Material.ENCHANTED_GOLDEN_APPLE),
+            RecipeChoice.MaterialChoice(Material.GOLD_BLOCK), RecipeChoice.MaterialChoice(Material.END_ROD), RecipeChoice.MaterialChoice(Material.GOLD_BLOCK)
+        )
     }
 }
