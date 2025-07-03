@@ -18,7 +18,7 @@ object LifeFruit : CustomItem("life_fruit", Rarity.UNCOMMON) {
         val item = ItemStack(Material.GOLDEN_APPLE)
         val meta = item.itemMeta
 
-        meta.displayName(Component.text("LifeFruit").color(NamedTextColor.RED))
+        meta.displayName(Component.text("Life Fruit").color(NamedTextColor.RED))
         meta.lore(
             listOf(
                 ItemLore.abilityuse("Heart Bloom", Activation.CONSUME),
