@@ -29,7 +29,7 @@ object WoodenHelmet : CustomItem("wooden_helmet", Rarity.COMMON) {
         var item = ItemStack(Material.LEATHER_HELMET)
         //var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/d4dd217ae569605ec023911168ae956412e1616ace2d6c464d42bc6caee0bdcf")
         item = applyArmor(item, 1.5, EquipmentSlotGroup.HEAD)
-        val meta = item.itemMeta as SkullMeta
+        val meta = item.itemMeta
 
         meta.displayName(Component.text("Wooden Helmet", NamedTextColor.DARK_GREEN).decorate(TextDecoration.BOLD))
 
