@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.lukecywon"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.7-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.reflections:reflections:0.10.2")
     implementation(kotlin("reflect"))
@@ -61,5 +61,5 @@ tasks.shadowJar {
 }
 
 tasks.withType<Jar> {
-    destinationDirectory.set(file("E:/Games/Minecraft Server/plugins"))
+    destinationDirectory.set(file("C:\\Users\\squid\\ProgressionPlusTest\\plugins"))
 }
