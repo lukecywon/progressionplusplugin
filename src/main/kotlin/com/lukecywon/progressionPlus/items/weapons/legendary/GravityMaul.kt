@@ -20,7 +20,7 @@ import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY) {
+object GravityMaul : CustomItem("gravity_maul", Rarity.LEGENDARY, enchantable = false) {
 
     private val jumpLockKey = NamespacedKey(ProgressionPlus.getPlugin(), "gravitymaul_jumplock")
 

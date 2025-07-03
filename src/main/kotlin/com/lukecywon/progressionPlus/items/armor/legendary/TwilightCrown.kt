@@ -14,7 +14,7 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY) {
+object TwilightCrown : CustomItem("twilight_crown", Rarity.LEGENDARY, enchantable = false) {
     override fun createItemStack(): ItemStack {
         var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/407bae3fc5db207a88b6c102632f1e230945f7c4bf00aedbbd3d21adcc536f32")
         item = applyArmor(item, 2.0)

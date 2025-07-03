@@ -19,7 +19,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import java.util.*
 
-object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY) {
+object FamesAuri : CustomItem("fames_auri", Rarity.LEGENDARY, enchantable = false) {
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.GOLDEN_SWORD)

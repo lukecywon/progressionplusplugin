@@ -22,7 +22,7 @@ object AbyssalBox : CustomItem("abyssal_box", Rarity.EPIC) {
     val boxIdKey = NamespacedKey(ProgressionPlus.getPlugin(), "abyssal_box_id")
 
     override fun createItemStack(): ItemStack {
-        val item = ItemStack(Material.BLACK_SHULKER_BOX)
+        val item = ItemStack(Material.BLACK_DYE)
         val meta = item.itemMeta!!
 
         meta.displayName(

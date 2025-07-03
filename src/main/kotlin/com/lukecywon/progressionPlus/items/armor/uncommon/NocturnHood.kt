@@ -19,7 +19,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.RecipeChoice
 
-object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON) {
+object NocturnHood : CustomItem("nocturn_hood", Rarity.UNCOMMON, enchantable = false) {
     override fun createItemStack(): ItemStack {
         val item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/2955fcb16f15a460c0109afb975c79d939a687aae3f8c37b4388e4a5bf8022fd")
         val meta = item.itemMeta

@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC) {
+object SoulPiercer : CustomItem("soul_piercer", Rarity.EPIC, enchantable = false) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.NETHERITE_SWORD)
         item = applyBaseDamage(item, 12.0)
