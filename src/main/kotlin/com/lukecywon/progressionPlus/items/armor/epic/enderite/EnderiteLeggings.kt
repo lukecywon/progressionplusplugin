@@ -5,6 +5,7 @@ import com.lukecywon.progressionPlus.items.armor.epic.enderite.EnderiteChestplat
 import com.lukecywon.progressionPlus.items.armor.epic.enderite.EnderiteChestplate.applyArmorToughness
 import com.lukecywon.progressionPlus.items.armor.epic.enderite.EnderiteChestplate.applyMeta
 import com.lukecywon.progressionPlus.items.armor.epic.enderite.EnderiteChestplate.plugin
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.utils.enums.Activation
@@ -70,9 +71,8 @@ object EnderiteLeggings : CustomItem("enderite_leggings", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(
-                SteelIngot.createItemStack()),
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            null, RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), null,
+            null, RecipeChoice.MaterialChoice(Material.NETHERITE_LEGGINGS), null,
             null,null,null
         )
     }

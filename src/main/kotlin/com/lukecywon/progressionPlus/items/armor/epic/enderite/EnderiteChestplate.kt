@@ -1,6 +1,7 @@
 package com.lukecywon.progressionPlus.items.armor.epic.enderite
 
 import com.lukecywon.progressionPlus.items.CustomItem
+import com.lukecywon.progressionPlus.items.component.EnderiteIngot
 import com.lukecywon.progressionPlus.items.component.SteelIngot
 import com.lukecywon.progressionPlus.utils.ItemLore
 import com.lukecywon.progressionPlus.utils.enums.Activation
@@ -66,9 +67,8 @@ object EnderiteChestplate : CustomItem("enderite_chestplate", Rarity.EPIC) {
 
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), RecipeChoice.MaterialChoice(Material.GOLD_INGOT), RecipeChoice.ExactChoice(
-                SteelIngot.createItemStack()),
-            RecipeChoice.ExactChoice(SteelIngot.createItemStack()), null, RecipeChoice.ExactChoice(SteelIngot.createItemStack()),
+            null, RecipeChoice.ExactChoice(EnderiteIngot.createItemStack()), null,
+            null, RecipeChoice.MaterialChoice(Material.NETHERITE_CHESTPLATE), null,
             null,null,null
         )
     }
