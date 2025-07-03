@@ -15,11 +15,16 @@ import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
+import org.bukkit.inventory.meta.ArmorMeta
+import org.bukkit.inventory.meta.trim.ArmorTrim
+import org.bukkit.inventory.meta.trim.TrimMaterial
+import org.bukkit.inventory.meta.trim.TrimPattern
 import org.bukkit.persistence.PersistentDataType
 
 object EnderiteHelmet : CustomItem("enderite_helmet", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/c40e8962143ef41defb0b6489d736b4fa88a9387f8cde0c5f366928687912144")
+        var item = ItemStack(Material.NETHERITE_HELMET)
+        //var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/c40e8962143ef41defb0b6489d736b4fa88a9387f8cde0c5f366928687912144")
         item = applyArmor(item, 4.5, EquipmentSlotGroup.HEAD)
         item = applyArmorToughness(item, 3.0)
         val meta = item.itemMeta
@@ -46,6 +51,14 @@ object EnderiteHelmet : CustomItem("enderite_helmet", Rarity.EPIC) {
             1
         )
 
+        // Custom trim for enderite
+        if (meta is ArmorMeta) {
+            val material = TrimMaterial.AMETHYST
+            val pattern = TrimPattern.SILENCE
+            val trim = ArmorTrim(material, pattern)
+
+            meta.trim = trim
+        }
         meta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM)
 
         item.itemMeta = meta

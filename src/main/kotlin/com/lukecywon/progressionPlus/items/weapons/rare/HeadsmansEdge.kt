@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
-object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE) {
+object HeadsmansEdge : CustomItem("headsmans_edge", Rarity.RARE, enchantable = false) {
 
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.STONE_SWORD)

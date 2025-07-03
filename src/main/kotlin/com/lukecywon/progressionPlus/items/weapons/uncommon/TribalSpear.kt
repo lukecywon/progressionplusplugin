@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 
-object TribalSpear : CustomItem("tribal_spear", Rarity.UNCOMMON) {
+object TribalSpear : CustomItem("tribal_spear", Rarity.UNCOMMON, enchantable = false) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.TRIDENT)
         item = applyBaseDamage(item, 5.0)

@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
 import org.bukkit.persistence.PersistentDataType
 
-object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON) {
+object VerdantCleaver : CustomItem("verdant_cleaver", Rarity.UNCOMMON, enchantable = false) {
     override fun createItemStack(): ItemStack {
         val item = ItemStack(Material.IRON_AXE)
         val meta = item.itemMeta
