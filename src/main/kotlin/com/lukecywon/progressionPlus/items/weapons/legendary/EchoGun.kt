@@ -94,7 +94,7 @@ object EchoGun : CustomItem("echo_gun", Rarity.LEGENDARY) {
 
                 // Add nausea
                 target.addPotionEffect(PotionEffect(
-                    PotionEffectType.NAUSEA, 2, 2, false, false
+                    PotionEffectType.NAUSEA, 60, 2, false, false
                 ))
             }
 
