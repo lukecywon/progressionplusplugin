@@ -12,6 +12,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.EquipmentSlotGroup
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.RecipeChoice
@@ -24,8 +25,7 @@ import org.bukkit.persistence.PersistentDataType
 object GlassBoots : CustomItem("glass_boots", Rarity.UNCOMMON) {
     override fun createItemStack(): ItemStack {
         var item = ItemStack(Material.CHAINMAIL_BOOTS)
-        item = applyArmor(item, 1.0)
-        item = applyArmorToughness(item, 0.0)
+        item = applyArmor(item, 1.0, EquipmentSlotGroup.FEET)
         val meta = item.itemMeta
 
         meta.displayName(Component.text("Glass Boots", NamedTextColor.AQUA).decorate(TextDecoration.BOLD))
