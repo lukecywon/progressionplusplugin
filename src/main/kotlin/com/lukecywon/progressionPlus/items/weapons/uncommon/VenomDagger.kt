@@ -46,7 +46,7 @@ object VenomDagger : CustomItem("venom_dagger", Rarity.UNCOMMON) {
     override fun getRecipe(): List<RecipeChoice?> {
         return RecipeGenerator.convertToRecipeChoice(listOf(
             null, Material.POISONOUS_POTATO, null,
-            null, Material.PALE_OAK_LOG, null,
+            null, Material.OAK_LOG, null,
             null, Material.STICK, null
         ))
     }
