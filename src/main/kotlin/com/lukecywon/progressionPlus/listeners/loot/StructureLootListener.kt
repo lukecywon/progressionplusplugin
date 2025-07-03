@@ -21,7 +21,7 @@ class StructureLootListener : Listener {
             LootTables.DESERT_PYRAMID.key -> handleDesertTemple(event)
             LootTables.WOODLAND_MANSION.key -> handleWoodlandMansion(event)
             LootTables.ANCIENT_CITY.key -> handleAncientCity(event)
-            LootTables.END_CITY_TREASURE.key -> handleEndCityShip(event)
+            LootTables.END_CITY_TREASURE.key -> handleEndCity(event)
         }
     }
 
@@ -49,7 +49,7 @@ class StructureLootListener : Listener {
         }
     }
 
-    private fun handleEndCityShip(event: LootGenerateEvent) {
+    private fun handleEndCity(event: LootGenerateEvent) {
         val chance = 0.1  // 10% chance
         if (Math.random() <= chance) {
             event.loot.add(TwilightCrown.createItemStack())
