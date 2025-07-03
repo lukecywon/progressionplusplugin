@@ -23,7 +23,8 @@ import org.bukkit.persistence.PersistentDataType
 
 object FrostboundHelmet : CustomItem("frostbound_helmet", Rarity.EPIC) {
     override fun createItemStack(): ItemStack {
-        var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/80874462a7d3618eafa1c58ef7c566f48d838ef53b4f520a38d4ba6a1adc1811")
+        var item = ItemStack(Material.DIAMOND_HELMET)
+        //var item = HeadMaker.createCustomHead("http://textures.minecraft.net/texture/80874462a7d3618eafa1c58ef7c566f48d838ef53b4f520a38d4ba6a1adc1811")
         item = applyArmor(item, 3.0, EquipmentSlotGroup.HEAD)
         item = applyArmorToughness(item, 1.5)
         val meta = item.itemMeta
@@ -40,6 +41,16 @@ object FrostboundHelmet : CustomItem("frostbound_helmet", Rarity.EPIC) {
                 ItemLore.lore("The cold bites back harder than the blade.")
             )
         )
+
+        if (meta is ArmorMeta) {
+            val material = TrimMaterial.QUARTZ
+            val pattern = TrimPattern.FLOW
+            val trim = ArmorTrim(material, pattern)
+
+            meta.trim = trim
+        }
+
+        meta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM)
 
         // Mark as part of paladin set
         meta.persistentDataContainer.set(
