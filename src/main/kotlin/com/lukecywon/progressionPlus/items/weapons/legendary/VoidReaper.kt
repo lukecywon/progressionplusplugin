@@ -47,7 +47,7 @@ object VoidReaper : CustomItem("void_reaper", Rarity.LEGENDARY, enchantable = fa
                 ItemLore.abilityuse("Soulburst", Activation.RIGHT_CLICK),
                 ItemLore.description("Unleash stored souls in an AOE blast"),
                 Component.text("Souls Stored: 0").color(NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false),
-                ItemLore.cooldown(7),
+                ItemLore.cooldown(5),
                 ItemLore.separator(),
                 ItemLore.stats(item),
                 ItemLore.separator(),
