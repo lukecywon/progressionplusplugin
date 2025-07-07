@@ -60,15 +60,6 @@ class CustomItemVanillaBlocker : Listener {
         }
     }
 
-    // 🚫 Prevent grindstone use
-    @EventHandler
-    fun onGrindstone(e: PrepareGrindstoneEvent) {
-        val inputs = listOf(e.inventory.getItem(0), e.inventory.getItem(1))
-        if (inputs.any { isCustomItem(it) }) {
-            e.result = null
-        }
-    }
-
     // 🚫 Prevent composter input
     @EventHandler
     fun onInventoryClick(e: InventoryClickEvent) {
