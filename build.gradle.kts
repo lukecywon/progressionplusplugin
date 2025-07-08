@@ -60,6 +60,7 @@ tasks.shadowJar {
     relocate("dev.triumphteam.gui", "com.lukecywon.progressionPlus.gui")
 }
 
-tasks.withType<Jar> {
-    destinationDirectory.set(file("C:\\Users\\squid\\ProgressionPlusTest\\plugins"))
-}
+// Build output configuration - customize for your environment
+// tasks.withType<Jar> {
+//     destinationDirectory.set(file("path/to/your/server/plugins"))
+// }
