@@ -73,9 +73,10 @@ Essential crafting ingredients for high-tier items:
 - Custom shaped recipes for all custom items
 
 **Time-Based Systems**
-- Configurable unlock times for dimensions
-- Real-time progression tracking
-- Timezone-aware scheduling (Asia/Kuala_Lumpur default)
+- Configurable unlock times for dimensions (ISO 8601 format)
+- Real-time progression tracking with server timezone support
+- Default timezone: Asia/Kuala_Lumpur (configurable)
+- Use `/endtime` command to check current status and unlock times
 
 **Item Abilities**
 - Cooldown-based special abilities
@@ -274,13 +275,14 @@ chmod +x gradlew
 - Verify all required components are available
 
 **Time-Based Unlocks Not Working**
-- Check server timezone configuration
-- Verify time format in config.yml (ISO 8601)
+- Check server timezone configuration (default: Asia/Kuala_Lumpur)
+- Verify time format in config.yml (ISO 8601: YYYY-MM-DDTHH:MM)
+- Use `/endtime` to check current time vs unlock time
 - Ensure system clock is synchronized
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project's license terms should be determined by the project owner. Please contact the repository owner for licensing information.
 
 ## 🙏 Credits
 
