@@ -287,7 +287,9 @@ This project's license terms should be determined by the project owner. Please c
 ## 🙏 Credits
 
 **Plugin Development**
-- **lukecywon** - Lead Developer and Creator
+- **lukecywon** - Developer
+- **ANARCHY2319** - Developer
+- **lukecywon** - Developer
 
 **Dependencies**
 - [Paper](https://papermc.io/) - Modern Minecraft server software
