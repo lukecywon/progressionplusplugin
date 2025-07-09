@@ -31,17 +31,6 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Test secrets
-        env:
-          SERVER: ${{ secrets.SERVER }}
-          USER: ${{ secrets.SSH_USER }}
-          PASS: ${{ secrets.SSH_PASSWORD }}
-          SERVER_PATH: ${{ secrets.SERVER_PATH }}
-        run: |
-          echo $SERVER
-          echo $USER
-          echo $SERVER_PATH
-
       - name: Upload jar to server via password SSH
         env:
           SERVER: ${{ secrets.SERVER }}
