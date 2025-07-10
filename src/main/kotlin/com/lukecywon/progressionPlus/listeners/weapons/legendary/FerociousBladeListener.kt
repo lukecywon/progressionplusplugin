@@ -1,7 +1,7 @@
 package com.lukecywon.progressionPlus.listeners.weapons.legendary
 
 import com.lukecywon.progressionPlus.ProgressionPlus
-import com.lukecywon.progressionPlus.items.weapons.epic.FerociousBlade
+import com.lukecywon.progressionPlus.items.weapons.legendary.FerociousBlade
 import org.bukkit.Bukkit
 import org.bukkit.Particle
 import org.bukkit.Sound

@@ -1,11 +1,11 @@
-package com.lukecywon.progressionPlus.items.weapons.epic
+package com.lukecywon.progressionPlus.items.weapons.legendary
 
 import com.lukecywon.progressionPlus.utils.enums.Activation
 import com.lukecywon.progressionPlus.utils.enums.Rarity
 import com.lukecywon.progressionPlus.items.CustomItem
 import com.lukecywon.progressionPlus.items.component.InfernalShard
 import com.lukecywon.progressionPlus.items.component.TwistedRoot
-import com.lukecywon.progressionPlus.items.weapons.rare.ResonantBlade
+import com.lukecywon.progressionPlus.items.weapons.epic.SoulPiercer
 import com.lukecywon.progressionPlus.utils.ItemLore
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -48,7 +48,7 @@ object FerociousBlade : CustomItem("ferocious_blade", Rarity.LEGENDARY, enchanta
     override fun getRecipe(): List<RecipeChoice?> {
         return listOf(
             null, RecipeChoice.ExactChoice(InfernalShard.createItemStack()), null,
-            null, RecipeChoice.ExactChoice(ResonantBlade.createItemStack()), null,
+            null, RecipeChoice.ExactChoice(SoulPiercer.createItemStack()), null,
             null, RecipeChoice.ExactChoice(TwistedRoot.createItemStack()), null
         )
     }
