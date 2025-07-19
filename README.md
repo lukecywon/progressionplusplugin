@@ -1,4 +1,4 @@
-# ProgressionPlus
+# <p style="text-align:center;">Progression Plus</p>
 
 A comprehensive Minecraft Paper plugin designed to revolutionize gameplay progression by implementing strategic gating systems, custom items, and enhanced mechanics for Minecraft 1.21.7.
 
