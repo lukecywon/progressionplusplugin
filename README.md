@@ -2,6 +2,8 @@
 
 A comprehensive Minecraft Paper plugin designed to overhaul gameplay progression by implementing strategic gating systems, custom items, and enhanced mechanics for Minecraft 1.21.7.
 
+Must be used with custom resource pack: https://github.com/lukecywon/progressionplusresourcepack
+
 ## 🎯 Overview
 
 ProgressionPlus transforms the traditional Minecraft experience by slowing down progression through carefully designed mechanics:
