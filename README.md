@@ -191,19 +191,17 @@ end_unlock_time: "2025-07-10T20:00"
 
 ### Notable Item Recipes
 
-**Nether Eye** (Unlocks Nether)
-```
-[Ender Pearl] [Tide Crystal]    [Ender Pearl]
-[Echo Core]   [Warden's Heart]  [Twisted Root]
-[Ender Pearl] [Sunscorched Ember] [Ender Pearl]
-```
+![](images/nethereye_recipe.png)
 
-**Refined Eye** (Enhanced Eye of Ender)
-```
-[Ender Pearl]    [Netherite Scrap] [Ender Pearl]
-[Blaze Powder]   [Nether Star]     [Blaze Powder]
-[Ender Pearl]    [Netherite Scrap] [Ender Pearl]
-```
+**Nether Eye** (Unlocks Nether)
+
+![](images/refinedeye_recipe.png)
+
+**Refined Eye** (Used in End portal in place of Eye of Enders)
+
+![](images/voidreaper_recipe.png)
+
+**Void Reaper** (Legendary Weapon)
 
 ## 🛠️ Development
 
