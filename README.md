@@ -1,6 +1,8 @@
 # <p style="text-align:center;">Progression Plus</p>
 
-A comprehensive Minecraft Paper plugin designed to revolutionize gameplay progression by implementing strategic gating systems, custom items, and enhanced mechanics for Minecraft 1.21.7.
+A comprehensive Minecraft Paper plugin designed to overhaul gameplay progression by implementing strategic gating systems, custom items, and enhanced mechanics for Minecraft 1.21.7.
+
+Must be used with custom resource pack: https://github.com/lukecywon/progressionplusresourcepack
 
 ## 🎯 Overview
 
@@ -31,6 +33,7 @@ ProgressionPlus transforms the traditional Minecraft experience by slowing down 
 - Prevents premature progression to end-game content
 
 ### 🗡️ Custom Items System
+![Recipe Book](images/rbook.png)
 
 **Rarity Tiers**
 - **Common**: Basic utility items and tools
@@ -42,16 +45,36 @@ ProgressionPlus transforms the traditional Minecraft experience by slowing down 
 - **Progression**: Key items for unlocking game phases
 
 **Featured Legendary Weapons**
-- **Void Reaper**: Teleport-slash attacks with soul collection mechanics
-- **Fames Auri**: Multi-tier legendary sword with evolving abilities
-- **Echo Gun**: Ranged weapon with special projectile mechanics
-- **Gravity Maul**: Hammer with gravitational effects
+
+![Void Reaper](images/void_reaper.png)
+
+**Void Reaper**: Teleport-slash attacks with soul collection mechanics
+
+![Fames Auri](images/famusauri.png)
+
+**Fames Auri**: Multi-tier legendary sword with evolving abilities
+
+![Echo Gun](images/echo_gun.png)
+
+**Echo Gun**: Ranged weapon with special projectile mechanics
+
+![Gravity Maul](images/gravitymaul.png)
+
+**Gravity Maul**: Hammer with gravitational effects
+
+---
+
+![Progression Items](images/progressionitems.png)
 
 **Progression Items**
 - **Nether Eye**: Unlocks Nether access (crafted with rare components)
 - **Refined Eye**: Enhanced Eye of Ender with harder recipe
 - **Custom End Crystal**: Modified end crystal with custom properties
 - **Custom Ender Chest**: Enhanced ender chest functionality
+
+---
+
+![Components](images/components.png)
 
 **Component Materials**
 Essential crafting ingredients for high-tier items:
@@ -168,27 +191,19 @@ end_unlock_time: "2025-07-10T20:00"
 2. **Loot Tables**: Some items are found in specific loot chests
 3. **Admin Commands**: Use `/artifact` commands for testing
 
-### Item Mechanics
-- **Enchantability**: Some items can be enchanted, others cannot
-- **Stackability**: Most custom items are non-stackable
-- **Durability**: Custom weapons have modified durability systems
-- **Abilities**: Right-click or left-click to activate special abilities
-
 ### Notable Item Recipes
 
-**Nether Eye** (Unlocks Nether)
-```
-[Ender Pearl] [Tide Crystal]    [Ender Pearl]
-[Echo Core]   [Warden's Heart]  [Twisted Root]
-[Ender Pearl] [Sunscorched Ember] [Ender Pearl]
-```
+![](images/nethereye_recipe.png)
 
-**Refined Eye** (Enhanced Eye of Ender)
-```
-[Ender Pearl]    [Netherite Scrap] [Ender Pearl]
-[Blaze Powder]   [Nether Star]     [Blaze Powder]
-[Ender Pearl]    [Netherite Scrap] [Ender Pearl]
-```
+**Nether Eye** (Unlocks Nether)
+
+![](images/refinedeye_recipe.png)
+
+**Refined Eye** (Used in End portal in place of Eye of Enders)
+
+![](images/voidreaper_recipe.png)
+
+**Void Reaper** (Legendary Weapon)
 
 ## 🛠️ Development
 
@@ -280,16 +295,12 @@ chmod +x gradlew
 - Use `/endtime` to check current time vs unlock time
 - Ensure system clock is synchronized
 
-## 📄 License
-
-This project's license terms should be determined by the project owner. Please contact the repository owner for licensing information.
-
 ## 🙏 Credits
 
 **Plugin Development**
 - **lukecywon** - Developer
 - **ANARCHY2319** - Developer
-- **lukecywon** - Developer
+- **scyxcarrot** - Developer
 
 **Dependencies**
 - [Paper](https://papermc.io/) - Modern Minecraft server software
@@ -303,5 +314,4 @@ This project's license terms should be determined by the project owner. Please c
 
 ---
 
-*Experience Minecraft like never before with carefully crafted progression systems and unique custom items. Every milestone earned, every dimension unlocked.*
-test
+*Experience Minecraft like never before with carefully crafted progression systems and unique custom items.
